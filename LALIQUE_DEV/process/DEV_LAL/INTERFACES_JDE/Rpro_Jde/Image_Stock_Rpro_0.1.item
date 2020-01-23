@@ -514,6 +514,8 @@
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="TAX_CODE"/>
       <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="UDF2_VALUE"/>
+      <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="ACTIVE"/>
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="UNORDERABLE"/>
@@ -521,8 +523,6 @@
       <elementValue elementRef="SCHEMA_COLUMN" value="EXT_FLAG"/>
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="SUBLOC_FLAG"/>
-      <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="UDF2_VALUE"/>
       <elementValue elementRef="TRIM" value="false"/>
     </elementParameter>
     <elementParameter field="CHECK" name="NO_NULL_VALUES" value="false"/>
@@ -561,11 +561,11 @@
       <column comment="" key="false" length="0" name="CREATED_DATE" nullable="true" pattern="&quot;yyyy-MM-dd'T'HH:mm:ss&quot;" precision="0" sourceType="DATE" type="id_Date" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="MODIFIED_DATE" nullable="true" pattern="&quot;yyyy-MM-dd'T'HH:mm:ss&quot;" precision="0" sourceType="TIMESTAMP WITH TIME ZONE" type="id_Date" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="TAX_CODE" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="50" name="UDF2_VALUE" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="ACTIVE" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="UNORDERABLE" nullable="true" pattern="" precision="0" sourceType="VARCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="EXT_FLAG" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="1" name="SUBLOC_FLAG" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="50" name="UDF2_VALUE" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
       <additionalProperties key="Comment" value=""/>
     </metadata>
   </node>
@@ -594,7 +594,7 @@
       <column comment="" key="false" length="-1" name="Item_Sid" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties shellMaximized="true"/>
+      <uiProperties/>
       <varTables name="Var" sizeState="INTERMEDIATE"/>
       <outputTables name="Stk_Art_O" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="((Integer)globalMap.get(&quot;Code_Pays&quot;))" name="Filiale_Rpro" nullable="true" type="id_Integer"/>
@@ -623,11 +623,11 @@
         <mapperTableEntries name="CREATED_DATE" nullable="true" type="id_Date"/>
         <mapperTableEntries name="MODIFIED_DATE" nullable="true" type="id_Date"/>
         <mapperTableEntries name="TAX_CODE" nullable="true" type="id_Integer"/>
+        <mapperTableEntries name="UDF2_VALUE" nullable="true" type="id_String"/>
         <mapperTableEntries name="ACTIVE" nullable="true" type="id_String"/>
         <mapperTableEntries name="UNORDERABLE" nullable="true" type="id_String"/>
         <mapperTableEntries name="EXT_FLAG" nullable="true" type="id_Integer"/>
         <mapperTableEntries name="SUBLOC_FLAG" nullable="true" type="id_Integer"/>
-        <mapperTableEntries name="UDF2_VALUE" nullable="true" type="id_String"/>
       </inputTables>
     </nodeData>
   </node>
@@ -1578,15 +1578,17 @@
       <additionalProperties key="Comment" value=""/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
-      <varTables name="Var" sizeState="INTERMEDIATE"/>
+      <uiProperties shellMaximized="true"/>
+      <varTables name="Var" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="Numeric.sequence(row1.Suffixe_Jde + (String)globalMap.get(&quot;EDOC&quot;),1,1)" name="Num_Ligne" type="id_Integer"/>
+      </varTables>
       <outputTables name="F47122" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="&quot; &quot;" name="MJEDTY" nullable="true" type="id_String"/>
         <mapperTableEntries expression="(float)0" name="MJEDSQ" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="row1.Societe_Jde " name="MJEKCO" type="id_String"/>
         <mapperTableEntries expression="Long.parseLong(row1.Suffixe_Jde + (String)globalMap.get(&quot;EDOC&quot;)) " name="MJEDOC" type="id_Long"/>
         <mapperTableEntries expression="&quot;PI&quot;" name="MJEDCT" type="id_String"/>
-        <mapperTableEntries expression="Numeric.sequence(row1.Suffixe_Jde + (String)globalMap.get(&quot;EDOC&quot;),1000,1000) " name="MJEDLN" type="id_Integer"/>
+        <mapperTableEntries expression="Var.Num_Ligne " name="MJEDLN" type="id_Integer"/>
         <mapperTableEntries expression="&quot; &quot;" name="MJEDST" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="MJEDFT" nullable="true" type="id_String"/>
         <mapperTableEntries expression="JDE.convertToJulian(TalendDate.getDate(&quot;DDMMCCYY&quot;) ) " name="MJEDDT" nullable="true" type="id_Integer"/>
@@ -1640,7 +1642,7 @@
         <mapperTableEntries expression="&quot; &quot;" name="MJDCTO" nullable="true" type="id_String"/>
         <mapperTableEntries expression="(float)0" name="MJDOCO" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="&quot; &quot;" name="MJKCOO" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="(float)0" name="MJLNID" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="(float)  Var.Num_Ligne " name="MJLNID" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="(float)0" name="MJNLIN" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="&quot;INTERFACE RPRO&quot;" name="MJTREX" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="MJTREF" nullable="true" type="id_String"/>
@@ -3279,13 +3281,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_229845fc-4f40-40ae-b190-be722e428f1a"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>e7maodExIxY7tW8ybOTXeYsHl1ESq497PGGgXZk4gcC/eKPmCyzeeQxOLE11ilmAaCjDjhvs/ZTO
-QogTxAtejQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_6b5f76ca-008e-4d22-a81e-4b965d5b2c64"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>WhXY1bdhzC8Zx8AksIaynUOUdZ+WbAL9jYWERWm8DbYkUQV5YLmKDnfv9J1KHlFLIX+Imcr8XUpt
-vJQhpv2hYg==</DigestValue></Reference></SignedInfo><SignatureValue>Rib9yCxLCnNNXvKV3k5ALtwEF5+ihwS3p12snycGVn8z5Deh1fRTnmQmZ7QYQ31mpVeY0OwpGTtY
-byuiPbrobzRDOuKmeBHrHNNTCgfkTS+45QRJaditR9MMYUDXuD6TREWnzhyzF75mb5QMUscju0JR
-BAt+KHh24Lm9lNINybU/b9CmeAY2vACz9nyJXZs+X/VWw2v7zYVv94eEo/y8tGGidcdwMqf/kA83
-l+bcZvuolqMOdKd+S99bOdNqh6MmAtNEp14vVbyRRBrufmuKNVkTjquLxHH6BWvzhnh0UYl9y/1g
-YQCpuUwOdbvvbccQTlbsJA56+XzEMTtdeIHNgA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_b5ddebcc-0904-45b4-af6e-e28ca4d29e5a"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>7Ogb3WnsU6/C7AnXDazebfaocHiL5k0hueNo+WFshP0GSEtTWzISEkcOorguRytaxUZmr9BlXzMQ
+Z/miOe6C6A==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_dd5a7599-2764-40b2-8a18-89c89a96a2ee"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>vL/PK2Cx7HeYVTOtSW3XxqGuQUD0a7oVbkiFSXS2o9qSMdro7uUd9eV8HXjnw+sowuTVRuT5GIZ6
+M8FaCmFyzw==</DigestValue></Reference></SignedInfo><SignatureValue>WSnCvK5B8lK4hEBqDhhD4owyMCFHjd0IX7ey26gnr3KBDRpMdpNhby0wCPoTh4FqDvaDQkjhwq2Z
+OLf2AChYcMgWtgkcIZN8ZHh2+6XfqGTjdy+hWMXymJZprCheVXOrXkyl/OTMUUHd2vC+U5GbjR4h
+Vbjf0EIJiIGMWSncLDg4airlMzg5HIGQ/QLOqo76djEn8aUD1SJnwryNq7pXTvDMNWmFstuCAqyf
+eZmUDUXsayHorPnNarQ7IaWhYjJdtS4EPj3twuZjUWVtdaZ4KiLVwMpLtuxKzcdpgGioFoqlPg2u
+l8lR8/vyaIckWWbzrp0JPH3pDAN4bjuRoK+JUA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -3307,4 +3309,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_6b5f76ca-008e-4d22-a81e-4b965d5b2c64" Target="#_229845fc-4f40-40ae-b190-be722e428f1a"><Timestamp>2020-01-23 15:14:00</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_dd5a7599-2764-40b2-8a18-89c89a96a2ee" Target="#_b5ddebcc-0904-45b4-af6e-e28ca4d29e5a"><Timestamp>2020-01-23 17:59:29</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
