@@ -1,0 +1,579 @@
+// ============================================================================
+//
+// Copyright (C) 2006-2010 Talend Inc. - www.talend.com
+//
+// This source code is available under agreement available at
+// %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+//
+// You should have received a copy of the agreement
+// along with this program; if not, write to Talend SA
+// 9 rue Pages 92150 Suresnes, France
+//
+// ============================================================================
+package routines;
+
+import java.text.FieldPosition;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+import java.io.*;
+import java.util.Date;
+
+/*
+ * user specification: the function's comment should contain keys as follows: 1. write about the function's comment.but
+ * it must be before the "{talendTypes}" key.
+ * 
+ * 2. {talendTypes} 's value must be talend Type, it is required . its value should be one of: String, char | Character,
+ * long | Long, int | Integer, boolean | Boolean, byte | Byte, Date, double | Double, float | Float, Object, short |
+ * Short
+ * 
+ * 3. {Category} define a category for the Function. it is required. its value is user-defined .
+ * 
+ * 4. {param} 's format is: {param} <type>[(<default value or closed list values>)] <name>[ : <comment>]
+ * 
+ * <type> 's value should be one of: string, int, list, double, object, boolean, long, char, date. <name>'s value is the
+ * Function's parameter name. the {param} is optional. so if you the Function without the parameters. the {param} don't
+ * added. you can have many parameters for the Function.
+ * 
+ * 5. {example} gives a example for the Function. it is optional.
+ */
+public class Lalique {
+
+    /**
+     * helloExample: not return value, only print "hello" + message.
+     * 
+     * 
+     * {talendTypes} String
+     * 
+     * {Category} User Defined
+     * 
+     * {param} string("world") input: The string need to be printed.
+     * 
+     * {example} helloExemple("world") # hello world !.
+     */
+    public static void helloExample(String message) {
+        if (message == null) {
+            message = "World"; //$NON-NLS-1$
+        }
+        System.out.println("Hello " + message + " !"); //$NON-NLS-1$ //$NON-NLS-2$
+    }
+    
+    public static String testSO (String SO, String Emp) {
+    	if (SO.length()==0) {
+    		return Emp;
+    	}
+    	else {
+    		return SO; 
+    	} 
+    }
+
+    /**
+     * Pad0: return a copy of the string padded with 0.
+     * 
+     * 
+     * {talendTypes} String
+     * 
+     * {Category} User Defined
+     * 
+     * {param} string("") origin: Text to remove accents.
+     * {param} int(13) size: size of the returned string .
+     * 
+     * 
+     * {example} Pad0("987654398724", 13)
+     */
+    public static String Pad0(String origin, int size) {
+        StringBuffer result = new StringBuffer();
+
+        if (null == origin) {
+            return null;
+        }
+        for (int bcl = 0; bcl < size; bcl++) {
+        	result.append('0');
+        }
+        for (int bcl = 0 ; bcl < origin.length(); bcl++) {
+            char carVal = origin.charAt(bcl);
+            result.append(carVal);
+        }
+        return result.substring(origin.length());
+    }
+
+    /**
+     * PadInt0: return a copy of the integer padded with 0.
+     * 
+     * 
+     * {talendTypes} String
+     * 
+     * {Category} User Defined
+     * 
+     * {param} int(10) origin: Text to remove accents.
+     * {param} int(13) size: size of the returned string .
+     * 
+     * 
+     * {example} PadInt0(10, 13)
+     */
+    public static String PadInt0(Integer origin, int size) {
+        StringBuffer result = new StringBuffer();
+
+        if (null == origin) {
+            return null;
+        }
+        for (int bcl = 0; bcl < size; bcl++) {
+        	result.append('0');
+        }
+        String carVal = Integer.toString(origin);
+        result.append(carVal);
+
+        return result.substring(carVal.length());
+    }
+
+    /**
+     * PadLong0: return a copy of the long padded with 0.
+     * 
+     * 
+     * {talendTypes} String
+     * 
+     * {Category} User Defined
+     * 
+     * {param} long(10) origin: Text to remove accents.
+     * {param} long(13) size: size of the returned string .
+     * 
+     * 
+     * {example} PadLong0(10, 13)
+     */
+    public static String PadLong0(Long origin, int size) {
+        StringBuffer result = new StringBuffer();
+
+        if (null == origin) {
+            return null;
+        }
+        for (int bcl = 0; bcl < size; bcl++) {
+        	result.append('0');
+        }
+        String carVal = Long.toString(origin);
+        result.append(carVal);
+
+        return result.substring(carVal.length());
+    }
+
+    /**
+     * DateFR: return the date format FR (jjmmaaaa).
+     * 
+     * 
+     * {talendTypes} String
+     * 
+     * {Category} User Defined
+     * 
+     * {param} string("") origin: Text to extract date.
+     * 
+     * 
+     * {example} DateFR("1985-01-01T00:00:00+01:001985-01-01T00:00:00+01:00")
+     */
+    public static String DateFR(String origin) {
+        StringBuffer result = new StringBuffer();
+        int jj = 8;
+        int mm = 5;
+        int aa = 0;
+
+        if (null == origin) {
+            return null;
+        }
+        /* JJ */
+        for (int bcl = jj ; bcl < jj+2; bcl++) {
+            char carVal = origin.charAt(bcl);
+            result.append(carVal);
+        }
+        /* MM */
+        for (int bcl = mm ; bcl < mm+2; bcl++) {
+            char carVal = origin.charAt(bcl);
+            result.append(carVal);
+        }
+        /* AAAA */
+        for (int bcl = aa ; bcl < aa+4; bcl++) {
+            char carVal = origin.charAt(bcl);
+            result.append(carVal);
+        }
+        return  result.substring(0,8);
+    }
+
+    /**
+     * DateUS: return the date format US (aaammjj).
+     * 
+     * 
+     * {talendTypes} String
+     * 
+     * {Category} User Defined
+     * 
+     * {param} string("") origin: Text to extract date.
+     * 
+     * 
+     * {example} DateUS("1985-01-01T00:00:00+01:001985-01-01T00:00:00+01:00")
+     */
+    public static String DateUS(String origin) {
+        StringBuffer result = new StringBuffer();
+        int jj = 8;
+        int mm = 5;
+        int aa = 0;
+
+        if (null == origin) {
+            return null;
+        }
+        /* AAAA */
+        for (int bcl = aa ; bcl < aa+4; bcl++) {
+            char carVal = origin.charAt(bcl);
+            result.append(carVal);
+        }
+        /* MM */
+        for (int bcl = mm ; bcl < mm+2; bcl++) {
+            char carVal = origin.charAt(bcl);
+            result.append(carVal);
+        }
+        /* JJ */
+        for (int bcl = jj ; bcl < jj+2; bcl++) {
+            char carVal = origin.charAt(bcl);
+            result.append(carVal);
+        }
+        String test = Integer.toString(20);
+        return  result.substring(0,8);
+    }
+
+    /**
+     * Heure: return the hour minut second.
+     * 
+     * 
+     * {talendTypes} String
+     * 
+     * {Category} User Defined
+     * 
+     * {param} string("") origin: Text to extract date.
+     * 
+     * 
+     * {example} Heure("1985-01-01T00:00:00+01:001985-01-01T00:00:00+01:00")
+     */
+    public static String Heure(String origin) {
+        StringBuffer result = new StringBuffer();
+        int hh = 11;
+        int ss = 17;
+
+        if (null == origin) {
+            return null;
+        }
+        /* HH:MM */
+        for (int bcl = hh ; bcl < hh+5; bcl++) {
+            char carVal = origin.charAt(bcl);
+            result.append(carVal);
+        }
+        result.append('.');
+        /* SS */
+        for (int bcl = ss ; bcl < ss+2; bcl++) {
+            char carVal = origin.charAt(bcl);
+            result.append(carVal);
+        }
+        return  result.substring(0,8);
+    }
+
+
+    /**
+     * Annee: return the year.
+     * 
+     * 
+     * {talendTypes} String
+     * 
+     * {Category} User Defined
+     * 
+     * {param} string("") origin: Text to extract date.
+     * 
+     * 
+     * {example} Annee("1985-01-01T00:00:00+01:001985-01-01T00:00:00+01:00")
+     */
+    public static String Annee(String origin) {
+        StringBuffer result = new StringBuffer();
+        int aaaa = 0;
+        
+        if (null == origin) {
+            return null;
+        }
+        /* AAAA */
+        for (int bcl = aaaa ; bcl < aaaa+4; bcl++) {
+            char carVal = origin.charAt(bcl);
+            result.append(carVal);
+        }
+        return  result.substring(0,4);
+    }
+
+
+    /**
+     * Mois: return the month.
+     * 
+     * 
+     * {talendTypes} String
+     * 
+     * {Category} User Defined
+     * 
+     * {param} string("") origin: Text to extract date.
+     * 
+     * 
+     * {example} Mois("1985-01-01T00:00:00+01:001985-01-01T00:00:00+01:00")
+     */
+    public static String Mois(String origin) {
+        StringBuffer result = new StringBuffer();
+        int mm = 5;
+
+        if (null == origin) {
+            return null;
+        }
+        /* MM */
+        for (int bcl = mm ; bcl < mm+2; bcl++) {
+            char carVal = origin.charAt(bcl);
+            result.append(carVal);
+        }
+        return  result.substring(0,2);
+    }
+    /**
+     * WriteNegativeValue: return the value with sign minus at the end.
+     * 
+     * 
+     * {talendTypes} String
+     * 
+     * {Category} User Defined
+     * 
+     * {param} float origin: Value to convert.
+     * {param} int decimal(2): decimal precision.
+     * 
+     * 
+     * {example} WriteNegativeValue(-55.657, 2)=> "55.66-"
+     */
+    public static String WriteNegativeValue(float origin, int decimal) {
+        String result;
+        String format;
+
+        /*  */
+        format = "%." + decimal + "f";
+        if ( origin < 0) {
+            format = format + "-";
+            result = String.format(Locale.ENGLISH, format, origin*-1);
+        } else {
+            result = String.format(Locale.ENGLISH, format, origin);
+        }
+        return  result;
+    }
+
+    /**
+     * WriteNegativeValue: return the value with sign minus at the end.
+     * 
+     * 
+     * {talendTypes} String
+     * 
+     * {Category} User Defined
+     * 
+     * {param} int origin: Value to convert.
+     * 
+     * 
+     * {example} WriteNegativeValue(-55)=> "55-"
+     */
+    public static String WriteNegativeValue(int origin) {
+        String result;
+
+        /*  */
+        if ( origin < 0) {
+            result = String.format( "%d-", origin*-1);
+        } else {
+            result = String.format( "%d", origin);
+        }
+        return  result;
+    }
+    /**
+     * GetSid: return a Unique value.
+     * 
+     * 
+     * {talendTypes} String
+     * 
+     * {Category} User Defined
+     * 
+     * {param} string params: arguments de sidgen.exe.
+     *               "..."
+     * !!! il faut définir la variable d'environnement GETSID_ENV
+     * 
+     * {example} GetSid("")=> "-2459862315648752" 
+     * @throws InterruptedException 
+     */
+    public static String GetSid(String params) throws InterruptedException {
+        String result ="";
+
+        /*  */
+        String[] args = { "cmd.exe", "/c", "%GETSID_ENV%\\sidgen.exe", params };
+        try {
+           ProcessBuilder pb = new ProcessBuilder(args);
+           pb = pb.redirectErrorStream(true); // on mélange les sorties du processus
+           Process p = pb.start();
+           InputStream is = p.getInputStream(); 
+           InputStreamReader isr = new InputStreamReader(is);
+           BufferedReader br = new BufferedReader(isr);
+           String ligne; 
+
+           while (( ligne = br.readLine()) != null) { 
+              // ligne contient une ligne de sortie normale ou d'erreur
+               result = ligne;
+           }
+           Thread.sleep((2) * 1000);
+           } catch (IOException ex) {
+                ex.printStackTrace();
+           } 
+        return result;
+    }
+    /**
+     * GetSidAlu: return a Unique value selon UPC.
+     * 
+     * 
+     * {talendTypes} String
+     * 
+     * {Category} User Defined
+     * 
+     * {param} string params: arguments de sidgen.exe.
+     *               "..."
+     * !!! il faut définir la variable d'environnement GETSID_ENV
+     * 
+     *         String[] args = { "cmd.exe", "/c", "C:\\GetSid\\sidgen.exe", "/UPC", params };
+     *         
+     * {example} GetSid("/UPC 00905922100127")=> "2898947204095" 
+     */
+    public static String GetSidAlu(String params) {
+        String result ="";
+
+        /*  */
+        String[] args = { "cmd.exe", "/c", "%GETSID_ENV%\\sidgen_mxdf.exe", "/UPC", params };
+        try {
+           ProcessBuilder pb = new ProcessBuilder(args);
+           pb = pb.redirectErrorStream(true); // on mélange les sorties du processus
+           Process p = pb.start();
+           InputStream is = p.getInputStream(); 
+           InputStreamReader isr = new InputStreamReader(is);
+           BufferedReader br = new BufferedReader(isr);
+           String ligne; 
+
+           while (( ligne = br.readLine()) != null) { 
+              // ligne contient une ligne de sortie normale ou d'erreur
+               result = ligne;
+           }
+           } catch (IOException ex) {
+                ex.printStackTrace();
+           } 
+        return result;
+    }
+    
+    /**
+     * getDate : return the current datetime with the given display format format : (optional) string representing the
+     * wished format of the date. This string contains fixed strings and variables related to the date. By default, the
+     * format string is DD/MM/CCYY. + Paramètre delta en + ou - nbre de jours. Here is the list of date variables:
+     *
+     *
+     * {talendTypes} String
+     *
+     * {Category} User Defined
+     *
+     * {param} string("CCYY-MM-DD hh:mm:ss") pattern : date pattern + CC for century + YY for year + MM for month + DD
+     * for day + hh for hour + mm for minute + ss for second
+     * {param} integer (+1) : delta
+     *
+     * {example} getDate("CCYY-MM-DD hh:mm:ss",-1) #
+     */
+    public static String getDate(String pattern,int delta) {
+        if (pattern == null) {
+            pattern = "yyyy-MM-dd HH:mm:ss";
+        }
+
+        StringBuffer result = new StringBuffer();
+
+        pattern = pattern.replace("CC", "yy"); //$NON-NLS-1$ //$NON-NLS-2$
+        pattern = pattern.replace("YY", "yy"); //$NON-NLS-1$ //$NON-NLS-2$
+        pattern = pattern.replace("MM", "MM"); //$NON-NLS-1$ //$NON-NLS-2$
+        pattern = pattern.replace("DD", "dd"); //$NON-NLS-1$ //$NON-NLS-2$
+        pattern = pattern.replace("hh", "HH"); //$NON-NLS-1$ //$NON-NLS-2$
+
+        // not needed
+        // pattern.replace("mm", "mm");
+        // pattern.replace("ss", "ss");
+
+        Calendar cal = Calendar.getInstance();
+        // add delta days to the calendar
+        cal.add(Calendar.DATE, delta);
+
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        sdf.format(cal.getTime(), result, new FieldPosition(0));
+        return result.toString();
+    }
+    
+    /**
+     * String2Date : return the convertion of a string to a date with a specific format.
+     *  + Paramètre format date + string date:
+     *
+     *
+     * {talendTypes} Date
+     *
+     * {Category} User Defined
+     *
+     * {param} string("YYYYMMDD") pattern : date pattern + CC for century + YY for year + MM for month + DD
+     * for day + hh for hour + mm for minute + ss for second
+     * {param} string ("20170917") : date
+     *
+     * {example} String2Date("YYYYMMDD","20170915") #
+     * @throws ParseException 
+     */
+    public static Date String2Date(String pattern,String sdate) throws ParseException {
+        if (pattern == null) {
+            pattern = "yyyyMMdd";
+        }
+
+        pattern = pattern.replace("CC", "yy"); //$NON-NLS-1$ //$NON-NLS-2$
+        pattern = pattern.replace("YY", "yy"); //$NON-NLS-1$ //$NON-NLS-2$
+        pattern = pattern.replace("MM", "MM"); //$NON-NLS-1$ //$NON-NLS-2$
+        pattern = pattern.replace("DD", "dd"); //$NON-NLS-1$ //$NON-NLS-2$
+        pattern = pattern.replace("hh", "HH"); //$NON-NLS-1$ //$NON-NLS-2$
+
+        // not needed
+        // pattern.replace("mm", "mm");
+        // pattern.replace("ss", "ss");
+
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        return sdf.parse( sdate);
+    }
+
+    /**
+     * Date2String : return the convertion of a date to a string with a specific format.
+     *  + Paramètre string date + format date
+     *
+     *
+     * {talendTypes} String
+     *
+     * {Category} User Defined
+     *
+     * {param} string("YYYYMMDD") pattern : date pattern + CC for century + YY for year + MM for month + DD
+     * for day + hh for hour + mm for minute + ss for second
+     * {param} date ( 2017/09/15 ) : date
+     *
+     * {example} Date2String("YYYYMMDD", 2017/09/15) #
+     */
+    public static String Date2String(String pattern,Date date) { 
+        if (pattern == null) {
+            pattern = "yyyyMMdd";
+        }
+
+        StringBuffer result = new StringBuffer();
+
+        pattern = pattern.replace("CC", "yy"); //$NON-NLS-1$ //$NON-NLS-2$
+        pattern = pattern.replace("YY", "yy"); //$NON-NLS-1$ //$NON-NLS-2$
+        pattern = pattern.replace("MM", "MM"); //$NON-NLS-1$ //$NON-NLS-2$
+        pattern = pattern.replace("DD", "dd"); //$NON-NLS-1$ //$NON-NLS-2$
+        pattern = pattern.replace("hh", "HH"); //$NON-NLS-1$ //$NON-NLS-2$
+
+        // not needed
+        // pattern.replace("mm", "mm");
+        // pattern.replace("ss", "ss");
+
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        sdf.format(date, result, new FieldPosition(0));
+        return result.toString();
+    }
+
+  
+ }

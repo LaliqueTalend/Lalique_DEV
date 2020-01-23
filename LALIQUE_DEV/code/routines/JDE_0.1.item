@@ -1,0 +1,164 @@
+// ============================================================================
+//
+// Copyright (C) 2018 LALIQUE SA - 
+//
+// ============================================================================
+package routines;
+
+/*
+ * user specification: the function's comment should contain keys as follows: 1. write about the function's comment.but
+ * it must be before the "{talendTypes}" key.
+ * 
+ * 2. {talendTypes} 's value must be talend Type, it is required . its value should be one of: String, char | Character,
+ * long | Long, int | Integer, boolean | Boolean, byte | Byte, Date, double | Double, float | Float, Object, short |
+ * Short
+ * 
+ * 3. {Category} define a category for the Function. it is required. its value is user-defined .
+ * 
+ * 4. {param} 's format is: {param} <type>[(<default value or closed list values>)] <name>[ : <comment>]
+ * 
+ * <type> 's value should be one of: string, int, list, double, object, boolean, long, char, date. <name>'s value is the
+ * Function's parameter name. the {param} is optional. so if you the Function without the parameters. the {param} don't
+ * added. you can have many parameters for the Function.
+ * 
+ * 5. {example} gives a example for the Function. it is optional.
+ */
+public class JDE {
+
+    /**
+     * convertToJulian: return date converted in Julian format
+     * 
+     * {TalendTypes} int
+     * 
+     * {Category} Lalique Defined
+     * 
+     * {param} string("theDate") input: The string need to be printed.
+     * 
+     * {example} helloExemple("world") # hello world !.
+     */
+    public static int convertToJulian(String theDate)
+    {
+	    /* Date: ddmmyyyy*/
+	    int resultJulian = 0;
+	    if(theDate.length() > 0)
+	    {
+			 String dayS, monthS, yearS;
+			 /*Days of month*/
+			 int[] monthValues = {31,28,31,30,31,30,31,31,30,31,30,31};
+			 dayS = theDate.substring(0,2);
+			 monthS = theDate.substring(2, 4);
+			 yearS = theDate.substring(4, 8);
+			
+			 /*Convert to Integer*/
+		     int day = Integer.valueOf(dayS);
+		     int month = Integer.valueOf(monthS);
+		     int year = Integer.valueOf(yearS); 
+			
+			 //Leap year check
+			 if(year % 4 == 0)
+			 {
+				  monthValues[1] = 29;    
+			 }
+			
+			 //Start building Julian date
+			 String julianDate = "1";
+			 //last two digit of year: 20xx ==> xx
+			 julianDate += yearS.substring(2,4);
+			 int julianDays = 0;
+			 for (int i=0; i < month-1; i++)
+			 {
+			    julianDays += monthValues[i];
+			 }
+			 julianDays += day;
+			 //Check size of days number
+			 if( julianDays < 100)
+			 {
+			    julianDate += "0";
+			 }
+			 if( julianDays < 10)
+			 {
+			    julianDate += "0";
+	         }
+	         julianDate += String.valueOf(julianDays);
+		     resultJulian =  Integer.valueOf(julianDate);    
+	    }
+	    return resultJulian;
+    }
+
+	/**
+	 * Arrondi à l'int le plus proche de l'argument en paramètre.
+	 *
+	 * {talendTypes} int | Int
+	 *
+	 * {Category} 
+	 *
+	 * {param} float(3.14f)
+	 *
+	 * {example} roundDown(3.14f)
+	 */
+  	public static int roundDown(float a) {
+  		// this check for NaN, from JLS 15.21.1, saves a method call
+  		float incrn = -0.000000000001f;
+  		if (a != a)
+  			return 0;
+  		return (int) Math.floor(a < 0 ? a + incrn : a );
+}
+
+
+  	/**
+  	 * Arrondi au float le plus proche de l'argument en paramètre.
+  	 *
+  	 * {talendTypes} long | Long
+  	 *
+  	 * {Category} 
+  	 *
+  	 * {param} double(3.14)
+  	 *
+  	 * {example} roundDown(3.14)
+  	 */
+  	public static long roundDown(double a) {
+  		// this check for NaN, from JLS 15.21.1, saves a method call
+  		double incrn = -0.000000000001d;
+  		if (a != a)
+  			return 0;
+  		return (long) Math.floor(a < 0 ? a + incrn : a );
+}
+
+    /**
+     * Arrondi à l'int le plus proche de l'argument en paramètre.
+     *
+     * {talendTypes} int | Int
+     *
+     * {Category} 
+     *
+     * {param} float(3.14f)
+     *
+     * {example} round(3.14f)
+     */
+      public static int round(float a) {
+      // this check for NaN, from JLS 15.21.1, saves a method call
+            if (a != a)
+           return 0;
+        return (int) Math.round(Math.abs(a)) * (a < 0 ? -1 : 1 );
+    }
+
+   
+    /**
+     * Arrondi au float le plus proche de l'argument en paramètre.
+     *
+     * {talendTypes} long | Long
+     *
+     * {Category} 
+     *
+     * {param} double(3.14)
+     *
+     * {example} round(3.14)
+     */
+    public static long round(double a) {
+      // this check for NaN, from JLS 15.21.1, saves a method call
+      if (a != a)
+           return 0;
+        return (long) Math.round(Math.abs(a)) * (a < 0 ? -1 : 1 );
+    }
+
+}
