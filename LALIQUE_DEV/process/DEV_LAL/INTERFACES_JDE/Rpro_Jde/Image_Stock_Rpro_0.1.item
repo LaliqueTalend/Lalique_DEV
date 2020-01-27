@@ -583,7 +583,7 @@
     <elementParameter field="TEXT" name="ROWS_BUFFER_SIZE" value="2000000"/>
     <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="false"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="Stk_Art_O">
+    <metadata connector="FLOW" name="Stk_Art">
       <column comment="" key="false" length="-1" name="Filiale_Rpro" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Magasin_Rpro" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Societe_Jde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
@@ -594,9 +594,9 @@
       <column comment="" key="false" length="-1" name="Item_Sid" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE"/>
-      <outputTables name="Stk_Art_O" sizeState="INTERMEDIATE">
+      <outputTables name="Stk_Art" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="((Integer)globalMap.get(&quot;Code_Pays&quot;))" name="Filiale_Rpro" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="((Integer)globalMap.get(&quot;Code_Btq&quot;))" name="Magasin_Rpro" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="((String)globalMap.get(&quot;Societe_Jde&quot;))" name="Societe_Jde" nullable="true" type="id_String"/>
@@ -843,6 +843,13 @@
       <column comment="" key="false" length="-1" name="Code_Article" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Qte" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
     </metadata>
+    <metadata connector="FLOW" name="Stk_Art_O">
+      <column comment="" key="false" length="-1" name="Societe_Jde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Magasin_Jde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Suffixe_Jde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Code_Article" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Qte" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
+    </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE">
@@ -855,6 +862,13 @@
         <mapperTableEntries expression="Stk_Art_I.Suffixe_Jde " name="Suffixe_Jde" nullable="true" type="id_String"/>
       </outputTables>
       <outputTables name="Stk_Ligne" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="Stk_Art_I.Societe_Jde " name="Societe_Jde" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Stk_Art_I.Magasin_Jde " name="Magasin_Jde" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Stk_Art_I.Suffixe_Jde " name="Suffixe_Jde" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Stk_Art_I.Code_Article " name="Code_Article" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="(Var.Qte_Stk + Var.Qte_Asn &lt; (float)0) ? (float)0 : Var.Qte_Stk + Var.Qte_Asn " name="Qte" nullable="true" type="id_Float"/>
+      </outputTables>
+      <outputTables name="Stk_Art_O" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Stk_Art_I.Societe_Jde " name="Societe_Jde" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Stk_Art_I.Magasin_Jde " name="Magasin_Jde" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Stk_Art_I.Suffixe_Jde " name="Suffixe_Jde" nullable="true" type="id_String"/>
@@ -1248,8 +1262,10 @@
       <additionalProperties key="Comment" value=""/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
-      <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
+      <uiProperties shellMaximized="true"/>
+      <varTables name="Var" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="Lalique.Pad0(Numeric.sequence(&quot;DOC&quot;,1000,1)+&quot;&quot;,6) " name="Sequence" type="id_String"/>
+      </varTables>
       <outputTables name="F47121" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="&quot; &quot;" name="M1EDTY" nullable="true" type="id_String"/>
         <mapperTableEntries expression="(float)0" name="M1EDSQ" nullable="true" type="id_Float"/>
@@ -3132,6 +3148,66 @@
       <additionalProperties key="Comment" value=""/>
     </metadata>
   </node>
+  <node componentName="tSortRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="384" posY="672">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSortRow_1"/>
+    <elementParameter field="TABLE" name="CRITERIA">
+      <elementValue elementRef="COLNAME" value="Societe_Jde"/>
+      <elementValue elementRef="SORT" value="num"/>
+      <elementValue elementRef="ORDER" value="asc"/>
+      <elementValue elementRef="COLNAME" value="Magasin_Jde"/>
+      <elementValue elementRef="SORT" value="num"/>
+      <elementValue elementRef="ORDER" value="asc"/>
+      <elementValue elementRef="COLNAME" value="Suffixe_Jde"/>
+      <elementValue elementRef="SORT" value="num"/>
+      <elementValue elementRef="ORDER" value="asc"/>
+      <elementValue elementRef="COLNAME" value="Code_Article"/>
+      <elementValue elementRef="SORT" value="num"/>
+      <elementValue elementRef="ORDER" value="asc"/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="EXTERNAL" value="false"/>
+    <elementParameter field="DIRECTORY" name="TEMPFILE" show="false" value="&quot;C:/Talend-Studio-20190620_1446-V7.2.1/workspace/temp&quot;"/>
+    <elementParameter field="CHECK" name="CREATEDIR" show="false" value="true"/>
+    <elementParameter field="TEXT" name="EXTERNAL_SORT_BUFFERSIZE" show="false" value="1000000"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tSortRow_1">
+      <column comment="" key="false" length="-1" name="Societe_Jde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Magasin_Jde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Suffixe_Jde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Code_Article" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Qte" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tAggregateRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="512" posY="672">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tAggregateRow_1"/>
+    <elementParameter field="TABLE" name="GROUPBYS">
+      <elementValue elementRef="OUTPUT_COLUMN" value="Societe_Jde"/>
+      <elementValue elementRef="INPUT_COLUMN" value="Societe_Jde"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="Magasin_Jde"/>
+      <elementValue elementRef="INPUT_COLUMN" value="Magasin_Jde"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="Suffixe_Jde"/>
+      <elementValue elementRef="INPUT_COLUMN" value="Suffixe_Jde"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="Code_Article"/>
+      <elementValue elementRef="INPUT_COLUMN" value="Code_Article"/>
+    </elementParameter>
+    <elementParameter field="TABLE" name="OPERATIONS">
+      <elementValue elementRef="OUTPUT_COLUMN" value="Qte"/>
+      <elementValue elementRef="FUNCTION" value="sum"/>
+      <elementValue elementRef="INPUT_COLUMN" value="Qte"/>
+      <elementValue elementRef="IGNORE_NULL" value="false"/>
+    </elementParameter>
+    <elementParameter field="TEXT" name="LIST_DELIMITER" value="&quot;,&quot;"/>
+    <elementParameter field="CHECK" name="USE_FINANCIAL_PRECISION" value="true"/>
+    <elementParameter field="CHECK" name="CHECK_TYPE_OVERFLOW" value="false"/>
+    <elementParameter field="CHECK" name="CHECK_ULP" value="false"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tAggregateRow_1">
+      <column comment="" key="false" length="-1" name="Societe_Jde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Magasin_Jde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Suffixe_Jde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Code_Article" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Qte" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
+    </metadata>
+  </node>
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tOracleConnection_1" offsetLabelX="0" offsetLabelY="0" source="tOracleConnection_1" target="tOracleConnection_3">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk1"/>
   </connection>
@@ -3157,14 +3233,14 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row11"/>
   </connection>
-  <connection connectorName="FLOW" label="Stk_Art_O" lineStyle="0" metaname="Stk_Art_O" offsetLabelX="0" offsetLabelY="0" source="tMap_4" target="tFileOutputDelimited_6">
+  <connection connectorName="FLOW" label="Stk_Art" lineStyle="0" metaname="Stk_Art" offsetLabelX="0" offsetLabelY="0" source="tMap_4" target="tFileOutputDelimited_6">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="Item_Sid"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Stk_Art_O"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Stk_Art"/>
   </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileDelete_1" offsetLabelX="0" offsetLabelY="0" source="tFileDelete_1" target="tFileInputExcel_3">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk5"/>
@@ -3177,6 +3253,11 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Stk_Art_I"/>
   </connection>
   <connection connectorName="FLOW" label="Stk_Entete" lineStyle="0" metaname="Stk_Entete" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_7" target="tSortRow_3">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="Num_Doc"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Stk_Entete"/>
   </connection>
@@ -3197,9 +3278,16 @@
       <elementValue elementRef="TRACE_COLUMN" value="Magasin_Rpro"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Num_Doc"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Stk_Ligne"/>
+  </connection>
+  <connection connectorName="FLOW" label="Stk_Art_O" lineStyle="0" metaname="Stk_Art_O" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tMap_7" target="tSortRow_1">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Stk_Art_O"/>
   </connection>
   <connection connectorName="FLOW" label="Invn_Subloc" lineStyle="8" metaname="tOracleInput_6" offsetLabelX="0" offsetLabelY="0" source="tOracleInput_6" target="tMap_7">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
@@ -3237,6 +3325,10 @@
   <connection connectorName="FLOW" label="F47122" lineStyle="0" metaname="F47122" offsetLabelX="0" offsetLabelY="0" source="tMap_1" target="tOracleOutput_2">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F47122"/>
+  </connection>
+  <connection connectorName="FLOW" label="row2" lineStyle="0" metaname="tSortRow_1" offsetLabelX="0" offsetLabelY="0" source="tSortRow_1" target="tAggregateRow_1">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row2"/>
   </connection>
   <subjob>
     <elementParameter field="CHECK" name="COLLAPSED" show="false" value="true"/>
@@ -3281,13 +3373,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_76ceed6d-1e79-4ea5-a47e-794ce2ce6de8"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>4c2r4vMt8ZewBa5+5gxq7s6wm6J+OwWZtvURPdMtwG13SzuEps7fwJfFZzvCieZFblnGZA6k0qAb
-uVxX6Cylsw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_86a610ac-3a06-4def-a1de-75431efdc14b"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>XY/FMause477XcH39+wv0ojrLyxZGmYDMqLKis+941LflPUmqGmzc6kHJ7A2Vj8FlNnQeN+HBhB9
-/fCJ158MLQ==</DigestValue></Reference></SignedInfo><SignatureValue>IFwB1PNIA4SsYHzY7xeSECC7sdrDPyA2pDEj7tYxoaiIPrnRl+fsA++87OdBC8Q2QrTW3Iya/Vv7
-wXLkcxURtXhiq5AjiPV49MpqvzTx5HVr7+fQF/Pw6QfKFPTaEfOpaVNG1mE5KYja+Jw4vYjuGyyU
-eCHjvINC/XyXsNWxiCt1xhitovTR4e0l9v2aP1DhfTa3LgsKV2UmSWzI7k1yrzdDTZMble7ImZNO
-h3GiHkGb7mWlf3kyB6GquRDg11hbGoglJRwXnzSpRFS4xmA7ScaTUOs6xd1Ux9+2kYil0gFyukLB
-eHruRfxX4ONecuqHQiicpQ6E07PpxBn7WQCkzg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_10f0ba4d-ac42-47c9-9d5b-d21f1f42fe09"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>NqkFwhcVDeUEI3EuqeDGuiRMJsNiswWbuArnM0NWf/nztM+phT7QFcLZFwYB9Z9XPdjdWiqNRzkJ
+HeG5vCDygA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_eaab78da-a4bb-4897-8346-8c9c0a364cd6"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>L2LhcHNeRRt0kMzPktmJn5kZCs8s38C0VXgXBpnKeS9JI211bzAeim6htRgPZEgjM3a95fTXdwp3
+v87Alwexpw==</DigestValue></Reference></SignedInfo><SignatureValue>TJFactNEBsaKMwecNjYsnYLSyuB6+cwOqCQQ/JboNkmslY0xXMOgIJbDShZk5hmTaBtjSLMlZ4E/
+E5FTEFq5IEMamA0qUtohhAQHwN/QkxGgbXgSKIsx/s73arj75wIScEEe9GEqZ/zO0VVmN+FDc3IV
+egNw60Qb202rIESBQC9TAiSa0YZgWTeNOD7UwQdAbjihEI4WH6kiUIW3hO/v4Hz8MC4UUSwzswOO
+r6cgrSkY4LmfHrLQ8e711evDS5uQYbbO5m+l1bgVH5fqpz9oJslwkP3rAw5RDhkF/0XMhyg0nxpL
+xH81CzaTnlVmWoRZyXZwyTq2nsDIbPipuAFnaw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -3309,4 +3401,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_86a610ac-3a06-4def-a1de-75431efdc14b" Target="#_76ceed6d-1e79-4ea5-a47e-794ce2ce6de8"><Timestamp>2020-01-27 08:58:37</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_eaab78da-a4bb-4897-8346-8c9c0a364cd6" Target="#_10f0ba4d-ac42-47c9-9d5b-d21f1f42fe09"><Timestamp>2020-01-27 09:24:56</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
