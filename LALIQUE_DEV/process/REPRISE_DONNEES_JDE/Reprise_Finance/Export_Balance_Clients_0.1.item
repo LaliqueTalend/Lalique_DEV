@@ -2859,7 +2859,7 @@
       </outputTables>
       <outputTables name="Controle" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Fan200P1.RGEN " name="RGEN" type="id_Integer"/>
-        <mapperTableEntries expression="Param_Tiers_Reprise.Code_Egx " name="Code_Egx" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Param_Tiers_Reprise.Code_Anael " name="Code_Egx" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Param_Tiers_Reprise.TiersRepriseCompta " name="TiersRepriseCompta" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Param_Tiers_Reprise.Tiers_Jde " name="Tiers_Jde" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="Var.Montant .setScale(0,BigDecimal.ROUND_HALF_UP) " name="Montant" type="id_BigDecimal"/>
@@ -3064,7 +3064,8 @@
         <mapperTableEntries name="Synth_Det" nullable="true" type="id_String"/>
       </inputTables>
       <inputTables activateCondensedTool="true" innerJoin="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Param_Tiers_Reprise" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="StringHandling.CHANGE(Fan200P1.RAUX,&quot; &quot;,&quot;&quot;) " name="Code_Egx" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="StringHandling.CHANGE(Fan200P1.RAUX,&quot; &quot;,&quot;&quot;) " name="Code_Anael" nullable="true" type="id_String"/>
+        <mapperTableEntries name="Tiers_Egx" nullable="true" type="id_String"/>
         <mapperTableEntries name="TiersRepriseCompta" nullable="true" type="id_String"/>
         <mapperTableEntries name="Tiers_Jde" nullable="true" type="id_Integer"/>
       </inputTables>
@@ -3251,7 +3252,9 @@
     <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" show="false" value="'.'"/>
     <elementParameter field="CHECK" name="TRIMALL" value="false"/>
     <elementParameter field="TABLE" name="TRIMSELECT">
-      <elementValue elementRef="SCHEMA_COLUMN" value="Code_Egx"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Code_Anael"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Tiers_Egx"/>
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="TiersRepriseCompta"/>
       <elementValue elementRef="TRIM" value="false"/>
@@ -3260,7 +3263,10 @@
     </elementParameter>
     <elementParameter field="CHECK" name="CONVERTDATETOSTRING" value="false"/>
     <elementParameter field="TABLE" name="DATESELECT" show="false">
-      <elementValue elementRef="SCHEMA_COLUMN" value="Code_Egx"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Code_Anael"/>
+      <elementValue elementRef="CONVERTDATE" value="false"/>
+      <elementValue elementRef="PATTERN" value="&quot;MM-dd-yyyy&quot;"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Tiers_Egx"/>
       <elementValue elementRef="CONVERTDATE" value="false"/>
       <elementValue elementRef="PATTERN" value="&quot;MM-dd-yyyy&quot;"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="TiersRepriseCompta"/>
@@ -3281,12 +3287,14 @@
     <elementParameter field="TEXT" name="LABEL" value="Param_Tiers_Reprise_Anael"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" label="metadata" name="tFileInputExcel_3">
-      <column comment="" key="false" length="8" name="Code_Egx" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="8" name="Code_Anael" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="Tiers_Egx" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="14" name="TiersRepriseCompta" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="7" name="Tiers_Jde" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Integer" usefulColumn="true"/>
     </metadata>
     <metadata connector="REJECT" label="metadata" name="REJECT">
-      <column comment="" key="false" length="8" name="Code_Egx" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="8" name="Code_Anael" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="Tiers_Egx" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="14" name="TiersRepriseCompta" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="7" name="Tiers_Jde" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Integer" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
@@ -8441,7 +8449,17 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Fan020P1"/>
   </connection>
-  <connection connectorName="FLOW" label="Rejets_Clients" lineStyle="0" metaname="Rejets_Clients" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_1" target="tFileOutputExcel_1">
+  <connection connectorName="FLOW" label="F03B11Z1" lineStyle="0" metaname="F03B11Z1" offsetLabelX="-2" offsetLabelY="2" outputId="1" source="tMap_1" target="tOracleOutput_1">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F03B11Z1"/>
+  </connection>
+  <connection connectorName="FLOW" label="F0911Z1" lineStyle="0" metaname="F0911Z1" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_1" target="tOracleOutput_2">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F0911Z1"/>
+  </connection>
+  <connection connectorName="FLOW" label="Rejets_Clients" lineStyle="0" metaname="Rejets_Clients" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tMap_1" target="tFileOutputExcel_1">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="Compte_Jde"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
@@ -8494,16 +8512,6 @@
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Rejets_Clients"/>
-  </connection>
-  <connection connectorName="FLOW" label="F03B11Z1" lineStyle="0" metaname="F03B11Z1" offsetLabelX="-2" offsetLabelY="2" outputId="2" source="tMap_1" target="tOracleOutput_1">
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F03B11Z1"/>
-  </connection>
-  <connection connectorName="FLOW" label="F0911Z1" lineStyle="0" metaname="F0911Z1" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tMap_1" target="tOracleOutput_2">
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F0911Z1"/>
   </connection>
   <connection connectorName="FLOW" label="Controle" lineStyle="0" metaname="Controle" offsetLabelX="0" offsetLabelY="0" outputId="4" source="tMap_1" target="tFileOutputExcel_2">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
@@ -8574,13 +8582,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_a49c5a55-cf22-412b-bd8e-f6020a8c6c9f"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>yQujS79W+oHZZ0YK5i93PAi2DXcZe0csZh2QPain9Pj4amLbI8SXWiHWKuJP/sFxwSShfLWISy4m
-+05hG+yPgQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_ee91b829-0f52-4b3a-9769-37f710bcf332"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>6tlNSI8l/YBJNXEXBKuS7w8CCFTIycV1VKrOzr1k4q6E7URAvardhDjzXWw7STnuVRW2LvuuSTkx
-HhxRtrmulg==</DigestValue></Reference></SignedInfo><SignatureValue>KXmUfachGYr9ZESN4QPyXCoPG/N83B/ogWt29RsGT+Z2P/dr4gp2NLWXwKXIE6BhA1L+HJqUsw3B
-TXXqnjbC1fuVA+o56swTWDEu7wXVZfgEAo6XdaPfU5OliukFhaME00ro9YJpwq6WQVf552nbkVds
-kGbHTc9I7bWngQCzuwgGB8iCN1cogsfGaBdLQxihAIQ/xNnMaLMlbs0YiXyog2DaiRisC+OzBpYl
-M+uVqsLLnsmW8dPi+Di0cuqX+xlisLrrH24OMsNjBhlw5kcNxLNuJm5i2rN5SMnrq8f3Ah0yiu+p
-aBdWJRzWUMyVZOl2REyZfecX4AmR8E8sBwQ/6Q==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_4dcba95f-7010-48e5-9f03-23ec9fa81b18"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>xf/ZDQFG1m0PAUAc+3ajeE9Jfo6yO2BdZqzCF7GIjL0my4NNxw3eoEj4p53BzZa3S9ynebjdTRjL
++xCioRDsCQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_a927c9a7-1d30-4be4-8fc8-33cf0c638e26"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>fI3mEYCXpbXHZxFc/jSGkpUImNF3rLjNervCTeA+2MO9/n8CweRjDtNaKpy/iA63/8PRM+vl2/Tb
+rLLNPgs1Zw==</DigestValue></Reference></SignedInfo><SignatureValue>ft/LRighHpRL0NKXvFb8J1bQvHMPVxKlBEQ6OPyBgXfkXeu6oKm1p8sCwsVpiKQXbMm0BC0fr3Bl
+GxsHMusGQANCcU/GB6X/H8/0GW3YeH5ysu42L2eBP8uTED6OBaU/rA2mKcHNyKayJWOny9u9sPYU
+KPjIYdG4kU2rlKn1NV87qGOg55rLsYzYIyySbJKtCSxB/t/Hq4yL0w1MEOyOJWU+YNHMb3CEXdN2
+mgUgH6MwFB06s0Pov2WfgUSTwWjAA5MBhZNKKLQcFuWgllM6JygR8izptiaoTlOZaL8ni03/wzaG
+lUzk2Dbb4NfGRenXwxqNm9I0pzQWKr6YbX0Jpg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -8602,4 +8610,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_ee91b829-0f52-4b3a-9769-37f710bcf332" Target="#_a49c5a55-cf22-412b-bd8e-f6020a8c6c9f"><Timestamp>2020-02-24 13:00:37</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_a927c9a7-1d30-4be4-8fc8-33cf0c638e26" Target="#_4dcba95f-7010-48e5-9f03-23ec9fa81b18"><Timestamp>2020-02-24 13:20:43</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
