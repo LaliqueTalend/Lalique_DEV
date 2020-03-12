@@ -464,6 +464,9 @@
       <column comment="" key="false" length="-1" name="tracking_no" nullable="false" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
+      <column comment="" key="false" length="8" name="contract_date" nullable="true" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
       <column comment="" key="false" length="16" name="po_no" nullable="true" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
@@ -513,7 +516,7 @@
       <column comment="" key="false" length="-1" name="NUMBLO" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="TalendDate.getDate(&quot;yyyyMMdd&quot;) " name="DateJour" type="id_String"/>
       </varTables>
@@ -535,6 +538,7 @@
         <mapperTableEntries expression="Pre_ASN.sbs_no" name="sbs_no" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="Pre_ASN.store_no" name="store_no" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="Pre_ASN.tracking_no" name="tracking_no" type="id_Integer"/>
+        <mapperTableEntries expression="Pre_ASN.contract_date " name="contract_date" nullable="true" type="id_String"/>
         <mapperTableEntries expression="StringHandling.LEFT(Pre_ASN.po_no,20) " name="po_no" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;&quot;" name="vou_sid" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;&quot;" name="vou_no" nullable="true" type="id_String"/>
@@ -631,8 +635,6 @@
     <elementParameter field="TEXT" name="USER" show="false" value="context.RP9_CMS_Login"/>
     <elementParameter field="PASSWORD" name="PASS" show="false" value="8pW6Nmy2kucfsqyjXr3wxpDo1QccMCADhbncl5zQCms="/>
     <elementParameter field="TEXT" name="JDBC_URL" show="false" value="&quot;jdbc:oracle:oci:/@talend&quot;"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" show="false" value="REPOSITORY"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" show="false" value="_meOGsAU8EeWJ1-j0u2vNsQ - INVN_SBS"/>
     <elementParameter field="DBTABLE" name="TABLE" value="&quot;INVN_SBS_V&quot;"/>
     <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="&quot;&quot;"/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
@@ -1037,6 +1039,9 @@
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="-1" name="tracking_no" nullable="false" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="8" name="contract_date" nullable="true" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="16" name="po_no" nullable="true" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
@@ -2144,7 +2149,7 @@
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="TalendDate.getDate(&quot;yyyyMMdd&quot;) " name="DateJour" type="id_String"/>
         <mapperTableEntries expression="Lalique.GetSid(&quot;&quot;)  " name="vou_sid" type="id_String"/>
-        <mapperTableEntries expression="Numeric.sequence(&quot;vou&quot;,1,1) " name="vou_no" type="id_Integer"/>
+        <mapperTableEntries expression="StringHandling.RIGHT(row6.contract_date,6)+&#13;&#10;Numeric.sequence(&quot;vou&quot;,1,1) " name="vou_no" type="id_Integer"/>
       </varTables>
       <outputTables name="Rupture" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="row6.sbs_no " name="sbs_no" nullable="true" type="id_Integer"/>
@@ -2184,6 +2189,7 @@
         <mapperTableEntries name="sbs_no" nullable="true" type="id_Integer"/>
         <mapperTableEntries name="store_no" nullable="true" type="id_Integer"/>
         <mapperTableEntries name="tracking_no" nullable="true" type="id_Integer"/>
+        <mapperTableEntries name="contract_date" nullable="true" type="id_String"/>
         <mapperTableEntries name="po_no" nullable="true" type="id_String"/>
         <mapperTableEntries name="vou_sid" nullable="true" type="id_String"/>
         <mapperTableEntries name="vou_no" nullable="true" type="id_String"/>
@@ -2223,6 +2229,8 @@
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="tracking_no"/>
       <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="contract_date"/>
+      <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="po_no"/>
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="vou_sid"/>
@@ -2249,6 +2257,8 @@
       <elementValue elementRef="DECODE" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="tracking_no"/>
       <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="contract_date"/>
+      <elementValue elementRef="DECODE" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="po_no"/>
       <elementValue elementRef="DECODE" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="vou_sid"/>
@@ -2270,6 +2280,7 @@
       <column comment="" key="false" length="-1" name="sbs_no" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="store_no" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="tracking_no" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="contract_date" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="po_no" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="vou_sid" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="vou_no" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
@@ -2281,6 +2292,7 @@
       <column comment="" key="false" length="-1" name="sbs_no" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="store_no" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="tracking_no" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="contract_date" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="po_no" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="vou_sid" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="vou_no" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
@@ -2300,6 +2312,8 @@
       <elementValue elementRef="INPUT_COLUMN" value="store_no"/>
       <elementValue elementRef="OUTPUT_COLUMN" value="tracking_no"/>
       <elementValue elementRef="INPUT_COLUMN" value="tracking_no"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="contract_date"/>
+      <elementValue elementRef="INPUT_COLUMN" value="contract_date"/>
       <elementValue elementRef="OUTPUT_COLUMN" value="po_no"/>
       <elementValue elementRef="INPUT_COLUMN" value="po_no"/>
       <elementValue elementRef="OUTPUT_COLUMN" value="typeve"/>
@@ -2328,6 +2342,7 @@
       <column comment="" key="false" length="-1" name="sbs_no" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="store_no" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="tracking_no" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="contract_date" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="po_no" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="vou_sid" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="vou_no" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
@@ -2751,6 +2766,9 @@
       <elementValue elementRef="TRACE_COLUMN" value="codctg"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="contract_date"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Asn_EnTete"/>
@@ -2878,11 +2896,19 @@
       <elementValue elementRef="TRACE_COLUMN" value="codctg"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="contract_date"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row5"/>
   </connection>
   <connection connectorName="FLOW" label="row6" lineStyle="0" metaname="tAggregateRow_1" offsetLabelX="0" offsetLabelY="0" source="tAggregateRow_1" target="tMap_5">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="contract_date"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row6"/>
   </connection>
@@ -2940,13 +2966,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_5e461344-3c95-487f-a834-2b57346d297c"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>CmVa5biJQO/dy8cpofNIKypyo0fkcxJVsXlWsZItWGur+XVgexToxPBgz6mNVSRp48Vuu3oyCifz
-pVtFIjT7xw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_459b9b64-d5de-4610-ba9f-5e3e89220f69"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>HLLgf5p2X8vw55y/aiRoBTN73dupACl2gvgz7Mgg7ETsX7sjAkUI7XjWG3pauhGNmHotjE8Nu9y2
-t2q9hpJMnw==</DigestValue></Reference></SignedInfo><SignatureValue>TjqJ+bfqk5fU+aunyAHBSMP9BZW75MS792FW+y9iEq6DiMcG03e4PqljuvCHy3OjBKgFM7htMTeU
-bAdidL5SjpaWbXrars+uPqTdxCSmQhBqQ99CrXZHJGkb0CJOwKU5jmPu0J/w9gA1I/oykybxigxN
-mEH3SvTvdZIp7ep19ozj3e2GmwQhFkTXd8kXiv98ljp06hUrr35HLzqf7THf9I3dYELZgMboMzuU
-jAVxjfTKD0FSgDlYcDC5SlJmwTw2CSU03PB+TE61zuz3KZF85YxDrIpxL9NSfy3e17BzWy1tqhFd
-600RbJp6/t+2332LpR7xs4eHUfiRkxossoJN9w==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_d6465dbb-f26b-43e6-8d4c-b5f60ee25059"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>NwbuUVXJkEk7zaTWt+n4Y/w9f9NL7jIdHXGtZsZ2ApVASeHt/mgAmhM4VqzNzETQGS0RCM8YfXjR
+b/I5RPg7CA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_b55d9c57-bbdc-48b5-a153-1df574192908"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>0sqO4TZmxhgl+94RfBKO+JmnpLRtonvvd+7FimOftTpA0Hl688z54MpKFJ/kmYRRU9m5ygRLyrlF
+/UIIEqi9SA==</DigestValue></Reference></SignedInfo><SignatureValue>IiASvyThk7AW0+QY6m4aJVuG7teSNKDgFZMgw6OL3uaf6l3kWiOIWeQTqgN9mDr+VflnZ8u0FGYw
+F+QjHtouH682EbSOFz4oQiS08a/+ICAsEtDamdHn+yHRqCRLynBkDk7Lg2WuGVwnTHJAImI7Bh5P
+gUMyQCmCvRFZvaQgbazltr3H3Jgdgrn4bCPbCOgvNJcrEyOgC9Yajg3X9Q5oO6YrySi5KcRdoEgP
+1DMJM5G3XhIEbyLGa9u5L11pw1iJOi19sAQMNO6p7UXURnYnsCk+Rc5mxwrxg6hZjL1WTKbGv7DH
+NZaqmXN8YhWv2G6sIzv7yaSVDXczLAVk7CKSXQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -2968,4 +2994,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_459b9b64-d5de-4610-ba9f-5e3e89220f69" Target="#_5e461344-3c95-487f-a834-2b57346d297c"><Timestamp>2020-03-12 10:46:17</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_b55d9c57-bbdc-48b5-a153-1df574192908" Target="#_d6465dbb-f26b-43e6-8d4c-b5f60ee25059"><Timestamp>2020-03-12 11:05:52</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
