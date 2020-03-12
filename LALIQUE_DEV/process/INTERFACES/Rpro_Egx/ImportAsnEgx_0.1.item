@@ -837,11 +837,13 @@
         <mapperTableEntries name="NATDEV" type="id_String"/>
         <mapperTableEntries name="DATDEB" type="id_String"/>
         <mapperTableEntries name="DATFIN" nullable="true" type="id_String"/>
-        <mapperTableEntries name="COURS" nullable="true" type="id_Float"/>
+        <mapperTableEntries name="COURS" nullable="true" type="id_Integer"/>
         <mapperTableEntries name="DATMOD" nullable="true" type="id_String"/>
         <mapperTableEntries name="UTIMOD" nullable="true" type="id_String"/>
-        <mapperTableEntries name="CODSOC" type="id_Integer"/>
+        <mapperTableEntries name="CODSOC" type="id_BigDecimal"/>
         <mapperTableEntries name="CODDEV2" type="id_String"/>
+        <mapperTableEntries name="TYPMAJ" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries name="DATMAJ" nullable="true" type="id_String"/>
       </inputTables>
     </nodeData>
   </node>
@@ -852,7 +854,7 @@
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="true"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="tOracleConnection_2"/>
     <elementParameter field="CLOSED_LIST" name="CONNECTION_TYPE" show="false" value="ORACLE_SID"/>
-    <elementParameter field="CLOSED_LIST" name="DB_VERSION" show="false" value="ORACLE_10"/>
+    <elementParameter field="CLOSED_LIST" name="DB_VERSION" show="false" value="ORACLE_11"/>
     <elementParameter field="TEXT" name="RAC_URL" show="false" value="context.EGX_Server"/>
     <elementParameter field="TEXT" name="HOST" show="false" value="context.EGX_Server"/>
     <elementParameter field="TEXT" name="TYPE" show="false" value="ORACLE_SID"/>
@@ -870,7 +872,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#10;  SOC1.DEM.CODDEV, &#10;  SOC1.DEM.NATDEV, &#10;  SOC1.DEM.DATDEB, &#10;  SOC1.DEM.DATFIN, &#10;  SOC1.DEM.COURS, &#10;  SOC1.DEM.DATMOD, &#10;  SOC1.DEM.UTIMOD, &#10;  SOC1.DEM.CODSOC, &#10;  SOC1.DEM.CODDEV2&#10;FROM SOC1.DEM&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#10;  SOC1.DEM.CODDEV, &#10;  SOC1.DEM.NATDEV, &#10;  SOC1.DEM.DATDEB, &#10;  SOC1.DEM.DATFIN, &#10;  SOC1.DEM.COURS, &#10;  SOC1.DEM.DATMOD, &#10;  SOC1.DEM.UTIMOD, &#10;  SOC1.DEM.CODSOC, &#10;  SOC1.DEM.CODDEV2, &#10;  SOC1.DEM.TYPMAJ, &#10;  SOC1.DEM.DATMAJ&#10;FROM SOC1.DEM&quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -903,6 +905,10 @@
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="CODDEV2"/>
       <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="TYPMAJ"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="DATMAJ"/>
+      <elementValue elementRef="TRIM" value="false"/>
     </elementParameter>
     <elementParameter field="CHECK" name="NO_NULL_VALUES" value="false"/>
     <elementParameter field="TEXT" name="LABEL" value="Dem"/>
@@ -920,7 +926,7 @@
       <column comment="" key="false" length="8" name="DATFIN" nullable="true" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="-1" name="COURS" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+      <column comment="" key="false" length="-1" name="COURS" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="8" name="DATMOD" nullable="true" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
@@ -929,10 +935,16 @@
       <column comment="" key="false" length="8" name="UTIMOD" nullable="true" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="true" length="-1" name="CODSOC" nullable="false" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+      <column comment="" key="true" length="38" name="CODSOC" nullable="false" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="true" length="3" name="CODDEV2" nullable="false" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="38" name="TYPMAJ" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="8" name="DATMAJ" nullable="true" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <additionalProperties key="Comment" value=""/>
@@ -2945,13 +2957,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_d460c53c-1634-41ba-bafa-35998f701837"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>E5v8Igdru48kHupq0Ubdh1q7aq1m3nghTp9XOMhr/Me797Uw/3RteQQ5leYAeGuzl+NYBS+JAnFP
-r8Wbrmqcfw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_f25eace4-5750-49fc-9893-3a7be273551c"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>CdPkA8ULKA3HwFq1uQOs/nm7cBrKGGY/QSLDc0EUezwfXPcFxgMhBYIE0cNw66fMwwJ+njCN0bbr
-T5g1NQUj0w==</DigestValue></Reference></SignedInfo><SignatureValue>njwWm42EXsMv1GdofptJ7WgI3Bf+2H14DdsXrgSdcHeUw8IgnXSAIFlFHCsDTvuy09zZKvUbWJlL
-Eos7bScoITXdo+wcwmgPB4FMfA9ggtL9/gcreh7uCuLgb/gfbqHym7WX9YCTme9zS9B0lqzc8Flj
-izkZXvqo1G52RANc9wtiOsjV4+DKBNrQFNCEIAvO179kGvD4qIHJt+LhEC8DnehteztPTzf5L48o
-cG67Q5e6Oy3gwuFV7q8yruni7STR6tx8vDlGpTUhnB6cjxIrYDk2NputZH/iicH31jYv7x4V3uz7
-OOf48DfLXS/RjBPwdNxO0aeqZkDqn9953ias6w==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_d80df3c0-350e-4d4e-86c2-b4045479b603"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>racWI17ltLBqJhhOoaWUDQdA6gzWr3enEn2Tf+SWt786wwUW2BnRQKk8WZSOJsAR5vLZuJx8ESCv
+TUINUjrFIg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_3462256d-a1a9-4538-b107-43bdeb6e28a3"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>RJbwcFtmxI2XAxkhqjgBvtInH4k6zB93vnSL03P55xS0qVUqLsvoOXiyZMnbvnjz98fP/6XNW2QI
+wEtoETs6BA==</DigestValue></Reference></SignedInfo><SignatureValue>dy0M92hRMTt3SlAPL91M0hB5ahBTLvgpDd29dI6KSbwxfJFUmI0C3Jb+dkRJ/ejwMJGMDdEci58w
+Oy6rjoOtZqOezpFtCWeJ6cqjDDB0UoHv5JS1Q82+UmvNg0nj+L5NhjYFIkl234O45aa0fBTEEZyG
+w+ZotCV6x24x8BiucabfSNMN2fRSnMcVcxOGgPL9Pc8DqGX+Y8Sl3hlTNAPFW9772snQYVIdmhe9
+LfSZv7RCa0riJz6YU38czvadC3SgC6AoDijaxgdppG9dQ76fELiKjYpGNT93nBrbsZrRIE8uzXIP
+YDpEEqdM7hinZcdKr+KFABBJheVRMCcLh5W2mw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -2973,4 +2985,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_f25eace4-5750-49fc-9893-3a7be273551c" Target="#_d460c53c-1634-41ba-bafa-35998f701837"><Timestamp>2020-03-12 11:35:50</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_3462256d-a1a9-4538-b107-43bdeb6e28a3" Target="#_d80df3c0-350e-4d4e-86c2-b4045479b603"><Timestamp>2020-03-12 11:36:48</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
