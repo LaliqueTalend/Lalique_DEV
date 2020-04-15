@@ -2929,7 +2929,7 @@
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="320">
+  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="32" posY="320">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tOracleInput_16"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="REPOSITORY"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" show="false" value="_meOGsAU8EeWJ1-j0u2vNsQ"/>
@@ -3101,6 +3101,9 @@
       <column comment="" key="false" length="16" name="price" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
+      <column comment="" key="false" length="3" name="currency" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
       <column comment="" key="false" length="10" name="qty" nullable="true" pattern="" precision="3" sourceType="NUMBER" type="id_Float" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
@@ -3121,6 +3124,7 @@
         <mapperTableEntries expression="Vtes_Splio.order_id " name="order_id" nullable="true" type="id_Long"/>
         <mapperTableEntries expression="row10.ITEM_SID " name="product_id" type="id_Long"/>
         <mapperTableEntries expression="Vtes_Splio.PRICE " name="price" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="Currency.CURRENCY_ABBR " name="currency" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Vtes_Splio.QTY " name="qty" nullable="true" type="id_Float"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Vtes_Splio" sizeState="INTERMEDIATE">
@@ -3137,7 +3141,7 @@
         <mapperTableEntries name="AMT_HT" nullable="true" type="id_Float"/>
         <mapperTableEntries name="AMT_TTC" nullable="true" type="id_Float"/>
       </inputTables>
-      <inputTables activateCondensedTool="true" innerJoin="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="row10" sizeState="INTERMEDIATE">
+      <inputTables activateCondensedTool="true" innerJoin="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="row10" sizeState="INTERMEDIATE">
         <mapperTableEntries name="ITEM_SID" type="id_Long"/>
         <mapperTableEntries name="SBS_NO" type="id_Integer"/>
         <mapperTableEntries expression="Vtes_Splio.ALU " name="ALU" nullable="true" operator="=" type="id_String"/>
@@ -3159,6 +3163,37 @@
         <mapperTableEntries name="UNORDERABLE" nullable="true" type="id_String"/>
         <mapperTableEntries name="EXT_FLAG" nullable="true" type="id_Integer"/>
         <mapperTableEntries name="SUBLOC_FLAG" nullable="true" type="id_Integer"/>
+      </inputTables>
+      <inputTables activateCondensedTool="true" innerJoin="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Subsidiary" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="Vtes_Splio.SBS_NO " name="SBS_NO" type="id_Integer"/>
+        <mapperTableEntries expression="" name="COUNTRY_ID" type="id_Integer"/>
+        <mapperTableEntries name="LANG_ID" type="id_BigDecimal"/>
+        <mapperTableEntries name="SBS_NAME" type="id_String"/>
+        <mapperTableEntries name="ITEM_SID_SRC" type="id_BigDecimal"/>
+        <mapperTableEntries name="STYLE_DEF" type="id_BigDecimal"/>
+        <mapperTableEntries name="CURRENCY_ID" type="id_BigDecimal"/>
+        <mapperTableEntries name="ACTIVE_PRICE_LVL" type="id_BigDecimal"/>
+        <mapperTableEntries name="ACTIVE_SEASON_ID" type="id_BigDecimal"/>
+        <mapperTableEntries name="DOC_NO_PREFIX" nullable="true" type="id_String"/>
+        <mapperTableEntries name="CAL_ID" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries name="STATUS" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries name="MASTER" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries name="MODIFIED_DATE" nullable="true" type="id_Date"/>
+        <mapperTableEntries name="CMS_POST_DATE" nullable="true" type="id_Date"/>
+        <mapperTableEntries name="DIM_UNITS" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries name="WEIGHT_UNITS" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries name="FOREIGN_CURRENCY1_ID" nullable="true" type="id_BigDecimal"/>
+      </inputTables>
+      <inputTables activateCondensedTool="true" innerJoin="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Currency" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="Subsidiary.CURRENCY_ID " name="CURRENCY_ID" operator="=" type="id_Integer"/>
+        <mapperTableEntries name="CURRENCY_ABBR" nullable="true" type="id_String"/>
+        <mapperTableEntries name="CURRENCY_NAME" type="id_String"/>
+        <mapperTableEntries name="DISCREPANCY" nullable="true" type="id_Integer"/>
+        <mapperTableEntries name="ROUNDING" nullable="true" type="id_Integer"/>
+        <mapperTableEntries name="DECIMALS" nullable="true" type="id_Integer"/>
+        <mapperTableEntries name="ARCHIVED" nullable="true" type="id_Integer"/>
+        <mapperTableEntries name="LTY_RATE" nullable="true" type="id_Integer"/>
+        <mapperTableEntries name="ACTIVE" nullable="true" type="id_Integer"/>
       </inputTables>
     </nodeData>
   </node>
@@ -3201,6 +3236,9 @@
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="16" name="price" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="3" name="currency" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="10" name="qty" nullable="true" pattern="" precision="3" sourceType="NUMBER" type="id_Float" usefulColumn="true">
@@ -3306,6 +3344,236 @@
       <column comment="" key="false" length="16" name="amt_ttc" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
+    </metadata>
+  </node>
+  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="320">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBInput_1"/>
+    <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="REPOSITORY"/>
+    <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" show="false" value="_meOGsAU8EeWJ1-j0u2vNsQ"/>
+    <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
+    <elementParameter field="COMPONENT_LIST" name="CONNECTION" show="false" value=""/>
+    <elementParameter field="CLOSED_LIST" name="CONNECTION_TYPE" value="ORACLE_SID"/>
+    <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="ORACLE_11"/>
+    <elementParameter field="TEXT" name="RAC_URL" show="false" value="context.RP9_CMS_Server"/>
+    <elementParameter field="TEXT" name="HOST" value="context.RP9_CMS_Server"/>
+    <elementParameter field="TEXT" name="TYPE" show="false" value="ORACLE_SID"/>
+    <elementParameter field="TEXT" name="PORT" value="context.RP9_CMS_Port"/>
+    <elementParameter field="TEXT" name="DBNAME" value="context.RP9_CMS_Sid"/>
+    <elementParameter field="TEXT" name="LOCAL_SERVICE_NAME" show="false" value="context.RP9_CMS_Sid"/>
+    <elementParameter field="TEXT" name="SCHEMA_DB" value="context.RP9_CMS_Schema"/>
+    <elementParameter field="TEXT" name="USER" value="context.RP9_CMS_Login"/>
+    <elementParameter field="PASSWORD" name="PASS" value="8pW6Nmy2kucfsqyjXr3wxpDo1QccMCADhbncl5zQCms="/>
+    <elementParameter field="TEXT" name="JDBC_URL" show="false" value="&quot;jdbc:oracle:oci:/@talend&quot;"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" show="false" value="REPOSITORY"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" show="false" value="_meOGsAU8EeWJ1-j0u2vNsQ - SUBSIDIARY"/>
+    <elementParameter field="DBTABLE" name="TABLE" value="&quot;SUBSIDIARY&quot;"/>
+    <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="&quot;&quot;"/>
+    <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
+    <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
+    <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#10;  CMS.SUBSIDIARY.SBS_NO, &#10;  CMS.SUBSIDIARY.COUNTRY_ID, &#10;  CMS.SUBSIDIARY.LANG_ID, &#10;  CMS.SUBSIDIARY.SBS_NAME, &#10;  CMS.SUBSIDIARY.ITEM_SID_SRC, &#10;  CMS.SUBSIDIARY.STYLE_DEF, &#10;  CMS.SUBSIDIARY.CURRENCY_ID, &#10;  CMS.SUBSIDIARY.ACTIVE_PRICE_LVL, &#10;  CMS.SUBSIDIARY.ACTIVE_SEASON_ID, &#10;  CMS.SUBSIDIARY.DOC_NO_PREFIX, &#10;  CMS.SUBSIDIARY.CAL_ID, &#10;  CMS.SUBSIDIARY.STATUS, &#10;  CMS.SUBSIDIARY.MASTER, &#10;  CMS.SUBSIDIARY.MODIFIED_DATE, &#10;  CMS.SUBSIDIARY.CMS_POST_DATE, &#10;  CMS.SUBSIDIARY.DIM_UNITS, &#10;  CMS.SUBSIDIARY.WEIGHT_UNITS, &#10;  CMS.SUBSIDIARY.FOREIGN_CURRENCY1_ID&#10;FROM CMS.SUBSIDIARY&quot;"/>
+    <elementParameter field="LABEL" name="NOTE" value="This option only applies when deploying and running in the Talend Runtime"/>
+    <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" value="false"/>
+    <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
+    <elementParameter field="MAPPING_TYPE" name="MAPPING" show="false" value="oracle_id"/>
+    <elementParameter field="TEXT" name="PROPERTIES" value="context.RP9_CMS_AdditionalParams"/>
+    <elementParameter field="LABEL" name="NOTE" value="*Note: Example for Additional JDBC Parameters: &quot;parameterName1=value1&amp;&amp;parameterName2=value2&quot;"/>
+    <elementParameter field="CHECK" name="IS_CONVERT_XMLTYPE" value="false"/>
+    <elementParameter field="TABLE" name="CONVERT_XMLTYPE" show="false"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" show="false" value="&quot;ISO-8859-15&quot;"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter field="CHECK" name="USE_CURSOR" value="false"/>
+    <elementParameter field="TEXT" name="CURSOR_SIZE" show="false" value="1000"/>
+    <elementParameter field="CHECK" name="TRIM_ALL_COLUMN" value="false"/>
+    <elementParameter field="TABLE" name="TRIM_COLUMN">
+      <elementValue elementRef="SCHEMA_COLUMN" value="SBS_NO"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="COUNTRY_ID"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="LANG_ID"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="SBS_NAME"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ITEM_SID_SRC"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="STYLE_DEF"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="CURRENCY_ID"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ACTIVE_PRICE_LVL"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ACTIVE_SEASON_ID"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="DOC_NO_PREFIX"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="CAL_ID"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="STATUS"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="MASTER"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="MODIFIED_DATE"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="CMS_POST_DATE"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="DIM_UNITS"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="WEIGHT_UNITS"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="FOREIGN_CURRENCY1_ID"/>
+      <elementValue elementRef="TRIM" value="false"/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="NO_NULL_VALUES" value="false"/>
+    <elementParameter field="TEXT" name="LABEL" value="Subsidiary"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" label="SUBSIDIARY" name="tDBInput_1">
+      <column comment="" key="true" length="-1" name="SBS_NO" nullable="false" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="COUNTRY_ID" nullable="false" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="5" name="LANG_ID" nullable="false" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="15" name="SBS_NAME" nullable="false" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="Source for Item_Sid generation&#10;0 - System&#10;1 - UPC&#10;2 - ALU" key="false" length="5" name="ITEM_SID_SRC" nullable="false" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true">
+        <additionalField key="Comment" value="Source for Item_Sid generation&#10;0 - System&#10;1 - UPC&#10;2 - ALU"/>
+      </column>
+      <column comment="Style is defined by&#10;0 - Desc1&#10;1 - Desc2&#10;2 - Both" key="false" length="5" name="STYLE_DEF" nullable="false" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true">
+        <additionalField key="Comment" value="Style is defined by&#10;0 - Desc1&#10;1 - Desc2&#10;2 - Both"/>
+      </column>
+      <column comment="" key="false" length="5" name="CURRENCY_ID" nullable="false" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" defaultValue="1" key="false" length="5" name="ACTIVE_PRICE_LVL" nullable="false" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" defaultValue="0" key="false" length="10" name="ACTIVE_SEASON_ID" nullable="false" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="2" name="DOC_NO_PREFIX" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="10" name="CAL_ID" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="Used for Voucher Collection" key="false" length="10" name="STATUS" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true">
+        <additionalField key="Comment" value="Used for Voucher Collection"/>
+      </column>
+      <column comment="Indicates that the subsidiary is the master subsidiary within the region(s) that it is assigned to.  There can be only one master subsidiary per region.  This rule is enforced by the application." defaultValue="0" key="false" length="1" name="MASTER" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true">
+        <additionalField key="Comment" value="Indicates that the subsidiary is the master subsidiary within the region(s) that it is assigned to.  There can be only one master subsidiary per region.  This rule is enforced by the application."/>
+      </column>
+      <column comment="" defaultValue="'SYSDATE'" key="false" length="13" name="MODIFIED_DATE" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="TIMESTAMP" type="id_Date" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" defaultValue="'SYSDATE'" key="false" length="7" name="CMS_POST_DATE" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="DATE" type="id_Date" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="0=U.S. Customary&#10;1=Metric" key="false" length="5" name="DIM_UNITS" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true">
+        <additionalField key="Comment" value="0=U.S. Customary&#10;1=Metric"/>
+      </column>
+      <column comment="0=U.S. Customary&#10;1=Metric" key="false" length="5" name="WEIGHT_UNITS" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true">
+        <additionalField key="Comment" value="0=U.S. Customary&#10;1=Metric"/>
+      </column>
+      <column comment="ID for foreign currency." key="false" length="5" name="FOREIGN_CURRENCY1_ID" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true">
+        <additionalField key="Comment" value="ID for foreign currency."/>
+      </column>
+    </metadata>
+  </node>
+  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="224" posY="320">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBInput_2"/>
+    <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="REPOSITORY"/>
+    <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" show="false" value="_meOGsAU8EeWJ1-j0u2vNsQ"/>
+    <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
+    <elementParameter field="COMPONENT_LIST" name="CONNECTION" show="false" value=""/>
+    <elementParameter field="CLOSED_LIST" name="CONNECTION_TYPE" value="ORACLE_SID"/>
+    <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="ORACLE_11"/>
+    <elementParameter field="TEXT" name="RAC_URL" show="false" value="context.RP9_CMS_Server"/>
+    <elementParameter field="TEXT" name="HOST" value="context.RP9_CMS_Server"/>
+    <elementParameter field="TEXT" name="TYPE" show="false" value="ORACLE_SID"/>
+    <elementParameter field="TEXT" name="PORT" value="context.RP9_CMS_Port"/>
+    <elementParameter field="TEXT" name="DBNAME" value="context.RP9_CMS_Sid"/>
+    <elementParameter field="TEXT" name="LOCAL_SERVICE_NAME" show="false" value="context.RP9_CMS_Sid"/>
+    <elementParameter field="TEXT" name="SCHEMA_DB" value="context.RP9_CMS_Schema"/>
+    <elementParameter field="TEXT" name="USER" value="context.RP9_CMS_Login"/>
+    <elementParameter field="PASSWORD" name="PASS" value="8pW6Nmy2kucfsqyjXr3wxpDo1QccMCADhbncl5zQCms="/>
+    <elementParameter field="TEXT" name="JDBC_URL" show="false" value="&quot;jdbc:oracle:oci:/@talend&quot;"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" show="false" value="REPOSITORY"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" show="false" value="_meOGsAU8EeWJ1-j0u2vNsQ - CURRENCY"/>
+    <elementParameter field="DBTABLE" name="TABLE" value="&quot;CURRENCY&quot;"/>
+    <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="&quot;&quot;"/>
+    <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
+    <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
+    <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#10;  CMS.CURRENCY.CURRENCY_ID, &#10;  CMS.CURRENCY.CURRENCY_ABBR, &#10;  CMS.CURRENCY.CURRENCY_NAME, &#10;  CMS.CURRENCY.DISCREPANCY, &#10;  CMS.CURRENCY.ROUNDING, &#10;  CMS.CURRENCY.DECIMALS, &#10;  CMS.CURRENCY.ARCHIVED, &#10;  CMS.CURRENCY.LTY_RATE, &#10;  CMS.CURRENCY.ACTIVE&#10;FROM CMS.CURRENCY&quot;"/>
+    <elementParameter field="LABEL" name="NOTE" value="This option only applies when deploying and running in the Talend Runtime"/>
+    <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" value="false"/>
+    <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
+    <elementParameter field="MAPPING_TYPE" name="MAPPING" show="false" value="oracle_id"/>
+    <elementParameter field="TEXT" name="PROPERTIES" value="context.RP9_CMS_AdditionalParams"/>
+    <elementParameter field="LABEL" name="NOTE" value="*Note: Example for Additional JDBC Parameters: &quot;parameterName1=value1&amp;&amp;parameterName2=value2&quot;"/>
+    <elementParameter field="CHECK" name="IS_CONVERT_XMLTYPE" value="false"/>
+    <elementParameter field="TABLE" name="CONVERT_XMLTYPE" show="false"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" show="false" value="&quot;ISO-8859-15&quot;"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter field="CHECK" name="USE_CURSOR" value="false"/>
+    <elementParameter field="TEXT" name="CURSOR_SIZE" show="false" value="1000"/>
+    <elementParameter field="CHECK" name="TRIM_ALL_COLUMN" value="false"/>
+    <elementParameter field="TABLE" name="TRIM_COLUMN">
+      <elementValue elementRef="SCHEMA_COLUMN" value="CURRENCY_ID"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="CURRENCY_ABBR"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="CURRENCY_NAME"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="DISCREPANCY"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ROUNDING"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="DECIMALS"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ARCHIVED"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="LTY_RATE"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ACTIVE"/>
+      <elementValue elementRef="TRIM" value="false"/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="NO_NULL_VALUES" value="false"/>
+    <elementParameter field="TEXT" name="LABEL" value="Currency"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" label="CURRENCY" name="tDBInput_2">
+      <column comment="" key="true" length="5" name="CURRENCY_ID" nullable="false" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="3" name="CURRENCY_ABBR" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="30" name="CURRENCY_NAME" nullable="false" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="16" name="DISCREPANCY" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="16" name="ROUNDING" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="3" name="DECIMALS" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="5" name="ARCHIVED" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="16" name="LTY_RATE" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" defaultValue="1" key="false" length="1" name="ACTIVE" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <additionalProperties key="Comment" value=""/>
     </metadata>
   </node>
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tOracleConnection_1" offsetLabelX="0" offsetLabelY="0" source="tOracleConnection_1" target="tOracleConnection_2">
@@ -4001,6 +4269,9 @@
       <elementValue elementRef="TRACE_COLUMN" value="product_id"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="currency"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Tickets_Items"/>
@@ -4013,6 +4284,14 @@
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row5"/>
+  </connection>
+  <connection connectorName="FLOW" label="Subsidiary" lineStyle="8" metaname="tDBInput_1" offsetLabelX="0" offsetLabelY="0" source="tDBInput_1" target="tMap_6">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Subsidiary"/>
+  </connection>
+  <connection connectorName="FLOW" label="Currency" lineStyle="8" metaname="tDBInput_2" offsetLabelX="0" offsetLabelY="0" source="tDBInput_2" target="tMap_6">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Currency"/>
   </connection>
   <subjob>
     <elementParameter field="CHECK" name="COLLAPSED" show="false" value="true"/>
@@ -4083,13 +4362,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_35b7c977-184d-4d68-893b-fa0c3ef33c4c"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>MX0ee2yU8O1ogyZg1Jj1RcEcd/GQLmWQP5WLyQmwATjSpKCiNZK2dBlIzq9TWl1M8H1k9cMWIJer
-yosUUjocoQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_55480579-8d53-478c-83ed-4a11ec4e9228"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Tb9Z4LQniFfDjyJhE39+gUCGROnoFtJed9zfiV3I9L3cDJUBUvaRPCTxolVdCv7g5cgTOSgPFVZC
-nxzzDwEeFw==</DigestValue></Reference></SignedInfo><SignatureValue>emzC5TLJytZj21OXv/Lt1XMV0JD9U/5cTVK9OK4ARwaLmM7SXlKX2Y5iY47FXLMuxKNY9RBDee1v
-j0PeozK2tHzAxer8ZIqpJyyB4j/Qp6yOFlsGczYYHc777epQZJ3+TNtD8s60nGthleJ6+H/ZjpAl
-ZALB3cSi/8+AmrPbqOguouqlssz3D5b0Z4BzyE9tzLU2hcge0hXoNHLf4wbzFbkc5o5v+iNvQOnv
-a4PzQ4O0dxdmKvw7iWKwvKoNjU1zkEyV9ifbpBfuN3c41utOvlLKwn8WwSYvpfGkS/vNyX0+lmE1
-I7SfR976hf1ubPkXKMlIS8HvzdYBf1fCy+GEhw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_995c93b0-e481-498c-82d8-fbb0d5c324ec"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>LMzJDcef/kJr58G9jNtmXz4EBVRAoPzViwJ7jVobc/LZPCQopDEXXvXBOTqelZvLmxaORbor4UjH
+adaahnFAZg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_4f8c2f90-a6c9-4978-8dae-bd19b456feee"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>kuX/t1iu/HgABxfFXca9tVU5vhwxAt5lv2qxWdwH2b4lbyq3Ds5w/r6vtFkqQSgpyxU/+hP9gXLF
+4iq455FcgQ==</DigestValue></Reference></SignedInfo><SignatureValue>dAG8ft0WYNUrsnAfMRmzp+L9H1J6zShNr8GvWVjVfD9MINIOIAMj4qY38MtbgxGDM8dmulU0MCOh
+L6zlnp/COSi2OXe3F/QwudmRVV3u4ZnIo+G5oucwaIwssX1g7Bty64iUXiwjoBFasSdcF4OreHAt
+w6Gk3ErRrFaMW8m474mS2ME48oaBAEz9NvZ+4yUu7dUWb4xBGAar5/FCL0vVj9V36WjWva6trvGJ
+98pELa8FTK/eewakce55oQBdVBG7S7c2XGwVCT3cSdSiaQnvebJb+KdghXndK+Qm5iWHwb6L8QtN
+O/JE313+30p45Bgcd7TjuoHAGeQW3o+Pr7xZ0Q==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -4111,4 +4390,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_55480579-8d53-478c-83ed-4a11ec4e9228" Target="#_35b7c977-184d-4d68-893b-fa0c3ef33c4c"><Timestamp>2020-04-15 14:35:57</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_4f8c2f90-a6c9-4978-8dae-bd19b456feee" Target="#_995c93b0-e481-498c-82d8-fbb0d5c324ec"><Timestamp>2020-04-15 14:59:18</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
