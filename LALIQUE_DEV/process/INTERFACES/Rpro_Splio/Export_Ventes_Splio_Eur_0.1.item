@@ -60,8 +60,8 @@
   <parameters>
     <elementParameter field="TEXT" name="JOB_RUN_VM_ARGUMENTS" show="false" value="{&quot;JOB_RUN_VM_ARGUMENTS&quot;:[&quot;-Xms256M&quot;,&quot;-Xmx12G&quot;]}"/>
     <elementParameter field="CHECK" name="JOB_RUN_VM_ARGUMENTS_OPTION" show="false" value="true"/>
-    <elementParameter field="TEXT" name="SCREEN_OFFSET_X" show="false" value="162"/>
-    <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" show="false" value="122"/>
+    <elementParameter field="TEXT" name="SCREEN_OFFSET_X" show="false" value="128"/>
+    <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" show="false" value="96"/>
     <elementParameter field="TEXT" name="REPOSITORY_CONNECTION_ID" show="false" value=""/>
     <elementParameter field="TEXT" name="OOZIE_PROPERTY_TYPENAME" show="false" value=""/>
     <elementParameter field="TEXT" name="OOZIE_HADOOP_DISTRIBUTION" show="false" value=""/>
@@ -3084,10 +3084,10 @@
       <column comment="" key="false" length="19" name="order_date" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="16" name="amt_ht" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+      <column comment="" key="false" length="16" name="amt_ht" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="16" name="amt_ttc" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+      <column comment="" key="false" length="16" name="amt_ttc" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
     </metadata>
@@ -3098,13 +3098,13 @@
       <column comment="" key="false" length="20" name="product_id" nullable="false" originalLength="20" pattern="" precision="0" sourceType="NUMBER" type="id_Long" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="16" name="price" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+      <column comment="" key="false" length="16" name="price" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="3" name="currency" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="10" name="qty" nullable="true" pattern="" precision="3" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+      <column comment="" key="false" length="10" name="qty" nullable="true" pattern="" precision="3" sourceType="NUMBER" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
     </metadata>
@@ -3117,15 +3117,15 @@
         <mapperTableEntries expression="Vtes_Splio.email " name="email" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Vtes_Splio.store_id " name="store_id" nullable="true" type="id_String"/>
         <mapperTableEntries expression="StringHandling.EREPLACE(StringHandling.LEFT(Vtes_Splio.order_date,10),&quot;/&quot;,&quot;-&quot;) " name="order_date" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="Vtes_Splio.AMT_HT " name="amt_ht" nullable="true" type="id_Float"/>
-        <mapperTableEntries expression="Vtes_Splio.AMT_TTC " name="amt_ttc" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="Mathematical.FFIX(Vtes_Splio.AMT_HT,2) " name="amt_ht" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Mathematical.FFIX(Vtes_Splio.AMT_TTC,2)" name="amt_ttc" nullable="true" type="id_String"/>
       </outputTables>
       <outputTables name="Tickets_Items" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Vtes_Splio.order_id " name="order_id" nullable="true" type="id_Long"/>
         <mapperTableEntries expression="row10.ITEM_SID " name="product_id" type="id_Long"/>
-        <mapperTableEntries expression="Vtes_Splio.PRICE " name="price" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="Mathematical.FFIX(Vtes_Splio.PRICE,2) " name="price" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Currency.CURRENCY_ABBR " name="currency" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="Vtes_Splio.QTY " name="qty" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="Mathematical.FFIX(Vtes_Splio.QTY,0) " name="qty" nullable="true" type="id_String"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Vtes_Splio" sizeState="INTERMEDIATE">
         <mapperTableEntries name="SBS_NO" nullable="true" type="id_Integer"/>
@@ -3235,13 +3235,13 @@
       <column comment="" key="false" length="20" name="product_id" nullable="false" originalLength="20" pattern="" precision="0" sourceType="NUMBER" type="id_Long" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="16" name="price" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+      <column comment="" key="false" length="16" name="price" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="3" name="currency" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="10" name="qty" nullable="true" pattern="" precision="3" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+      <column comment="" key="false" length="10" name="qty" nullable="true" pattern="" precision="3" sourceType="NUMBER" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
     </metadata>
@@ -3579,6 +3579,10 @@
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tOracleConnection_1" offsetLabelX="0" offsetLabelY="0" source="tOracleConnection_1" target="tOracleConnection_2">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk4"/>
   </connection>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tOracleInput_1" offsetLabelX="0" offsetLabelY="0" source="tOracleInput_1" target="tFileInputDelimited_1">
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk2"/>
+  </connection>
   <connection connectorName="FLOW" label="Int_Inv_Top_01" lineStyle="0" metaname="tOracleInput_1" offsetLabelX="0" offsetLabelY="0" source="tOracleInput_1" target="tMap_1">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="SBS_NO"/>
@@ -3624,10 +3628,6 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Int_Inv_Top_01"/>
-  </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tOracleInput_1" offsetLabelX="0" offsetLabelY="0" source="tOracleInput_1" target="tFileInputDelimited_1">
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk2"/>
   </connection>
   <connection connectorName="FLOW" label="Int_Inv_Ent_01" lineStyle="8" metaname="tOracleInput_2" offsetLabelX="0" offsetLabelY="0" source="tOracleInput_2" target="tMap_1">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
@@ -3934,6 +3934,10 @@
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk2"/>
   </connection>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tOracleInput_8">
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk3"/>
+  </connection>
   <connection connectorName="FLOW" label="row4" lineStyle="0" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tUniqRow_2">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="Rupture"/>
@@ -3943,10 +3947,6 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row4"/>
-  </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tOracleInput_8">
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk3"/>
   </connection>
   <connection connectorName="UNIQUE" label="row7" lineStyle="0" metaname="tUniqRow_2" offsetLabelX="0" offsetLabelY="0" source="tUniqRow_2" target="tFlowToIterate_2">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
@@ -4362,13 +4362,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_ea71304c-2b01-40bb-837c-556bbf437c0f"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Nb3rxftElPCvP3iZEMSqb6j7Er4E3RmfyajQzsiWbRAZnCdQRgQfJj5NfxlUGkKN/wuZRbtWaum6
-8q5YOpCj8A==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_15c7f954-d704-4bc3-a3f9-4afa68215c91"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>9ib5v3e4kgHl8T0O60XksnRSAKxFaAwbxKVuIDWU0ftaPQjT1edKoxw4oPCaXNtolqVo1B9Z8MzK
-Kp6/sMR/zw==</DigestValue></Reference></SignedInfo><SignatureValue>O1kvU+IAsxruhkP79jPuXSuu1TGNkyZEI2sUqkpxcsKyKPNV0QgzrKCGvkH6vrCtEWvIER7pXwYJ
-X1l1xxkncusJTSnGZFCN6OjBqxqnO8YNc5A5WucosHMHLTuSHL8BY7KCNzqs95RAprffuyDJu4rZ
-Sg3WSF+SBjXPAM4An6AaupHuwnbqe/G7PfCCdM0mzZI4pdKJvt7I7TEbH0KqJkbiCN4oePmQudZu
-JkmJUqmy0UqCHW/l7kTOJwqwXc5qCM315bHlJ63A2noEdXxPev+TI5fBZ1Seo1nY5pUehJREOGvc
-aHiBa2krkFC0WykMy6xKM05HHhnHYy6Jx3diVw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_e570089f-4fbb-4ab3-aa3e-bc266c6c0960"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>yDV8kwqJhWCK+VAe7Q0BZc64UdaN+Er7kCHJGSlHNI3Gcae4K7d5o+j+xMWrCIGTzfTZ2cejnRuv
+aIaKs9uStw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_5f97b376-5aa8-485e-afd7-27c91214a429"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>La3s1AdqKhKsXuwDICBQdhsu2BZvlHv52NX7QzsyQR6w0BF8keuaSKAshXcNfl4YfWDVBPWyYJl9
+zzibfzxDNA==</DigestValue></Reference></SignedInfo><SignatureValue>NPjNa/S/4KVAvRNmcEQfXuoyhfmAJJ9TVYgpwPTax7naQWS5BWbf5A3FbKFeE1fffDdQJbVplzBU
+D9gg1XEBYwqOU8vHNtVLI4Qh62qkmugIwPJdZAf6W8dgpmx4Z7xlIzrAA8tKJGM/xUyCpAUthLbk
+tIjR/YCOf06OhZA2Wt2HfCXeEBKaZEwMRKKauS4XzJwBB4i2Esm6CjoDW5oIZC8Wkywn/QEmHd6S
+t4Zm71UQBnIPTcaAJDd/5dodxC6gECSIntvs3YvjCA0Njex7LqLRAcBISdeIDMRAZDEVGbj8YJTR
+NClzzRLcDdsNscKIvAEirAkcvcJ4VwFSUq9/LQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -4390,4 +4390,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_15c7f954-d704-4bc3-a3f9-4afa68215c91" Target="#_ea71304c-2b01-40bb-837c-556bbf437c0f"><Timestamp>2020-04-15 15:29:22</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_5f97b376-5aa8-485e-afd7-27c91214a429" Target="#_e570089f-4fbb-4ab3-aa3e-bc266c6c0960"><Timestamp>2020-04-16 08:44:34</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
