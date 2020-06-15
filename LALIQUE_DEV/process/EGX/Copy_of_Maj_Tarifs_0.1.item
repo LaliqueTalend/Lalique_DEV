@@ -1382,7 +1382,22 @@
         <mapperTableEntries name="Date_Debut" nullable="true" type="id_String"/>
         <mapperTableEntries name="Date_Fin" nullable="true" type="id_String"/>
       </inputTables>
-      <inputTables activateCondensedTool="true" innerJoin="true" lookupMode="LOAD_ONCE" matchingMode="ALL_MATCHES" name="TSC" sizeState="INTERMEDIATE"/>
+      <inputTables activateCondensedTool="true" innerJoin="true" lookupMode="LOAD_ONCE" matchingMode="ALL_MATCHES" name="TSC" sizeState="INTERMEDIATE">
+        <mapperTableEntries name="CODSOC" type="id_Integer"/>
+        <mapperTableEntries name="ACHVTE" type="id_String"/>
+        <mapperTableEntries name="SIGTIE" type="id_String"/>
+        <mapperTableEntries name="CODPRO" type="id_String"/>
+        <mapperTableEntries name="CODREG" type="id_String"/>
+        <mapperTableEntries name="CODETB" type="id_String"/>
+        <mapperTableEntries name="CODDEV" type="id_String"/>
+        <mapperTableEntries name="CODBAR" type="id_String"/>
+        <mapperTableEntries name="CODVAR" type="id_String"/>
+        <mapperTableEntries name="DATDEB" type="id_String"/>
+        <mapperTableEntries name="PRXTAR" nullable="true" type="id_Float"/>
+        <mapperTableEntries name="DATFIN" nullable="true" type="id_String"/>
+        <mapperTableEntries name="DATMOD" nullable="true" type="id_String"/>
+        <mapperTableEntries name="UTIMOD" nullable="true" type="id_String"/>
+      </inputTables>
     </nodeData>
   </node>
   <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="640" posY="576">
@@ -1405,12 +1420,12 @@
     <elementParameter field="TEXT" name="JDBC_URL" show="false" value="&quot;jdbc:oracle:oci:/@talend&quot;"/>
     <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" show="false" value="REPOSITORY"/>
     <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" show="false" value="_TDzwoArHEeWx1dV_9Bg5iA - TSC"/>
-    <elementParameter field="DBTABLE" name="TABLE" value="&quot;&quot;"/>
+    <elementParameter field="DBTABLE" name="TABLE" value="&quot;TSC&quot;"/>
     <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="&quot;&quot;"/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#10;  SOC1.TSC.CODSOC, &#10;  SOC1.TSC.ACHVTE, &#10;  SOC1.TSC.SIGTIE, &#10;  SOC1.TSC.CODPRO, &#10;  SOC1.TSC.CODREG, &#10;  SOC1.TSC.CODETB, &#10;  SOC1.TSC.CODDEV, &#10;  SOC1.TSC.CODBAR, &#10;  SOC1.TSC.CODVAR, &#10;  SOC1.TSC.DATDEB, &#10;  SOC1.TSC.PRXTAR, &#10;  SOC1.TSC.DATFIN, &#10;  SOC1.TSC.DATMOD, &#10;  SOC1.TSC.UTIMOD&#10;FROM SOC1.TSC&#13;&#10;WHERE SOC1.TSC.CODSOC IN (1,11)&#13;&#10;AND SOC1.TSC.ACHVTE = 'V'&#13;&#10;AND SOC1.TSC.DATFIN &gt;=((String)globalMap.get(\&quot;DateLimite\&quot;))&#13;&#10;AND SOC1.TSC.CODBAR IN (((String)globalMap.get(\&quot;ListeBareme\&quot;)))&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#10;  SOC1.TSC.CODSOC, &#10;  SOC1.TSC.ACHVTE, &#10;  SOC1.TSC.SIGTIE, &#10;  SOC1.TSC.CODPRO, &#10;  SOC1.TSC.CODREG, &#10;  SOC1.TSC.CODETB, &#10;  SOC1.TSC.CODDEV, &#10;  SOC1.TSC.CODBAR, &#10;  SOC1.TSC.CODVAR, &#10;  SOC1.TSC.DATDEB, &#10;  SOC1.TSC.PRXTAR, &#10;  SOC1.TSC.DATFIN, &#10;  SOC1.TSC.DATMOD, &#10;  SOC1.TSC.UTIMOD&#10;FROM SOC1.TSC&#13;&#10;WHERE SOC1.TSC.CODSOC IN (1,11)&#13;&#10;AND SOC1.TSC.ACHVTE = 'V'&#13;&#10;AND SOC1.TSC.DATFIN &gt;='\&quot;+((String)globalMap.get(\&quot;DateLimite\&quot;))+\&quot;'&#13;&#10;AND SOC1.TSC.CODBAR IN (\&quot;+((String)globalMap.get(\&quot;ListeBareme\&quot;))+\&quot;)\&quot;&quot;"/>
     <elementParameter field="LABEL" name="NOTE" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -1424,11 +1439,82 @@
     <elementParameter field="CHECK" name="USE_CURSOR" value="false"/>
     <elementParameter field="TEXT" name="CURSOR_SIZE" show="false" value="1000"/>
     <elementParameter field="CHECK" name="TRIM_ALL_COLUMN" value="false"/>
-    <elementParameter field="TABLE" name="TRIM_COLUMN"/>
+    <elementParameter field="TABLE" name="TRIM_COLUMN">
+      <elementValue elementRef="SCHEMA_COLUMN" value="CODSOC"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ACHVTE"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="SIGTIE"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="CODPRO"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="CODREG"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="CODETB"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="CODDEV"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="CODBAR"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="CODVAR"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="DATDEB"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="PRXTAR"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="DATFIN"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="DATMOD"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="UTIMOD"/>
+      <elementValue elementRef="TRIM" value="false"/>
+    </elementParameter>
     <elementParameter field="CHECK" name="NO_NULL_VALUES" value="false"/>
     <elementParameter field="TEXT" name="LABEL" value="TSC"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tOracleInput_1">
+    <metadata connector="FLOW" label="TSC" name="tOracleInput_1">
+      <column comment="" key="true" length="-1" name="CODSOC" nullable="false" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="1" name="ACHVTE" nullable="false" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="12" name="SIGTIE" nullable="false" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="16" name="CODPRO" nullable="false" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="3" name="CODREG" nullable="false" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="3" name="CODETB" nullable="false" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="3" name="CODDEV" nullable="false" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="3" name="CODBAR" nullable="false" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="2" name="CODVAR" nullable="false" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="8" name="DATDEB" nullable="false" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="PRXTAR" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="8" name="DATFIN" nullable="true" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="8" name="DATMOD" nullable="true" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="8" name="UTIMOD" nullable="true" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
       <additionalProperties key="Comment" value=""/>
     </metadata>
   </node>
@@ -2153,8 +2239,6 @@
     <elementParameter field="CLOSED_LIST" name="TABLE_ACTION" value="NONE"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="Warning : this component configuration will automatically generate a commit before data insert/update/delete"/>
     <elementParameter field="CLOSED_LIST" name="DATA_ACTION" value="UPDATE"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA_FLOW:SCHEMA_TYPE" show="false" value="REPOSITORY"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA_FLOW:REPOSITORY_SCHEMA_TYPE" show="false" value="_TDzwoArHEeWx1dV_9Bg5iA - TSC"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -2584,13 +2668,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_e0220fcf-e978-4810-a511-e15a2b8926a6"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Q6fHmKhVvlqylqvi/17yhqQgUMOqARa8SYr15LwWHJwNszWSYKTpf7+wN5V8qLvcRwtyhR3wJcia
-4JV6dUgfgw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_6a97580a-a968-45ae-9b71-434d11b0b9f6"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>VT2Ao6oYEe1HRBjJWzAhAEwr3dVDZ1+X7BoAEXoXCvH1L3sMNB9WFb4HrelwweyXTUYnaiofJW8Q
-hrvE1Uvt0A==</DigestValue></Reference></SignedInfo><SignatureValue>HLWDqJ8ZchNhSddVR90VxIaeieFemt8pA5F88ymYO2auu/6qBe+5mQg75lkHMyzbR49ICMwXdl+v
-X8ucQ6qZjRBK/ugXhKRlwWvhWA5Px0IeuNaB+O6RzBI4pfq9QAbQPRaTzD6DQuduac550JVNE/54
-e9fZ1MYKIYeZsJMiuMdFja/5gW3/mG7LibDr0Ab2rF/wvLuHsdMOQWOfvC+v+Gkk6BEYDnP0NrN6
-WDNGw5c8SpR7Z8q0Ek3UyJKcWQitOdOUlz/OMtPFTB6gih7LQx+SKbyJE+V3vo5vP3Jhz/AeI32K
-cOKw8DTHgPggi7l3uHzn/LPbLKLYXs44u0JRSg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_d47b5dd3-10a0-4269-8f12-1949efd53890"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>I0Ksu3EEUNN0FWsfCQZGnbcpRY/UBQKcKBMcJWjUmQArVFTTDR1nmxnI4uSeeuLEcLYZfzKBrpWB
+Y+ESmejKFA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_f1366397-9c99-4b8f-89dc-c59d6326d55a"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>COBtYaPXaSOfPqteSe7SKEyVtV7FaVEMQfqmythjzHQVYwHa/qa9dCGBetTT8+xPhdkSdBrfBWdS
+u9FZyiKkYA==</DigestValue></Reference></SignedInfo><SignatureValue>R9AkkYfPJnyFY7EgGkclIQDAak9C3CPOXcyk3MdT24ge/ri1gP7mlHhpT89sir3M82vDNnspZcH0
+7unZxyolTfF8UlwACoMaCM3lf+upgGvTlV3FtDfasIICVXD3NyyMZZjs2oR7M66FvTML55S5a8LX
+54Qe/vwHFHUX31MvevGM8af2ETvaRVlm4lcAdHjo7NlWR0o0c6YNtO2RlGSDkZUCU6fhkQTnBxxB
+L/CvokpDPi8o2xTp7C9NUHzrk+HjDPNB8iTMOn7XMbGV+Xmw8l/yUWBivkEKILUoi6UH0n6ovenb
+Te9rmypSe4iLhLskwEiS1tgZa/ss/f3TPFGWxQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -2612,4 +2696,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_6a97580a-a968-45ae-9b71-434d11b0b9f6" Target="#_e0220fcf-e978-4810-a511-e15a2b8926a6"><Timestamp>2020-06-15 14:22:30</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_f1366397-9c99-4b8f-89dc-c59d6326d55a" Target="#_d47b5dd3-10a0-4269-8f12-1949efd53890"><Timestamp>2020-06-15 14:35:53</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
