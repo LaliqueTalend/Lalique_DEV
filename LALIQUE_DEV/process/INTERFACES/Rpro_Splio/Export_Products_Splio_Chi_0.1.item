@@ -932,7 +932,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#10;  CMS.INVN_SBS_V.ITEM_SID, &#10;  CMS.INVN_SBS_V.SBS_NO, &#10;  CMS.INVN_SBS_V.ALU, &#10;  CMS.INVN_SBS_V.ITEM_NO, &#10;  CMS.INVN_SBS_V.DCS_CODE, &#10;  CMS.INVN_SBS_V.VEND_CODE, &#10;  CMS.INVN_SBS_V.DESCRIPTION1, &#10;  CMS.INVN_SBS_V.DESCRIPTION2,&#13;&#10;  CMS.INVN_SBS_V.DESCRIPTION3, &#10;  CMS.INVN_SBS_V.ATTR, &#10;  CMS.INVN_SBS_V.COST, &#10;  CMS.INVN_SBS_V.LST_RCVD_COST, &#10;  CMS.INVN_SBS_V.STYLE_SID, &#10;  CMS.INVN_SBS_V.LOCAL_UPC, &#10;  CMS.INVN_SBS_V.CREATED_DATE, &#10;  CMS.INVN_SBS_V.MODIFIED_DATE, &#10;  CMS.INVN_SBS_V.TAX_CODE, &#10;  CMS.INVN_SBS_V.UDF2_VALUE, &#10;  CMS.INVN_SBS_V.ACTIVE, &#10;  CMS.INVN_SBS_V.UNORDERABLE, &#10;  CMS.INVN_SBS_V.EXT_FLAG, &#10;  CMS.INVN_SBS_V.SUBLOC_FLAG&#10;FROM CMS.INVN_SBS_V&#13;&#10;WHERE CMS.INVN_SBS_V.SBS_NO=15&#13;&#10;AND CMS.INVN_SBS_V.ACTIVE=1&#13;&#10;AND  CMS.INVN_SBS_V.ALU='10725200'&#13;&#10;AND CMS.INVN_SBS_V.VEND_CODE IN ('AFR','GLA','GLM','GLP','GLQ','LAF','VRL','VSD','WDF')&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#10;  CMS.INVN_SBS_V.ITEM_SID, &#10;  CMS.INVN_SBS_V.SBS_NO, &#10;  CMS.INVN_SBS_V.ALU, &#10;  CMS.INVN_SBS_V.ITEM_NO, &#10;  CMS.INVN_SBS_V.DCS_CODE, &#10;  CMS.INVN_SBS_V.VEND_CODE, &#10;  CMS.INVN_SBS_V.DESCRIPTION1, &#10;  CMS.INVN_SBS_V.DESCRIPTION2,&#13;&#10;  CMS.INVN_SBS_V.DESCRIPTION3, &#10;  CMS.INVN_SBS_V.ATTR, &#10;  CMS.INVN_SBS_V.COST, &#10;  CMS.INVN_SBS_V.LST_RCVD_COST, &#10;  CMS.INVN_SBS_V.STYLE_SID, &#10;  CMS.INVN_SBS_V.LOCAL_UPC, &#10;  CMS.INVN_SBS_V.CREATED_DATE, &#10;  CMS.INVN_SBS_V.MODIFIED_DATE, &#10;  CMS.INVN_SBS_V.TAX_CODE, &#10;  CMS.INVN_SBS_V.UDF2_VALUE, &#10;  CMS.INVN_SBS_V.ACTIVE, &#10;  CMS.INVN_SBS_V.UNORDERABLE, &#10;  CMS.INVN_SBS_V.EXT_FLAG, &#10;  CMS.INVN_SBS_V.SUBLOC_FLAG&#10;FROM CMS.INVN_SBS_V&#13;&#10;WHERE CMS.INVN_SBS_V.SBS_NO=15&#13;&#10;AND CMS.INVN_SBS_V.ACTIVE=1&#13;&#10;AND CMS.INVN_SBS_V.VEND_CODE IN ('AFR','GLA','GLM','GLP','GLQ','LAF','VRL','VSD','WDF')&quot;"/>
     <elementParameter field="LABEL" name="NOTE" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -1052,6 +1052,8 @@
     <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="true"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="Test">
+      <column comment="" key="false" length="-1" name="Alu" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Desc" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="created_date" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="modified_date" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="date_j_1" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
@@ -1059,7 +1061,9 @@
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
-      <outputTables name="Test" sizeState="INTERMEDIATE">
+      <outputTables activateExpressionFilter="true" expressionFilter="TalendDate.formatDate(&quot;yyyyMMdd&quot;,row2.CREATED_DATE) = TalendDate.formatDate(&quot;yyyyMMdd&quot;,TalendDate.addDate(TalendDate.getCurrentDate(),-1,&quot;DD&quot;)) ||&#13;&#10;TalendDate.formatDate(&quot;yyyyMMdd&quot;,row2.MODIFIED_DATE)  = TalendDate.formatDate(&quot;yyyyMMdd&quot;,TalendDate.addDate(TalendDate.getCurrentDate(),-1,&quot;DD&quot;))" name="Test" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="row2.ALU " name="Alu" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="row2.DESCRIPTION1 " name="Desc" nullable="true" type="id_String"/>
         <mapperTableEntries expression="TalendDate.formatDate(&quot;yyyyMMdd&quot;,row2.CREATED_DATE) " name="created_date" nullable="true" type="id_String"/>
         <mapperTableEntries expression="TalendDate.formatDate(&quot;yyyyMMdd&quot;,row2.MODIFIED_DATE) " name="modified_date" nullable="true" type="id_String"/>
         <mapperTableEntries expression="TalendDate.formatDate(&quot;yyyyMMdd&quot;,TalendDate.addDate(TalendDate.getCurrentDate(),-1,&quot;DD&quot;)) " name="date_j_1" nullable="true" type="id_String"/>
@@ -1104,6 +1108,10 @@
     <elementParameter field="CHECK" name="PRINT_COLNAMES" value="false"/>
     <elementParameter field="CHECK" name="USE_FIXED_LENGTH" value="false"/>
     <elementParameter field="TABLE" name="LENGTHS" show="false">
+      <elementValue elementRef="SCHEMA_COLUMN" value="Alu"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Desc"/>
+      <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="created_date"/>
       <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="modified_date"/>
@@ -1115,6 +1123,8 @@
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tLogRow_1">
+      <column comment="" key="false" length="-1" name="Alu" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Desc" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="created_date" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="modified_date" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="date_j_1" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
@@ -1176,6 +1186,14 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row2"/>
   </connection>
   <connection connectorName="FLOW" label="Test" lineStyle="0" metaname="Test" offsetLabelX="0" offsetLabelY="0" source="tMap_2" target="tLogRow_1">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="Desc"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Alu"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Test"/>
   </connection>
@@ -1200,13 +1218,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_3721c2b2-beeb-45f6-a7dc-cc815fd2e892"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>9RnfqluprfD4R+p0gZkBEwa09/UJS2mPbRQ/2Oy3BYeJCjb+Zs2CQQ7YFPevatOLflTcP/Cpj2ah
-beClajKk4w==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_d2d546b1-7f94-49be-bfd1-2137b2be1072"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>p/vB3kbosUnStG1un7x5oV1kiRX3p85pdngt1LJDMfDH0ODiTR0ScvPTt5plpvtNvrVvsSv5/k67
-7eqIO0V+5Q==</DigestValue></Reference></SignedInfo><SignatureValue>IGKodMQ1JSTOlHnbzdZ3/1JI518Yu1bq5wjdgjkiwY0dTDkp82ZRrUUBRgNI5F2qpB4E2b+n1x7w
-Nu4BT0IoduVOrXZUyht4b6FkUqYPIe1G/QRoP0CvU0o2RWOGS//kVBsKXP1hj0zlaoIeqakgWDPZ
-9xUoFV0V//eRsV33qfgEDUTcYK8Eds/xHqRykC1pgOYVIjQN8LVZ5x9NHDvk1ylHqb09PsoMZuX2
-hM+4kMhN1wPPDtezdPH/FyWyoA1EfiqCRt9wt+CtmV3neaA743/JaoteYFfum6s5qbTR9MqGD9G9
-0thy4nM2bR/hSSyTe9JuK6EYV2qd5AAzWf0+Tg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_8ed7b35b-fa45-415b-b967-245d3f967ff3"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>+1REkRWATL7cuwu4YH8rLcFBumFT17E3mI7eqCtnmCuRaHqMHqZQfi4uNSZxP+dKMrU1NMyEA64N
+JOIcpPGf3Q==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_8dabfe16-3216-4846-ad88-4703313e11e8"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>EwHMtgjnAUncpyRFdC1/2rz8OcjopNoZedcWfODERccYoWhGC1/mbmQ4sgz7PADab+Zuy5Bp/CEZ
+jWvc4uYnhA==</DigestValue></Reference></SignedInfo><SignatureValue>dSXYLmJvO6YSWhYItJ/loEQ+hS2OkPXm+drweSt7LTWf/IAB41thOpuIue4snYhw8hGWlcTVLM7i
+27iKVhpYfj42T+w6lC16uwCeblsF0+eZzpNwB/69WxSuLEiwkNBr4iMnhStxfOOpVwdQd9xk5niD
+0FkH/3L22rSTLinRTIlYY4stXMQCf4X6t/ftEx6Q2F5/JQUpR5TS/NfH4mfV7velU/2FCUi0fEDq
+XYcIy4pnTA81+d9sG2dzjIBoKQCEfU8vVr5Kz6MJIsAClz+2Ks3wRP/m4m6GJ2W/3p72PMFU6WkY
+3s10AZ20ObIqIsOQmzgrO0od9hHFnQZjT2mFnA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1228,4 +1246,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_d2d546b1-7f94-49be-bfd1-2137b2be1072" Target="#_3721c2b2-beeb-45f6-a7dc-cc815fd2e892"><Timestamp>2020-06-19 14:52:15</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_8dabfe16-3216-4846-ad88-4703313e11e8" Target="#_8ed7b35b-fa45-415b-b967-245d3f967ff3"><Timestamp>2020-06-19 14:55:30</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
