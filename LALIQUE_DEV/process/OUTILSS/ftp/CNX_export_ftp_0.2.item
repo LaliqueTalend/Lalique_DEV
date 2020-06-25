@@ -451,13 +451,13 @@
     <metadata connector="FLOW" name="tDie_3"/>
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="192" posY="64">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_4"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_5"/>
     <elementParameter field="MEMO_JAVA" name="CODE" value="// Positionne le dossier source du fichier à exporter&#10;// Il dépend du contexte.typ : EXP ou TF&#10;// sinon stopper l'exécution du job&#10;System.setProperty(&quot;Execution_OK&quot;, &quot;OK&quot;);&#10;System.setProperty(&quot;Fichier&quot;, context.fichier+&quot;.&quot;+context.ext); &#10;if ( context.typ.equals(&quot;EXP&quot;) ) {&#10;&#9;System.setProperty(&quot;Temporary_folder&quot;, context.repsrc);&#10;&#9;System.out.println(&quot;EXPORT &quot;+context.typ+&quot; depuis &quot; + System.getProperty(&quot;Temporary_folder&quot;) );&#10;&#9;System.out.println(System.getProperty(&quot;Temporary_folder&quot;) + &quot;\\&quot;+System.getProperty(&quot;Fichier&quot;));&#10;} else if ( context.typ.equals(&quot;TF&quot;) ) {&#10;&#9;System.setProperty(&quot;Temporary_folder&quot;, context.repsrc);&#10;&#9;System.out.println(&quot;TRANSFERT &quot;+context.typ+&quot; depuis &quot; + System.getProperty(&quot;Temporary_folder&quot;));&#10;&#9;System.out.println(System.getProperty(&quot;Temporary_folder&quot;) + &quot;\\&quot;+System.getProperty(&quot;Fichier&quot;));&#10;} else {&#10;&#9;System.out.println(&quot;Stop process &quot;+jobName+ &quot;. Type export (&quot;+context.typ+&quot;) non compatible.&quot;);&#10;&#9;System.setProperty(&quot;Execution_OK&quot;, &quot;KO&quot;);&#10;}&#10;// Positionne les paramètres de la connexion &#10;if ( context.sftp.toString().equals(&quot;O&quot;) || context.sftp.toString().equals(&quot;N&quot;) ) {&#10;&#9;System.setProperty(&quot;Mode_sftp&quot;, context.sftp.toString());&#10;&#9;System.out.println(&quot;Mode_sftp &quot;+context.sftp.toString());&#10;} else {&#10;&#9;System.out.println(&quot;Stop process &quot;+jobName+ &quot;. modes sftp (&quot;+context.sftp.toString()+&quot;) non compatible.&quot;);&#10;&#9;System.setProperty(&quot;Execution_OK&quot;, &quot;KO&quot;);&#10;}&#10;//Contrôle le port si non positionné&#10;if ( context.port.toString().equals(&quot;O&quot;) || context.port.toString().equals(&quot;&quot;) ) {&#10;  // initialise en fonction du type de ftp&#10;  if ( context.sftp.toString().equals(&quot;O&quot;)) {&#10;    context.setProperty(&quot;port&quot;, &quot;22&quot;); &#10;&#9;System.out.println(&quot;Port forcé &quot;+context.port);&#10;  } else {&#10;    context.setProperty(&quot;port&quot;, &quot;21&quot;); &#10;&#9;System.out.println(&quot;Port forcé &quot;+context.port);&#10;  }&#10;}&#10;&#10;//positionne le renommage du nom du fichier cible&#10;if ( context.rencbl.equals(&quot;N&quot;) ) {&#10;  // pas de renommage&#10;  System.setProperty(&quot;Newname&quot;, context.fichier+&quot;.&quot;+context.ext); &#10;}&#10;else if ( context.rencbl.equals(&quot;O&quot;) ) {&#10;  // renommage simple&#10;  if (context.nomcbl.equals(&quot;&quot;)) {&#10;    System.setProperty(&quot;Newname&quot;, context.fichier+&quot;.&quot;+context.ext); &#10;  } else {&#10;    System.setProperty(&quot;Newname&quot;, context.nomcbl+&quot;.&quot;+context.ext); &#10;  }&#10;}&#10;else if ( context.rencbl.equals(&quot;T&quot;) ) {&#10;  // ajouter un timestamp au nom du fichier cible&#10;  String timestamp = &quot;&quot;+System.currentTimeMillis();&#10;  if (context.nomcbl.equals(&quot;&quot;)) {&#10;    System.setProperty(&quot;Newname&quot;, context.fichier+&quot;_&quot;+timestamp+&quot;.&quot;+context.ext); &#10;  } else {&#10;    System.setProperty(&quot;Newname&quot;, context.nomcbl+&quot;_&quot;+timestamp+&quot;.&quot;+context.ext); &#10;  }&#10;}&#10;else if ( context.rencbl.equals(&quot;R&quot;) ) {&#10;  // utilise une expression réulière de date pour le déterminer le nom du fichier cible&#10;  String[] patternTS = context.nomcbl.split(&quot;%&quot;, 4);&#10;  Integer nbmorpheme = patternTS.length;&#10;  // nouveau nom fichier dans 1ère cellule&#10;  String newname = patternTS[0];&#10;  // format dans 2nd cellule&#10;  SimpleDateFormat simpleDateFormat = new SimpleDateFormat(patternTS[1]);&#10;&#9;java.util.Calendar calendar = java.util.Calendar.getInstance();&#10;&#9;String timestamp = simpleDateFormat.format(calendar.getTime());&#10;//&#9;  System.out.println(timestamp);&#10;  if ( newname.equals(&quot;&quot;)) {&#10;    System.setProperty(&quot;Newname&quot;, context.fichier+&quot;_&quot;+System.getProperty(&quot;Timestamp&quot;)+&quot;.&quot;+context.ext); &#10;  } else {&#10;    System.setProperty(&quot;Newname&quot;, newname+timestamp+&quot;.&quot;+context.ext); &#10;  }&#10;}&#10;else if ( context.rencbl.equals(&quot;C&quot;) || context.rencbl.equals(&quot;Q&quot;)) {&#10;  // utilise la concaténation de plusieurs fichiers&#10;  // TO BE DEVELOP IN FUTURE&#10;&#9;System.out.println(&quot;Stop process &quot;+jobName+ &quot;. Mode renommage (&quot;+context.rencbl+&quot;) non implémenté.&quot;);&#10;&#9;System.setProperty(&quot;Execution_OK&quot;, &quot;KO&quot;);&#10;}&#10;else {&#10;  // erreur de paramétrage du contaxte&#10;&#9;System.out.println(&quot;Stop process &quot;+jobName+ &quot;. Mode renommage (&quot;+context.rencbl+&quot;) non compatible.&quot;);&#10;&#9;System.setProperty(&quot;Execution_OK&quot;, &quot;KO&quot;);&#10;}&#10;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
     <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tJava_4"/>
+    <metadata connector="FLOW" name="tJava_5"/>
   </node>
   <connection connectorName="RUN_IF" label="If" lineStyle="6" metaname="tFileExist_1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tFileExist_1" target="tJava_2">
     <elementParameter field="MEMO_JAVA" name="CONDITION" value="!((Boolean)globalMap.get(&quot;tFileExist_1_EXISTS&quot;))"/>
@@ -471,7 +471,7 @@
     <elementParameter field="MEMO_JAVA" name="CONDITION" value="((Boolean)globalMap.get(&quot;tFileExist_1_EXISTS&quot;) &amp;&amp; (Boolean)System.getProperty(&quot;Mode_sftp&quot;).equals(&quot;N&quot;))"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="flux_ftp"/>
   </connection>
-  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tPrejob_1" offsetLabelX="0" offsetLabelY="0" source="tPrejob_1" target="tJava_4">
+  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tPrejob_1" offsetLabelX="0" offsetLabelY="0" source="tPrejob_1" target="tJava_5">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk3"/>
   </connection>
   <connection connectorName="RUN_IF" label="If" lineStyle="6" metaname="tFTPPut_1" offsetLabelX="0" offsetLabelY="0" source="tFTPPut_1" target="tWarn_2">
@@ -509,7 +509,7 @@
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tWarn_3" offsetLabelX="0" offsetLabelY="0" source="tWarn_3" target="tDie_3">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk8"/>
   </connection>
-  <connection connectorName="RUN_IF" label="OK" lineStyle="6" metaname="tJava_4" offsetLabelX="0" offsetLabelY="0" source="tJava_4" target="tFileExist_1">
+  <connection connectorName="RUN_IF" label="OK" lineStyle="6" metaname="tJava_5" offsetLabelX="0" offsetLabelY="0" source="tJava_5" target="tFileExist_1">
     <elementParameter field="MEMO_JAVA" name="CONDITION" value="(System.getProperty(&quot;Execution_OK&quot;).equals(&quot;OK&quot;))"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OK"/>
   </connection>
@@ -597,17 +597,17 @@
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
   <subjob>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_4"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_5"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_f8a26351-550e-4ccc-9528-7c5d2b15546b"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>DTOJHswQNEY6IRUGyzvhGdRF99ZUQlB0morAaYHLBZiup3bxeHEY+3kwIO4rfzVeaQWu/YOC03FP
-7uU3qrhZHg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_ebab406a-6fd9-4035-bb8f-c3e9fbfb26ed"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Zq4UszCSkqUWjRdB4z8wYzDIq8e+tf1NP56M8q4XdIVKvNp1zKJSnkppMSvks00m6s7WXyJb8Tw6
-UM8HWakDwg==</DigestValue></Reference></SignedInfo><SignatureValue>AeNCxaXt5rwNjT85/40RS0TQ7L61otzLmvnSbO0RJBqYs1OSq63R1wkUn4warZu9FPcLN+tdXTrv
-763KaOhnSvZsdH0SiEmBRBVqX6vAFIm3g8tjb5BJTy5u0KXAwNtpHuWTNvl4qnqdEev9FgXn2U+g
-T5yelXWBS+x2fHNfyvNzBeU566IIDSsx2+ndSoBnFdWe/cjeKh0C/f9vzzkzuSmgrHfLkA6FUMbd
-0dXi5/QFGRtaP3glp3KX9Lv1ftuJSEQnCBhjE9cFE0XTv6tkniW2Hs3XbzjWuu58CIFVFGg1Ar/I
-WrO56Vz7Vs+jFCca9y+yj0LV6v0id6eyBQMyhw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_4512eeef-789d-468a-b774-94b089ec687c"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>5cW2i+6igODVVOIT2QIWMy14prok8vc0dBbLfSKQRVWOHKOHUqknbQro7yMacJWDFwVoXT8M50Xc
+0FW4PnCS5Q==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_e3d068a5-4d69-41aa-96cd-be0247258bf4"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>eC2hdwTz8ibFQ2LBAPEoZiUgtqziWE0eIDqAmMxb04kXbpuFcIgoXAzjZrFZGLwq4+RXh2C9mAv1
+quNAIP3yFg==</DigestValue></Reference></SignedInfo><SignatureValue>H8EWap96ro50wJsZieLHmdXFu7Mfu2yMEWAG28/LeB88+C8i1yVQeB6O8Emx0RZzJfQ/s/63pI7N
+fzcHuY1PLcCw7+ykJvr8K5yE5TDMenmyxnoxvPX3ufef7S/EV1p4ns/HlJUt/8JScbNd0pEGDZa0
+1onho9r9LZtUa3na6qtUTXLtrXadh0yDV6fMaYjmAmlKYAuKEZXPvUz2ZIaeUq9L6Ivz9ScsJYBZ
+pkKXvnYfemNuGk0W5EQJBms/NqYNhvZg4x79B0FfvjVR142/A8htGudlf9MhyitGnULSJoQvPpTw
+dObeGSRtiJsuyfxnGucOjiF7Eab3zZRDzsl5oA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -629,4 +629,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_ebab406a-6fd9-4035-bb8f-c3e9fbfb26ed" Target="#_f8a26351-550e-4ccc-9528-7c5d2b15546b"><Timestamp>2020-06-25 21:24:57</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_e3d068a5-4d69-41aa-96cd-be0247258bf4" Target="#_4512eeef-789d-468a-b774-94b089ec687c"><Timestamp>2020-06-25 21:26:55</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
