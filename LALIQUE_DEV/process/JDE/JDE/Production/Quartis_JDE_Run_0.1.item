@@ -176,7 +176,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="224" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_1"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="System.out.println(&quot;Compteur de boucles = &quot; + (int)globalMap.get(&quot;tInfiniteLoop_1_CURRENT_ITERATION&quot;));&#10;&#10;Date today = new Date();&#10;SimpleDateFormat myTimeFormat = new SimpleDateFormat(&quot;HHmmss&quot;);&#10;int CurrentTime = Integer.parseInt(myTimeFormat.format(today));&#10;&#10;System.out.println(&quot;Current Time = &quot; + CurrentTime);&#10;&#10;System.setProperty(&quot;Status&quot;, &quot;LOOP&quot;);&#10;if (CurrentTime &lt; context.StartTime){&#10;&#9;System.out.println(&quot;En attente&quot;);&#10;}&#10;else{&#10;&#9;if (CurrentTime &lt;= context.EndTime){&#10;&#9;&#9;System.setProperty(&quot;Status&quot;, &quot;OK&quot;);&#10;&#9;&#9;System.out.println(&quot;Execution du Job&quot;);&#10;&#9;}&#10;&#9;else{&#10;&#9;&#9;if (context.StopAfterEndTime == true){&#10;&#9;&#9;&#9;System.setProperty(&quot;Status&quot;, &quot;STOP&quot;);&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;System.out.println(&quot;En attente&quot;);&#10;&#9;&#9;}&#10;&#9;}&#10;}&#10;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="SimpleDateFormat myTimeFormat = new SimpleDateFormat(&quot;HHmmss&quot;);&#10;int CurrentTime = Integer.parseInt(myTimeFormat.format(new Date()));&#10;&#10;System.setProperty(&quot;Status&quot;, &quot;LOOP&quot;);&#10;if ((Boolean)globalMap.get(&quot;tFileExist_1_EXISTS&quot;)==false){&#10;&#9;System.setProperty(&quot;Status&quot;, &quot;DIE&quot;);&#10;}&#10;else{&#10;&#9;if (CurrentTime &lt; context.StartTime){&#10;&#9;&#9;System.out.println(CurrentTime + &quot; : En attente de démarrage&quot;);&#10;&#9;}&#10;&#9;else{&#10;&#9;&#9;if (CurrentTime &lt;= context.EndTime){&#10;&#9;&#9;&#9;System.setProperty(&quot;Status&quot;, &quot;OK&quot;);&#10;//&#9;&#9;&#9;System.out.println(CurrentTime + &quot; : Execution du Job&quot;);&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;if (context.StopAfterEndTime == true){&#10;&#9;&#9;&#9;&#9;System.setProperty(&quot;Status&quot;, &quot;STOP&quot;);&#10;&#9;&#9;&#9;}&#10;&#9;&#9;&#9;else{&#10;&#9;&#9;&#9;&#9;System.out.println(CurrentTime + &quot; : Suspendu&quot;);&#10;&#9;&#9;&#9;}&#10;&#9;&#9;}&#10;&#9;}&#10;}&#10;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_1"/>
@@ -288,7 +288,7 @@
     <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="false"/>
     <elementParameter field="CHECK" name="FILE_EXIST_EXCEPTION" show="false" value="true"/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="90"/>
-    <elementParameter field="TEXT" name="LABEL" value="Log_ERROR.csv"/>
+    <elementParameter field="TEXT" name="LABEL" value="LogFile"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" label="Log_ERROR" name="tFileOutputDelimited_1">
       <column comment="" key="false" length="-1" name="date" nullable="true" originalLength="-1" pattern="&quot;dd/MM/yyyy HH:mm:ss&quot;" precision="-1" sourceType="" type="id_Date" usefulColumn="true"/>
@@ -326,7 +326,7 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tRunJob_1"/>
   </node>
-  <node componentName="tDie" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="224" posY="416">
+  <node componentName="tDie" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="320" posY="416">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDie_2"/>
     <elementParameter field="TEXT" name="MESSAGE" value="&quot;Arrêt normal du job.&quot;"/>
     <elementParameter field="TEXT" name="CODE" value="0"/>
@@ -365,196 +365,6 @@
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_2"/>
-  </node>
-  <node componentName="tFileInputExcel" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="416" posY="544">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileInputExcel_1"/>
-    <elementParameter field="CHECK" name="VERSION_2007" value="true"/>
-    <elementParameter field="FILE" name="FILENAME" value="context.ParameterFile"/>
-    <elementParameter field="CHECK" name="ALL_SHEETS" value="false"/>
-    <elementParameter field="TABLE" name="SHEETLIST">
-      <elementValue elementRef="SHEETNAME" value="&quot;Mail&quot;"/>
-      <elementValue elementRef="USE_REGEX" value="false"/>
-    </elementParameter>
-    <elementParameter field="TEXT" name="HEADER" value="1"/>
-    <elementParameter field="TEXT" name="FOOTER" value="0"/>
-    <elementParameter field="TEXT" name="LIMIT" value=""/>
-    <elementParameter field="CHECK" name="AFFECT_EACH_SHEET" value="false"/>
-    <elementParameter field="TEXT" name="FIRST_COLUMN" value="1"/>
-    <elementParameter field="TEXT" name="LAST_COLUMN" value="6"/>
-    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false"/>
-    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
-    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" show="false" value="&quot;,&quot;"/>
-    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" show="false" value="&quot;.&quot;"/>
-    <elementParameter field="CHECK" name="TRIMALL" value="false"/>
-    <elementParameter field="TABLE" name="TRIMSELECT">
-      <elementValue elementRef="SCHEMA_COLUMN" value="LINE"/>
-      <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="TO"/>
-      <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="FROM"/>
-      <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="CC"/>
-      <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="BCC"/>
-      <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="SUBJECT"/>
-      <elementValue elementRef="TRIM" value="true"/>
-    </elementParameter>
-    <elementParameter field="CHECK" name="CONVERTDATETOSTRING" value="false"/>
-    <elementParameter field="TABLE" name="DATESELECT" show="false">
-      <elementValue elementRef="SCHEMA_COLUMN" value="LINE"/>
-      <elementValue elementRef="CONVERTDATE" value="false"/>
-      <elementValue elementRef="PATTERN" value="&quot;MM-dd-yyyy&quot;"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="TO"/>
-      <elementValue elementRef="CONVERTDATE" value="false"/>
-      <elementValue elementRef="PATTERN" value="&quot;MM-dd-yyyy&quot;"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="FROM"/>
-      <elementValue elementRef="CONVERTDATE" value="false"/>
-      <elementValue elementRef="PATTERN" value="&quot;MM-dd-yyyy&quot;"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="CC"/>
-      <elementValue elementRef="CONVERTDATE" value="false"/>
-      <elementValue elementRef="PATTERN" value="&quot;MM-dd-yyyy&quot;"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="BCC"/>
-      <elementValue elementRef="CONVERTDATE" value="false"/>
-      <elementValue elementRef="PATTERN" value="&quot;MM-dd-yyyy&quot;"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="SUBJECT"/>
-      <elementValue elementRef="CONVERTDATE" value="false"/>
-      <elementValue elementRef="PATTERN" value="&quot;MM-dd-yyyy&quot;"/>
-    </elementParameter>
-    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
-    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
-    <elementParameter field="CHECK" name="READ_REAL_VALUE" show="false" value="false"/>
-    <elementParameter field="CHECK" name="STOPREAD_ON_EMPTYROW" value="true"/>
-    <elementParameter field="CHECK" name="NOVALIDATE_ON_CELL" show="false" value="false"/>
-    <elementParameter field="CHECK" name="SUPPRESS_WARN" show="false" value="false"/>
-    <elementParameter field="CLOSED_LIST" name="GENERATION_MODE" value="USER_MODE"/>
-    <elementParameter field="CHECK" name="INCLUDE_PHONETICRUNS" show="false" value="true"/>
-    <elementParameter field="TEXT" name="LABEL" value="Parametres"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tFileInputExcel_1">
-      <column comment="" key="false" length="-1" name="LINE" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="TO" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="FROM" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="CC" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="BCC" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="SUBJECT" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-    </metadata>
-    <metadata connector="REJECT" name="REJECT">
-      <column comment="" key="false" length="-1" name="LINE" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="TO" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="FROM" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="CC" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="BCC" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="SUBJECT" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-    </metadata>
-  </node>
-  <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="544" posY="544">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tMap_2"/>
-    <elementParameter field="EXTERNAL" name="MAP" value=""/>
-    <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
-    <elementParameter field="DIRECTORY" name="TEMPORARY_DATA_DIRECTORY" value=""/>
-    <elementParameter field="IMAGE" name="PREVIEW" value="_FxIbILE_Eeqh9dwj6NkNcw-tMap_2-PREVIEW.bmp"/>
-    <elementParameter field="CHECK" name="DIE_ON_ERROR" show="false" value="true"/>
-    <elementParameter field="CHECK" name="LKUP_PARALLELIZE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="LEVENSHTEIN" show="false" value="0"/>
-    <elementParameter field="TEXT" name="JACCARD" show="false" value="0"/>
-    <elementParameter field="CHECK" name="ENABLE_AUTO_CONVERT_TYPE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="ROWS_BUFFER_SIZE" value="2000000"/>
-    <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="true"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" label="context_mail" name="context_mail">
-      <column comment="" key="false" length="-1" name="TO" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="FROM" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="CC" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="BCC" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="SUBJECT" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-    </metadata>
-    <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
-      <varTables name="Var" sizeState="INTERMEDIATE"/>
-      <outputTables name="context_mail" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="row1.TO " name="TO" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="row1.FROM == null ? &quot;noreply.interfaces@lalique.fr&quot; : row1.FROM " name="FROM" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="row1.CC  == null ? &quot;&quot; : row1.CC" name="CC" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="row1.BCC == null ? &quot;&quot; : row1.BCC " name="BCC" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="row1.SUBJECT == null ? &quot;Arrêt anormal d'un job TOS&quot; : row1.SUBJECT " name="SUBJECT" nullable="true" type="id_String"/>
-      </outputTables>
-      <inputTables activateExpressionFilter="true" columnNameFilter="" expressionFilter="row1.TO != null" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="row1" sizeState="INTERMEDIATE">
-        <mapperTableEntries name="LINE" nullable="true" type="id_Integer"/>
-        <mapperTableEntries name="TO" nullable="true" type="id_String"/>
-        <mapperTableEntries name="FROM" nullable="true" type="id_String"/>
-        <mapperTableEntries name="CC" nullable="true" type="id_String"/>
-        <mapperTableEntries name="BCC" nullable="true" type="id_String"/>
-        <mapperTableEntries name="SUBJECT" nullable="true" type="id_String"/>
-      </inputTables>
-    </nodeData>
-  </node>
-  <node componentName="tFlowToIterate" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="704" posY="544">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFlowToIterate_1"/>
-    <elementParameter field="CHECK" name="DEFAULT_MAP" value="true"/>
-    <elementParameter field="TABLE" name="MAP" show="false">
-      <elementValue elementRef="KEY" value="&quot;TO&quot;"/>
-      <elementValue elementRef="VALUE" value="TO"/>
-      <elementValue elementRef="KEY" value="&quot;FROM&quot;"/>
-      <elementValue elementRef="VALUE" value="FROM"/>
-      <elementValue elementRef="KEY" value="&quot;CC&quot;"/>
-      <elementValue elementRef="VALUE" value="CC"/>
-      <elementValue elementRef="KEY" value="&quot;BCC&quot;"/>
-      <elementValue elementRef="VALUE" value="BCC"/>
-      <elementValue elementRef="KEY" value="&quot;SUBJECT&quot;"/>
-      <elementValue elementRef="VALUE" value="SUBJECT"/>
-    </elementParameter>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tFlowToIterate_1"/>
-  </node>
-  <node componentName="tSendMail" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="832" posY="544">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSendMail_1"/>
-    <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="true"/>
-    <elementParameter field="TEXT" name="TO" value="(String)globalMap.get(&quot;context_mail.TO&quot;)"/>
-    <elementParameter field="TEXT" name="FROM" value="(String)globalMap.get(&quot;context_mail.FROM&quot;)"/>
-    <elementParameter field="CHECK" name="NEED_PERSONAL_NAME" value="true"/>
-    <elementParameter field="TEXT" name="PERSONAL_NAME" value="&quot;Interfaces JDE&quot;"/>
-    <elementParameter field="TEXT" name="CC" value="(String)globalMap.get(&quot;context_mail.CC&quot;)"/>
-    <elementParameter field="TEXT" name="BCC" value="(String)globalMap.get(&quot;context_mail.BCC&quot;)"/>
-    <elementParameter field="TEXT" name="SUBJECT" value="(String)globalMap.get(&quot;context_mail.SUBJECT&quot;)"/>
-    <elementParameter field="MEMO_MESSAGE" name="MESSAGE" value="&quot;&lt;html&gt;&#13;&#10;&lt;head&gt;&#13;&#10;&lt;meta http-equiv=Content-Type content=text/html; charset=iso-8859-15&gt;&lt;/head&gt;&#13;&#10;&lt;body&gt;&#13;&#10;Arrêt anormal du job &lt;b&gt;&quot; + jobName + &quot;&lt;/b&gt; après &quot; + context.ErrorCount + &quot; erreurs consécutives.&#13;&#10;&lt;p&gt;Pour obtenir plus d'informations sur les causes de cet arrêt, veuillez consulter la pièce jointe.&lt;/p&gt;&#13;&#10;&lt;hr width=500px&gt;&#13;&#10;&lt;font size=1 face=Arial color=blue&gt;&#13;&#10;Cet e-mail vous est envoyé automatiquement. Merci de ne pas y répondre, car votre message ne sera pas traité en retour.&#13;&#10;&lt;/font&gt;&#13;&#10;&lt;/body&gt;&#13;&#10;&lt;/html&gt;&quot;"/>
-    <elementParameter field="CHECK" name="CHECK_ATTACHMENT" value="false"/>
-    <elementParameter field="TABLE" name="ATTACHMENTS">
-      <elementValue elementRef="FILE" value="context.LogFolder + context.LogFile"/>
-      <elementValue elementRef="CONTENT_TRANSFER_ENCODING" value="DEFAULT"/>
-    </elementParameter>
-    <elementParameter field="TABLE" name="HEADERS"/>
-    <elementParameter field="TEXT" name="SMTP_HOST" value="&quot;smtp.lalique.lan&quot;"/>
-    <elementParameter field="TEXT" name="SMTP_PORT" value="25"/>
-    <elementParameter field="CHECK" name="SSL" value="false"/>
-    <elementParameter field="CHECK" name="STARTTLS" value="false"/>
-    <elementParameter field="CLOSED_LIST" name="IMPORTANCE" value="Normal"/>
-    <elementParameter field="CHECK" name="NEED_AUTH" value="false"/>
-    <elementParameter field="TEXT" name="AUTH_USERNAME" show="false" value="&quot;lalique\pbo&quot;"/>
-    <elementParameter field="PASSWORD" name="AUTH_PASSWORD" show="false" value="0RMsyjmybrE="/>
-    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true"/>
-    <elementParameter field="CLOSED_LIST" name="TEXT_SUBTYPE" value="html"/>
-    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
-    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
-    <elementParameter field="CHECK" name="SET_LOCALHOST" value="false"/>
-    <elementParameter field="TEXT" name="LOCALHOST" show="false" value="&quot;localhost&quot;"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tSendMail_1">
-      <column key="false" length="0" name="moment" nullable="true" originalLength="-1" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="0" sourceType="" type="id_Date" usefulColumn="true"/>
-      <column key="false" length="20" name="pid" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="20" name="root_pid" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="20" name="father_pid" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="50" name="project" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="255" name="job" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="50" name="context" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="3" name="priority" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column key="false" length="255" name="type" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="255" name="origin" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="255" name="message" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="3" name="code" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
-    </metadata>
   </node>
   <node componentName="tLogCatcher" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="992" posY="544">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tLogCatcher_2"/>
@@ -645,7 +455,7 @@
   </node>
   <node componentName="tSendMail" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="224" posY="160">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSendMail_2"/>
-    <elementParameter field="TEXT" name="TO" value="context.AdminMail"/>
+    <elementParameter field="TEXT" name="TO" value="context.Mail_To"/>
     <elementParameter field="TEXT" name="FROM" value="&quot;noreply.interfaces@lalique.fr&quot;"/>
     <elementParameter field="CHECK" name="NEED_PERSONAL_NAME" value="true"/>
     <elementParameter field="TEXT" name="PERSONAL_NAME" value="&quot;Interfaces JDE&quot;"/>
@@ -691,7 +501,7 @@
     </elementParameter>
     <elementParameter field="TEXT" name="HEADER" value="1"/>
     <elementParameter field="TEXT" name="FOOTER" value="0"/>
-    <elementParameter field="TEXT" name="LIMIT" value="1"/>
+    <elementParameter field="TEXT" name="LIMIT" value=""/>
     <elementParameter field="CHECK" name="AFFECT_EACH_SHEET" value="false"/>
     <elementParameter field="TEXT" name="FIRST_COLUMN" value="1"/>
     <elementParameter field="TEXT" name="LAST_COLUMN" value="2"/>
@@ -699,8 +509,8 @@
     <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
     <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" show="false" value="&quot;,&quot;"/>
     <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" show="false" value="&quot;.&quot;"/>
-    <elementParameter field="CHECK" name="TRIMALL" value="false"/>
-    <elementParameter field="TABLE" name="TRIMSELECT">
+    <elementParameter field="CHECK" name="TRIMALL" value="true"/>
+    <elementParameter field="TABLE" name="TRIMSELECT" show="false">
       <elementValue elementRef="SCHEMA_COLUMN" value="PARAMETRES"/>
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="VALEURS"/>
@@ -781,7 +591,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="864" posY="32">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_4"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="// Nom du fichier log pour la session&#10;//Date today = new Date();&#10;//SimpleDateFormat myDateFormat = new SimpleDateFormat(&quot;yyMMddHHmmss&quot;);&#10;SimpleDateFormat myTimeFormat = new SimpleDateFormat(&quot;HHmmss&quot;);&#10;context.LogFile = &quot;Log_&quot; + myDateFormat.format(new Date()) + &quot;.csv&quot;;&#10;&#10;String myParm = (String)globalMap.get(&quot;PARAMETER&quot;);&#10;String myValue = (String)globalMap.get(&quot;VALUE&quot;);&#10;&#10;switch myParm.toUpperCase()&#10;{&#10;&#9;case &quot;ARCHIVES_DIRECTORY&quot;:case &quot;ARCHIVESDIRECTORY&quot;:&#10;&#9;&#9;context.Archives = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;DIRECTORY&quot;:&#10;&#9;&#9;context.Directory = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;ERRORS_DIRECTORY&quot;:case &quot;ERRORSDIRECTORY&quot;:&#10;&#9;&#9;context.ErrorDirectory = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;FILE_MASK&quot;:case &quot;FILEMASK&quot;:&#10;&#9;&#9;context.FileMask = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;LOGS_DIRECTORY&quot;:case &quot;LOGSDIRECTORY&quot;:&#10;&#9;&#9;context.Archives = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_BCC&quot;:case &quot;MAILBCC&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_BCC = &quot;&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_BCC = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_CC&quot;:case &quot;MAILCC&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_CC = &quot;&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_CC = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_FROM&quot;:case &quot;MAILFROM&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_From = &quot;noreply.interfaces@lalique.fr&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_From = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_SUBJECT&quot;:case &quot;MAILSUBJECT&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_Subject = &quot;Arrêt du job &quot; + jobName;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_Subject = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_TO&quot;:case &quot;MAILTO&quot;:&#10;&#9;&#9;if (myValue != null){&#10;&#9;&#9;&#9;context.Mail_TO = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;WAIT_TIME&quot;:case &quot;WAIT_TIMER&quot;:case &quot;WAITTIME&quot;:case &quot;WAITTIMER&quot;:&#10;&#9;&#9;if (myValue != null){&#10;&#9;&#9;&#9;context.Wait_Timer = Integer.parseInt(myValue);&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;default:&#10;}&#10;&#10;context.FolderIn = (String)globalMap.get(&quot;FolderOut&quot;);&#10;context.LogFolder = (String)globalMap.get(&quot;LogFolder&quot;);&#10;context.Iteration = (long)globalMap.get(&quot;Iteration&quot;) * 1000;&#10;context.StartTime = Integer.parseInt(myTimeFormat.format((Date)globalMap.get(&quot;Heure_Debut&quot;)));&#10;context.EndTime = Integer.parseInt(myTimeFormat.format((Date)globalMap.get(&quot;Heure_Fin&quot;)));&#10;String myStr = (String)globalMap.get(&quot;Arret_sur_Fin&quot;);&#10;if (myStr.equalsIgnoreCase(&quot;Y&quot;) || myStr.equalsIgnoreCase(&quot;O&quot;)){&#10;&#9;context.StopAfterEndTime = true;&#10;}&#10;else{&#10;&#9;context.StopAfterEndTime = false;&#10;}&#10;&#10;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="SimpleDateFormat myDateFormat = new SimpleDateFormat(&quot;yyMMddHHmmss&quot;);&#10;context.LogFile = &quot;Log_&quot; + myDateFormat.format(new Date()) + &quot;.csv&quot;;&#10;&#10;String myParm = (String)globalMap.get(&quot;PARAMETER&quot;);&#10;String myValue = (String)globalMap.get(&quot;VALUE&quot;);&#10;&#10;switch (myParm.toUpperCase())&#10;{&#10;&#9;case &quot;ARCHIVES_DIRECTORY&quot;:case &quot;ARCHIVESDIRECTORY&quot;:&#10;&#9;&#9;context.Archives = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;DIRECTORY&quot;:&#10;&#9;&#9;context.Directory = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;ERRORS_DIRECTORY&quot;:case &quot;ERRORSDIRECTORY&quot;:&#10;&#9;&#9;context.ErrorDirectory = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;FILE_MASK&quot;:case &quot;FILEMASK&quot;:&#10;&#9;&#9;context.FileMask = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;LOGS_DIRECTORY&quot;:case &quot;LOGSDIRECTORY&quot;:&#10;&#9;&#9;context.Archives = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_BCC&quot;:case &quot;MAILBCC&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_BCC = &quot;&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_BCC = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_CC&quot;:case &quot;MAILCC&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_CC = &quot;&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_CC = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_FROM&quot;:case &quot;MAILFROM&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_From = &quot;noreply.interfaces@lalique.fr&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_From = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_SUBJECT&quot;:case &quot;MAILSUBJECT&quot;:&#10;&#9;&#9;if (myValue == null || myValue.trim().length()==0){&#10;&#9;&#9;&#9;context.Mail_Subject = &quot;Arrêt du job &quot; + jobName;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_Subject = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_TO&quot;:case &quot;MAILTO&quot;:&#10;&#9;&#9;if (myValue != null){&#10;&#9;&#9;&#9;context.Mail_TO = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;WAIT_TIME&quot;:case &quot;WAIT_TIMER&quot;:case &quot;WAITTIME&quot;:case &quot;WAITTIMER&quot;:&#10;&#9;&#9;if (myValue != null){&#10;&#9;&#9;&#9;context.Wait_Timer = Integer.parseInt(myValue);&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;default:&#10;}&#10;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_4"/>
@@ -899,14 +709,61 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tWarn_1"/>
   </node>
-  <node componentName="tDie" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="416" posY="160">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDie_4"/>
-    <elementParameter field="TEXT" name="MESSAGE" value="&quot;Fichier de paramètrage non trouvé.&quot;"/>
+  <node componentName="tDie" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="416">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDie_5"/>
+    <elementParameter field="TEXT" name="MESSAGE" value="&quot;Fichier de paramétrage absent.&quot;"/>
     <elementParameter field="TEXT" name="CODE" value="4"/>
-    <elementParameter field="CLOSED_LIST" name="PRIORITY" value="5"/>
+    <elementParameter field="CLOSED_LIST" name="PRIORITY" value="6"/>
     <elementParameter field="CHECK" name="EXIT_JVM" value="false"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tDie_4"/>
+    <metadata connector="FLOW" name="tDie_5"/>
+  </node>
+  <node componentName="tSendMail" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="416" posY="544">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSendMail_1"/>
+    <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="true"/>
+    <elementParameter field="TEXT" name="TO" value="context.Mail_To"/>
+    <elementParameter field="TEXT" name="FROM" value="context.Mail_From"/>
+    <elementParameter field="CHECK" name="NEED_PERSONAL_NAME" value="true"/>
+    <elementParameter field="TEXT" name="PERSONAL_NAME" value="&quot;Interfaces JDE&quot;"/>
+    <elementParameter field="TEXT" name="CC" value="context.Mail_CC"/>
+    <elementParameter field="TEXT" name="BCC" value="context.Mail_BCC"/>
+    <elementParameter field="TEXT" name="SUBJECT" value="context.Mail_Subject"/>
+    <elementParameter field="MEMO_MESSAGE" name="MESSAGE" value="&quot;&lt;html&gt;&#13;&#10;&lt;head&gt;&#13;&#10;&lt;meta http-equiv=Content-Type content=text/html; charset=iso-8859-15&gt;&lt;/head&gt;&#13;&#10;&lt;body&gt;&#13;&#10;Arrêt anormal du job &lt;b&gt;&quot; + jobName + &quot;&lt;/b&gt; après &quot; + context.ErrorCount + &quot; erreurs consécutives.&#13;&#10;&lt;p&gt;Pour obtenir plus d'informations sur les causes de cet arrêt, veuillez consulter la pièce jointe.&lt;/p&gt;&#13;&#10;&lt;hr width=500px&gt;&#13;&#10;&lt;font size=1 face=Arial color=blue&gt;&#13;&#10;Cet e-mail vous est envoyé automatiquement. Merci de ne pas y répondre, car votre message ne sera pas traité en retour.&#13;&#10;&lt;/font&gt;&#13;&#10;&lt;/body&gt;&#13;&#10;&lt;/html&gt;&quot;"/>
+    <elementParameter field="CHECK" name="CHECK_ATTACHMENT" value="false"/>
+    <elementParameter field="TABLE" name="ATTACHMENTS">
+      <elementValue elementRef="FILE" value="context.LogFolder + context.LogFile"/>
+      <elementValue elementRef="CONTENT_TRANSFER_ENCODING" value="DEFAULT"/>
+    </elementParameter>
+    <elementParameter field="TABLE" name="HEADERS"/>
+    <elementParameter field="TEXT" name="SMTP_HOST" value="&quot;smtp.lalique.lan&quot;"/>
+    <elementParameter field="TEXT" name="SMTP_PORT" value="25"/>
+    <elementParameter field="CHECK" name="SSL" value="false"/>
+    <elementParameter field="CHECK" name="STARTTLS" value="false"/>
+    <elementParameter field="CLOSED_LIST" name="IMPORTANCE" value="Normal"/>
+    <elementParameter field="CHECK" name="NEED_AUTH" value="false"/>
+    <elementParameter field="TEXT" name="AUTH_USERNAME" show="false" value="&quot;lalique\pbo&quot;"/>
+    <elementParameter field="PASSWORD" name="AUTH_PASSWORD" show="false" value="0RMsyjmybrE="/>
+    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true"/>
+    <elementParameter field="CLOSED_LIST" name="TEXT_SUBTYPE" value="html"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter field="CHECK" name="SET_LOCALHOST" value="false"/>
+    <elementParameter field="TEXT" name="LOCALHOST" show="false" value="&quot;localhost&quot;"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tSendMail_1">
+      <column key="false" length="0" name="moment" nullable="true" originalLength="-1" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="0" sourceType="" type="id_Date" usefulColumn="true"/>
+      <column key="false" length="20" name="pid" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="20" name="root_pid" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="20" name="father_pid" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="50" name="project" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="255" name="job" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="50" name="context" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="3" name="priority" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column key="false" length="255" name="type" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="255" name="origin" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column key="false" length="255" name="message" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="3" name="code" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
+    </metadata>
   </node>
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tPrejob_1" offsetLabelX="0" offsetLabelY="0" source="tPrejob_1" target="tFileExist_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk1"/>
@@ -923,6 +780,10 @@
   <connection connectorName="RUN_IF" label="STOP" lineStyle="6" metaname="tJava_1" offsetLabelX="6" offsetLabelY="4" outputId="2" source="tJava_1" target="tDie_2">
     <elementParameter field="MEMO_JAVA" name="CONDITION" value=" System.getProperty(&quot;Status&quot;).equals(&quot;STOP&quot;)"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="STOP"/>
+  </connection>
+  <connection connectorName="RUN_IF" label="DIE" lineStyle="6" metaname="tJava_1" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tJava_1" target="tDie_5">
+    <elementParameter field="MEMO_JAVA" name="CONDITION" value="  System.getProperty(&quot;Status&quot;).equals(&quot;DIE&quot;)"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="DIE"/>
   </connection>
   <connection connectorName="FLOW" label="row2" lineStyle="0" metaname="tLogCatcher_1" offsetLabelX="0" offsetLabelY="0" source="tLogCatcher_1" target="tMap_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
@@ -947,53 +808,6 @@
     <elementParameter field="MEMO_JAVA" name="CONDITION" value="context.ErrorCount &gt;= 3"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Errors"/>
   </connection>
-  <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tFileInputExcel_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputExcel_1" target="tMap_2">
-    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
-      <elementValue elementRef="TRACE_COLUMN" value="CC"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="BCC"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="TO"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="FROM"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="SUBJECT"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="LINE"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-    </elementParameter>
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row1"/>
-  </connection>
-  <connection connectorName="FLOW" label="context_mail" lineStyle="0" metaname="context_mail" offsetLabelX="0" offsetLabelY="0" source="tMap_2" target="tFlowToIterate_1">
-    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
-      <elementValue elementRef="TRACE_COLUMN" value="CC"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="BCC"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="TO"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="FROM"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-    </elementParameter>
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="context_mail"/>
-  </connection>
-  <connection connectorName="ITERATE" label="Iterate" lineStyle="7" metaname="tFlowToIterate_1" offsetLabelX="0" offsetLabelY="0" source="tFlowToIterate_1" target="tSendMail_1">
-    <elementParameter field="CHECK" name="ENABLE_PARALLEL" value="false"/>
-    <elementParameter field="TEXT" name="NUMBER_PARALLEL" show="false" value="2"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="iterate2"/>
-  </connection>
   <connection connectorName="FLOW" label="row3" lineStyle="0" metaname="tLogCatcher_2" offsetLabelX="0" offsetLabelY="0" source="tLogCatcher_2" target="tLogRow_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
@@ -1007,10 +821,10 @@
     <elementParameter field="MEMO_JAVA" name="CONDITION" value="(Boolean)globalMap.get(&quot;tFileExist_1_EXISTS&quot;)&#10;"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Exist"/>
   </connection>
-  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tSendMail_2" offsetLabelX="0" offsetLabelY="0" source="tSendMail_2" target="tDie_4">
+  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tSendMail_2" offsetLabelX="0" offsetLabelY="0" source="tSendMail_2" target="tWarn_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk4"/>
   </connection>
-  <connection connectorName="RUN_IF" label="errorCount" lineStyle="6" metaname="tJava_3" offsetLabelX="0" offsetLabelY="0" source="tJava_3" target="tFileInputExcel_1">
+  <connection connectorName="RUN_IF" label="errorCount" lineStyle="6" metaname="tJava_3" offsetLabelX="0" offsetLabelY="0" source="tJava_3" target="tSendMail_1">
     <elementParameter field="MEMO_JAVA" name="CONDITION" value="context.ErrorCount != 0 &amp;&amp; (Boolean)globalMap.get(&quot;tFileExist_1_EXISTS&quot;) == true"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="errorCount"/>
   </connection>
@@ -1124,13 +938,6 @@
   </subjob>
   <subjob>
     <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileInputExcel_1"/>
-    <elementParameter field="TEXT" name="SUBJOB_TITLE" value="Envoi des mails si fin anormale"/>
-    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
-    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
-  </subjob>
-  <subjob>
-    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tLogCatcher_2"/>
     <elementParameter field="TEXT" name="SUBJOB_TITLE" value="Traitement Erreurs PostJob"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
@@ -1169,17 +976,24 @@
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
   <subjob>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDie_4"/>
+    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDie_5"/>
+    <elementParameter field="TEXT" name="SUBJOB_TITLE" value="Erreur paramétrage"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+  </subjob>
+  <subjob>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSendMail_1"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_b9bc3f3f-b9dd-48eb-9f80-f8f3a86afe18"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>mrKpIxkOcb0URRiSllmDiBoCic+D2mYQGlHn/HwdDkrkpYNdpW1hTB32xiqtxMKVnRUr7raclYAr
-U3aLbIR2og==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_5a982c79-6aef-4b4b-a050-80bec781bff5"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>8OOwgSHJ8OqxflSeKTj/nVkyvxE0TW1H6/DyfwI8/b+8tI+i6Coa1N4d8HqEbadDmcK5QbsW6JTZ
-BaEmvJl9Cw==</DigestValue></Reference></SignedInfo><SignatureValue>TEYlzvTDTW3tS3+GJWdHjLSbKri9mEvE5TD/8jNBhouTUgjJokfgDa65NTOJ+G+Pgv6IpeWmsRh4
-xsTfx8AZpH9yeZTX1BPMC/Em3aCr4m0Om53+PIOSCXC+KhelzxHTQiNnsL4xi2DU4GVSwguJMb61
-6UPbrVMhNxLmK7QT2htcSPhaBStPVMk43niQrxXNA66rK9OsEqNoSvUOjGFayNNKSJMuTjBZPgJo
-Lq8NFkyazTIkGh/+LfEolu69J03Y6oOT2TCmJiwZkOm4rPdIK42P9WidVub81JX47LhYSV78S6xZ
-cGswPumAMYYuTIDt435jEB0KZIlueXEuKk8hDA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_57adc74e-a133-4b82-b249-4258ac4487e3"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>gJwxk69ohKLcfJtXfDY7+w3/2l5QXbJPa3+o3Y8koLkjsMKmoU8D3QpkyHySRth1umiH3fTxqO2j
+uId3cUJ5dA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_11f3f631-dc3c-4eb7-87d7-ad393e75b459"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>zPE7ZutOStskdwDp0vUeEMkehWSf6YeUYaojlpcGI5sKohKVEG+eYspP6eCGASTimYPo9aN5sabD
+N6iD2tAskg==</DigestValue></Reference></SignedInfo><SignatureValue>CE/kpt/+Aolf9GrzHP/pJt4JnG1LIsUeAux/iu+aZ6/WR0YuyHpjerRt05DTd2j8l2nxM11znA73
+cgrglMd2mwkbWR63chY6t2X93qgXBc9K+dw7uHmtKrB3Jm/MwN4lTDpfGb/09DFAIOCf8QrSRkxK
+kaGLrm9pD6rkrWNada1Ok3YnB2oGieKuoNEBp+MHoZtkwa//hV7apA9WJKJWdjOOXhA68bQlWFoC
+SXYLHv4duX6foST13FAOn/0ohozmWtX1m0nw2onokQYZnezsH/A70MDrxtSv+WTbA9hVr0KLQE3g
+uc/GRm3KaR1cZxKW3v47xfmt3xZrtXiBn5GZbg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1201,4 +1015,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_5a982c79-6aef-4b4b-a050-80bec781bff5" Target="#_b9bc3f3f-b9dd-48eb-9f80-f8f3a86afe18"><Timestamp>2020-06-29 15:04:15</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_11f3f631-dc3c-4eb7-87d7-ad393e75b459" Target="#_57adc74e-a133-4b82-b249-4258ac4487e3"><Timestamp>2020-06-30 06:10:49</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
