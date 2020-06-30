@@ -365,7 +365,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="608" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_2"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="// Gestion des erreurs : Arrêt si plus de 3 erreurs consécutives&#10;&#10;int returnCode = (int)globalMap.get(&quot;tRunJob_1_CHILD_RETURN_CODE&quot;);&#10;System.out.println(&quot;Child Return Code = &quot; + returnCode);&#10;System.out.println(&quot;Child ErrorCode = &quot; + System.getProperty(&quot;Quartis_JDE_ERROR&quot;));&#10;&#10;if(returnCode != 0){&#10;&#9;context.ErrorCount += 1;&#10;}&#10;else{&#10;&#9;context.ErrorCount = 0;&#10;}"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="// Gestion des erreurs : Arrêt si plus de 3 erreurs consécutives&#10;&#10;int returnCode = (int)globalMap.get(&quot;tRunJob_1_CHILD_RETURN_CODE&quot;);&#10;System.out.println(&quot;Child Return Code = &quot; + returnCode);&#10;System.out.println(&quot;Child ErrorCode = &quot; + System.getProperty(&quot;Quartis_JDE_ERROR&quot;));&#10;System.out.println(&quot;Child ErrorMessage = &quot; + System.getProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;));&#10;&#10;if(returnCode != 0){&#10;&#9;context.ErrorCount += 1;&#10;}&#10;else{&#10;&#9;context.ErrorCount = 0;&#10;}"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_2"/>
@@ -705,7 +705,7 @@
       <column defaultValue="" key="false" length="3" name="code" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tWarn" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="992" posY="160">
+  <node componentName="tWarn" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="864" posY="160">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tWarn_1"/>
     <elementParameter field="TEXT" name="MESSAGE" value="&quot;Début d'exécution du job.&quot;"/>
     <elementParameter field="TEXT" name="CODE" value="0"/>
@@ -927,13 +927,13 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="context_Parametres"/>
   </connection>
+  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tFlowToIterate_2" offsetLabelX="0" offsetLabelY="0" source="tFlowToIterate_2" target="tWarn_1">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk3"/>
+  </connection>
   <connection connectorName="ITERATE" label="Iterate" lineStyle="7" metaname="tFlowToIterate_2" offsetLabelX="0" offsetLabelY="0" source="tFlowToIterate_2" target="tJava_4">
     <elementParameter field="CHECK" name="ENABLE_PARALLEL" value="false"/>
     <elementParameter field="TEXT" name="NUMBER_PARALLEL" show="false" value="2"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="iterate3"/>
-  </connection>
-  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tJava_4" offsetLabelX="0" offsetLabelY="0" source="tJava_4" target="tWarn_1">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk3"/>
   </connection>
   <connection connectorName="FLOW" label="row4" lineStyle="0" metaname="tLogCatcher_3" offsetLabelX="0" offsetLabelY="0" source="tLogCatcher_3" target="tLogRow_2">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
@@ -1063,13 +1063,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_3cc74d40-f4bf-447d-9f64-5ef380d12548"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>7SsxSETVSfX2rr1pcQwOrrF2J9OuHBkLfdoRZCEX2GE03jnO2J9oI0t3Qtq5QaClnIA5Qvh9fCCI
-dvSIw4+hxg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_bd8ed062-8cd7-4ebe-983b-2e05decb8986"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>KxZX177m7wDk1kDc6cfOuDq0AjwGz7J46/NcTGZKEsFaX99RzAstTgH0agZ0be5rE8biJ8cZlWDp
-UAP3xHt95A==</DigestValue></Reference></SignedInfo><SignatureValue>ZWE6C/FL58wVZPLT+faiSFEUcjIuq1R8gWwwOBLYoNXYmCT+Uul4T+G+mxhx3AKTVVHUcyJGnQaq
-VODN5Jypcb8ji2HiTKSdhzq/Zd9D6Of3XodQHuN13pavh2Wmo9J4k3O7AP0ICHjcbovPNConl2/u
-/f0yBvWOSyf7wm5Hep1Z7SVfpQB4VmTYhqDMgqNf0er0l064KXlRV6sR65X8pLF6t7gRjbe6esA5
-qo/zAEQbVbLdxlYMP7L/zM94btQPRiioLeTV7miHQDVVoeKmmioxmhdXHxEFK8bHUTfQ5RL2afBY
-jaAYubzG3dRpbTlUaILOb9HHfNCjGw4J4hY+pg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_78f2bde5-2b95-4858-ac2a-f0c3e18a45ad"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>/qccl3xZ4pe8fjsXSon0AGKvi5MsOcVOyr7maoi8RiRuT3y0UiPG1kNrQpwN/C41gxDDckxQ1ypN
+A18NrYtCLQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_85104e01-235e-42ea-9507-4e4c2a47215b"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>SbFte+yZDh69s7ilmn2jyxy0rCvoDNNAgQprvaQBSBmejuyrZ/ONDMFYpZo/XiYyRByJVpNlLZTN
+fvEkRUcpqA==</DigestValue></Reference></SignedInfo><SignatureValue>povuLHkk/87Bd7ttR88euC3Y8azQs+M9BZpLGpldHPLh6fITIEnYbxUn2gDX3XvCj9nVX3pR9Sle
+pAVGy4ldx5ChHAtw596VkM4LDpaQjlS1HyWfVb5D/quMXDemy8EQ5dzqHhS8CzAEP1Rx9YGs00Z+
+key3hchswlbaDqnTAm4D++zTKtdD0TgpqLIL4mT1UNs5UsshD9sTknzPKYaNVeBGOBjK5jwibDiw
+YRwIGlfOsQc4m3EzP/Pz5Nubm6bw9wfvTe6J2nwNxr4uTUk5XDIVA4e9CJ8LyLZV9O/GFLI9qTrZ
+unkfYQpaSWAig3n2Obv/DPpfhD2LU80vNnk8jQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1091,4 +1091,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_bd8ed062-8cd7-4ebe-983b-2e05decb8986" Target="#_3cc74d40-f4bf-447d-9f64-5ef380d12548"><Timestamp>2020-06-30 09:48:16</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_85104e01-235e-42ea-9507-4e4c2a47215b" Target="#_78f2bde5-2b95-4858-ac2a-f0c3e18a45ad"><Timestamp>2020-06-30 09:51:30</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
