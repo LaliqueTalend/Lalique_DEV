@@ -2,6 +2,7 @@
   <context confirmationNeeded="false" name="FOR">
     <contextParameter comment="Adresse mail de l'administrateur" name="AdminMail" prompt="AdminMail?" promptNeeded="false" type="id_String" value="pbongard@lalique.fr"/>
     <contextParameter comment="Heure de fin de la boucle (hhmmss)" name="EndTime" prompt="EndTime?" promptNeeded="false" type="id_Integer" value="200000"/>
+    <contextParameter comment="" name="ErrorCode" prompt="ErrorCode?" promptNeeded="false" type="id_Integer" value=""/>
     <contextParameter comment="Compteur d'erreurs consécutives (voir tJava_2)" name="ErrorCount" prompt="ErrorCount?" promptNeeded="false" type="id_Integer" value="0"/>
     <contextParameter comment="Fichier des paramètres" name="ParameterFile" prompt="ParameterFile?" promptNeeded="false" type="id_String" value="C:\TOS\INTERFACES\PARAMETRES\Quartis_JDE_Parametres.xlsx"/>
     <contextParameter comment="Heure de début de la boucle (hhmmss)" name="StartTime" prompt="StartTime?" promptNeeded="false" type="id_Integer" value="060000"/>
@@ -33,6 +34,7 @@
   <context confirmationNeeded="false" name="PY">
     <contextParameter comment="Adresse mail de l'administrateur" name="AdminMail" prompt="AdminMail?" promptNeeded="false" type="id_String" value="pbongard@lalique.fr"/>
     <contextParameter comment="Heure de fin de la boucle (hhmmss)" name="EndTime" prompt="EndTime?" promptNeeded="false" type="id_Integer" value="200000"/>
+    <contextParameter comment="" name="ErrorCode" prompt="ErrorCode?" promptNeeded="false" type="id_Integer" value=""/>
     <contextParameter comment="Compteur d'erreurs consécutives (voir tJava_2)" name="ErrorCount" prompt="ErrorCount?" promptNeeded="false" type="id_Integer" value="0"/>
     <contextParameter comment="Fichier des paramètres" name="ParameterFile" prompt="ParameterFile?" promptNeeded="false" type="id_String" value="C:\TOS\INTERFACES\PARAMETRES\Quartis_JDE_Parametres.xlsx"/>
     <contextParameter comment="Heure de début de la boucle (hhmmss)" name="StartTime" prompt="StartTime?" promptNeeded="false" type="id_Integer" value="060000"/>
@@ -363,7 +365,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="608" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_2"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="// Gestion des erreurs : Arrêt si plus de 3 erreurs consécutives&#10;&#10;int returnCode = (int)globalMap.get(&quot;tRunJob_1_CHILD_RETURN_CODE&quot;);&#10;System.out.println(&quot;Child Return Code = &quot; + returnCode);&#10;&#10;if(returnCode != 0){&#10;&#9;context.ErrorCount += 1;&#10;}&#10;else{&#10;&#9;context.ErrorCount = 0;&#10;}"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="// Gestion des erreurs : Arrêt si plus de 3 erreurs consécutives&#10;&#10;int returnCode = (int)globalMap.get(&quot;tRunJob_1_CHILD_RETURN_CODE&quot;);&#10;System.out.println(&quot;Child Return Code = &quot; + returnCode);&#10;System.out.println(&quot;Child ErrorCode = &quot; + context.ErrorCode);&#10;&#10;if(returnCode != 0){&#10;&#9;context.ErrorCount += 1;&#10;}&#10;else{&#10;&#9;context.ErrorCount = 0;&#10;}"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_2"/>
@@ -1005,13 +1007,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_ba44153e-f012-4f0d-83cd-44c310a77caa"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>7h+ejny38ZZinI6IjkX1WeweJVqYAjS01qcbaFFQvUUnjNsr8yuGtTfWd6gwWgXrAMJZbfCNhUCZ
-C6Mgt1V8EQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_a8725ee8-3818-4435-b354-da85b00ac226"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>lBqC9/sNzuZzYCUWmLxFUFJwSrinPEVtM9x7R1da/JDNA29e+vHmAZNbcRH5gwuVqmLD/Eiw1dJa
-ID8eFpmrcw==</DigestValue></Reference></SignedInfo><SignatureValue>d7V8E6qV6I3aaYuquk1jHe9SEzwV/iJ5iopYv1otAkCRg8QhIcBAWiGVE3IZ2nmBrQGBKM/1GqyQ
-t4JTrCvM56L3JoZQMqPIi3Vq+D+8D5Z3lfP1zjQq/0Sd3xGsCgyeZnk4ci4VvINNWcXnuo8MdRUo
-ZFp+czY/dpzNJbcRVmTyzuFPIMEB3wmLkEF7aVRUhjeudTRc/G9659YKNNAZkBwHUw5gt66nLZq4
-SRxG8vVoIxo/RwKsJkoV2NsNI1VavNKO0My/odhKisBWXjSv9MuQk6OxC0Y4YH5+s1D686WkyR1O
-2CfqZWovTGHlzLc2gPskFcof1uSf+DzsswUsdg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_df6a1aa9-5307-490a-97d3-dadddc58fc3f"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>fbuBrRDuleBcIagsA6rgKd/GO3pSz1swoHm++GLUxe3igmEIw7vikDWNnNWSWOQt/wB1z3colmx3
+vW/VbbG/Sg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_88ae18a4-2cf7-42af-bf5c-0b97a7b84a26"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>6Uy94U317QXAtFbanSNTqnrrm6WcjtNseirPAEebB1rEFWcdRG7RwH5GwHVW+0RDARVqPbey8rM9
+ILSfHM/YSg==</DigestValue></Reference></SignedInfo><SignatureValue>Z+t+cqAk7Je58eCvVsKGRfc2z+RCdJYbeKrogTBtVGeKiY7Xb+/NNmblWp5aUdzBqzKy0vgix2AM
+k1SPShTLW9g5sndy5oMnbkQ8WOEIkAQ8T62GD3Aa6BUOcvVQORF6JyJsq5G1c4H5yFbVnB7j2gWj
+S5SvK79mdVyh0iUCPZwuHRGNf/unpg8uVC/PzlmDn89rjal9lfBsx2Py+R1n8BJ0XB6bn5TPP1Jn
+w/Q8GixQSUmbHloHzJQeo9jjO+W4jo96AngXm9Ar56FUMenHOkuhSBzgRarmjP2WrWa7KwUwcuHZ
+h5APIYMmfz98Jt0a2vUYLi/76UaWvDgq90Qv+g==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1033,4 +1035,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_a8725ee8-3818-4435-b354-da85b00ac226" Target="#_ba44153e-f012-4f0d-83cd-44c310a77caa"><Timestamp>2020-06-30 07:56:11</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_88ae18a4-2cf7-42af-bf5c-0b97a7b84a26" Target="#_df6a1aa9-5307-490a-97d3-dadddc58fc3f"><Timestamp>2020-06-30 08:01:02</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
