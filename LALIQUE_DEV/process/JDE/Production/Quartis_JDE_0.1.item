@@ -246,7 +246,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="-256" posY="192">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_2"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="String myTimeStamp;&#10;String myFileIn;&#10;SimpleDateFormat myDateFormat;&#10;&#10;myDateFormat = new SimpleDateFormat(&quot;yyMMddHHmmssS&quot;);&#10;myTimeStamp = myDateFormat.format(TalendDate.getCurrentDate());&#10;&#10;System.out.println(&quot;Le fichier &quot;+(String)globalMap.get(&quot;tWaitForFile_1_FILENAME&quot;)+&quot; a été détecté !&quot;);&#10;System.setProperty(&quot;myTimeStamp&quot;, myTimeStamp);&#10;&#10;myFileIn = (String)globalMap.get(&quot;tWaitForFile_1_CREATED_FILE&quot;);&#10;if (myFileIn==null || myFileIn.length()==0){&#10;&#9;myFileIn = (String)globalMap.get(&quot;tWaitForFile_1_PRESENT_FILE&quot;);&#10;}&#10;System.setProperty(&quot;FileIn&quot;, myFileIn);&#10;&#10;System.setProperty(&quot;FileName&quot;, (String)globalMap.get(&quot;tWaitForFile_1_FILENAME&quot;));"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="String myTimeStamp;&#10;String myFileIn;&#10;SimpleDateFormat myDateFormat;&#10;&#10;context.ErrorCode = 0;&#10;&#10;myDateFormat = new SimpleDateFormat(&quot;yyMMddHHmmssS&quot;);&#10;myTimeStamp = myDateFormat.format(TalendDate.getCurrentDate());&#10;&#10;System.out.println(&quot;Le fichier &quot;+(String)globalMap.get(&quot;tWaitForFile_1_FILENAME&quot;)+&quot; a été détecté !&quot;);&#10;System.setProperty(&quot;myTimeStamp&quot;, myTimeStamp);&#10;&#10;myFileIn = (String)globalMap.get(&quot;tWaitForFile_1_CREATED_FILE&quot;);&#10;if (myFileIn==null || myFileIn.length()==0){&#10;&#9;myFileIn = (String)globalMap.get(&quot;tWaitForFile_1_PRESENT_FILE&quot;);&#10;}&#10;System.setProperty(&quot;FileIn&quot;, myFileIn);&#10;&#10;System.setProperty(&quot;FileName&quot;, (String)globalMap.get(&quot;tWaitForFile_1_FILENAME&quot;));"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="LABEL" value="FileProcess"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -1111,9 +1111,9 @@
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tFileCopy_2" offsetLabelX="0" offsetLabelY="0" source="tFileCopy_2" target="tJava_3">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk6"/>
   </connection>
-  <connection connectorName="RUN_IF" label="If" lineStyle="6" metaname="tJava_3" offsetLabelX="0" offsetLabelY="0" source="tJava_3" target="tDie_2">
-    <elementParameter field="MEMO_JAVA" name="CONDITION" value=" context.ErrorCode != 0"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="If1"/>
+  <connection connectorName="RUN_IF" label="ErrorCode" lineStyle="6" metaname="tJava_3" offsetLabelX="0" offsetLabelY="0" source="tJava_3" target="tDie_2">
+    <elementParameter field="MEMO_JAVA" name="CONDITION" value=" context.ErrorCode &gt; 0"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="ErrorCode"/>
   </connection>
   <subjob>
     <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" show="false" value="true"/>
@@ -1215,13 +1215,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_61513c9b-27f1-40b8-a831-769cc6dc50c8"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>YWeiUjtoedSzaZV5/u87VEabPnEVXOQBO75xawFnvUPkM1eyuoCRl7TXmu6iU7HakoEqlL8EpiES
-zX06OkLr2w==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_a58da688-0a7f-47fc-8987-a293e5b9cc43"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>i9lh+FcU4T02KRmOWv/aykNSKkyZhLPmtGY/cVZl0AAeTjHKoOatyy47B2pWSnbXp5GqVH/MzbSc
-vtziAgRwyg==</DigestValue></Reference></SignedInfo><SignatureValue>n5HFQa5zrql+b3Hh3EYaQnQ3WUWkBgiOoUdoFOrenFh27YUxfMAgpLD304/x25wpqNWQJxmPYFea
-0vU4KgxEmLrzpWqrcq0vYaHm3/iLzIASUfNKriLHrGF3jmLFDdEiL4QaKgvlzpVg8Kx3PgHkWNRv
-mmUikUBgSqLUsa8QesUJd5i7ZfY2TEIdux0nLJ6c4SvwzUQ3eEr2aCpYjNSiYUvdtKy9s/zP8zhZ
-gGFn3oWLQQBNvd8PaZr8Tlfrs9P0FI3XdcVR12C8qSg+Z7VyFgz0IujUcMOqqX3iBmoQqnGoG4M7
-J0HeCHHCMsCB8CyLD5xSZeZW1v2wFTMxS0C1Vw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_f0981f05-5b09-4621-b8a3-3c6ca3ee2404"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Sr7ix3NADExrnMwhrjKNO6El2nCB+KZdn6EGvMCC4psYKALYTpZd83VziccaRCzLNTVQccA63BVn
+ExCxKW5sng==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_f3e6ccb6-7862-4e9c-b413-4ed3a2d097eb"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>qwHCD5bL8KqFx0QqK9Uj0qNr+sHmQE/QGFtmPieiqJdi+vpt/GtPIbnrewWJ/bOifNBpRJvYuWI0
+KGUXG7ycRw==</DigestValue></Reference></SignedInfo><SignatureValue>P3deI26+vPRh4J8tfYuhnvTXVY8lEfN5fmLkUV0TmFbq2uTrmPPwTaNNuJu+coS+nmqsZfLnVw3u
+LU+FLLF1ze51gGEGma9bJx7JmXQA9+qhjXp9XBNN0opq2IAIsBvuWqURLcAPNws3axZZ7tCEkZ+c
+kD1msOHUqD8oKdGbomj4wJVbw9kudiMtJI5igrv3AbAYwvog2BfUBxdH82/w8D6dvmK4BFbKgsnQ
+dm+goLlWMSvY7Z2IsatrPEr21ZC97oVoynxOtazNHMiHiucPv5ZFGv2WOn4Y+bBlmUMMwpFemEFO
+zRV0ULqvoW2BZVXPNHepVGxoSybXaEiE/VSBmw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1243,4 +1243,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_a58da688-0a7f-47fc-8987-a293e5b9cc43" Target="#_61513c9b-27f1-40b8-a831-769cc6dc50c8"><Timestamp>2020-06-30 09:53:10</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_f3e6ccb6-7862-4e9c-b413-4ed3a2d097eb" Target="#_f0981f05-5b09-4621-b8a3-3c6ca3ee2404"><Timestamp>2020-07-01 09:08:30</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
