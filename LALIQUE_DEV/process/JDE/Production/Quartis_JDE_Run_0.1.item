@@ -491,7 +491,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="224" posY="544">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_3"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="// ErrorCode:&#10;// 10 - paramétre invalide&#10;// 40 - fichier paramétre absent&#10;// 50 - erreur de traitement du fichier Quartis (Avertissement, pas d'arrêt)&#10;// 90 - nombre d'erreurs maxi dépassé&#10;&#10;// 99 - autres causes d'arrêt&#10;&#10;switch (context.ErrorCode)&#10;{&#10;&#9;case 0:case 40:case 90:&#10;&#9;// messages gérés &#10;&#9;&#9;break;&#10;&#9;default:&#10;&#9;// autres erreurs&#10;&#9;&#9;context.ErrorCode = 99;&#10;&#9;&#9;break;&#10;&#9;&#10;}&#10;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="// ErrorCode:&#10;// 10 - paramétre invalide&#10;// 40 - fichier paramétre absent&#10;// 50 - erreur de traitement du fichier Quartis (Avertissement, pas d'arrêt)&#10;// 90 - nombre d'erreurs maxi dépassé&#10;&#10;// 99 - autres causes d'arrêt&#10;&#10;switch (context.ErrorCode)&#10;{&#10;&#9;case 0:case 40:case 50:&#10;&#9;// messages gérés &#10;&#9;&#9;context.ErrorMessage = &quot;&quot;;&#10;&#9;&#9;break;&#10;&#9;case 90:&#10;&#9;&#9;context.ErrorMessage = &quot; aprés avoir détecté plus de &quot; + context.ErrorMax + &quot;.&quot;;&#10;&#9;&#9;break;&#10;&#9;default:&#10;&#9;// autres erreurs&#10;&#9;&#9;context.ErrorMessage = &quot;.&quot;;&#10;&#9;&#9;break;&#10;&#9;&#10;}&#10;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_3"/>
@@ -597,7 +597,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="1184" posY="32">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_4"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="String myName = (String)globalMap.get(&quot;NAME&quot;);&#10;String myValue = (String)globalMap.get(&quot;VALUE&quot;);&#10;System.setProperty(&quot;tJava_4_ERROR&quot;,&quot;&quot;);&#10;context.ErrorCode = 0;&#10;&#10;switch (myName.toUpperCase())&#10;{&#10;&#9;case &quot;ARCHIVES_DIRECTORY&quot;:case &quot;ARCHIVESDIRECTORY&quot;:&#10;&#9;&#9;context.Archives = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;DIRECTORY&quot;:&#10;&#9;&#9;context.Directory = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;ERRORS_DIRECTORY&quot;:case &quot;ERRORSDIRECTORY&quot;:&#10;&#9;&#9;context.ErrorDirectory = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;FILE_MASK&quot;:case &quot;FILEMASK&quot;:&#10;&#9;&#9;context.FileMask = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;LOGS_DIRECTORY&quot;:case &quot;LOGSDIRECTORY&quot;:&#10;&#9;&#9;context.LogDirectory = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_BCC&quot;:case &quot;MAILBCC&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_BCC = &quot;&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_BCC = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_CC&quot;:case &quot;MAILCC&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_CC = &quot;&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_CC = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_FROM&quot;:case &quot;MAILFROM&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_From = &quot;noreply.interfaces@lalique.fr&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_From = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_SUBJECT&quot;:case &quot;MAILSUBJECT&quot;:&#10;&#9;&#9;if (myValue == null || myValue.trim().length()==0){&#10;&#9;&#9;&#9;context.Mail_Subject = &quot;Arrêt du job &quot; + jobName;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_Subject = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_TO&quot;:case &quot;MAILTO&quot;:&#10;&#9;&#9;if (myValue != null){&#10;&#9;&#9;&#9;context.Mail_To = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;WAIT_TIME&quot;:case &quot;WAIT_TIMER&quot;:case &quot;WAITTIME&quot;:case &quot;WAITTIMER&quot;:&#10;&#9;&#9;if (myValue != null){&#10;&#9;&#9;&#9;context.Wait_Timer = Integer.parseInt(myValue);&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;default:&#10;&#9;&#9;System.setProperty(&quot;tJava_4_ERROR&quot;,&quot;Le paramètre [&quot; + myName + &quot;] n'est pas valide, il est ignoré.&quot;);&#10;&#9;&#9;context.ErrorCode = 10;&#10;&#9;&#9;break;&#10;}&#10;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="String myName = (String)globalMap.get(&quot;NAME&quot;);&#10;String myValue = (String)globalMap.get(&quot;VALUE&quot;);&#10;context.ErrorCode = 0;&#10;&#10;switch (myName.toUpperCase())&#10;{&#10;&#9;case &quot;ARCHIVES_DIRECTORY&quot;:case &quot;ARCHIVESDIRECTORY&quot;:&#10;&#9;&#9;context.Archives = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;DIRECTORY&quot;:&#10;&#9;&#9;context.Directory = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;ERRORS_DIRECTORY&quot;:case &quot;ERRORSDIRECTORY&quot;:&#10;&#9;&#9;context.ErrorDirectory = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;FILE_MASK&quot;:case &quot;FILEMASK&quot;:&#10;&#9;&#9;context.FileMask = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;LOGS_DIRECTORY&quot;:case &quot;LOGSDIRECTORY&quot;:&#10;&#9;&#9;context.LogDirectory = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_BCC&quot;:case &quot;MAILBCC&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_BCC = &quot;&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_BCC = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_CC&quot;:case &quot;MAILCC&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_CC = &quot;&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_CC = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_FROM&quot;:case &quot;MAILFROM&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_From = &quot;noreply.interfaces@lalique.fr&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_From = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_SUBJECT&quot;:case &quot;MAILSUBJECT&quot;:&#10;&#9;&#9;if (myValue == null || myValue.trim().length()==0){&#10;&#9;&#9;&#9;context.Mail_Subject = &quot;Arrêt du job &quot; + jobName;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_Subject = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_TO&quot;:case &quot;MAILTO&quot;:&#10;&#9;&#9;if (myValue != null){&#10;&#9;&#9;&#9;context.Mail_To = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;WAIT_TIME&quot;:case &quot;WAIT_TIMER&quot;:case &quot;WAITTIME&quot;:case &quot;WAITTIMER&quot;:&#10;&#9;&#9;if (myValue != null){&#10;&#9;&#9;&#9;context.Wait_Timer = Integer.parseInt(myValue);&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;default:&#10;&#9;&#9;context.ErrorMessage = &quot;Le paramètre [&quot; + myName + &quot;] n'est pas valide, il est ignoré.&quot;;&#10;&#9;&#9;context.ErrorCode = 10;&#10;&#9;&#9;break;&#10;}&#10;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_4"/>
@@ -734,7 +734,7 @@
     <elementParameter field="TEXT" name="CC" value="context.Mail_CC"/>
     <elementParameter field="TEXT" name="BCC" value="context.Mail_BCC"/>
     <elementParameter field="TEXT" name="SUBJECT" value="context.Mail_Subject"/>
-    <elementParameter field="MEMO_MESSAGE" name="MESSAGE" value="&quot;&lt;html&gt;&#13;&#10;&lt;head&gt;&#13;&#10;&lt;meta http-equiv=Content-Type content=text/html; charset=iso-8859-15&gt;&lt;/head&gt;&#13;&#10;&lt;body&gt;&#13;&#10;Arrêt anormal du job &lt;b&gt;&quot; + jobName + &quot;&lt;/b&gt; après &quot; + context.ErrorCount + &quot; erreurs consécutives.&#13;&#10;&lt;p&gt;Pour obtenir plus d'informations sur les causes de cet arrêt, veuillez consulter la pièce jointe.&lt;/p&gt;&#13;&#10;&lt;hr width=500px&gt;&#13;&#10;&lt;font size=1 face=Arial color=blue&gt;&#13;&#10;Cet e-mail vous est envoyé automatiquement. Merci de ne pas y répondre, car votre message ne sera pas traité en retour.&#13;&#10;&lt;/font&gt;&#13;&#10;&lt;/body&gt;&#13;&#10;&lt;/html&gt;&quot;"/>
+    <elementParameter field="MEMO_MESSAGE" name="MESSAGE" value="&quot;&lt;html&gt;&#13;&#10;&lt;head&gt;&#13;&#10;&lt;meta http-equiv=Content-Type content=text/html; charset=iso-8859-15&gt;&lt;/head&gt;&#13;&#10;&lt;body&gt;&#13;&#10;Arrêt anormal du job &lt;b&gt;&quot; + jobName + &quot;&lt;/b&gt;&quot; + context.ErrorMessage + &quot;&#13;&#10;&lt;p&gt;Pour obtenir plus d'informations sur les causes de cet arrêt, veuillez consulter la pièce jointe.&lt;/p&gt;&#13;&#10;&lt;hr width=500px&gt;&#13;&#10;&lt;font size=1 face=Arial color=blue&gt;&#13;&#10;Cet e-mail vous est envoyé automatiquement. Merci de ne pas y répondre, car votre message ne sera pas traité en retour.&#13;&#10;&lt;/font&gt;&#13;&#10;&lt;/body&gt;&#13;&#10;&lt;/html&gt;&quot;"/>
     <elementParameter field="CHECK" name="CHECK_ATTACHMENT" value="false"/>
     <elementParameter field="TABLE" name="ATTACHMENTS">
       <elementValue elementRef="FILE" value="context.LogDirectory + context.LogFile"/>
@@ -828,73 +828,26 @@
   </node>
   <node componentName="tWarn" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="608" posY="160">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tWarn_2"/>
-    <elementParameter field="TEXT" name="MESSAGE" value="System.getProperty(&quot;tJava_6_ERROR&quot;)"/>
-    <elementParameter field="TEXT" name="CODE" value="0"/>
+    <elementParameter field="TEXT" name="MESSAGE" value="context.ErrorMessage"/>
+    <elementParameter field="TEXT" name="CODE" value="context.ErrorCode"/>
     <elementParameter field="CLOSED_LIST" name="PRIORITY" value="5"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tWarn_2"/>
   </node>
   <node componentName="tWarn" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="1184" posY="160">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tWarn_3"/>
-    <elementParameter field="TEXT" name="MESSAGE" value="System.getProperty(&quot;tJava_4_ERROR&quot;)"/>
-    <elementParameter field="TEXT" name="CODE" value="0"/>
+    <elementParameter field="TEXT" name="MESSAGE" value="context.ErrorMessage"/>
+    <elementParameter field="TEXT" name="CODE" value="context.ErrorCode"/>
     <elementParameter field="CLOSED_LIST" name="PRIORITY" value="5"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tWarn_3"/>
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="416" posY="160">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_6"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="System.setProperty(&quot;tJava_6_ERROR&quot;,&quot;Fichier de paramétrage non trouvé. Les paramétres par défaut sont utilisés.&quot;);&#10;context.ErrorCode = 40;&#10;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="context.ErrorMessage = &quot;Fichier de paramétrage non trouvé. Les paramétres par défaut sont utilisés.&quot;;&#10;context.ErrorCode = 40;&#10;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_6"/>
-  </node>
-  <node componentName="tSendMail" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="224" posY="672">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSendMail_4"/>
-    <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="true"/>
-    <elementParameter field="TEXT" name="TO" value="context.Mail_To"/>
-    <elementParameter field="TEXT" name="FROM" value="context.Mail_From"/>
-    <elementParameter field="CHECK" name="NEED_PERSONAL_NAME" value="true"/>
-    <elementParameter field="TEXT" name="PERSONAL_NAME" value="&quot;Interfaces JDE&quot;"/>
-    <elementParameter field="TEXT" name="CC" value="context.Mail_CC"/>
-    <elementParameter field="TEXT" name="BCC" value="context.Mail_BCC"/>
-    <elementParameter field="TEXT" name="SUBJECT" value="context.Mail_Subject"/>
-    <elementParameter field="MEMO_MESSAGE" name="MESSAGE" value="&quot;&lt;html&gt;&#13;&#10;&lt;head&gt;&#13;&#10;&lt;meta http-equiv=Content-Type content=text/html; charset=iso-8859-15&gt;&lt;/head&gt;&#13;&#10;&lt;body&gt;&#13;&#10;Arrêt anormal du job &lt;b&gt;&quot; + jobName + &quot;&lt;/b&gt; .&#13;&#10;&lt;p&gt;Pour obtenir plus d'informations sur les causes de cet arrêt, veuillez consulter la pièce jointe.&lt;/p&gt;&#13;&#10;&lt;hr width=500px&gt;&#13;&#10;&lt;font size=1 face=Arial color=blue&gt;&#13;&#10;Cet e-mail vous est envoyé automatiquement. Merci de ne pas y répondre, car votre message ne sera pas traité en retour.&#13;&#10;&lt;/font&gt;&#13;&#10;&lt;/body&gt;&#13;&#10;&lt;/html&gt;&quot;"/>
-    <elementParameter field="CHECK" name="CHECK_ATTACHMENT" value="false"/>
-    <elementParameter field="TABLE" name="ATTACHMENTS">
-      <elementValue elementRef="FILE" value="context.LogDirectory + context.LogFile"/>
-      <elementValue elementRef="CONTENT_TRANSFER_ENCODING" value="DEFAULT"/>
-    </elementParameter>
-    <elementParameter field="TABLE" name="HEADERS"/>
-    <elementParameter field="TEXT" name="SMTP_HOST" value="&quot;smtp.lalique.lan&quot;"/>
-    <elementParameter field="TEXT" name="SMTP_PORT" value="25"/>
-    <elementParameter field="CHECK" name="SSL" value="false"/>
-    <elementParameter field="CHECK" name="STARTTLS" value="false"/>
-    <elementParameter field="CLOSED_LIST" name="IMPORTANCE" value="Normal"/>
-    <elementParameter field="CHECK" name="NEED_AUTH" value="false"/>
-    <elementParameter field="TEXT" name="AUTH_USERNAME" show="false" value="&quot;lalique\pbo&quot;"/>
-    <elementParameter field="PASSWORD" name="AUTH_PASSWORD" show="false" value="0RMsyjmybrE="/>
-    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true"/>
-    <elementParameter field="CLOSED_LIST" name="TEXT_SUBTYPE" value="html"/>
-    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
-    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
-    <elementParameter field="CHECK" name="SET_LOCALHOST" value="false"/>
-    <elementParameter field="TEXT" name="LOCALHOST" show="false" value="&quot;localhost&quot;"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tSendMail_4">
-      <column key="false" length="0" name="moment" nullable="true" originalLength="-1" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="0" sourceType="" type="id_Date" usefulColumn="true"/>
-      <column key="false" length="20" name="pid" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="20" name="root_pid" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="20" name="father_pid" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="50" name="project" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="255" name="job" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="50" name="context" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="3" name="priority" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column key="false" length="255" name="type" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="255" name="origin" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="255" name="message" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="3" name="code" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
-    </metadata>
   </node>
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tPrejob_1" offsetLabelX="0" offsetLabelY="0" source="tPrejob_1" target="tJava_5">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk1"/>
@@ -956,13 +909,9 @@
     <elementParameter field="MEMO_JAVA" name="CONDITION" value="(Boolean)globalMap.get(&quot;tFileExist_1_EXISTS&quot;)&#10;"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Exist"/>
   </connection>
-  <connection connectorName="RUN_IF" label="Error_90" lineStyle="6" metaname="tJava_3" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tJava_3" target="tSendMail_1">
-    <elementParameter field="MEMO_JAVA" name="CONDITION" value="context.ErrorCode == 90"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Error_90"/>
-  </connection>
-  <connection connectorName="RUN_IF" label="Error_99" lineStyle="6" metaname="tJava_3" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tJava_3" target="tSendMail_4">
-    <elementParameter field="MEMO_JAVA" name="CONDITION" value="  context.ErrorCode == 99"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Error_99"/>
+  <connection connectorName="RUN_IF" label="Errors" lineStyle="6" metaname="tJava_3" offsetLabelX="0" offsetLabelY="0" source="tJava_3" target="tSendMail_1">
+    <elementParameter field="MEMO_JAVA" name="CONDITION" value="context.ErrorMessage != &quot;&quot;"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Errors"/>
   </connection>
   <connection connectorName="FLOW" label="row5" lineStyle="0" metaname="tFileInputExcel_2" offsetLabelX="0" offsetLabelY="0" source="tFileInputExcel_2" target="tMap_3">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
@@ -1182,20 +1131,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-  <subjob>
-    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSendMail_4"/>
-    <elementParameter field="TEXT" name="SUBJOB_TITLE" value="Autres causes"/>
-    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
-    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
-  </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_2d3df309-c9dd-43b7-a8e2-1ceda5859f6c"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>hk/4pHaLuxc5RAN7MtICCIy8T5rvtZ3khmjXkiLD0/4wtAcnUHBvMHyYgTGcUzmBY5qOPdg7wV4z
-b6OZL9kC3A==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_9f0c103c-10a6-4814-86a1-7ad41628aa2a"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>iN9kiCmFuraXJXuDYMs5+me3SMjopBJABBDzg3LmL+Ythm0FxRofsj8nvVwgSo2jLeu7VyuHK2jc
-LyM+l2Ql7g==</DigestValue></Reference></SignedInfo><SignatureValue>Ve6t86r1LevJFbfzT6D38NSmW/CKyukyV0Y25G5yH7EWK55H4Fng1M/yiS+or1WSzwPowZzRXr6M
-rmtxPVK33IAmiG1rNjP3mO+gwqJkZziG4PxMPN4OfxuUE9KiRrIbiutmhwX8Z4NjM/LsAZLwbmmz
-x6lemo0YKk9Rtr0a6wd9IKQhY4XNEol3+PlgP/26+PKemV+0/V6ETAwTYZX7jp3AeDK/J9Wn3qjt
-nYtowS7QXyw9dcAeK0MQ1ulT3G1o9HiGpAfzr+qHc2YC+nuISf9DoymNTqhH+Gm/pYJmMdMk0n5x
-lC0rAfCnn1cM0tZCEFnrKOu+CiVLvA2dwuFxqw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_d103f50d-3ae2-4fd3-adb3-9b55f419d0c6"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>bxmcZWW42NXR2Fh9QeF74bhoVfOmW3CDgslttfD1JnvzPoNTmHIE0chsszHRUjLagNi9hywX3clF
+hNAhn3Jz9A==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_3243069b-9a31-4a48-ba47-9717efcba1f3"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>EMWXjFCAGH2Id7lixfzO3PHiGMsIEsdB1q9CXlIJs2LZLM0FyBro6EDigzJghoENOVLJ7nnHpEmf
+9Aewlb3kgA==</DigestValue></Reference></SignedInfo><SignatureValue>Vhsq6kfHPYKwSjOXJsFuOVumeCJiwa0+vEGzu1maaeGR70yCggiaEsLdEkTnkASUcSABWOuossDP
+AyGnt6R/3kFjmtUoHOjeMk1Svvj5qs6HJYvMogigfHAy8b7LSyZT3Z0TFmW9EnXUoqoO0RKGwTWp
+LHviC7auv7F6cUq17BAoXyia34EM0yWtzstw+iq9NyJ/7jObkWPDHRZkW+YSEiXcoooEqo336wfn
+1tAQrX/IQUavCrRAfeKxPdWNd9mliAjnIdoCEzReKEpEqvJ4LP511X2B0Y6cqgj4eLwxh11ZYkZB
+tkk2jWlSkJq+d/iQ7dFRxOjNQBxOScAPFQWSyg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1217,4 +1159,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_9f0c103c-10a6-4814-86a1-7ad41628aa2a" Target="#_2d3df309-c9dd-43b7-a8e2-1ceda5859f6c"><Timestamp>2020-07-01 09:54:02</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_3243069b-9a31-4a48-ba47-9717efcba1f3" Target="#_d103f50d-3ae2-4fd3-adb3-9b55f419d0c6"><Timestamp>2020-07-01 10:08:20</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
