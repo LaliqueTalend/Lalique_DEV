@@ -36,7 +36,7 @@
     <contextParameter comment="Heure de fin de la boucle (hhmmss)" name="EndTime" prompt="EndTime?" promptNeeded="false" type="id_Integer" value="200000"/>
     <contextParameter comment="" name="ErrorCode" prompt="ErrorCode?" promptNeeded="false" type="id_Integer" value="0"/>
     <contextParameter comment="Compteur d'erreurs consécutives (voir tJava_2)" name="ErrorCount" prompt="ErrorCount?" promptNeeded="false" type="id_Integer" value="0"/>
-    <contextParameter comment="Fichier des paramètres" name="ParameterFile" prompt="ParameterFile?" promptNeeded="false" type="id_String" value="C:\TOS\INTERFACES\PARAMETRES\Quartis_JDE_Parametres.xlsx"/>
+    <contextParameter comment="Fichier des paramètres" name="ParameterFile" prompt="ParameterFile?" promptNeeded="false" type="id_String" value="C:\TOS\INTERFACES\PARAMETRES\Quartis_JDE_Parametres1.xlsx"/>
     <contextParameter comment="Heure de début de la boucle (hhmmss)" name="StartTime" prompt="StartTime?" promptNeeded="false" type="id_Integer" value="060000"/>
     <contextParameter comment="Arrêt du Job après l'heure de fin" name="StopAfterEndTime" prompt="StopAfterEndTime?" promptNeeded="false" type="id_Boolean" value="true"/>
     <contextParameter comment="" name="JDE920_AdditionalParams" prompt="JDE920_AdditionalParams?" promptNeeded="false" repositoryContextId="_7_vSEIRmEeq1lPpnM_KXRQ" type="id_String" value=""/>
@@ -175,12 +175,12 @@
   </node>
   <node componentName="tInfiniteLoop" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="32" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tInfiniteLoop_1"/>
-    <elementParameter field="TEXT" name="WAIT_MS" value="context.Wait_Timer*1000"/>
+    <elementParameter field="TEXT" name="WAIT_MS" value="context.Wait_Timer * 1000"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="224" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_1"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="SimpleDateFormat myTimeFormat = new SimpleDateFormat(&quot;HHmmss&quot;);&#10;int CurrentTime = Integer.parseInt(myTimeFormat.format(new Date()));&#10;&#10;System.setProperty(&quot;Status&quot;, &quot;LOOP&quot;);&#10;if ((Boolean)globalMap.get(&quot;tFileExist_1_EXISTS&quot;)==false){&#10;&#9;System.setProperty(&quot;Status&quot;, &quot;DIE&quot;);&#10;}&#10;else{&#10;&#9;if (CurrentTime &lt; context.StartTime){&#10;&#9;&#9;System.out.println(CurrentTime + &quot; : En attente de démarrage&quot;);&#10;&#9;}&#10;&#9;else{&#10;&#9;&#9;if (CurrentTime &lt;= context.EndTime){&#10;&#9;&#9;&#9;System.setProperty(&quot;Status&quot;, &quot;OK&quot;);&#10;//&#9;&#9;&#9;System.out.println(CurrentTime + &quot; : Execution du Job&quot;);&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;if (context.StopAfterEndTime == true){&#10;&#9;&#9;&#9;&#9;System.setProperty(&quot;Status&quot;, &quot;STOP&quot;);&#10;&#9;&#9;&#9;}&#10;&#9;&#9;&#9;else{&#10;&#9;&#9;&#9;&#9;System.out.println(CurrentTime + &quot; : Suspendu&quot;);&#10;&#9;&#9;&#9;}&#10;&#9;&#9;}&#10;&#9;}&#10;}&#10;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="SimpleDateFormat myTimeFormat = new SimpleDateFormat(&quot;HHmmss&quot;);&#10;int CurrentTime = Integer.parseInt(myTimeFormat.format(new Date()));&#10;&#10;System.setProperty(&quot;Status&quot;, &quot;LOOP&quot;);&#10;if ((Boolean)globalMap.get(&quot;tFileExist_1_EXISTS&quot;)==false){&#10;&#9;System.setProperty(&quot;Status&quot;, &quot;DIE&quot;);&#10;}&#10;else{&#10;&#9;if (CurrentTime &lt; context.StartTime){&#10;&#9;&#9;System.out.println(CurrentTime + &quot; : En attente de démarrage&quot;);&#10;&#9;}&#10;&#9;else{&#10;&#9;&#9;if (CurrentTime &lt;= context.EndTime){&#10;&#9;&#9;&#9;System.setProperty(&quot;Status&quot;, &quot;OK&quot;);&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;if (context.StopAfterEndTime == true){&#10;&#9;&#9;&#9;&#9;System.setProperty(&quot;Status&quot;, &quot;STOP&quot;);&#10;&#9;&#9;&#9;}&#10;&#9;&#9;&#9;else{&#10;&#9;&#9;&#9;&#9;System.out.println(CurrentTime + &quot; : Suspendu&quot;);&#10;&#9;&#9;&#9;}&#10;&#9;&#9;}&#10;&#9;}&#10;}&#10;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_1"/>
@@ -465,8 +465,8 @@
     <elementParameter field="TEXT" name="PERSONAL_NAME" value="&quot;Interfaces JDE&quot;"/>
     <elementParameter field="TEXT" name="CC" value=""/>
     <elementParameter field="TEXT" name="BCC" value=""/>
-    <elementParameter field="TEXT" name="SUBJECT" value="&quot;TOS : Fichier de paramètrage introuvable&quot;"/>
-    <elementParameter field="MEMO_MESSAGE" name="MESSAGE" value="&quot;&lt;html&gt;&#13;&#10;&lt;head&gt;&#13;&#10;&lt;meta http-equiv=Content-Type content=text/html; charset=iso-8859-15&gt;&lt;/head&gt;&#13;&#10;&lt;body&gt;&#13;&#10;Le fichier de paramètrage du job &lt;b&gt;&quot; + jobName + &quot;&lt;/b&gt;&lt;br/&gt; '&quot; + context.ParameterFile + &quot;'&lt;br/&gt; est introuvable.&#13;&#10;&lt;!--&lt;p&gt;Les valeurs par défaut sont utilisées.&lt;/p&gt;--&gt;&#13;&#10;&lt;hr width=500px&gt;&#13;&#10;&lt;font size=1 face=Arial color=blue&gt;&#13;&#10;Cet e-mail vous est envoyé automatiquement. Merci de ne pas y répondre, car votre message ne sera pas traité en retour.&#13;&#10;&lt;/font&gt;&#13;&#10;&lt;/body&gt;&#13;&#10;&lt;/html&gt;&quot;"/>
+    <elementParameter field="TEXT" name="SUBJECT" value="&quot;Le fichier de paramétrage du job &quot; + jobName + &quot; est introuvable&quot;"/>
+    <elementParameter field="MEMO_MESSAGE" name="MESSAGE" value="&quot;&lt;html&gt;&#13;&#10;&lt;head&gt;&#13;&#10;&lt;meta http-equiv=Content-Type content=text/html; charset=iso-8859-15&gt;&lt;/head&gt;&#13;&#10;&lt;body&gt;&#13;&#10;Le fichier de paramètrage du job &lt;b&gt;&quot; + jobName + &quot;&lt;/b&gt;&lt;br/&gt; '&quot; + context.ParameterFile + &quot;'&lt;br/&gt; est introuvable.&#13;&#10;Les paramétres par défaut sont utilisés !&lt;/br&gt;&#13;&#10;Dossier analysé : &quot; + context.Directory + &quot;&lt;/br&gt;&#13;&#10;Fichiers analysés : &quot; + context.FileMask + &quot;&lt;/br&gt;&#13;&#10;Dossier archives : &quot; + context.Archives + &quot;&lt;/br&gt;&#13;&#10;Fichier logs : &quot; + context.LogDirectory + context.LogFile + &quot;&lt;/br&gt;&#13;&#10;Temporisation : &quot; + context.WaitTime + &quot; secondes&lt;/br&gt;&#13;&#10;&#13;&#10;&lt;hr width=500px&gt;&#13;&#10;&lt;font size=1 face=Arial color=blue&gt;&#13;&#10;Cet e-mail vous est envoyé automatiquement. Merci de ne pas y répondre, car votre message ne sera pas traité en retour.&#13;&#10;&lt;/font&gt;&#13;&#10;&lt;/body&gt;&#13;&#10;&lt;/html&gt;&quot;"/>
     <elementParameter field="CHECK" name="CHECK_ATTACHMENT" value="false"/>
     <elementParameter field="TABLE" name="ATTACHMENTS"/>
     <elementParameter field="TABLE" name="HEADERS"/>
@@ -565,15 +565,15 @@
     <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="true"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" label="context_Parametres" name="context_Parametres">
-      <column comment="" key="false" length="-1" name="PARAMETER" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="VALUE" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="NAMES" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="VALUES" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
       <outputTables name="context_Parametres" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="row5.PARAMETRES" name="PARAMETER" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="row5.VALEURS" name="VALUE" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="row5.PARAMETRES" name="NAMES" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="row5.VALEURS" name="VALUES" nullable="true" type="id_String"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="row5" sizeState="INTERMEDIATE">
         <mapperTableEntries name="PARAMETRES" nullable="true" type="id_String"/>
@@ -585,17 +585,17 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFlowToIterate_2"/>
     <elementParameter field="CHECK" name="DEFAULT_MAP" value="false"/>
     <elementParameter field="TABLE" name="MAP">
-      <elementValue elementRef="KEY" value="&quot;PARAMETER&quot;"/>
-      <elementValue elementRef="VALUE" value="PARAMETER"/>
+      <elementValue elementRef="KEY" value="&quot;NAME&quot;"/>
+      <elementValue elementRef="VALUE" value="NAMES"/>
       <elementValue elementRef="KEY" value="&quot;VALUE&quot;"/>
-      <elementValue elementRef="VALUE" value="VALUE"/>
+      <elementValue elementRef="VALUE" value="VALUES"/>
     </elementParameter>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tFlowToIterate_2"/>
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="992" posY="32">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_4"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="String myParm = (String)globalMap.get(&quot;PARAMETER&quot;);&#10;String myValue = (String)globalMap.get(&quot;VALUE&quot;);&#10;&#10;switch (myParm.toUpperCase())&#10;{&#10;&#9;case &quot;ARCHIVES_DIRECTORY&quot;:case &quot;ARCHIVESDIRECTORY&quot;:&#10;&#9;&#9;context.Archives = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;DIRECTORY&quot;:&#10;&#9;&#9;context.Directory = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;ERRORS_DIRECTORY&quot;:case &quot;ERRORSDIRECTORY&quot;:&#10;&#9;&#9;context.ErrorDirectory = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;FILE_MASK&quot;:case &quot;FILEMASK&quot;:&#10;&#9;&#9;context.FileMask = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;LOGS_DIRECTORY&quot;:case &quot;LOGSDIRECTORY&quot;:&#10;&#9;&#9;context.LogDirectory = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_BCC&quot;:case &quot;MAILBCC&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_BCC = &quot;&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_BCC = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_CC&quot;:case &quot;MAILCC&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_CC = &quot;&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_CC = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_FROM&quot;:case &quot;MAILFROM&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_From = &quot;noreply.interfaces@lalique.fr&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_From = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_SUBJECT&quot;:case &quot;MAILSUBJECT&quot;:&#10;&#9;&#9;if (myValue == null || myValue.trim().length()==0){&#10;&#9;&#9;&#9;context.Mail_Subject = &quot;Arrêt du job &quot; + jobName;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_Subject = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_TO&quot;:case &quot;MAILTO&quot;:&#10;&#9;&#9;if (myValue != null){&#10;&#9;&#9;&#9;context.Mail_To = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;WAIT_TIME&quot;:case &quot;WAIT_TIMER&quot;:case &quot;WAITTIME&quot;:case &quot;WAITTIMER&quot;:&#10;&#9;&#9;if (myValue != null){&#10;&#9;&#9;&#9;context.Wait_Timer = Integer.parseInt(myValue);&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;default:&#10;&#9;&#9;&#10;}&#10;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="String myName = (String)globalMap.get(&quot;NAME&quot;);&#10;String myValue = (String)globalMap.get(&quot;VALUE&quot;);&#10;&#10;switch (myName.toUpperCase())&#10;{&#10;&#9;case &quot;ARCHIVES_DIRECTORY&quot;:case &quot;ARCHIVESDIRECTORY&quot;:&#10;&#9;&#9;context.Archives = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;DIRECTORY&quot;:&#10;&#9;&#9;context.Directory = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;ERRORS_DIRECTORY&quot;:case &quot;ERRORSDIRECTORY&quot;:&#10;&#9;&#9;context.ErrorDirectory = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;FILE_MASK&quot;:case &quot;FILEMASK&quot;:&#10;&#9;&#9;context.FileMask = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;LOGS_DIRECTORY&quot;:case &quot;LOGSDIRECTORY&quot;:&#10;&#9;&#9;context.LogDirectory = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_BCC&quot;:case &quot;MAILBCC&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_BCC = &quot;&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_BCC = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_CC&quot;:case &quot;MAILCC&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_CC = &quot;&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_CC = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_FROM&quot;:case &quot;MAILFROM&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_From = &quot;noreply.interfaces@lalique.fr&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_From = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_SUBJECT&quot;:case &quot;MAILSUBJECT&quot;:&#10;&#9;&#9;if (myValue == null || myValue.trim().length()==0){&#10;&#9;&#9;&#9;context.Mail_Subject = &quot;Arrêt du job &quot; + jobName;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_Subject = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_TO&quot;:case &quot;MAILTO&quot;:&#10;&#9;&#9;if (myValue != null){&#10;&#9;&#9;&#9;context.Mail_To = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;WAIT_TIME&quot;:case &quot;WAIT_TIMER&quot;:case &quot;WAITTIME&quot;:case &quot;WAITTIMER&quot;:&#10;&#9;&#9;if (myValue != null){&#10;&#9;&#9;&#9;context.Wait_Timer = Integer.parseInt(myValue);&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;default:&#10;&#9;&#9;&#10;}&#10;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_4"/>
@@ -824,6 +824,14 @@
       <column defaultValue="" key="false" length="3" name="code" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
   </node>
+  <node componentName="tWarn" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="544" posY="160">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tWarn_2"/>
+    <elementParameter field="TEXT" name="MESSAGE" value="&quot;Fichier de paramétrage non trouvé. Les paramétres par défaut sont utilisés.&quot;"/>
+    <elementParameter field="TEXT" name="CODE" value="0"/>
+    <elementParameter field="CLOSED_LIST" name="PRIORITY" value="3"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tWarn_2"/>
+  </node>
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tPrejob_1" offsetLabelX="0" offsetLabelY="0" source="tPrejob_1" target="tJava_5">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk1"/>
   </connection>
@@ -884,7 +892,7 @@
     <elementParameter field="MEMO_JAVA" name="CONDITION" value="(Boolean)globalMap.get(&quot;tFileExist_1_EXISTS&quot;)&#10;"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Exist"/>
   </connection>
-  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tSendMail_2" offsetLabelX="0" offsetLabelY="0" source="tSendMail_2" target="tWarn_1">
+  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tSendMail_2" offsetLabelX="0" offsetLabelY="0" source="tSendMail_2" target="tWarn_2">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk4"/>
   </connection>
   <connection connectorName="RUN_IF" label="errorCount" lineStyle="6" metaname="tJava_3" offsetLabelX="0" offsetLabelY="0" source="tJava_3" target="tSendMail_1">
@@ -917,10 +925,13 @@
       <elementValue elementRef="TRACE_COLUMN" value="LogFolder"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="VALUE"/>
+      <elementValue elementRef="TRACE_COLUMN" value="VALUES"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
       <elementValue elementRef="TRACE_COLUMN" value="PARAMETER"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="NAMES"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
@@ -1065,13 +1076,18 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_894ef0cc-ba1e-42fe-a7db-c19a75f750ba"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>NyNl61UBx6PluneipP8e0SDuQCNnS2EphlAF4XA2DNU9sPtGSsBKwWayod3xyrOv7Hspol6J3Mz5
-xd9peLSuAA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_60ecae65-0cec-45de-a73e-0b673e9ebb50"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>4FOOpgfBslmBSHIjpxQbzZakyrM8teMt2AXg3FHVllHKKXOC3u9Wo1KzGK6Tu56F++J7iM/2GouT
-/rdtzWHe5A==</DigestValue></Reference></SignedInfo><SignatureValue>C5dFMbLqSQ/6729E96E79hjJiHu04NznYst3mtMxRnnN4AigBpAVBBvQ7iFaBiVXXtrv7oH99D60
-S2M2APRbiy+cWsg0PB/qEkE2Zfc/OGi6pC5OC48s6w5/uS0fRzKFdi1Reaa9ybl7pIGRr7r6Dfi5
-WJD6VeBkVO/IqzsjEhgAu8YjjGyQA8KN3irLrhluKNznKfGtQGrcNVcLAJ9hvHUVLqsR6/Wpeibl
-RpFyFLo+fjXnLzYACubv77aSKYJ4KDKCiGvOMFugoMaF1CBaYTYR55jQNFifGrZ5Vop8YcsiKhJr
-pzSEdov0QHl+39eZ2HBsFsMBY2YaVleMIacRZw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+  <subjob>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tWarn_2"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+  </subjob>
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_4033fd8f-461f-415b-97b9-5771c4b80cc0"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>rJ3cXhP/lOFgHmx5q5voCn8fxyZUwRIbTQ85zURtUfD5xE23kLezK8xV9WcMBRBDPsqKbN9cu7so
+YBWpjAAHTQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_3818873b-cc3e-401f-a81f-2d113505f5a9"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>+5sxvUWDQjoPXfLYSXih0EjJtjuiNlCjrDKHPOzSGNKNGvEbhlUHBWza59tZcTzblRRQskSjEEoZ
+Mmw8kBzotg==</DigestValue></Reference></SignedInfo><SignatureValue>ZhQYOYon2HojIffBywgKps9mnA8tlOSbyFzRVe9Kmmos1lekUG+G3egtuZaE9GsFkBfkpi5grCxa
+Z4yiV+A64NrE2X4IePv/9whV4aO42svSWlDQGwwL24dNU8Lvdh9MY3ix8LZZJ80ZOGdSj7DNE6Kg
+QFteK8m7G1ktKHqoio/AjdACEObrBA+E0SAPSfoV5nk9nx6MNYtJJCjPYv+nC9rXAKvMYtQyUXuo
+CXxLq7xNpyllBe4RyI0Gx3VIb3MkvIFCNrEeOzLPB889EvFEcGHH/DRveWworh59uYJd+jZeRqfr
+UTe9P7o6i1aILE9I8wkCXIAZzerA1FQFlSk46Q==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1093,4 +1109,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_60ecae65-0cec-45de-a73e-0b673e9ebb50" Target="#_894ef0cc-ba1e-42fe-a7db-c19a75f750ba"><Timestamp>2020-06-30 10:00:00</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_3818873b-cc3e-401f-a81f-2d113505f5a9" Target="#_4033fd8f-461f-415b-97b9-5771c4b80cc0"><Timestamp>2020-07-01 05:49:07</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
