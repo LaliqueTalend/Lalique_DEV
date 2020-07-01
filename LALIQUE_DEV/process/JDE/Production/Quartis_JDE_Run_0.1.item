@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><talendfile:ProcessType xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmlns:TalendMapper="http://www.talend.org/mapper" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" defaultContext="PY" jobType="Standard" xmi:version="2.0">
   <context confirmationNeeded="false" name="FOR">
-    <contextParameter comment="Adresse mail de l'administrateur" name="AdminMail" prompt="AdminMail?" promptNeeded="false" type="id_String" value="pbongard@lalique.fr"/>
     <contextParameter comment="Heure de fin de la boucle (hhmmss)" name="EndTime" prompt="EndTime?" promptNeeded="false" type="id_Integer" value="200000"/>
     <contextParameter comment="" name="ErrorCode" prompt="ErrorCode?" promptNeeded="false" type="id_Integer" value="0"/>
     <contextParameter comment="Compteur d'erreurs consécutives (voir tJava_2)" name="ErrorCount" prompt="ErrorCount?" promptNeeded="false" type="id_Integer" value="0"/>
@@ -34,7 +33,6 @@
     <contextParameter comment="Temporisation d'attente (en secondes) *" name="Wait_Timer" prompt="Wait_Timer?" promptNeeded="false" repositoryContextId="_NOR7ULoVEeq0eIMIH4HXKQ" type="id_Integer" value="15"/>
   </context>
   <context confirmationNeeded="false" name="PY">
-    <contextParameter comment="Adresse mail de l'administrateur" name="AdminMail" prompt="AdminMail?" promptNeeded="false" type="id_String" value="pbongard@lalique.fr"/>
     <contextParameter comment="Heure de fin de la boucle (hhmmss)" name="EndTime" prompt="EndTime?" promptNeeded="false" type="id_Integer" value="200000"/>
     <contextParameter comment="" name="ErrorCode" prompt="ErrorCode?" promptNeeded="false" type="id_Integer" value="0"/>
     <contextParameter comment="Compteur d'erreurs consécutives (voir tJava_2)" name="ErrorCount" prompt="ErrorCount?" promptNeeded="false" type="id_Integer" value="0"/>
@@ -461,7 +459,7 @@
     <elementParameter field="FILE" name="FILE_NAME" value="context.ParameterFile"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
   </node>
-  <node componentName="tSendMail" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="416" posY="544">
+  <node componentName="tSendMail" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="800" posY="160">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSendMail_2"/>
     <elementParameter field="TEXT" name="TO" value="context.Mail_To"/>
     <elementParameter field="TEXT" name="FROM" value="&quot;noreply.interfaces@lalique.fr&quot;"/>
@@ -493,7 +491,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="224" posY="544">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_3"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="// ErrorCodes:&#10;// 10 - paramétre invalide&#10;// 40 - fichier paramétre absent&#10;// 50 - erreur de traitement du fichier Quartis (Avertissement, pas d'arrêt)&#10;&#10;// 90 - nombre d'erreurs maxi dépassé&#10;// 99 - autres causes d'arrêt&#10;&#10;if (context.ErrorCount &gt;= context.ErrorMax){&#10;&#9;context.ErrorCode = 90;&#10;}&#10;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="// ErrorCode:&#10;// 10 - paramétre invalide&#10;// 40 - fichier paramétre absent&#10;// 50 - erreur de traitement du fichier Quartis (Avertissement, pas d'arrêt)&#10;// 90 - nombre d'erreurs maxi dépassé&#10;&#10;// 99 - autres causes d'arrêt&#10;&#10;switch (context.ErrorCode)&#10;{&#10;&#9;case 0:case 40:case 90:&#10;&#9;// messages gérés &#10;&#9;&#9;break;&#10;&#9;default:&#10;&#9;// autres erreurs&#10;&#9;&#9;context.ErrorCode = 99;&#10;&#9;&#9;break;&#10;&#9;&#10;}&#10;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_3"/>
@@ -726,7 +724,7 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tDie_5"/>
   </node>
-  <node componentName="tSendMail" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="416" posY="672">
+  <node componentName="tSendMail" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="416" posY="544">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSendMail_1"/>
     <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="true"/>
     <elementParameter field="TEXT" name="TO" value="context.Mail_To"/>
@@ -851,7 +849,7 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_6"/>
   </node>
-  <node componentName="tSendMail" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="128" posY="672">
+  <node componentName="tSendMail" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="224" posY="672">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSendMail_4"/>
     <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="true"/>
     <elementParameter field="TEXT" name="TO" value="context.Mail_To"/>
@@ -962,13 +960,9 @@
     <elementParameter field="MEMO_JAVA" name="CONDITION" value="context.ErrorCode == 90"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Error_90"/>
   </connection>
-  <connection connectorName="RUN_IF" label="Error_40" lineStyle="6" metaname="tJava_3" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tJava_3" target="tSendMail_2">
-    <elementParameter field="MEMO_JAVA" name="CONDITION" value=" context.ErrorCode == 40"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Error_40"/>
-  </connection>
-  <connection connectorName="RUN_IF" label="Error_10" lineStyle="6" metaname="tJava_3" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tJava_3" target="tSendMail_4">
-    <elementParameter field="MEMO_JAVA" name="CONDITION" value="  context.ErrorCode == 10"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Error_10"/>
+  <connection connectorName="RUN_IF" label="Error_99" lineStyle="6" metaname="tJava_3" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tJava_3" target="tSendMail_4">
+    <elementParameter field="MEMO_JAVA" name="CONDITION" value="  context.ErrorCode == 99"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Error_99"/>
   </connection>
   <connection connectorName="FLOW" label="row5" lineStyle="0" metaname="tFileInputExcel_2" offsetLabelX="0" offsetLabelY="0" source="tFileInputExcel_2" target="tMap_3">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
@@ -1033,6 +1027,10 @@
   </connection>
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tJava_5" offsetLabelX="0" offsetLabelY="0" source="tJava_5" target="tFileExist_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk6"/>
+  </connection>
+  <connection connectorName="RUN_IF" label="Error_40" lineStyle="6" metaname="tWarn_2" offsetLabelX="0" offsetLabelY="0" source="tWarn_2" target="tSendMail_2">
+    <elementParameter field="MEMO_JAVA" name="CONDITION" value=" contexte.ErrorCode == 40"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Error_40"/>
   </connection>
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tJava_6" offsetLabelX="0" offsetLabelY="0" source="tJava_6" target="tWarn_2">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk4"/>
@@ -1168,14 +1166,14 @@
   <subjob>
     <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tWarn_2"/>
-    <elementParameter field="TEXT" name="SUBJOB_TITLE" value="Défaut"/>
+    <elementParameter field="TEXT" name="SUBJOB_TITLE" value="Erreur 40"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
   <subjob>
     <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tWarn_3"/>
-    <elementParameter field="TEXT" name="SUBJOB_TITLE" value="Nom Invalide"/>
+    <elementParameter field="TEXT" name="SUBJOB_TITLE" value="Erreur 10"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
@@ -1191,13 +1189,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_dc095d14-7297-4124-83ec-82ac48af4e4e"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>eOoCmH4KLSXK43Lxl90tNVEgF9qQJxaNSYrczNOKStaNqAzXmBC31rmFdhr5DXyKYtHv5T5rbG0p
-4gqSFlaTDw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_4fad5af1-dd32-47c3-aed4-2f010b034cbc"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>4lHrDW2AAPrrA6vFy3dXOKvCSPQju++E0hvhmvaXxCDr7zXVsklJ5iJkCKbDX+nbTkzcaVZ5nGWf
-BeYcuvVfRw==</DigestValue></Reference></SignedInfo><SignatureValue>W9wBwBCOE34T9PRvTXgS3F0gZ5PEAjMEakAnHMf306aj+WQ3Z3t5fXekBRGsRmtOlIT/+8JL9aXH
-RcAnuQf6pz4MinlwlC+Z6OHkrkKz8OBwovpZrCWixNvz2ljLDCTgRJxJDSv3ehkgw1E1W9aXjrkG
-c1ZoKL7hBrtzWUQnr03hr6GHbZsCVFpDz/XAK8Pw+q4amUqAsNk3lZu9rpoYBQLMTL0bh+x1OHle
-XKG+g+wgeUhMB8378o7YAAicqE4/emIRwM+q95Q3eoHXvtch97Y/bJCAaN73+9bwsKufiQNLarCl
-MdgZe6gthMPQA//yWAcvBl6x/OqsJR3vHBRXfw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_ff862cd3-1779-4f12-955c-d649b9b806a8"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>JHIU7CVwkwShhsZNn/OrXJ4SVJ5czYkrgQvQa08dDk8J50JMjKsx+MLI1VJinwNfMGg+b3Jh0JKX
+PsFsWj/SlQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_fe8ee526-3ff8-48c7-9aed-9adf4029487c"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>AN2GQZtPFk3DKmhUiZ6VuQ136ww73Z1TebczPHLMLCDvJyPhX3wBgZcFlqQrwRG76+CZjqKa3oCC
+kNvhYilqBg==</DigestValue></Reference></SignedInfo><SignatureValue>eHWUQdGbJ67JY7SKXBKlzo20wHKCp4HeLHyMk1rkSSQsHn2I7KmFaOOPos0rWHBNv/XayCO2mHTX
+4SSqbyxMXGTPU6WVSh+1fE2+2K4LePetMzzR2EvyG1VaCEfx5diX9PGzJWrzMBSgDn5tAO2V4A7G
+fdPUZqGwc2KDnKnSp1jxh5B6nJgOJhnnXGq1eroB2a+IqdSMkLuY9O4f5olGZml4O9RfU87eQwq+
+LesKqfmrsoTLl6Mr3SL6F/oNTXhOT1/1spCkeo1JyDlez0vPHxESKQ490X3xIjtT9kAtLMwbdpgZ
+CXbU5McF5YuUbRGciZDlb0qrRRiQS2tcrtL7oA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1219,4 +1217,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_4fad5af1-dd32-47c3-aed4-2f010b034cbc" Target="#_dc095d14-7297-4124-83ec-82ac48af4e4e"><Timestamp>2020-07-01 09:33:34</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_fe8ee526-3ff8-48c7-9aed-9adf4029487c" Target="#_ff862cd3-1779-4f12-955c-d649b9b806a8"><Timestamp>2020-07-01 09:53:14</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
