@@ -246,7 +246,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="-256" posY="192">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_2"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="String myTimeStamp;&#10;String myFileIn;&#10;SimpleDateFormat myDateFormat;&#10;&#10;context.ErrorCode = 1;&#10;System.setProperty(&quot;Quartis_JDE_ERROR&quot;, &quot;0&quot;);&#10;&#10;myDateFormat = new SimpleDateFormat(&quot;yyMMddHHmmssS&quot;);&#10;myTimeStamp = myDateFormat.format(TalendDate.getCurrentDate());&#10;&#10;System.out.println(&quot;Le fichier &quot;+(String)globalMap.get(&quot;tWaitForFile_1_FILENAME&quot;)+&quot; a été détecté !&quot;);&#10;System.setProperty(&quot;myTimeStamp&quot;, myTimeStamp);&#10;&#10;myFileIn = (String)globalMap.get(&quot;tWaitForFile_1_CREATED_FILE&quot;);&#10;if (myFileIn==null || myFileIn.length()==0){&#10;&#9;myFileIn = (String)globalMap.get(&quot;tWaitForFile_1_PRESENT_FILE&quot;);&#10;}&#10;System.setProperty(&quot;FileIn&quot;, myFileIn);&#10;&#10;System.setProperty(&quot;FileName&quot;, (String)globalMap.get(&quot;tWaitForFile_1_FILENAME&quot;));"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="String myTimeStamp;&#10;String myFileIn;&#10;SimpleDateFormat myDateFormat;&#10;&#10;context.ErrorCode = 0;&#10;System.setProperty(&quot;Quartis_JDE_ERROR&quot;, &quot;0&quot;);&#10;&#10;myDateFormat = new SimpleDateFormat(&quot;yyMMddHHmmssS&quot;);&#10;myTimeStamp = myDateFormat.format(TalendDate.getCurrentDate());&#10;&#10;System.out.println(&quot;Le fichier &quot;+(String)globalMap.get(&quot;tWaitForFile_1_FILENAME&quot;)+&quot; a été détecté !&quot;);&#10;System.setProperty(&quot;myTimeStamp&quot;, myTimeStamp);&#10;&#10;myFileIn = (String)globalMap.get(&quot;tWaitForFile_1_CREATED_FILE&quot;);&#10;if (myFileIn==null || myFileIn.length()==0){&#10;&#9;myFileIn = (String)globalMap.get(&quot;tWaitForFile_1_PRESENT_FILE&quot;);&#10;}&#10;System.setProperty(&quot;FileIn&quot;, myFileIn);&#10;&#10;System.setProperty(&quot;FileName&quot;, (String)globalMap.get(&quot;tWaitForFile_1_FILENAME&quot;));"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="LABEL" value="FileProcess"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -699,11 +699,11 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tDie_2"/>
   </node>
-  <node componentName="tPostjob" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="544" posY="32">
+  <node componentName="tPostjob" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="-352" posY="704">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tPostjob_1"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
   </node>
-  <node componentName="tOracleClose" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="736" posY="32">
+  <node componentName="tOracleClose" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="-160" posY="704">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBClose_1"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="tDBConnection_1"/>
     <elementParameter field="TEXT" name="LABEL" value="JDE_DTA"/>
@@ -882,54 +882,6 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_3"/>
   </node>
-  <node componentName="tSendMail" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="96" posY="576">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSendMail_1"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
-    <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="true"/>
-    <elementParameter field="TEXT" name="TO" value="context.Mail_To"/>
-    <elementParameter field="TEXT" name="FROM" value="context.Mail_From"/>
-    <elementParameter field="CHECK" name="NEED_PERSONAL_NAME" value="true"/>
-    <elementParameter field="TEXT" name="PERSONAL_NAME" value="&quot;Interfaces JDE&quot;"/>
-    <elementParameter field="TEXT" name="CC" value="context.Mail_CC"/>
-    <elementParameter field="TEXT" name="BCC" value="context.Mail_BCC"/>
-    <elementParameter field="TEXT" name="SUBJECT" value="context.Mail_Subject"/>
-    <elementParameter field="MEMO_MESSAGE" name="MESSAGE" value="&quot;&lt;html&gt;&#13;&#10;&lt;head&gt;&#13;&#10;&lt;meta http-equiv=Content-Type content=text/html; charset=iso-8859-15&gt;&lt;/head&gt;&#13;&#10;&lt;body&gt;&#13;&#10;Erreur de traitement du job &lt;b&gt;&quot; + jobName + &quot;&lt;/b&gt;.&#13;&#10;&lt;p&gt;Pour obtenir plus d'informations sur les causes de cet arrêt, veuillez consulter la pièce jointe.&lt;/p&gt;&#13;&#10;&lt;hr width=500px&gt;&#13;&#10;&lt;font size=1 face=Arial color=blue&gt;&#13;&#10;Cet e-mail vous est envoyé automatiquement. Merci de ne pas y répondre, car votre message ne sera pas traité en retour.&#13;&#10;&lt;/font&gt;&#13;&#10;&lt;/body&gt;&#13;&#10;&lt;/html&gt;&quot;"/>
-    <elementParameter field="CHECK" name="CHECK_ATTACHMENT" value="false"/>
-    <elementParameter field="TABLE" name="ATTACHMENTS">
-      <elementValue elementRef="FILE" value="context.LogDirectory + context.LogFile"/>
-      <elementValue elementRef="CONTENT_TRANSFER_ENCODING" value="DEFAULT"/>
-    </elementParameter>
-    <elementParameter field="TABLE" name="HEADERS"/>
-    <elementParameter field="TEXT" name="SMTP_HOST" value="&quot;smtp.lalique.lan&quot;"/>
-    <elementParameter field="TEXT" name="SMTP_PORT" value="25"/>
-    <elementParameter field="CHECK" name="SSL" value="false"/>
-    <elementParameter field="CHECK" name="STARTTLS" value="false"/>
-    <elementParameter field="CLOSED_LIST" name="IMPORTANCE" value="Normal"/>
-    <elementParameter field="CHECK" name="NEED_AUTH" value="false"/>
-    <elementParameter field="TEXT" name="AUTH_USERNAME" show="false" value="&quot;lalique\pbo&quot;"/>
-    <elementParameter field="PASSWORD" name="AUTH_PASSWORD" show="false" value="0RMsyjmybrE="/>
-    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true"/>
-    <elementParameter field="CLOSED_LIST" name="TEXT_SUBTYPE" value="html"/>
-    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
-    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
-    <elementParameter field="CHECK" name="SET_LOCALHOST" value="false"/>
-    <elementParameter field="TEXT" name="LOCALHOST" show="false" value="&quot;localhost&quot;"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tSendMail_1">
-      <column key="false" length="0" name="moment" nullable="true" originalLength="-1" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="0" sourceType="" type="id_Date" usefulColumn="true"/>
-      <column key="false" length="20" name="pid" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="20" name="root_pid" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="20" name="father_pid" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="50" name="project" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="255" name="job" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="50" name="context" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="3" name="priority" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column key="false" length="255" name="type" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="255" name="origin" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="255" name="message" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="3" name="code" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
-    </metadata>
-  </node>
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tPrejob_1" offsetLabelX="0" offsetLabelY="0" source="tPrejob_1" target="tJava_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk1"/>
   </connection>
@@ -1082,10 +1034,6 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F31122Z1"/>
   </connection>
-  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tDie_2" offsetLabelX="0" offsetLabelY="0" source="tDie_2" target="tSendMail_1">
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk8"/>
-  </connection>
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tPostjob_1" offsetLabelX="0" offsetLabelY="0" source="tPostjob_1" target="tDBClose_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk4"/>
   </connection>
@@ -1210,18 +1158,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-  <subjob>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSendMail_1"/>
-    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
-    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
-  </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_c28ae17d-92ee-4839-b9a8-7461374cb26e"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>CJJzNfT2uwD7eI4MYZzDF0zWL2PtYmbP/KlPu6ZYAT5Rf57DN8eHXQG29cAZBRLSfN+TXJk3zy4g
-ZoTNrQHc3w==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_c70e598f-7e69-484c-99c8-f6eccd3a9da3"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>tNogcSYKZc7UksTEAj4p+/b0OrivdZRzTaEeHfnJVAqa3BHMlbcJNVPX29Kd18t/DrtKjR4XNCye
-GiDsFFmYGQ==</DigestValue></Reference></SignedInfo><SignatureValue>XO3NgCbHvtCNRD9+dm7IrFpUnwhbRpXsIH0MF2QlhggM4mu3+osTKuO4D6TgcPtbPRSz6uY6SpLL
-zL/XuCfkLr3RCdJXjHw6A/0PO5KxDP33RdGyuUDPG56PAAFxvASG5nYTBIPZRCSOrYx2Ygv+uWfB
-z1Iz4pmblmU9O2AQtOBBXEHGhqHM3FSZYwcY/M3EVd1znxYlHaY8jDLhSxPsh3eZCTDYh2qu7spT
-U58iKZ3gDGdQ+alPes1hN1MircNTCQbuYLERlZHm0U8KCUQs5UH+qVmzWp3H09ERYkGuaUmwj+nJ
-3r0N2fUeIIlFHSZxLNUNqXQWBWRmYQnwXl8bEw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_a3f6cdbe-1c37-4c3a-b9c0-40b8c6f5e476"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>UPutjsWm956A0oXGxW9YZNRvM8QsSPCzK+Y6qzUtZ45U+vaoStmvml6EiWaoXCAhy6iOhIS1cXNt
+EUOh8j0/Zg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_d843fd12-f79c-4660-acf9-e0fdb8e02282"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>L1bBL0TdUVbd07monk+RJvr2MbcTvSL4x2uBclgWVgzTQMUvpFhQgDlzYfGgQS+6c41WWQxEFn7V
+EnJpwPUT6Q==</DigestValue></Reference></SignedInfo><SignatureValue>VB06n97wQ7o03qCBvsZ/9frbJm7NgG+KHCi/JD7fpc60Eyd9Ftp/NSpgj/QGzjtwC4uFZzbmDsmW
+Zd0sFpKjFOYpR5eWLvPP98mJBkQrCMEJTAEv5TqQegaKjK6xnJpiykxqqnM7b68VrnOZWQi2AZOR
+cQNaUdCgxpaShAEYrigF045mYE3KXhUcBMq2LIbGzHzRXkiMx5AAPq02IDbwaM2PNwuPCuiGgd2P
+Ave+jelwQLuw5ApSNSBxRBAcQ8fXnVmeXz/2NiU/4nJ6y51zi0HRXWq9Psl9B8kQCVcPaO5oOrB+
+16LfPgYrofHvm+6YpqNSKZdDFiy/79YtDgIIbg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1243,4 +1186,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_c70e598f-7e69-484c-99c8-f6eccd3a9da3" Target="#_c28ae17d-92ee-4839-b9a8-7461374cb26e"><Timestamp>2020-07-02 07:50:29</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_d843fd12-f79c-4660-acf9-e0fdb8e02282" Target="#_a3f6cdbe-1c37-4c3a-b9c0-40b8c6f5e476"><Timestamp>2020-07-02 07:57:53</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
