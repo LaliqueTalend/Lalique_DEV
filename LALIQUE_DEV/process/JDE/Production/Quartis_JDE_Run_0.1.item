@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><talendfile:ProcessType xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmlns:TalendMapper="http://www.talend.org/mapper" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" defaultContext="PY" jobType="Standard" xmi:version="2.0">
   <context confirmationNeeded="false" name="FOR">
     <contextParameter comment="Heure de fin de la boucle (hhmmss)" name="EndTime" prompt="EndTime?" promptNeeded="false" type="id_Integer" value="200000"/>
-    <contextParameter comment="" name="ErrorCode" prompt="ErrorCode?" promptNeeded="false" type="id_Integer" value="0"/>
+    <contextParameter comment="Code de l'erreur en cours" name="ErrorCode" prompt="ErrorCode?" promptNeeded="false" type="id_Integer" value="0"/>
     <contextParameter comment="Compteur d'erreurs consécutives (voir tJava_2)" name="ErrorCount" prompt="ErrorCount?" promptNeeded="false" type="id_Integer" value="0"/>
-    <contextParameter comment="" name="ErrorMax" prompt="ErrorMax?" promptNeeded="false" type="id_Integer" value="3"/>
-    <contextParameter comment="" name="ErrorMessage" prompt="ErrorMessage?" promptNeeded="false" type="id_String" value=" "/>
-    <contextParameter comment="Fichier des paramètres" name="ParameterFile" prompt="ParameterFile?" promptNeeded="false" type="id_String" value="C:\TOS\INTERFACES\PARAMETRES\Quartis_JDE_Parametres.xlsx"/>
+    <contextParameter comment="Nombre d'erreurs admises avant l'arrêt du job" name="ErrorMax" prompt="ErrorMax?" promptNeeded="false" type="id_Integer" value="3"/>
+    <contextParameter comment="Description de l'erreur en cours" name="ErrorMessage" prompt="ErrorMessage?" promptNeeded="false" type="id_String" value=" "/>
+    <contextParameter comment="Fichier des paramètres " name="ParameterFile" prompt="ParameterFile?" promptNeeded="false" type="id_String" value="C:\TOS\INTERFACES\PARAMETRES\Quartis_JDE_Parametres.xlsx"/>
     <contextParameter comment="Heure de début de la boucle (hhmmss)" name="StartTime" prompt="StartTime?" promptNeeded="false" type="id_Integer" value="060000"/>
     <contextParameter comment="Arrêt du Job après l'heure de fin" name="StopAfterEndTime" prompt="StopAfterEndTime?" promptNeeded="false" type="id_Boolean" value="true"/>
     <contextParameter comment="" name="JDE920_AdditionalParams" prompt="JDE920_AdditionalParams?" promptNeeded="false" repositoryContextId="_7_vSEIRmEeq1lPpnM_KXRQ" type="id_String" value=""/>
@@ -34,11 +34,11 @@
   </context>
   <context confirmationNeeded="false" name="PY">
     <contextParameter comment="Heure de fin de la boucle (hhmmss)" name="EndTime" prompt="EndTime?" promptNeeded="false" type="id_Integer" value="200000"/>
-    <contextParameter comment="" name="ErrorCode" prompt="ErrorCode?" promptNeeded="false" type="id_Integer" value="0"/>
+    <contextParameter comment="Code de l'erreur en cours" name="ErrorCode" prompt="ErrorCode?" promptNeeded="false" type="id_Integer" value="0"/>
     <contextParameter comment="Compteur d'erreurs consécutives (voir tJava_2)" name="ErrorCount" prompt="ErrorCount?" promptNeeded="false" type="id_Integer" value="0"/>
-    <contextParameter comment="" name="ErrorMax" prompt="ErrorMax?" promptNeeded="false" type="id_Integer" value="3"/>
-    <contextParameter comment="" name="ErrorMessage" prompt="ErrorMessage?" promptNeeded="false" type="id_String" value=" "/>
-    <contextParameter comment="Fichier des paramètres" name="ParameterFile" prompt="ParameterFile?" promptNeeded="false" type="id_String" value="C:\TOS\INTERFACES\PARAMETRES\Quartis_JDE_Parametres.xlsx"/>
+    <contextParameter comment="Nombre d'erreurs admises avant l'arrêt du job" name="ErrorMax" prompt="ErrorMax?" promptNeeded="false" type="id_Integer" value="3"/>
+    <contextParameter comment="Description de l'erreur en cours" name="ErrorMessage" prompt="ErrorMessage?" promptNeeded="false" type="id_String" value=" "/>
+    <contextParameter comment="Fichier des paramètres " name="ParameterFile" prompt="ParameterFile?" promptNeeded="false" type="id_String" value="C:\TOS\INTERFACES\PARAMETRES\Quartis_JDE_Parametres.xlsx"/>
     <contextParameter comment="Heure de début de la boucle (hhmmss)" name="StartTime" prompt="StartTime?" promptNeeded="false" type="id_Integer" value="060000"/>
     <contextParameter comment="Arrêt du Job après l'heure de fin" name="StopAfterEndTime" prompt="StopAfterEndTime?" promptNeeded="false" type="id_Boolean" value="true"/>
     <contextParameter comment="" name="JDE920_AdditionalParams" prompt="JDE920_AdditionalParams?" promptNeeded="false" repositoryContextId="_7_vSEIRmEeq1lPpnM_KXRQ" type="id_String" value=""/>
@@ -236,7 +236,7 @@
       <column key="false" length="255" name="message" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
       <outputTables name="Log_ERROR" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="row2.moment " name="date" nullable="true" type="id_Date"/>
@@ -491,7 +491,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="224" posY="544">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_3"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="// ErrorCode:&#10;// 10 - paramétre invalide&#10;// 40 - fichier paramétre absent&#10;// 50 - erreur de traitement du fichier Quartis (Avertissement, pas d'arrêt)&#10;// 90 - nombre d'erreurs maxi dépassé&#10;&#10;// 99 - autres causes d'arrêt&#10;&#10;switch (context.ErrorCode)&#10;{&#10;&#9;case 0:case 40:case 50:&#10;&#9;// messages gérés &#10;&#9;&#9;context.ErrorMessage = &quot;&quot;;&#10;&#9;&#9;break;&#10;&#9;case 90:&#10;&#9;&#9;context.ErrorMessage = &quot; aprés avoir détecté plus de &quot; + context.ErrorMax + &quot;.&quot;;&#10;&#9;&#9;break;&#10;&#9;default:&#10;&#9;// autres erreurs&#10;&#9;&#9;context.ErrorMessage = &quot;.&quot;;&#10;&#9;&#9;break;&#10;&#9;&#10;}&#10;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="// ErrorCode:&#10;// 10 - nom de paramétre invalide&#10;// 20 - valeur du paramétre invalide&#10;// 40 - fichier paramétre absent&#10;// 50 - erreur de traitement du fichier Quartis (Avertissement, pas d'arrêt)&#10;// 90 - nombre d'erreurs maxi dépassé&#10;&#10;// 99 - autres causes d'arrêt&#10;&#10;switch (context.ErrorCode)&#10;{&#10;&#9;case 0:case 40:case 50:&#10;&#9;// messages gérés préalablement&#10;&#9;&#9;context.ErrorMessage = &quot;&quot;;&#10;&#9;&#9;break;&#10;&#9;case 90:&#10;&#9;&#9;context.ErrorMessage = &quot; aprés avoir détecté plus de &quot; + context.ErrorMax + &quot;.&quot;;&#10;&#9;&#9;break;&#10;&#9;default:&#10;&#9;// autres erreurs&#10;&#9;&#9;context.ErrorMessage = &quot;.&quot;;&#10;&#9;&#9;break;&#10;&#9;&#10;}&#10;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_3"/>
@@ -571,7 +571,7 @@
       <column comment="" key="false" length="-1" name="VALUES" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
       <outputTables name="context_Parametres" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="row5.PARAMETRES" name="NAMES" nullable="true" type="id_String"/>
@@ -597,7 +597,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="1184" posY="32">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_4"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="String myName = (String)globalMap.get(&quot;NAME&quot;);&#10;String myValue = (String)globalMap.get(&quot;VALUE&quot;);&#10;context.ErrorCode = 0;&#10;&#10;switch (myName.toUpperCase())&#10;{&#10;&#9;case &quot;ARCHIVES_DIRECTORY&quot;:case &quot;ARCHIVESDIRECTORY&quot;:&#10;&#9;&#9;context.Archives = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;DIRECTORY&quot;:&#10;&#9;&#9;context.Directory = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;ERRORS_DIRECTORY&quot;:case &quot;ERRORSDIRECTORY&quot;:&#10;&#9;&#9;context.ErrorDirectory = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;FILE_MASK&quot;:case &quot;FILEMASK&quot;:&#10;&#9;&#9;context.FileMask = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;LOGS_DIRECTORY&quot;:case &quot;LOGSDIRECTORY&quot;:&#10;&#9;&#9;context.LogDirectory = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_BCC&quot;:case &quot;MAILBCC&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_BCC = &quot;&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_BCC = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_CC&quot;:case &quot;MAILCC&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_CC = &quot;&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_CC = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_FROM&quot;:case &quot;MAILFROM&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_From = &quot;noreply.interfaces@lalique.fr&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_From = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_SUBJECT&quot;:case &quot;MAILSUBJECT&quot;:&#10;&#9;&#9;if (myValue == null || myValue.trim().length()==0){&#10;&#9;&#9;&#9;context.Mail_Subject = &quot;Arrêt du job &quot; + jobName;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_Subject = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_TO&quot;:case &quot;MAILTO&quot;:&#10;&#9;&#9;if (myValue != null){&#10;&#9;&#9;&#9;context.Mail_To = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;WAIT_TIME&quot;:case &quot;WAIT_TIMER&quot;:case &quot;WAITTIME&quot;:case &quot;WAITTIMER&quot;:&#10;&#9;&#9;if (myValue != null){&#10;&#9;&#9;&#9;context.Wait_Timer = Integer.parseInt(myValue);&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;default:&#10;&#9;&#9;context.ErrorMessage = &quot;Le paramètre [&quot; + myName + &quot;] n'est pas valide, il est ignoré.&quot;;&#10;&#9;&#9;context.ErrorCode = 10;&#10;&#9;&#9;break;&#10;}&#10;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="String myName = (String)globalMap.get(&quot;NAME&quot;);&#10;String myValue = (String)globalMap.get(&quot;VALUE&quot;);&#10;&#10;context.ErrorCode = 0;&#10;&#10;switch (myName.toUpperCase())&#10;{&#10;&#9;case &quot;ARCHIVES_DIRECTORY&quot;:case &quot;ARCHIVESDIRECTORY&quot;:&#10;&#9;&#9;context.Archives = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;DIRECTORY&quot;:&#10;&#9;&#9;context.Directory = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;END_TIME&quot;:case &quot;ENDTIME&quot;:&#10;&#9;&#9;try{&#10;&#9;&#9;&#9;context.EndTime = Integer.parseInt(myValue);&#10;&#9;&#9;} catch{&#10;&#9;&#9;&#9;context.ErrorMessage = &quot;La valeur du paramètre [&quot; + myName + &quot; = &quot; + myValue + &quot;] n'est pas valide.&quot;;&#10;&#9;&#9;&#9;context.ErrorCode = 20;&#10;&#9;&#9;}&#10;&#9;&#9;System.out.println(&quot;End time = &quot; + context.EndTime);&#10;&#9;case &quot;ERRORS_DIRECTORY&quot;:case &quot;ERRORSDIRECTORY&quot;:&#10;&#9;&#9;context.ErrorDirectory = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;FILE_MASK&quot;:case &quot;FILEMASK&quot;:&#10;&#9;&#9;context.FileMask = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;LOGS_DIRECTORY&quot;:case &quot;LOGSDIRECTORY&quot;:&#10;&#9;&#9;context.LogDirectory = myValue;&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_BCC&quot;:case &quot;MAILBCC&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_BCC = &quot;&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_BCC = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_CC&quot;:case &quot;MAILCC&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_CC = &quot;&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_CC = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_FROM&quot;:case &quot;MAILFROM&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_From = &quot;noreply.interfaces@lalique.fr&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_From = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_SUBJECT&quot;:case &quot;MAILSUBJECT&quot;:&#10;&#9;&#9;if (myValue == null || myValue.trim().length()==0){&#10;&#9;&#9;&#9;context.Mail_Subject = &quot;Arrêt du job &quot; + jobName;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_Subject = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_TO&quot;:case &quot;MAILTO&quot;:&#10;&#9;&#9;if (myValue != null){&#10;&#9;&#9;&#9;context.Mail_To = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;START_TIME&quot;:case &quot;STARTTIME&quot;:&#10;&#9;&#9;try{&#10;&#9;&#9;&#9;context.StartTime = Integer.parseInt(myValue);&#10;&#9;&#9;} catch{&#10;&#9;&#9;&#9;context.ErrorMessage = &quot;La valeur du paramètre [&quot; + myName + &quot; = &quot; + myValue + &quot;] n'est pas valide.&quot;;&#10;&#9;&#9;&#9;context.ErrorCode = 20;&#10;&#9;&#9;}&#10;&#9;case &quot;WAIT_TIME&quot;:case &quot;WAIT_TIMER&quot;:case &quot;WAITTIME&quot;:case &quot;WAITTIMER&quot;:&#10;&#9;&#9;if (myValue != null){&#10;&#9;&#9;&#9;context.Wait_Timer = Integer.parseInt(myValue);&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;default:&#10;&#9;&#9;context.ErrorMessage = &quot;Le paramètre [&quot; + myName + &quot;] n'est pas valide, il est ignoré.&quot;;&#10;&#9;&#9;context.ErrorCode = 10;&#10;&#9;&#9;break;&#10;}&#10;&#10;System.out.println(myName + &quot; = &quot; + myValue);&#10;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_4"/>
@@ -718,7 +718,7 @@
   <node componentName="tDie" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="416">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDie_5"/>
     <elementParameter field="TEXT" name="MESSAGE" value="&quot;Erreur de paramétrage.&quot;"/>
-    <elementParameter field="TEXT" name="CODE" value="4"/>
+    <elementParameter field="TEXT" name="CODE" value="context.ErrorCode"/>
     <elementParameter field="CLOSED_LIST" name="PRIORITY" value="6"/>
     <elementParameter field="CHECK" name="EXIT_JVM" value="false"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -734,7 +734,7 @@
     <elementParameter field="TEXT" name="CC" value="context.Mail_CC"/>
     <elementParameter field="TEXT" name="BCC" value="context.Mail_BCC"/>
     <elementParameter field="TEXT" name="SUBJECT" value="context.Mail_Subject"/>
-    <elementParameter field="MEMO_MESSAGE" name="MESSAGE" value="&quot;&lt;html&gt;&#13;&#10;&lt;head&gt;&#13;&#10;&lt;meta http-equiv=Content-Type content=text/html; charset=iso-8859-15&gt;&lt;/head&gt;&#13;&#10;&lt;body&gt;&#13;&#10;Arrêt anormal du job &lt;b&gt;&quot; + jobName + &quot;&lt;/b&gt;&quot; + context.ErrorMessage + &quot;&#13;&#10;&lt;p&gt;Pour obtenir plus d'informations sur les causes de cet arrêt, veuillez consulter la pièce jointe.&lt;/p&gt;&#13;&#10;&lt;hr width=500px&gt;&#13;&#10;&lt;font size=1 face=Arial color=blue&gt;&#13;&#10;Cet e-mail vous est envoyé automatiquement. Merci de ne pas y répondre, car votre message ne sera pas traité en retour.&#13;&#10;&lt;/font&gt;&#13;&#10;&lt;/body&gt;&#13;&#10;&lt;/html&gt;&quot;"/>
+    <elementParameter field="MEMO_MESSAGE" name="MESSAGE" value="&quot;&lt;html&gt;&#13;&#10;&#9;&lt;head&gt;&#13;&#10;&#9;&#9;&lt;meta http-equiv=Content-Type content=text/html; charset=iso-8859-15&gt;&#13;&#10;&#9;&lt;/head&gt;&#13;&#10;&#9;&lt;body&gt;&#13;&#10;&#9;&#9;Arrêt anormal du job &lt;b&gt;&quot; + jobName + &quot;&lt;/b&gt;&quot; + context.ErrorMessage + &quot;&#13;&#10;&#9;&#9;&lt;p&gt;Pour obtenir plus d'informations sur les causes de cet arrêt, veuillez consulter la pièce jointe.&lt;/p&gt;&#13;&#10;&#9;&#9;&lt;hr width=500px&gt;&#13;&#10;&#9;&#9;&lt;font size=1 face=Arial color=blue&gt;&#13;&#10;&#9;&#9;&#9;Cet e-mail vous est envoyé automatiquement. Merci de ne pas y répondre, car votre message ne sera pas traité en retour.&#13;&#10;&#9;&#9;&lt;/font&gt;&#13;&#10;&#9;&lt;/body&gt;&#13;&#10;&lt;/html&gt;&quot;"/>
     <elementParameter field="CHECK" name="CHECK_ATTACHMENT" value="false"/>
     <elementParameter field="TABLE" name="ATTACHMENTS">
       <elementValue elementRef="FILE" value="context.LogDirectory + context.LogFile"/>
@@ -789,7 +789,7 @@
     <elementParameter field="TEXT" name="CC" value="context.Mail_CC"/>
     <elementParameter field="TEXT" name="BCC" value="context.Mail_BCC"/>
     <elementParameter field="TEXT" name="SUBJECT" value="&quot;Avertissement du job &quot; + jobName"/>
-    <elementParameter field="MEMO_MESSAGE" name="MESSAGE" value="&quot;&lt;html&gt;&#13;&#10;&lt;head&gt;&#13;&#10;&lt;meta http-equiv=Content-Type content=text/html; charset=iso-8859-15&gt;&lt;/head&gt;&#13;&#10;&lt;body&gt;&#13;&#10;Le job &lt;b&gt;&quot; + jobName + &quot;&lt;/b&gt; a reçu le message suivant :&lt;/br&gt; &#13;&#10;&lt;i&gt;&lt;blockquote&gt;&quot; + System.getProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;) + &quot;&lt;/blockquote&gt;&lt;/i&gt;&#13;&#10;&lt;u&gt;Détails de l'erreur&lt;/u&gt; :&lt;/br&gt;&#13;&#10;&lt;blockquote&gt;&quot; + (String)globalMap.get(&quot;tRunJob_1_CHILD_EXCEPTION_STACKTRACE&quot;) + &quot;&lt;/blockquote&gt;&#13;&#10;&lt;p&gt;Pour obtenir plus d'informations sur les causes de cet avertissement, veuillez consulter la pièce jointe.&lt;/p&gt;&#13;&#10;&lt;hr width=500px&gt;&#13;&#10;&lt;font size=1 face=Arial color=blue&gt;&#13;&#10;Cet e-mail vous est envoyé automatiquement. Merci de ne pas y répondre, car votre message ne sera pas traité en retour.&#13;&#10;&lt;/font&gt;&#13;&#10;&lt;/body&gt;&#13;&#10;&lt;/html&gt;&quot;"/>
+    <elementParameter field="MEMO_MESSAGE" name="MESSAGE" value="&quot;&lt;html&gt;&#13;&#10;&#9;&lt;head&gt;&#13;&#10;&#9;&#9;&lt;meta http-equiv=Content-Type content=text/html; charset=iso-8859-15&gt;&#13;&#10;&#9;&lt;/head&gt;&#13;&#10;&#9;&lt;body&gt;&#13;&#10;&#9;&#9;Le job &lt;b&gt;&quot; + jobName + &quot;&lt;/b&gt; a reçu le message suivant :&lt;/br&gt; &#13;&#10;&#9;&#9;&lt;i&gt;&lt;blockquote&gt;&quot; + System.getProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;) + &quot;&lt;/blockquote&gt;&lt;/i&gt;&#13;&#10;&#9;&#9;&lt;u&gt;Détails de l'erreur&lt;/u&gt; :&lt;/br&gt;&#13;&#10;&#9;&#9;&lt;blockquote&gt;&quot; + (String)globalMap.get(&quot;tRunJob_1_CHILD_EXCEPTION_STACKTRACE&quot;) + &quot;&lt;/blockquote&gt;&#13;&#10;&#9;&#9;&lt;p&gt;Pour obtenir plus d'informations sur les causes de cet avertissement, veuillez consulter la pièce jointe.&lt;/p&gt;&#13;&#10;&#9;&#9;&lt;hr width=500px&gt;&#13;&#10;&#9;&#9;&lt;font size=1 face=Arial color=blue&gt;&#13;&#10;&#9;&#9;&#9;Cet e-mail vous est envoyé automatiquement. Merci de ne pas y répondre, car votre message ne sera pas traité en retour.&#13;&#10;&#9;&#9;&lt;/font&gt;&#13;&#10;&#9;&lt;/body&gt;&#13;&#10;&lt;/html&gt;&quot;"/>
     <elementParameter field="CHECK" name="CHECK_ATTACHMENT" value="false"/>
     <elementParameter field="TABLE" name="ATTACHMENTS">
       <elementValue elementRef="FILE" value="context.LogDirectory + context.LogFile"/>
@@ -960,9 +960,9 @@
     <elementParameter field="TEXT" name="NUMBER_PARALLEL" show="false" value="2"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="iterate3"/>
   </connection>
-  <connection connectorName="RUN_IF" label="Not_Parm" lineStyle="6" metaname="tJava_4" offsetLabelX="0" offsetLabelY="0" source="tJava_4" target="tWarn_3">
-    <elementParameter field="MEMO_JAVA" name="CONDITION" value=" context.ErrorCode == 10"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Not_Parm"/>
+  <connection connectorName="RUN_IF" label="Error_xx" lineStyle="6" metaname="tJava_4" offsetLabelX="0" offsetLabelY="0" source="tJava_4" target="tWarn_3">
+    <elementParameter field="MEMO_JAVA" name="CONDITION" value=" context.ErrorCode != 0"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Error_xx"/>
   </connection>
   <connection connectorName="FLOW" label="row4" lineStyle="0" metaname="tLogCatcher_3" offsetLabelX="0" offsetLabelY="0" source="tLogCatcher_3" target="tLogRow_2">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
@@ -977,12 +977,12 @@
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tJava_5" offsetLabelX="0" offsetLabelY="0" source="tJava_5" target="tFileExist_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk6"/>
   </connection>
-  <connection connectorName="RUN_IF" label="Error_40" lineStyle="6" metaname="tWarn_2" offsetLabelX="0" offsetLabelY="0" source="tWarn_2" target="tSendMail_2">
-    <elementParameter field="MEMO_JAVA" name="CONDITION" value=" context.ErrorCode == 40"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Error_40"/>
-  </connection>
-  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tJava_6" offsetLabelX="0" offsetLabelY="0" source="tJava_6" target="tWarn_2">
+  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tWarn_2" offsetLabelX="0" offsetLabelY="0" source="tWarn_2" target="tSendMail_2">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk4"/>
+  </connection>
+  <connection connectorName="RUN_IF" label="Error_40" lineStyle="6" metaname="tJava_6" offsetLabelX="0" offsetLabelY="0" source="tJava_6" target="tWarn_2">
+    <elementParameter field="MEMO_JAVA" name="CONDITION" value="  context.ErrorCode == 40"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Error_40"/>
   </connection>
   <subjob>
     <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" show="false" value="true"/>
@@ -1131,13 +1131,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_e602e9b6-9efe-4635-9510-675efc24ef4c"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>y7tRWExiJZxvusdFZeCOP9iCLu3ASho1aAyneC5dZNL+Iwxpnteh/4RCJL2uUZnZv9PexjUb1SAb
-gQEaagj1Tw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_3743b348-2914-495f-9dd0-dbd53f71e26c"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>L82oQ6Itec2xkUG8YnCpjpUpjAF2FtwV5AylaLAXdpT25EieMr6/W2dgynSxathP57gjt8ijohPs
-dOCxjpaMlA==</DigestValue></Reference></SignedInfo><SignatureValue>NW8SCxRa2s/zW85yU964cNdwhpOuADGgGWYyqMWKaP07WNc/wVRUcjvuZpMNk03vnjCiS3txTrx2
-qf7IYVc6o8IEImM3zvj6NthnZyZ9mr0rO9hjLM0bScSAlt1ei7e9e04Z7rGxqLSAQoqOCm1ame13
-WH0oC6NNQrNU+a/I6XHWC/6gUdnh12BooWenH955tViFuWXXJz7e9oFg4c1Mcyxns6gyH6sRyTxV
-n/xhGQcHMdreq7Wlaun3en4mKGfiYJSrc5bm2kr47elc+b9bgXs0VxhksieaDwHzn3z7dYNmfAT4
-wTFhYLhuNdRV+CfgkUi2LKL1Yz//CuRwF4rqSA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_da3d6d72-a608-44e1-a281-b44b9c6d7afd"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>q8EoEGgo0tAgLBP1sfxn9OkoG+rsW4rWHP59dPZ2IqWE3BrFxx0xc86TY81x/zbevlkQoKHt6t7e
+ZuDWYmM2YA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_10916d28-cc32-4c5b-97fa-d5a521f4df19"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>W9WMWB4bSCh/YIpj24IFgu7gOsX2yxxZjrMYS5HHtbj9hVkdtXVo/OQVGNFXzX4KDj+AoKbydq/l
+tkyqHYQcrQ==</DigestValue></Reference></SignedInfo><SignatureValue>BtU+Htk95/eOrVY7ycPetmq6h0B3WicKe34KevhMhjYcgEYkSsmyreRrz9/GaZgoGUvMtGZtJd9X
+6++mPgybxoXUJ01o2YmMW3HKHcT6EF8BHLfR7JvVj8ZPfTT4j6Z4j7VOc74imT9u3Hb3SV/pFX23
+EQRPQcCh7/4qa//sCf5F+04dE0mti6CcaN44Cth7hVDHZgpQQjsDFfjWirpZlAudrrHUjH3rrNiX
+OKJSyC9ZdeCRDD/B9JJFU3vzkHDzl5bmXZG51uRq+bG1wW0ecMlw8V1xTEe9CAW+WXFLRcnxvx03
+Y9hyi9ZWdfAotbaC0FRGWQm7rwk6NuBucxFE2Q==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1159,4 +1159,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_3743b348-2914-495f-9dd0-dbd53f71e26c" Target="#_e602e9b6-9efe-4635-9510-675efc24ef4c"><Timestamp>2020-07-01 12:07:46</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_10916d28-cc32-4c5b-97fa-d5a521f4df19" Target="#_da3d6d72-a608-44e1-a281-b44b9c6d7afd"><Timestamp>2020-07-02 06:13:55</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
