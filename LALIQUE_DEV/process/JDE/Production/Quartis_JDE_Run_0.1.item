@@ -184,7 +184,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="224" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_1"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="SimpleDateFormat myTimeFormat = new SimpleDateFormat(&quot;HHmmss&quot;);&#10;int CurrentTime = Integer.parseInt(myTimeFormat.format(new Date()));&#10;&#10;globalMap.put(&quot;_Condition&quot;, &quot;LOOP&quot;);&#10;&#10;if ((String)globalMap(&quot;myErrStatus&quot;) == &quot;DIE&quot;){&#10;&#9;globalMap.put(&quot;_Condition&quot;, &quot;DIE&quot;);&#10;}&#10;else{&#10;&#9;if (CurrentTime &lt; context.StartTime){&#10;&#9;&#9;System.out.println(CurrentTime + &quot; : En attente de démarrage&quot;);&#10;&#9;}&#10;&#9;else{&#10;&#9;&#9;if (CurrentTime &lt;= context.EndTime){&#10;&#9;&#9;&#9;globalMap.put(&quot;_Condition&quot;, &quot;OK&quot;);&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;if (context.StopAfterEnd == true){&#10;&#9;&#9;&#9;&#9;globalMap.put(&quot;_Condition&quot;, &quot;END&quot;);&#10;&#9;&#9;&#9;}&#10;&#9;&#9;&#9;else{&#10;&#9;&#9;&#9;&#9;System.out.println(CurrentTime + &quot; : Suspendu&quot;);&#10;&#9;&#9;&#9;}&#10;&#9;&#9;}&#10;&#9;}&#10;}&#10;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="SimpleDateFormat myTimeFormat = new SimpleDateFormat(&quot;HHmmss&quot;);&#10;int CurrentTime = Integer.parseInt(myTimeFormat.format(new Date()));&#10;&#10;globalMap.put(&quot;myCondition&quot;, &quot;LOOP&quot;);&#10;&#10;if ((String)globalMap(&quot;myErrStatus&quot;) == &quot;DIE&quot;){&#10;&#9;globalMap.put(&quot;myCondition&quot;, &quot;DIE&quot;);&#10;}&#10;else{&#10;&#9;if (CurrentTime &lt; context.StartTime){&#10;&#9;&#9;System.out.println(CurrentTime + &quot; : En attente de démarrage&quot;);&#10;&#9;}&#10;&#9;else{&#10;&#9;&#9;if (CurrentTime &lt;= context.EndTime){&#10;&#9;&#9;&#9;globalMap.put(&quot;myCondition&quot;, &quot;OK&quot;);&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;if (context.StopAfterEnd == true){&#10;&#9;&#9;&#9;&#9;globalMap.put(&quot;myCondition&quot;, &quot;END&quot;);&#10;&#9;&#9;&#9;}&#10;&#9;&#9;&#9;else{&#10;&#9;&#9;&#9;&#9;System.out.println(CurrentTime + &quot; : Suspendu&quot;);&#10;&#9;&#9;&#9;}&#10;&#9;&#9;}&#10;&#9;}&#10;}&#10;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_1"/>
@@ -875,15 +875,15 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="iterate1"/>
   </connection>
   <connection connectorName="RUN_IF" label="OK" lineStyle="6" metaname="tJava_1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tJava_1" target="tRunJob_1">
-    <elementParameter field="MEMO_JAVA" name="CONDITION" value="(String)globalMap.get(&quot;_Condition&quot;).equals(&quot;OK&quot;)"/>
+    <elementParameter field="MEMO_JAVA" name="CONDITION" value="(String)globalMap.get(&quot;myCondition&quot;).equals(&quot;OK&quot;)"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OK"/>
   </connection>
   <connection connectorName="RUN_IF" label="END" lineStyle="6" metaname="tJava_1" offsetLabelX="6" offsetLabelY="4" outputId="2" source="tJava_1" target="tDie_2">
-    <elementParameter field="MEMO_JAVA" name="CONDITION" value=" (String)globalMap.get(&quot;_Condition&quot;).equals(&quot;END&quot;)"/>
+    <elementParameter field="MEMO_JAVA" name="CONDITION" value=" (String)globalMap.get(&quot;myCondition&quot;).equals(&quot;END&quot;)"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="END"/>
   </connection>
   <connection connectorName="RUN_IF" label="DIE" lineStyle="6" metaname="tJava_1" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tJava_1" target="tDie_5">
-    <elementParameter field="MEMO_JAVA" name="CONDITION" value="  (String)globalMap.get(&quot;_Condition&quot;).equals(&quot;DIE&quot;)"/>
+    <elementParameter field="MEMO_JAVA" name="CONDITION" value="  (String)globalMap.get(&quot;myCondition&quot;).equals(&quot;DIE&quot;)"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="DIE"/>
   </connection>
   <connection connectorName="FLOW" label="row2" lineStyle="0" metaname="tLogCatcher_1" offsetLabelX="0" offsetLabelY="0" source="tLogCatcher_1" target="tMap_1">
@@ -1161,13 +1161,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_bb58a36f-3085-416c-9060-a95cc16cbc5c"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>20/X+g0CAQ/AFJj1XQljz3yQjPrYCocB++8CpnXKoMsbTMyjVpV0X2zxhCe1DdUsXAKKBJ2znXpG
-lKGRbhEpUA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_e5f2bea8-7c08-4c92-be90-8c2a4839ea8d"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>jwCQusrUm+tUOxJzGtQnHS9ZELpXMgMTx/sOUQqYsYwUeVCNpAXnD09R6GKuuv+tqUxdvIwUT9WD
-9kmCkHHXYA==</DigestValue></Reference></SignedInfo><SignatureValue>c09rptzgpxNDfsf8QSdFfSNF/cj9p+qevRG+QTRuCBj4nrcd3VrFhEx0OI5/hVcloAOXCjwjOcUR
-tUSuZXZid2uQbSzvK4tyyQbiq4bGn5z2eCP/gHZ344rfSujLN+5my/7ZyTMA298jx2/KbDb0Aedt
-+Mvpk8f0iIDz70hin1kq3I4FuN1dxA5YpgeHka7TIP+zPXmM+ViPRixV0p9KGjSoW/E8HxpJI8Jb
-tVsQqKlRLlnzPGzCBKn/Ulr2TZ+5vaVc2AxU1eaeOIKdeGNszHoInqVG6MSCG6pK6uf0GKkDixp9
-2GQV6wYsz5RSpJJDOQvX9YVcivNf01ZBhOTsiw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_0caa4b17-42ed-427f-89d8-f82a8a7d9f7a"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>EUy3aoPmpfLSLy120vjWT34AFVUld583RKKNUAw2C4YPyvn+Lf4a2zub+M6kTylpDSLrPttVSE99
+cVDQsl+OwQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_d8296e8c-9e1f-441a-a83e-5bb3bf6848d7"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>ckgP9CGC8sJqNDVm9nGcAbKUByenHnsIXjOK54OzGss2WoxIg//nDnZlpGCFakErEw5sqhXMXfPs
+FPB3hRhNog==</DigestValue></Reference></SignedInfo><SignatureValue>lizFclOWBp5wvY9zTA9ouQ008mLGI524fYfLKKSB3T8Y9LF9jAqNsWhmFBZS8+Z7ZHS+b2rETKoP
+VYN4NUUCk+jyLcNC8p2c/8Jc8Ui7vlc2c6PZ9piHK2RNTW4XfCWhkt9gHk4BaQEimAWITCQrAvri
+nKUnsYe8NiJC4r51zUmA5mlxy3JqlclBh2Dajs+WlI0lPduPtBBHrBxULT7Wck4VFP49u+E+zuSD
+90/ZaXXiaRu7ugGQ/aFSPRQRW58k6GwgoTESdpvBPsEb3avzN8xGfgeLgo3VuQHRzamU7cbrHgtm
+StoBWNt38dpoVSumzgbNBhwvaNc5NvOzwMJFLQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1189,4 +1189,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_e5f2bea8-7c08-4c92-be90-8c2a4839ea8d" Target="#_bb58a36f-3085-416c-9060-a95cc16cbc5c"><Timestamp>2020-07-03 11:32:12</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_d8296e8c-9e1f-441a-a83e-5bb3bf6848d7" Target="#_0caa4b17-42ed-427f-89d8-f82a8a7d9f7a"><Timestamp>2020-07-03 11:33:39</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
