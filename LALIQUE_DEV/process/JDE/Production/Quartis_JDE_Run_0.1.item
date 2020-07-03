@@ -346,6 +346,7 @@
   </node>
   <node componentName="tDie" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="608" posY="416">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDie_1"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="TEXT" name="MESSAGE" value="&quot;Arrêt anormal du job Quartis_JDE après &quot; + (int)globalMap.get(&quot;myErrCount&quot;) + &quot; erreurs consécutives.&quot;"/>
     <elementParameter field="TEXT" name="CODE" value="(int)globalMap.get(&quot;myErrCode&quot;)"/>
     <elementParameter field="CLOSED_LIST" name="PRIORITY" value="6"/>
@@ -369,6 +370,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="608" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_2"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="MEMO_JAVA" name="CODE" value="// Gestion des erreurs du tRunJob &#10;&#10;int returnCode = (int)globalMap.get(&quot;tRunJob_1_CHILD_RETURN_CODE&quot;);&#10;&#10;try{&#10;&#9;globalMap.put(&quot;myErrCode&quot;, Integer.parseInt(System.getProperty(&quot;Quartis_JDE_ERROR&quot;)));&#10;}catch(NumberFormatException e){&#10;&#9;globalMap.put(&quot;myErrCode&quot;, 0);&#10;}&#10;&#10;System.out.println(&quot;Child Return Code = &quot; + returnCode);&#10;//System.out.println(&quot;Child ErrorCode = &quot; + errorCode);&#10;//System.out.println(&quot;Child ErrorMessage = &quot; + System.getProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;));&#10;//System.out.println((String)globalMap.get(&quot;tRunJob_1_CHILD_EXCEPTION_STACKTRACE&quot;));&#10;&#10;int errorCount = (int).globalMap.get(&quot;myErrCount&quot;);&#10;&#10;if(returnCode != 0){&#10;&#9;errorCount += 1;&#10;}&#10;else{&#10;&#9;errorCount = 0;&#10;}&#10;globalMap.put(&quot;myErrCode&quot;, errorCount);&#10;&#10;if (errorCount &gt;= context.ErrorMax){&#10;&#9;globalMap.put(&quot;myErrCode&quot;, 90);&#10;&#9;globalMap.put(&quot;myErrMessage&quot;, &quot;Le nombre maximum d'erreurs (&quot; + context.ErrorMax + &quot;) a été atteint !&quot;);&#10;}"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -463,6 +465,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="224" posY="544">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_3"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="MEMO_JAVA" name="CODE" value="// Error Codes:&#10;// -----------&#10;// 10 - nom de paramétre invalide&#10;// 20 - valeur du paramétre invalide&#10;// 40 - fichier paramétre absent&#10;// 50 - erreur de traitement du fichier Quartis (Avertissement, pas d'arrêt)&#10;// 90 - nombre d'erreurs maxi dépassé&#10;&#10;// 99 - autres causes d'arrêt&#10;&#10;globalMap.put(&quot;myCondition&quot;, &quot;MAIL&quot;);&#10;&#10;switch ((int)globalMap.get(&quot;myErrCode&quot;))&#10;{&#10;&#9;case 0:case 40:case 50:&#10;&#9;// pas de message ou messages gérés préalablement et déjà signalés&#10;&#9;&#9;globalMap.put(&quot;myCondition&quot;, &quot;NO_MAIL&quot;);&#10;&#9;&#9;break;&#10;&#9;default:&#10;&#9;// autres erreurs à signaler&#10;&#9;&#9;break;&#10;}&#10;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -698,6 +701,7 @@
   </node>
   <node componentName="tSendMail" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="416" posY="544">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSendMail_1"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="true"/>
     <elementParameter field="TEXT" name="TO" value="context.Mail_To"/>
     <elementParameter field="TEXT" name="FROM" value="context.Mail_From"/>
@@ -753,6 +757,7 @@
   </node>
   <node componentName="tSendMail" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="800" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSendMail_3"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="true"/>
     <elementParameter field="TEXT" name="TO" value="context.Mail_To"/>
     <elementParameter field="TEXT" name="FROM" value="context.Mail_From"/>
@@ -900,17 +905,21 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Log_ERROR"/>
   </connection>
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tPostjob_1" offsetLabelX="0" offsetLabelY="0" source="tPostjob_1" target="tJava_3">
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk2"/>
   </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tRunJob_1" offsetLabelX="0" offsetLabelY="0" source="tRunJob_1" target="tJava_2">
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk1"/>
   </connection>
   <connection connectorName="RUN_IF" label="MaxErrors" lineStyle="6" metaname="tJava_2" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tJava_2" target="tDie_1">
     <elementParameter field="MEMO_JAVA" name="CONDITION" value="(int)globalMap.get(&quot;myErrCode&quot;) == 90"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="MaxErrors"/>
   </connection>
   <connection connectorName="RUN_IF" label="Error_50" lineStyle="6" metaname="tJava_2" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tJava_2" target="tSendMail_3">
     <elementParameter field="MEMO_JAVA" name="CONDITION" value=" (int)globalMap.get(&quot;myErrCode&quot;) == 50"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Error_50"/>
   </connection>
   <connection connectorName="FLOW" label="row3" lineStyle="0" metaname="tLogCatcher_2" offsetLabelX="0" offsetLabelY="0" source="tLogCatcher_2" target="tLogRow_1">
@@ -928,6 +937,7 @@
   </connection>
   <connection connectorName="RUN_IF" label="Errors" lineStyle="6" metaname="tJava_3" offsetLabelX="0" offsetLabelY="0" source="tJava_3" target="tSendMail_1">
     <elementParameter field="MEMO_JAVA" name="CONDITION" value="(String)globalMap.get(&quot;myCondition&quot;).equals(&quot;MAIL&quot;)"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Errors"/>
   </connection>
   <connection connectorName="FLOW" label="row5" lineStyle="0" metaname="tFileInputExcel_2" offsetLabelX="0" offsetLabelY="0" source="tFileInputExcel_2" target="tMap_3">
@@ -1161,13 +1171,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_430f1d47-f1f1-4ba6-95f2-9415235c7533"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>TiVrhby06uB3HQVgcSyDqBjqChU2AW1vF36uwttYIfFz4OEII170S8aG3zCLeyIZDNR6gUpEqevu
-y6OwjHioQw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_107e881b-ed02-4fa2-b64e-df7918d650c1"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>+Zbz9rNhdG7x2FrtnVqHz4VjORv9NVcLm3Vz/vaGbs1TYXgexZIoqC8ui4KgqzS+2oXIwCj03aDg
-WyRLForU4g==</DigestValue></Reference></SignedInfo><SignatureValue>ml45+Vux2mjwLS/DnEfP7C+Vj3IAQOYa5Yc1vna4CyEFBzpZFf99UdLSlX4FHWwAOmXqeBgObIVf
-q9/cr8W7ujDZqPBDgAl5ejaA9htasdqR1Yj75Daj8Xuj2rPK7KmJhLUAijsCzTjnv3UVnQUh7voY
-52cmyPUsIOyQW9n0bG57rigP9R8XGiucH521QVdKCXeqo94ul3meU0cpbiewcGmZQ+vIIJyHaTwp
-NnIXa1pG87Isud1XonjtTl3P4FCEzpmF8R7JkmtCObGIeGSpBbGhi/UO/kYYca9eDCgafmJEHFgU
-nasPiENzZQVX/bM4CinRDNEvaM2ojW5JV1z36Q==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_453982b7-79e5-4f98-be4b-c7e3c6e406e6"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>E8x6jV5saPeHXBo/PEsQuzuk6oFpd54940okPlSBcaV8I3LTk6EDZ6dDHPO0HuS17wR7mXWB+yhj
+xbG69CKYcQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_c4dcf09b-2b1d-475b-8e15-514ff88377ec"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>H35SeAI+sK1UwBzrbiuzKuhBRBf+/7bd3crZF+WtHu2OlqXMC9cFVhd0IndBN66vFyjob+AheiF+
+oW1uzJHuSw==</DigestValue></Reference></SignedInfo><SignatureValue>RtxjU9vMQ7Uh2QWgNC9t/JX4oFsQcX8ATcsKk7hyDicBaG6qy7lv1EaDeT54Tlx91YDallyU6XVM
+BbBOHyKizOFbyY1XVP+FeAuN/aAWrmPJ+XPvC+m0WT70rnbQwS6QGaR/Qj82+AsvuglxhCCtdb3y
++Xct1F10L3Z5uBRQahk1BjyJxE97483cvybaEK5Z2g6l8SKcTJcd8Nhc1SfIXZUVhP+68dfXcF7z
+YtIiOeq1w3vzZWVoPXsDEZIu566J02HNzqLcvfVSc9Bj7wiurwSfX+HYGgOSnhL5c1QdSjuPuBVU
+Dvv3PZ705UygfiCHpMMlDFleQIZJGch8qsq9LA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1189,4 +1199,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_107e881b-ed02-4fa2-b64e-df7918d650c1" Target="#_430f1d47-f1f1-4ba6-95f2-9415235c7533"><Timestamp>2020-07-03 12:11:44</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_c4dcf09b-2b1d-475b-8e15-514ff88377ec" Target="#_453982b7-79e5-4f98-be4b-c7e3c6e406e6"><Timestamp>2020-07-03 12:12:26</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
