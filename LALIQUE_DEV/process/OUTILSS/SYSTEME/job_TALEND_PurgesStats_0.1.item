@@ -8,8 +8,9 @@
     <contextParameter comment="dossier des fichiers paramétrage" name="repertoire_data" prompt="repertoire_data?" promptNeeded="false" repositoryContextId="_wpAlgKAIEemjyouMBeY5bQ" type="id_String" value=""/>
     <contextParameter comment="dossier des logs" name="repertoire_log" prompt="repertoire_log?" promptNeeded="false" repositoryContextId="_wpAlgKAIEemjyouMBeY5bQ" type="id_String" value=""/>
     <contextParameter comment="dossier des temporaires" name="repertoire_tmp" prompt="repertoire_tmp?" promptNeeded="false" repositoryContextId="_wpAlgKAIEemjyouMBeY5bQ" type="id_String" value=""/>
-    <contextParameter comment="délai de la suppression" name="interval" prompt="interval?" promptNeeded="true" repositoryContextId="_hQpdcLyGEeqeyMRgk7rlwg" type="id_String" value="'12 months 3 days 2 hours'"/>
-    <contextParameter comment="type de log à supprimer" name="type" prompt="type?" promptNeeded="true" repositoryContextId="_hQpdcLyGEeqeyMRgk7rlwg" type="id_String" value="'tWarn', 'tDie', 'tJobFailure', 'Java Exception'"/>
+    <contextParameter comment="délai de la suppression" name="interval" prompt="interval?" promptNeeded="true" repositoryContextId="_knCxIL6tEeqNM5K25yKz_w" type="id_String" value="'12 months 3 days 2 hours'"/>
+    <contextParameter comment="message à supprimer" name="message" prompt="message?" promptNeeded="true" repositoryContextId="_knCxIL6tEeqNM5K25yKz_w" type="id_String" value="'success', 'failure', NULL"/>
+    <contextParameter comment="type de message à supprimer" name="message_type" prompt="message_type?" promptNeeded="true" repositoryContextId="_knCxIL6tEeqNM5K25yKz_w" type="id_String" value="'end', 'begin'"/>
   </context>
   <parameters>
     <elementParameter field="TEXT" name="SCREEN_OFFSET_X" show="false" value="0"/>
@@ -132,11 +133,11 @@
     <elementParameter field="TEXT" name="TYPE" show="false" value="POSTGRESQL"/>
     <elementParameter field="TEXT" name="USER" show="false" value="&quot;talend&quot;"/>
     <elementParameter field="PASSWORD" name="PASS" show="false" value="7s6v49ZcklfgvLhdBCEhjQ=="/>
-    <elementParameter field="DBTABLE" name="TABLE" value="&quot;talend_log&quot;"/>
+    <elementParameter field="DBTABLE" name="TABLE" value="&quot;talend_stat&quot;"/>
     <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="&quot;&quot;"/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;delete from talend_log &#9;&#13;&#10;&#9;where moment &lt;= (now() - interval '&quot;+context.interval+&quot;') &#13;&#10;&#9;&#9;and type in ('&quot;+context.type+&quot;')&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;delete from talend_stat&#13;&#10;&#9;where moment &lt;= (now() - interval '&quot;+context.interval+&quot;') &#13;&#10;&#9;&#9;and message in ('&quot;+context.message+&quot;')&#13;&#10;&#9;&#9;and message_type in ('&quot;+context.message_type+&quot;')&quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -149,7 +150,7 @@
     <elementParameter field="ENCODING_TYPE" name="ENCODING" show="false" value="&quot;ISO-8859-15&quot;"/>
     <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
     <elementParameter field="TEXT" name="COMMIT_EVERY" show="false" value="10000"/>
-    <elementParameter field="TEXT" name="LABEL" value="PurgeLogs"/>
+    <elementParameter field="TEXT" name="LABEL" value="PurgeStats"/>
     <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tDBRow_1"/>
@@ -178,7 +179,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;select count(*)&#13;&#10;&#9;from talend_log &#13;&#10;&#9;where moment &lt;= (now() - interval '&quot;+context.interval+&quot;') &#13;&#10;&#9;&#9;and type in ('&quot;+context.type+&quot;')&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;select count(*)&#13;&#10;&#9;from talend_stat &#13;&#10;&#9;where moment &lt;= (now() - interval '&quot;+context.interval+&quot;') &#13;&#10;&#9;&#9;and message in ('&quot;+context.message+&quot;')&#13;&#10;&#9;&#9;and message_type in ('&quot;+context.message_type+&quot;')&quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -193,7 +194,7 @@
       <elementValue elementRef="SCHEMA_COLUMN" value="count"/>
       <elementValue elementRef="TRIM" value="false"/>
     </elementParameter>
-    <elementParameter field="TEXT" name="LABEL" value="CompteLogs"/>
+    <elementParameter field="TEXT" name="LABEL" value="CompteStats"/>
     <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" label="talend_log" name="tDBInput_1">
@@ -254,7 +255,7 @@
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
     <elementParameter field="TEXT" name="PROPERTIES" value="&quot;&quot;"/>
     <elementParameter field="CHECK" name="AUTO_COMMIT" value="true"/>
-    <elementParameter field="TEXT" name="LABEL" value="ConnectTalendLog"/>
+    <elementParameter field="TEXT" name="LABEL" value="ConnectTalendStat"/>
     <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
   </node>
@@ -528,18 +529,18 @@
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
   <subjob>
-    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
+    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" show="false" value="true"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tPrejob_1"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="230;100;0"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="255;220;180"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_816acee2-78f9-4346-9fa8-890a84e070c6"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>UHVbIwiznr0FOkD0smPD28fdoi/U2RlWKxxkML7ANbhf3CxQ/h72JjYCubpwvv7G19MiQ2RyIKj8
-Ubx38KGSmQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_82a5627b-4da4-4e9f-9cc9-6df147207c30"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>iCBQZR1fMMfCCkRNfsq/2tza7liZWEERiGj3MIpTB9blySRdd4kEp8c/XSLBCyO8GSQEqVGTTpDM
-2JIUbR9a/Q==</DigestValue></Reference></SignedInfo><SignatureValue>pqgmRhE8z9qExkTUgNe9FnsE8Mr0itCvQFhYzAeRBKUaWW1kCxfaHPRwOkDZc2rPMds3gJKFRKjP
-Yfhq+31i4yyN7il9kX14KkpyBqO5IjjV+3SlVX9/wosk9To9+plUNLp/wqpPKwSchu7LOWhhAAg+
-2CurwmeWbUZjlopasUBrwmj91LDVpwH3L5Xd61DTv0n2WL34GQ9ieJIw9lUAu3lpB0AeqC/0yQWs
-GKwVKwUUiB/Kc5UtFvYnH+0dN+BpWzb3MLAQOXnAO/QgZJ7C5pkyRApunUTCB1IBGdANXtpUbgvE
-/H9+qeXWtzWLYYR/49sF02JyP6Z6d6xZtAVcgg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_f8967c54-822c-439e-8f34-94da857ce91c"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>7zZceTihgpgPhNVsneH32cBLnZvBTCELwk4ENCbr3aALhRZ24LCgzB6L41eTG5z4MPLkgLbx9UOj
+O6Du3GDCJg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_9f91c6f4-d8ce-4b50-91a9-7eae4f5bc883"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>lqYDHJqqPa70jnJGav983SSWK7PnxWgYPjp+m5ud7h6U6G2MSq3KaqTvD888+mWvHKaUY71D8qgG
+Dqiq8gDpDA==</DigestValue></Reference></SignedInfo><SignatureValue>Ut1BqTZION1ITyAbdZsUoZtiGYnPYcbOWz+zSmuuYwsfhVk28LBxrYG/rCoNvzhIcN6HKK+IxXPX
+c+TpbEnT16O7hoafLTTZiuKJYGCVPCAgFJkq7NayDbOf8nqPUeeWeycoCenfqm4V7pWBn38Ycc6u
+oOeGPjJrxmSWU7Kusf3+pEdY+gJQckX6Vq4RoJFGTiLyCGhftGXxG98ZWEhtKyJSi5Z2jlOGw8n8
+L7TtNyjIaZc1xR05LqBLBxAGEGiesQh/sKJFdyZZ/JVwWDNG1bakYk93ExqJGoyMWgHlreO1vOy9
+9I3keFb7JvjKa04/4l+rvY8ftnTd+g86Vp6XQg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -561,4 +562,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_82a5627b-4da4-4e9f-9cc9-6df147207c30" Target="#_816acee2-78f9-4346-9fa8-890a84e070c6"><Timestamp>2020-07-05 10:57:15</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_9f91c6f4-d8ce-4b50-91a9-7eae4f5bc883" Target="#_f8967c54-822c-439e-8f34-94da857ce91c"><Timestamp>2020-07-05 11:05:12</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
