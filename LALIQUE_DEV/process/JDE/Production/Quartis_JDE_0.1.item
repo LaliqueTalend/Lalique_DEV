@@ -248,7 +248,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="-256" posY="192">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_2"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="String myTimeStamp;&#10;String myFileIn;&#10;SimpleDateFormat myDateFormat;&#10;&#10;context.ErrorCode = 0;&#10;System.setProperty(&quot;Quartis_JDE_ERROR&quot;, &quot;0&quot;);&#10;&#10;myDateFormat = new SimpleDateFormat(&quot;yyMMddHHmmssS&quot;);&#10;myTimeStamp = myDateFormat.format(TalendDate.getCurrentDate());&#10;&#10;System.out.println(&quot;Le fichier &quot;+(String)globalMap.get(&quot;tWaitForFile_1_FILENAME&quot;)+&quot; a été détecté !&quot;);&#10;System.setProperty(&quot;myTimeStamp&quot;, myTimeStamp);&#10;&#10;myFileIn = (String)globalMap.get(&quot;tWaitForFile_1_CREATED_FILE&quot;);&#10;if (myFileIn==null || myFileIn.length()==0){&#10;&#9;myFileIn = (String)globalMap.get(&quot;tWaitForFile_1_PRESENT_FILE&quot;);&#10;}&#10;System.setProperty(&quot;FileIn&quot;, myFileIn);&#10;&#10;System.setProperty(&quot;FileName&quot;, (String)globalMap.get(&quot;tWaitForFile_1_FILENAME&quot;));"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="String myTimeStamp;&#10;String myFileIn;&#10;SimpleDateFormat myDateFormat;&#10;&#10;globalMap.put(&quot;Quartis_JDE_ERROR&quot;, 0);&#10;System.setProperty(&quot;Quartis_JDE_ERROR&quot;, &quot;0&quot;);&#10;&#10;myDateFormat = new SimpleDateFormat(&quot;yyMMddHHmmssS&quot;);&#10;myTimeStamp = myDateFormat.format(TalendDate.getCurrentDate());&#10;&#10;System.out.println(&quot;Le fichier &quot;+(String)globalMap.get(&quot;tWaitForFile_1_FILENAME&quot;)+&quot; a été détecté !&quot;);&#10;System.setProperty(&quot;myTimeStamp&quot;, myTimeStamp);&#10;&#10;myFileIn = (String)globalMap.get(&quot;tWaitForFile_1_CREATED_FILE&quot;);&#10;if (myFileIn==null || myFileIn.length()==0){&#10;&#9;myFileIn = (String)globalMap.get(&quot;tWaitForFile_1_PRESENT_FILE&quot;);&#10;}&#10;globalMap.put(&quot;Quartis_JDE_FILE&quot;, myFileIn);&#10;System.setProperty(&quot;FileIn&quot;, myFileIn);&#10;&#10;System.setProperty(&quot;FileName&quot;, (String)globalMap.get(&quot;tWaitForFile_1_FILENAME&quot;));"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="LABEL" value="FileProcess"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -400,7 +400,7 @@
       <column comment="" key="false" length="2" name="SZOPST" nullable="true" originalLength="2" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties shellMaximized="true"/>
+      <uiProperties/>
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
       <outputTables name="F31122Z1" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="&quot;QUARTIS&quot;" name="SZEDUS" nullable="true" type="id_String"/>
@@ -879,7 +879,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="-224" posY="576">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_3"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="context.ErrorCode = 50;&#10;System.setProperty(&quot;Quartis_JDE_ERROR&quot;, &quot;50&quot;);&#10;System.setProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;, &quot;Erreur de traitement du fichier &quot; + System.getProperty(&quot;FileName&quot;));"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="globalMap.put(&quot;ErrorCode&quot;,50);&#10;globalMap.put(&quot;ErrorMessage&quot;, &quot;Erreur de traitement du fichier &quot; + (String)globalMap.get(&quot;tWaitForFile_1_FILENAME&quot;)):&#10;System.setProperty(&quot;Quartis_JDE_ERROR&quot;, &quot;50&quot;);&#10;System.setProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;, &quot;Erreur de traitement du fichier &quot; + System.getProperty(&quot;FileName&quot;));"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_3"/>
@@ -922,9 +922,9 @@
   <node componentName="tSetGlobalVar" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="448" posY="32">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSetGlobalVar_1"/>
     <elementParameter field="TABLE" name="VARIABLES">
-      <elementValue elementRef="KEY" value="&quot;myErrNumber&quot;"/>
+      <elementValue elementRef="KEY" value="&quot;Quatris_JDE_ERROR&quot;"/>
       <elementValue elementRef="VALUE" value="0"/>
-      <elementValue elementRef="KEY" value="&quot;myErrMessage&quot;"/>
+      <elementValue elementRef="KEY" value="&quot;Quartis_JDE_ERROR_MESSAGE&quot;"/>
       <elementValue elementRef="VALUE" value="&quot;&quot;"/>
     </elementParameter>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -1225,13 +1225,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_bd6ec734-788d-4772-a60b-7c140b374fa8"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>AuHSR3fffubq4iyzqExbjbudsrIu+sTrEh5Usr6VSvwQF84wmB/rWMjOKk1+PNITnuhNjG52AOA9
-/ZZKs54NcA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_99e200c0-9675-4a56-9b06-e14daac0c58d"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>sWeatD+s/ehESP1mUcn/+rl60gyYPcV67vUAcvkmSUD70Xa+9qZY1UblB8EK6uz+v2Gf7835YSSK
-x6uIZf0N1w==</DigestValue></Reference></SignedInfo><SignatureValue>aqWV6THOQ8DYpnJp72W6fv1pgmvDMEC2y7XgS+iodOfg7C1dGRJyqBbJVGrrSs4Zup3R3Z4rR+gm
-u7CgOBsJOXh6rlnxIlEMTxNODd/GJqbSeWbtbSP6g+86a+8gXE/XKyZXfA3VcSzNmmeBze6hjMNs
-eDFHvi5cCtZ5e5ZM2D6NHDV9V1cWW9Y7XUV7434wh9sP9YeMmT3woeK5sdqBObSVYhCXaHnUEuwg
-SvHg/7LjdN/glcg+rSIe+mFF9MuEmg9CAgt/ivgqa83lFAxT8XA3gJQgDd0Q3O1tlZ3FM3C0FOD9
-VIFcH9HAspt48P3JeLwnbBp7eNcFgGVaf+Yg4Q==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_8de53f0b-5def-4b75-b69d-6cb0350c2ffc"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>hv29FifJYklgubCkolRh9it8w3f+a2+12Fn8i+xLjmrc/zuc66jO5R0vT88gT/wWpbuaD5kz9stv
+yLy+P5ormQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_fd7101a7-8acc-4dd5-b4db-70d7652494cd"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>lJWVePJ9LC+pb0ZIj4y7UP2QncVZrwZH3zuHTNBbpgfLSua1deJ1DGDTKhQoZZBaFBeMQYCm0E9A
+SIkCwQ2Wcw==</DigestValue></Reference></SignedInfo><SignatureValue>ComDPq+dSOYbOb8X+HWbNFyibkR59LaAYxnyRmFueIn5fGeDeY+CqKQzmuhUdoNlft8M5SJvGA3B
+qTSOBYAF7qpYSUV8bWnXOkITk56QASqNTsoATTwPbrynWrMWPPsIcZWW+FCMBFIUh6AteP5Cxpjr
+yIzgWVM2/+QSMN1to/VAI5+tJAO9UlsAvd6HkZMfhB9mIJA75FjK0eWY+syY/IHyWyaYU0pMtoPk
+DC5IM1t2MEPEOt+De+rOXt/fKPNu6aOjX+lT20AKm16YsQSOQ3et+tyXq42MiMmEFkHE82j2hyfT
+y8t3iOg8XViuLA+gimUsAoe+FwBOLspmKSdbBw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1253,4 +1253,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_99e200c0-9675-4a56-9b06-e14daac0c58d" Target="#_bd6ec734-788d-4772-a60b-7c140b374fa8"><Timestamp>2020-07-03 09:50:17</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_fd7101a7-8acc-4dd5-b4db-70d7652494cd" Target="#_8de53f0b-5def-4b75-b69d-6cb0350c2ffc"><Timestamp>2020-07-06 05:56:23</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
