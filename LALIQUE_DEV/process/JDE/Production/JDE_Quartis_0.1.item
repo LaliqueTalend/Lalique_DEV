@@ -185,7 +185,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="64" posY="32">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_1"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="Date today = new Date();&#10;&#10;System.setProperty(&quot;JDE_Quartis_ERROR&quot;, &quot;0&quot;);&#10;System.setProperty(&quot;JDE_Quartis_ERROR_MESSAGE&quot;, &quot;&quot;);&#10;&#10;globalMap.put(&quot;JobDate&quot;, Integer.parseInt(Integer.toString(today.getYear()) + new SimpleDateFormat(&quot;DDD&quot;).format(today)));&#10;globalMap.put(&quot;JobTime&quot;, Integer.parseInt(new SimpleDateFormat(&quot;HHmmss&quot;).format(today)));&#10;&#10;String myTimeStamp = new SimpleDateFormat(&quot;yyMMddHHmmss&quot;).format(today);&#10;globalMap.put(&quot;JobTimeStamp&quot;, myTimeStamp);&#10;&#10;globalMap.put(&quot;File01&quot;, context.MainDirectory + context.File01 + myTimeStamp + &quot;.&quot; + context.FileExt);&#10;globalMap.put(&quot;File02&quot;, context.MainDirectory + context.File02 + myTimeStamp + &quot;.&quot; + context.FileExt);&#10;&#10;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="Date today = new Date();&#10;&#10;System.setProperty(&quot;JDE_Quartis_ERROR&quot;, &quot;0&quot;);&#10;System.setProperty(&quot;JDE_Quartis_ERROR_MESSAGE&quot;, &quot;&quot;);&#10;&#10;globalMap.put(&quot;JobDate&quot;, Integer.parseInt(Integer.toString(today.getYear()) + new SimpleDateFormat(&quot;DDD&quot;).format(today)));&#10;globalMap.put(&quot;JobTime&quot;, Integer.parseInt(new SimpleDateFormat(&quot;HHmmss&quot;).format(today)));&#10;&#10;long myTimeStamp = Long.parseLong(new SimpleDateFormat(&quot;yyMMddHHmmss&quot;).format(today));&#10;globalMap.put(&quot;JobTimeStamp&quot;, myTimeStamp);&#10;&#10;globalMap.put(&quot;File01&quot;, context.MainDirectory + context.File01 + myTimeStamp + &quot;.&quot; + context.FileExt);&#10;globalMap.put(&quot;File02&quot;, context.MainDirectory + context.File02 + myTimeStamp + &quot;.&quot; + context.FileExt);&#10;&#10;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="LABEL" value="tJava_1"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -396,9 +396,9 @@
       <column comment="" key="true" length="15" name="SYEDBT" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="true" length="22" name="SYEDTN" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="true" length="0" name="SYEDLN" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" key="false" length="6" name="SYURDT" nullable="true" originalLength="6" pattern="" precision="0" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="6" name="SYURDT" nullable="true" originalLength="6" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="15" name="SYURAT" nullable="true" originalLength="15" pattern="" precision="2" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" key="false" length="8" name="SYURAB" nullable="true" originalLength="8" pattern="" precision="0" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="8" name="SYURAB" nullable="true" originalLength="8" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="15" name="SYURRF" nullable="true" originalLength="15" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
@@ -435,9 +435,9 @@
         <mapperTableEntries expression="Req01.SYEDBT " name="SYEDBT" type="id_String"/>
         <mapperTableEntries expression="Req01.SYEDTN " name="SYEDTN" type="id_String"/>
         <mapperTableEntries expression="Req01.SYEDLN " name="SYEDLN" type="id_BigDecimal"/>
-        <mapperTableEntries expression="new BigDecimal((int)globalMap.get(&quot;JobDate&quot;)) " name="SYURDT" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries expression="(int)globalMap.get(&quot;JobDate&quot;) " name="SYURDT" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="new BigDecimal((int)globalMap.get(&quot;JobTimeStamp&quot;)) " name="SYURAT" nullable="true" type="id_BigDecimal"/>
-        <mapperTableEntries expression="new BigDecimal((int)globalMap.get(&quot;JobTime&quot;)) " name="SYURAB" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries expression="(int)globalMap.get(&quot;JobTime&quot;) " name="SYURAB" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="&quot;INTERFACE&quot;" name="SYURRF" nullable="true" type="id_String"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Req01" sizeState="INTERMEDIATE">
@@ -627,9 +627,9 @@
       <column comment="" key="true" length="15" name="SYEDBT" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="true" length="22" name="SYEDTN" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="true" length="0" name="SYEDLN" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" key="false" length="6" name="SYURDT" nullable="true" originalLength="6" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="6" name="SYURDT" nullable="true" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="15" name="SYURAT" nullable="true" originalLength="15" pattern="" precision="2" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" key="false" length="8" name="SYURAB" nullable="true" originalLength="8" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="8" name="SYURAB" nullable="true" originalLength="8" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="15" name="SYURRF" nullable="true" originalLength="15" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
     </metadata>
     <metadata connector="REJECT" label="JDE_Update" name="REJECT">
@@ -637,9 +637,9 @@
       <column comment="" key="true" length="15" name="SYEDBT" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="true" length="22" name="SYEDTN" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="true" length="0" name="SYEDLN" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" key="false" length="6" name="SYURDT" nullable="true" originalLength="6" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="6" name="SYURDT" nullable="true" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="15" name="SYURAT" nullable="true" originalLength="15" pattern="" precision="2" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" key="false" length="8" name="SYURAB" nullable="true" originalLength="8" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="8" name="SYURAB" nullable="true" originalLength="8" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="15" name="SYURRF" nullable="true" originalLength="15" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" originalLength="-1" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" originalLength="-1" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
@@ -1342,13 +1342,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_2dd2bec8-e977-4caf-86f4-56d8a3ac70e6"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>+9obvKeVmUlRTHH/usW7s3k5kDxFLRt1s1ZDl6vGG+Mm0Rmeinh5XknBuuIKhXYAOtP2BhseZ+Jz
-g5rnUh28zA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_b26a0637-391b-44b0-a2af-e06f2dba9b7c"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>q9dZg9IqzV75fCB+Cfsi1AIan7ahhmDfnWZExxZmH/+q/+eWsnY3ts+4v7LB3IF5RXmVcXB0CG9j
-YPJlhHhBzA==</DigestValue></Reference></SignedInfo><SignatureValue>fmAVxl3iC/WM/MdihX1wAQOvaCLKuDOhSztRlZIPKBBYG40r0WxSqsoWnQUaE86yEK3Womjrc6dF
-jsvQp+PwOIR0XreurTgW83ma++fEL8W3htSqOFm0Y8K2CRnZ9MFQiPWaKLG0WnebcMEZDjRL7EH6
-1BbCR8YyjYm62NuLO+ucIzO5qwhDPBslBQ+2nRsBjmM0GgmqcENj37n0wQsTBA1k/3e1KobNf7KE
-OyLv7hcp1ejM0wCBCkMzhROrflgLvZ5gmLa/eVWIMciP7TZe/X6dqIwKV6pn2hZeEQRaW/Dl7q9o
-RbVfueV8LwT6hJlexxg4p6V8qNBZuk9F+3zZCg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_0cbd5451-1822-46af-b3bf-baa3e96330ee"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>bbNRQICmgzP6SrPpG2OjDkRA9CVOKQWNUg1rumWc+ovCjGXwWUyXm3PMIfBIZVOrQ0dV2guWdAiR
+/D705Qm6wQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_8b53f68a-f6a6-4b77-9506-eb3b28145bf3"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>ieJpUTSyWaVhBB6MT3Th8hPSnrhNsBkiZ3ev9g5KS3kYZx5qOTYf7PBb2ABq6UhZ0PREIKltYwHp
+YWvO3e0H1w==</DigestValue></Reference></SignedInfo><SignatureValue>mS7ljF+Hb5pz8XugkHA6BM+cl2AARtSkTTnu15QHQSoB4KxRzafeZhl9Ox4T/EnphDDiIZ7ilWti
+SoC/bSqiPgFCEFQD8ykoadrbDwKz5ao9rSEtKN2P5TZ9hofNhVGIU4SNs1N19nmXdEtTt3n9WUot
+tTPuvieA0cBdCPx+UkCa97PT0Gqef0NNIOHu6p7KBekcnfY2xQ/UjUU0/SAhuHh3RwDRd6kQuqxV
+4havbF3yTsBVMYEg5QWaNDlz+CG1g+exYVrpsE1x0LyUBeasVGI4IPSqTOdV30mBNECW2uO1bSdE
+1VOalyWHpLODtlvLTjjGpKCSw2RX+NXeP/PxfQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1370,4 +1370,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_b26a0637-391b-44b0-a2af-e06f2dba9b7c" Target="#_2dd2bec8-e977-4caf-86f4-56d8a3ac70e6"><Timestamp>2020-07-06 12:53:02</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_8b53f68a-f6a6-4b77-9506-eb3b28145bf3" Target="#_0cbd5451-1822-46af-b3bf-baa3e96330ee"><Timestamp>2020-07-06 12:59:32</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
