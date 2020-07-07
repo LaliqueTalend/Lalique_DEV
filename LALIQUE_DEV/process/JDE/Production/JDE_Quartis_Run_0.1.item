@@ -180,7 +180,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="224" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_1"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="int CurrentTime = Integer.parseInt(new SimpleDateFormat(&quot;HHmmss&quot;).format(new Date()));&#10;&#10;globalMap.put(&quot;_Condition&quot;, &quot;LOOP&quot;);&#10;&#10;if ((String)globalMap.get(&quot;myDieStatus&quot;) == &quot;DIE&quot;){&#10;&#9;globalMap.put(&quot;_Condition&quot;, &quot;DIE&quot;);&#10;}&#10;else{&#10;&#9;if (CurrentTime &lt; context.StartTime){&#10;&#9;&#9;System.out.println(CurrentTime + &quot; : En attente de démarrage&quot;);&#10;&#9;}&#10;&#9;else{&#10;&#9;&#9;if (CurrentTime &lt;= context.EndTime){&#10;&#9;&#9;&#9;globalMap.put(&quot;_Condition&quot;, &quot;OK&quot;);&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;if (context.StopAfterEnd == true){&#10;&#9;&#9;&#9;&#9;globalMap.put(&quot;_Condition&quot;, &quot;END&quot;);&#10;&#9;&#9;&#9;}&#10;&#9;&#9;&#9;else{&#10;&#9;&#9;&#9;&#9;System.out.println(CurrentTime + &quot; : Suspendu&quot;);&#10;&#9;&#9;&#9;}&#10;&#9;&#9;}&#10;&#9;}&#10;}&#10; "/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="int CurrentTime = Integer.parseInt(new SimpleDateFormat(&quot;HHmmss&quot;).format(new Date()));&#10;&#10;globalMap.put(&quot;_Condition&quot;, &quot;LOOP&quot;);&#10;&#10;if ((String)globalMap.get(&quot;myDieStatus&quot;) == &quot;DIE&quot;){&#10;&#9;globalMap.put(&quot;_Condition&quot;, &quot;DIE&quot;);&#10;}&#10;else{&#10;&#9;if (CurrentTime &lt; context.StartTime){&#10;&#9;&#9;System.out.println(CurrentTime + &quot; : En attente de démarrage&quot;);&#10;&#9;}&#10;&#9;else{&#10;&#9;&#9;if (CurrentTime &lt;= context.EndTime){&#10;&#9;&#9;&#9;globalMap.put(&quot;_Condition&quot;, &quot;OK&quot;);&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;if (context.StopAfterEnd == true){&#10;&#9;&#9;&#9;&#9;globalMap.put(&quot;_Condition&quot;, &quot;END&quot;);&#10;&#9;&#9;&#9;&#9;globalMap.put(&quot;myDieCode&quot;, 0);&#10;&#9;&#9;&#9;&#9;globalMap.put(&quot;myDieMessage&quot;, &quot;Arrêt normal du job &quot; + jobName);&#10;&#9;&#9;&#9;}&#10;&#9;&#9;&#9;else{&#10;&#9;&#9;&#9;&#9;System.out.println(CurrentTime + &quot; : Suspendu&quot;);&#10;&#9;&#9;&#9;}&#10;&#9;&#9;}&#10;&#9;}&#10;}&#10; "/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_1"/>
@@ -332,8 +332,8 @@
   </node>
   <node componentName="tDie" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="320" posY="416">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDie_2"/>
-    <elementParameter field="TEXT" name="MESSAGE" value="&quot;Arrêt normal du job.&quot;"/>
-    <elementParameter field="TEXT" name="CODE" value="0"/>
+    <elementParameter field="TEXT" name="MESSAGE" value="(String)globalMap.get(&quot;myDieMessage&quot;)"/>
+    <elementParameter field="TEXT" name="CODE" value="(int)globalMap.get(&quot;myDieError&quot;)"/>
     <elementParameter field="CLOSED_LIST" name="PRIORITY" value="3"/>
     <elementParameter field="CHECK" name="EXIT_JVM" value="false"/>
     <elementParameter field="TEXT" name="LABEL" value="tDie_2"/>
@@ -342,8 +342,8 @@
   </node>
   <node componentName="tDie" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="608" posY="416">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDie_1"/>
-    <elementParameter field="TEXT" name="MESSAGE" value="&quot;Arrêt anormal du job &quot; + jobName + &quot; après &quot; + (int)globalMap.get(&quot;myErrCount&quot;) + &quot; erreurs consécutives.&quot;"/>
-    <elementParameter field="TEXT" name="CODE" value="90"/>
+    <elementParameter field="TEXT" name="MESSAGE" value="(String)globalMap.get(&quot;myDieMessage&quot;)"/>
+    <elementParameter field="TEXT" name="CODE" value="(int)globalMap.get(&quot;myDieError&quot;)"/>
     <elementParameter field="CLOSED_LIST" name="PRIORITY" value="6"/>
     <elementParameter field="CHECK" name="EXIT_JVM" value="false"/>
     <elementParameter field="TEXT" name="LABEL" value="tDie_1"/>
@@ -365,7 +365,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="608" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_2"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="// Gestion des erreurs : Arrêt si trop d'erreurs&#10;&#10;int returnCode = (int)globalMap.get(&quot;tRunJob_1_CHILD_RETURN_CODE&quot;);&#10;System.out.println(new SimpleDateFormat(&quot;HHmmss&quot;).format(new Date()) + &quot; : Code retour du job = &quot; + returnCode);&#10;&#10;int errorCount = (int)globalMap.get(&quot;myErrCount&quot;);&#10;&#10;if(returnCode != 0){&#10;&#9;errorCount += 1;&#10;}&#10;else{&#10;&#9;errorCount = 0;&#10;}&#10;globalMap.put(&quot;myErrCount&quot;, errorCount);&#10;&#10;if (errorCount &gt;= context.ErrorMax){&#10;&#9;globalMap.put(&quot;myErrCode&quot;, 90);&#10;&#9;globalMap.put(&quot;myErrMessage&quot;, &quot;Le nombre maximum d'erreurs (&quot; + context.ErrorMax + &quot;) a été atteint !&quot;);&#10;}"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="// Gestion des erreurs : Arrêt si trop d'erreurs&#10;&#10;int returnCode = (int)globalMap.get(&quot;tRunJob_1_CHILD_RETURN_CODE&quot;);&#10;System.out.println(new SimpleDateFormat(&quot;HHmmss&quot;).format(new Date()) + &quot; : Code retour du job = &quot; + returnCode);&#10;&#10;int errorCount = (int)globalMap.get(&quot;myErrCount&quot;);&#10;&#10;if(returnCode != 0){&#10;&#9;errorCount += 1;&#10;}&#10;else{&#10;&#9;errorCount = 0;&#10;}&#10;globalMap.put(&quot;myErrCount&quot;, errorCount);&#10;&#10;if (errorCount &gt;= context.ErrorMax){&#10;&#9;globalMap.put(&quot;myErrCode&quot;, 90);&#10;&#9;globalMap.put(&quot;myErrMessage&quot;, &quot;Le nombre maximum d'erreurs (&quot; + context.ErrorMax + &quot;) a été atteint !&quot;);&#10;&#9;globalMap.put(&quot;myDieCode&quot;, 90);&#10;&#9;globalMap.put(&quot;myDieMessage&quot;, &quot;Arrêt anormal du job &quot; + jobName + &quot; après &quot; + (int)globalMap.get(&quot;myErrCount&quot;) + &quot; erreurs consécutives.&quot;);&#10;&#9;globalMap.put(&quot;myDieStatus&quot;, &quot;DIE&quot;);&#10;}"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_2"/>
@@ -489,7 +489,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="224" posY="544">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_3"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="// Error Codes:&#10;// -----------&#10;// 10 - nom de paramétre invalide&#10;// 20 - valeur du paramétre invalide&#10;// 40 - fichier paramétre absent&#10;// 90 - nombre d'erreurs maxi dépassé&#10;&#10;// 99 - autres causes d'arrêt&#10;&#10;globalMap.put(&quot;_Condition&quot;, &quot;MAIL&quot;);&#10;&#10;switch ((int)globalMap.get(&quot;myErrCode&quot;))&#10;{&#10;&#9;case 0:case 40:&#10;&#9;// pas de message ou messages gérés préalablement et déjà signalés&#10;&#9;&#9;globalMap.put(&quot;_Condition&quot;, &quot;NO_MAIL&quot;);&#10;&#9;&#9;break;&#10;&#9;default:&#10;&#9;// autres erreurs à signaler&#10;&#9;&#9;break;&#10;}&#10; "/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="// Error Codes:&#10;// -----------&#10;// 10 - nom de paramétre invalide&#10;// 20 - valeur du paramétre invalide&#10;// 40 - fichier paramétre absent&#10;// 90 - nombre d'erreurs maxi dépassé&#10;&#10;// 99 - autres causes d'arrêt&#10;&#10;globalMap.put(&quot;_Condition&quot;, &quot;MAIL&quot;);&#10;&#10;switch ((int)globalMap.get(&quot;myDieErr&quot;))&#10;{&#10;&#9;case 0:case 40:&#10;&#9;// pas de message ou messages gérés préalablement et déjà signalés&#10;&#9;&#9;globalMap.put(&quot;_Condition&quot;, &quot;NO_MAIL&quot;);&#10;&#9;&#9;break;&#10;&#9;default:&#10;&#9;// autres erreurs à signaler&#10;&#9;&#9;break;&#10;}&#10; "/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_3"/>
@@ -1104,13 +1104,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_721420ae-f1a7-4a6d-bfe8-f2095efaff0a"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>RpXKW+bxW+7Btqx3G/JQPjV6+O0s1YEOQfIpCG9ai6DSAhU5tby5N66kLva7zxKhqyJPN0WShHO1
-6CNMiie0hw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_bae93281-3464-478a-a00e-77b748025d0c"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>9hfj0FOCpu7aOAIw9TOkY6D89gfYhQT5dVxu8kI9bh+PmWIzorw04bL88sqNDMqfRmh+E0KqWbUv
-SmIq1oCabw==</DigestValue></Reference></SignedInfo><SignatureValue>lD0Veh3dLaOHGMPgNUVQ4W5urwqCEvz6SmPSkZ1m4SQB+Lp/4CBO2rfzhcuOb9x5ySNpCyv72gPT
-LE8KaXSA/z/NFm2tt1IIXkYxyYEYcpFs1ajo457rY3JDl2URfXrKvnvV1iChff2gsIip6LhoSI8T
-unP4yusjboQcCMRUEv7Tr5D8tpWyXn0yMrzCMR8xfmpgzKT1ZX66ogCUn2p3ZTPzzul+pG+fW6xA
-97qRKudbxHMrE/5SChtedNu3MADI5Z8w+prk6CKaHz8WTEbWkHAJ59sqIvHPBkBhUgQfzoU9KY+B
-PyAdmrYLlRveUfHPY2EMSj7SX44H8eLwryeLFQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_f3863d61-892e-4ff9-a5f3-fc05466f1973"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>uQVBDFUkgwClQashECq6OIRwvmM6lFG+F+NbV5XlWvWQEVPrsOZpPBJgJ4nmdawvqBvCoXI9d0M8
+96LWqbJbrA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_595a4ff1-1248-4294-a445-c8b63bb68f67"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>3ZFLJHHIPtK2vgEJ4OgeE+tQ1w59QWPYkd/ouSDjRsu0Kco6gk+HXWpv5G17/LAKjDctMqPTd8lS
+NwXERtxwGQ==</DigestValue></Reference></SignedInfo><SignatureValue>KzjTsZZk9BPQGvhutdleWvTVzfGz5t4qR7YI9J2ui1p8kuN+uHBdJ72q10M1Vt8FO+GJezT9dv9O
+NMWFCxV/19eB032BXMS0HTm0Twi9RoIo6IjsaNGbCrl46GmaCb+hFTE7z7JFgNTXA/QorTlsUAFa
++Egr+Gr+9iNzbGLgvmdM8KNuj3FvPW5Xq+S5BOiGa1rx9UqV1EtiXOeLgJdK3oDsmYyFZJNf/pzQ
+LpyllkIGvrarXwOorH6ty9AYUF/5jQjHyRgaVwRFsU4h72a8HyZ26G9wa/u9343Hy1WfTxgAOQ8b
+nfpDUVc/96Qha5BjG+xpxFWWx+aRR9XEPfx/iA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1132,4 +1132,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_bae93281-3464-478a-a00e-77b748025d0c" Target="#_721420ae-f1a7-4a6d-bfe8-f2095efaff0a"><Timestamp>2020-07-07 05:27:04</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_595a4ff1-1248-4294-a445-c8b63bb68f67" Target="#_f3863d61-892e-4ff9-a5f3-fc05466f1973"><Timestamp>2020-07-07 05:47:16</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
