@@ -1022,17 +1022,8 @@
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" originalLength="-1" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tOracleCommit" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="64" posY="544">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBCommit_2"/>
-    <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="tDBConnection_2"/>
-    <elementParameter field="CHECK" name="CLOSE" value="true"/>
-    <elementParameter field="TEXT" name="LABEL" value="JDE_Commit"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tDBCommit_2"/>
-  </node>
   <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="672" posY="416">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileOutputDelimited_2"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="CHECK" name="USESTREAM" value="false"/>
     <elementParameter field="TEXT" name="STREAMNAME" show="false" value="outputStream"/>
     <elementParameter field="FILE" name="FILENAME" value="(String)globalMap.get(&quot;File02&quot;)"/>
@@ -1075,6 +1066,14 @@
       <column comment="" key="false" length="2" name="Unite_Mesure" nullable="true" originalLength="2" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="15" name="Code_Cle" nullable="true" originalLength="15" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
     </metadata>
+  </node>
+  <node componentName="tOracleCommit" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="64" posY="544">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBCommit_2"/>
+    <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="tDBConnection_2"/>
+    <elementParameter field="CHECK" name="CLOSE" value="true"/>
+    <elementParameter field="TEXT" name="LABEL" value="JDE_Commit"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tDBCommit_2"/>
   </node>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tDBConnection_2" offsetLabelX="0" offsetLabelY="0" source="tDBConnection_2" target="tDBInput_2">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk2"/>
@@ -1228,31 +1227,7 @@
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tDBInput_1" offsetLabelX="0" offsetLabelY="0" source="tDBInput_1" target="tDBCommit_2">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk7"/>
   </connection>
-  <connection connectorName="FLOW" label="F31122_Update" lineStyle="0" metaname="F31122_Update" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_3" target="tDBOutput_2">
-    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
-      <elementValue elementRef="TRACE_COLUMN" value="WTUKID"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="WTURCD"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="WTURDT"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="WTURAT"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="WTURAB"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="WTURRF"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-    </elementParameter>
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F31122_Update"/>
-  </connection>
-  <connection connectorName="FLOW" label="OPE_JDE_Out" lineStyle="0" metaname="OPE_JDE_Out" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_3" target="tFileOutputDelimited_2">
+  <connection connectorName="FLOW" label="OPE_JDE_Out" lineStyle="0" metaname="OPE_JDE_Out" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_3" target="tFileOutputDelimited_2">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="Date_Operation"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
@@ -1277,8 +1252,31 @@
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OPE_JDE_Out"/>
+  </connection>
+  <connection connectorName="FLOW" label="F31122_Update" lineStyle="0" metaname="F31122_Update" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_3" target="tDBOutput_2">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="WTUKID"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="WTURCD"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="WTURDT"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="WTURAT"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="WTURAB"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="WTURRF"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F31122_Update"/>
   </connection>
   <subjob>
     <elementParameter field="CHECK" name="COLLAPSED" show="false" value="true"/>
@@ -1344,18 +1342,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-  <subjob>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileOutputDelimited_2"/>
-    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
-    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
-  </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_e1ac0fbd-5e39-434c-ad8f-b170d434cdf6"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>KNmpZlGMm84tJyzh36C1q3XlPeMrF4mQaHwgOykxjxNI5wXz0AuqwsRTxmFEVBBftgNXjl+rzcMm
-s6b+wAj2FA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_66b4016d-4ed0-496b-85a6-f76bfacab9d9"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>0v1OnyKw/ByPeX5XnTXrqD4X0wFsywM1/sfRyGasLs8CojPkJJRXfgFVnooZQYHEnseXDmS6c8Gl
-SScdfkMCYg==</DigestValue></Reference></SignedInfo><SignatureValue>fllYdPEGAAUFgcpugVUKOtPxE7D0xN5rJmeG2N7oL6eKn0V7t/i5jCDYDrArmxkcYXDFUhh2HQGj
-NkbaJp+FfMr7ZBeM+cmUq0QGorEg2yhN4IEVocvyfLqHcCpv7xUYmhsm47Lyk8mQlS66GzsCH2Ub
-e+snn4Fs91eppWtRVBjHtVcYmkmoSYC5aq+jKoGmQBOx9PNZoOKXQvvH0XBuw+yL24kXaLV5FLSc
-XNww6xrcu7uiZvpFfxTpkPTO4rOn8pM3HUXXd5aCHXWVATi8BQoQlvk5DpbY5PPgDfqefjVjQKlj
-uNFqJCiCmx5Z/YWRbf62sPgOQJrFtALYE1huUA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_d3361a1b-6e10-4157-bcaf-ee81828bf64f"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>r2JEPXjlOfRpjOc/LQSqMVdDd5daB6jhxGqutjGh78iNqdQzKsIsaQpzRt7WiO3xn51xzfAQ2H/w
+BnvsDdynCg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_7ebaeb75-dc51-4d0f-9364-702dad367f3a"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>g1V4Bg/pd0NfR20m1i8CpZxfNtiRpOf2ZwGct+52Ng77nhU0r4xBSCKwT6PuP791su6QaR+frxOH
+IyKOcp8aXw==</DigestValue></Reference></SignedInfo><SignatureValue>TlFjfd07wU55w99UFko9rJKg78hZu/wMH4/ulOq8rzmCBu/0vjysDdZo9W8126SDOTmVWn3wnCRQ
+b/xA9XsSsM7JZ9kSo91gobX3V3Ar5Dz5aUBjWO6b9MMc3JN0HdmmvG93WhvKI76OOX8OQwF1j/sl
+zFcnVet44MNuhiU2PCUcq06V53oRbti4lRmtHhG4nt+q+ozXL3PggJIgZSUTeFEuYcVeRBBXBMAX
+cLkisq+W4bZLKQA86RRwc8QtBhW8kyKCYV0zdvnVUbZUdwSWxjZJZ1u1scFmyyCHBgFbHFoFt/i6
+Dqs515M5P29bqnUMUaA89iceG6VqdyoEn5jEig==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1377,4 +1370,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_66b4016d-4ed0-496b-85a6-f76bfacab9d9" Target="#_e1ac0fbd-5e39-434c-ad8f-b170d434cdf6"><Timestamp>2020-07-07 08:59:17</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_7ebaeb75-dc51-4d0f-9364-702dad367f3a" Target="#_d3361a1b-6e10-4157-bcaf-ee81828bf64f"><Timestamp>2020-07-07 09:37:19</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
