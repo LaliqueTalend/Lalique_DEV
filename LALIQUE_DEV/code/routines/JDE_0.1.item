@@ -33,34 +33,6 @@ import java.util.Date;
 public class JDE {
 
 	/**
-     * Convertit une valeur de type Float en une chaîne de caractères formatés.
-     * </br><b>Exemple :</b> Formater le nombre 110.1 au format "###.##" en utilisant le séparateur de décimal 'point'<pre>    <code>cnvString(110.1f, "###.##", ".")</code> --> 110.10</pre>
-     * 
-     * @param value : <code>Float</code> - valeur à formater.
-     * @param pattern : <code>String</code> - format de nombre à appliquer (ex: "###.##").
-     * @param decimalSeparator : <code>char</code> - séparateur décimal à appliquer.
-     * @return Nombre formaté au format String
-     * @author Philippe BONGARD (07/07/2020)
-     * @TalendInfos
-     * 
-     * {TalendTypes} String
-     * 
-     * {Category} Lalique Defined
-     * 
-     * {param} Float value : <code>Float</code> valeur à formater.
-     * {param} String pattern : <code>BigDecimal</code> format de nombre à appliquer (ex: "###.##").
-     * {param} Char decimalSeparator : <code>char</code> séparateur décimal à appliquer.
-     */
-	public static String cnvString(Float value, String pattern, char decimalSeparator)
-	{
-		DecimalFormat dfmt = new DecimalFormat(pattern);
-		DecimalFormatSymbols dfs = new DecimalFormatSymbols();
-		dfs.setDecimalSeparator(decimalSeparator);
-		dfmt.setDecimalFormatSymbols(dfs);
-		return dfmt.format(value);
-	}
-	
-	/**
      * Convertit une valeur de type BigDecimal en valeur de type Double
      * 
      * @param value : <code>BigDecimal</code> valeur à convertir.
@@ -138,6 +110,59 @@ public class JDE {
 	    }
     }
     
+	/**
+     * Convertit une valeur de type Float en une chaîne de caractères formatés.
+     * </br><b>Exemple :</b> Formater le nombre 110.1 au format "##0.00" en utilisant le séparateur de décimal 'point'<pre>    <code>cnvString(110.1f, "##0.00", ".")</code> --> 110.10</pre>
+     * 
+     * @param value : <code>Float</code> - valeur à formater.
+     * @param pattern : <code>String</code> - format de nombre à appliquer.
+     * @param decimalSeparator : <code>char</code> - séparateur décimal à appliquer.
+     * @return Nombre formaté au format String
+     * @author Philippe BONGARD (07/07/2020)
+     * @TalendInfos
+     * 
+     * {TalendTypes} String
+     * 
+     * {Category} Lalique Defined
+     * 
+     * {param} Float value : <code>Float</code> valeur à formater.
+     * {param} String pattern : <code>BigDecimal</code> format de nombre à appliquer (ex: "##0.00").
+     * {param} Char decimalSeparator : <code>char</code> séparateur décimal à appliquer.
+     */
+	public static String cnvString(Float value, String pattern, char decimalSeparator)
+	{
+		DecimalFormat dfmt = new DecimalFormat(pattern);
+		if (decimalSeparator == '.' || decimalSeparator == ',') {
+			DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+			dfs.setDecimalSeparator(decimalSeparator);
+			dfmt.setDecimalFormatSymbols(dfs);
+		}
+		return dfmt.format(value);
+	}
+
+	/**
+     * Convertit une valeur de type Float en une chaîne de caractères formatés.
+     * </br><b>Exemple :</b> Formater le nombre 123456.789 au format "# ###.00"<pre>    <code>cnvString(123456.789f, "# ##0.00")</code> --> 123 456,79</pre>
+     * 
+     * @param value : <code>Float</code> - valeur à formater.
+     * @param pattern : <code>String</code> - format de nombre à appliquer (ex: "###.##").
+     * @return Nombre formaté au format String
+     * @author Philippe BONGARD (07/07/2020)
+     * @TalendInfos
+     * 
+     * {TalendTypes} String
+     * 
+     * {Category} Lalique Defined
+     * 
+     * {param} Float value : <code>Float</code> valeur à formater.
+     * {param} String pattern : <code>BigDecimal</code> format de nombre à appliquer (ex: "###.##").
+     */
+	public static String cnvString(Float value, String pattern)
+	{
+		DecimalFormat dfmt = new DecimalFormat(pattern);
+		return dfmt.format(value);
+	}
+	
     /**
      * Renvoie une date au format Julian JDE (integer).
      * </br><b>Exemple :</b> Convertir la date 04/02/2020 en format Julian de JDE.<pre>    <code>convertFromJulian(04/02/2020)</code> --> 120035</pre>
