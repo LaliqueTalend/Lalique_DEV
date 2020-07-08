@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><talendfile:ProcessType xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmlns:TalendMapper="http://www.talend.org/mapper" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" defaultContext="PY" jobType="Standard" xmi:version="2.0">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><talendfile:ProcessType xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmlns:TalendMapper="http://www.talend.org/mapper" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" defaultContext="Test" jobType="Standard" xmi:version="2.0">
   <context confirmationNeeded="false" name="FOR">
     <contextParameter comment="Extension des fichiers" name="File_Extension" prompt="File_Extension?" promptNeeded="false" repositoryContextId="_ll2nwMDnEeqhTbwsypYncg" type="id_String" value=".csv"/>
     <contextParameter comment="Suffixe des fichiers OF" name="File_OF" prompt="File_OF?" promptNeeded="false" repositoryContextId="_ll2nwMDnEeqhTbwsypYncg" type="id_String" value="OF_JDE_"/>
@@ -231,7 +231,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="64" posY="32">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_1"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="Date today = new Date();&#10;&#10;//System.setProperty(&quot;JDE_Quartis_OF_ERROR&quot;, &quot;0&quot;);&#10;//System.setProperty(&quot;JDE_Quartis_OF_ERROR_MESSAGE&quot;, &quot;&quot;);&#10;&#10;long myTimeStamp = Long.parseLong(new SimpleDateFormat(&quot;yyMMddHHmmss&quot;).format(today));&#10;globalMap.put(&quot;JobTimeStamp&quot;, myTimeStamp);&#10;globalMap.put(&quot;JobDate&quot;, Integer.parseInt(Integer.toString(today.getYear()) + new SimpleDateFormat(&quot;DDD&quot;).format(today)));&#10;globalMap.put(&quot;JobTime&quot;, Integer.parseInt(new SimpleDateFormat(&quot;HHmmss&quot;).format(today)));&#10;&#10;&#10;globalMap.put(&quot;FileName&quot;, context.File_OPE + myTimeStamp + context.File_Extension);&#10;globalMap.put(&quot;LogFile&quot;, context.Root_Directory + context.Folder_OPE + context.Log_OPE);&#10;&#10;//System.out.println(&quot;File Name : &quot; + (String)globalMap.get(&quot;FileName&quot;));&#10;//System.out.println(&quot;Log Name : &quot; + (String)globalMap.get(&quot;LogFile&quot;));&#10;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="Date today = new Date();&#10;&#10;//System.setProperty(&quot;JDE_Quartis_OF_ERROR&quot;, &quot;0&quot;);&#10;//System.setProperty(&quot;JDE_Quartis_OF_ERROR_MESSAGE&quot;, &quot;&quot;);&#10;&#10;long myTimeStamp = Long.parseLong(new SimpleDateFormat(&quot;yyMMddHHmmss&quot;).format(today));&#10;globalMap.put(&quot;JobTimeStamp&quot;, myTimeStamp);&#10;globalMap.put(&quot;JobDate&quot;, Integer.parseInt(Integer.toString(today.getYear()) + new SimpleDateFormat(&quot;DDD&quot;).format(today)));&#10;globalMap.put(&quot;JobTime&quot;, Integer.parseInt(new SimpleDateFormat(&quot;HHmmss&quot;).format(today)));&#10;&#10;&#10;globalMap.put(&quot;FileName&quot;, context.File_OPE + myTimeStamp + context.File_Extension);&#10;globalMap.put(&quot;LogFile&quot;, context.Root_Directory + context.Folder_OPE + context.Log_OPE) + &quot;.csv&quot;;&#10;&#10;//System.out.println(&quot;File Name : &quot; + (String)globalMap.get(&quot;FileName&quot;));&#10;//System.out.println(&quot;Log Name : &quot; + (String)globalMap.get(&quot;LogFile&quot;));&#10;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="LABEL" value="tJava_1"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -767,8 +767,9 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F31122_Update"/>
   </connection>
-  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tDBCommit_2" offsetLabelX="0" offsetLabelY="0" source="tDBCommit_2" target="tFileCopy_1">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk1"/>
+  <connection connectorName="RUN_IF" label="FileExist" lineStyle="6" metaname="tDBCommit_2" offsetLabelX="0" offsetLabelY="0" source="tDBCommit_2" target="tFileCopy_1">
+    <elementParameter field="MEMO_JAVA" name="CONDITION" value=" (int)globalMap.get(&quot;tFileDelimited_2_NB_LINE&quot;) &gt; 0"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="FileExist"/>
   </connection>
   <subjob>
     <elementParameter field="CHECK" name="COLLAPSED" show="false" value="true"/>
@@ -820,13 +821,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_b0124018-499f-4573-8417-bc27eb1257b6"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>ykvVxsbhlNOKFARffpUdTFWD0UtuAFRtF372QLOhNCnami9Uib3mpHqiH3UOAWZoUL16wwO5WB0c
-vA0muQ0zyg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_a4409998-afed-4537-bc3b-9f77c4bfa0b6"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>8vROtUz7/6Z9WqedqdS4bdAGCNL4TYQXxO873ceTu9WxDICpgIRNx5f+r7G0tkybS4Vj2iRlvXs+
-XA2uviRamA==</DigestValue></Reference></SignedInfo><SignatureValue>WPSmJj8IVz91l9Tm0nX/TGg7tRUmIizbtAKcgX23TwpjufGsOJeVsAQpi8gJhz5fOqg9tdqA026D
-Amu/3CLi8W9jrOUmxyQ4LgjCRQc2CrP3HeTIfbEk6lJKE7HLnfRiKaBM+AhrOGuXoCWny5BFr++4
-0pG7foTJsL9JJZM9gFlYDGoxWr1vtrWONsRkbK5gRFTSd/H1J8nkIUN4dTePDIDUq9EvjxXrllNw
-S2xZGxQcWyCGPG5flZxiCdKFJtbcnULQ1UJ+WZD6WTy5z0dm8881rwENGWw1ET/DBuQkCsVx0bbJ
-DqDjOhgcxViSl1Gfkg3GrPM0T12bDjFJyVF0WQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_f7d67cb8-9bc0-4a91-a784-0ff188457f9b"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>WySeSkuYz50z7/1t2uqJ9N4tDwRdNz9pj/kiA2KMuNsjrRp6UcZbjuCUhKbhavQapfQ8Br2epn+g
+x7YIrzAeUA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_3242dad3-3178-4581-b1bf-30d15b79f63e"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>/T9+uFhZe2/gWuSKcuRidhma7XjXMp4Ih0w/gKgavrH5ZY+le71GDPOHutdN4oRhWxx1WpD6i6sF
+8cHl6+evXA==</DigestValue></Reference></SignedInfo><SignatureValue>NhMXZrR6YPwJUiJeguU3WUCr3OGv5GKAX2B6AUK2c5NlwFhoySf7KXA2b3F95SUCY7D4jVCG2QRf
+bhZZztX5V7uUsu2xS2o6u939zgAjininGYgLpvUTLGRKEZwDVVUsrlicfeJagDqetpfMCEfAo8xN
+TuJ8ewB7d/IBOwEhCEJIvkSLd1xegaJQ6lolqKs1cLxJijjkj6+Mmv8lMInY9N4CoiQWsUq6vB9H
+uhar2sqn+AJqd1befHXIbSPPFEBnOTRBCfDBt7X/xJ4ZnQF7ESsdugEB8eoRG0m7Yl5bfiRsbpf7
+5IbFWB3FWcirZ0H213jbSi3SvXPJIhrNQCad/w==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -848,4 +849,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_a4409998-afed-4537-bc3b-9f77c4bfa0b6" Target="#_b0124018-499f-4573-8417-bc27eb1257b6"><Timestamp>2020-07-08 11:20:00</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_3242dad3-3178-4581-b1bf-30d15b79f63e" Target="#_f7d67cb8-9bc0-4a91-a784-0ff188457f9b"><Timestamp>2020-07-08 11:28:33</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
