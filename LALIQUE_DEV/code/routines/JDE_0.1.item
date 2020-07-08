@@ -6,9 +6,13 @@
 package routines;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+//import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+//import java.util.Locale;
 
 /*
  * user specification: the function's comment should contain keys as follows: 1. write about the function's comment.but
@@ -30,7 +34,7 @@ import java.util.Date;
  */
 public class JDE {
 
-    /**
+	/**
      * Convertit une valeur de type BigDecimal en valeur de type Double
      * 
      * @param value : <code>BigDecimal</code> valeur à convertir.
@@ -94,7 +98,7 @@ public class JDE {
      * 
      * {Category} Lalique Defined
      * 
-     * {param} BigDecimal value : <code>BigDecimal</code> valeur à convertir.
+     * {param} BigDecimal value : valeur a convertir.
      */
     public static int cnvInt(BigDecimal value)
     {
@@ -108,6 +112,65 @@ public class JDE {
 	    }
     }
     
+	/**
+     * Renvoie un nombre sous forme d'une chaîne de caractères formatés.
+     * </br><b>Exemple :</b> Afficher le nombre 1234.567 au format "#,##0.00" en utilisant le format US<pre>    <code>cnvString(1234.567f, "#,##0.00", true)</code> --> 1 234.57</pre>
+     * 
+     * @param value : <code>double</code> - valeur à formater.
+     * @param pattern : <code>String</code> - format de nombre à appliquer (indiqué au format US ex : #,##0.00").
+     * @param formatUS : <code>boolean</code> - appliquer le format US (décimale = point).
+     * @return Nombre formaté au format String
+     * @author Philippe BONGARD (07/07/2020)
+     * @TalendInfos
+     * 
+     * {TalendTypes} String
+     * 
+     * {Category} Lalique Defined
+     * 
+     * {param} double nombre : nombre a formater.
+     * {param} String format : format a utiliser.
+     * {param} boolean formatUS : Utiliser le format US.
+     */
+	public static String cnvString(double value, String pattern, boolean formatUS)
+	{
+//		NumberFormat nf = NumberFormat.getInstance(Locale inLocale);
+		DecimalFormat dfmt = new DecimalFormat(pattern);
+		if (formatUS) {
+//			nf = NumberFormat.getInstance(Locale.US);
+			DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+			dfs.setDecimalSeparator('.');
+			dfs.setGroupingSeparator(',');
+			dfmt.setDecimalFormatSymbols(dfs);
+		}
+			else {
+		}
+		return dfmt.format(value);
+//		return nf.format(value);
+	}
+
+	/**
+     * Renvoie un nombre sous forme d'une chaîne de caractères formatés.
+     * </br><b>Exemple :</b> Afficher le nombre 123456.789 au format "#,##0.00"<pre>    <code>cnvString(123456.789, "#,##0.00")</code> --> 123 456,79</pre>
+     * 
+     * @param value : <code>double</code> - valeur à formater.
+     * @param pattern : <code>String</code> - format de nombre à appliquer (format US ex : #,##0.00").
+     * @return Nombre formaté au format local (Français)
+     * @author Philippe BONGARD (07/07/2020)
+     * @TalendInfos
+     * 
+     * {TalendTypes} String
+     * 
+     * {Category} Lalique Defined
+     * 
+     * {param} double nombre
+     * {param} String format
+     */
+	public static String cnvString(double value, String pattern)
+	{
+		DecimalFormat dfmt = new DecimalFormat(pattern);
+		return dfmt.format(value);
+	}
+	
     /**
      * Renvoie une date au format Julian JDE (integer).
      * </br><b>Exemple :</b> Convertir la date 04/02/2020 en format Julian de JDE.<pre>    <code>convertFromJulian(04/02/2020)</code> --> 120035</pre>

@@ -377,7 +377,7 @@
       <column comment="" key="false" length="1" name="Type_Art" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="2" name="Statut_OF" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="1" name="Type_OF" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="5" name="Num_Ope" nullable="true" originalLength="5" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true"/>
+      <column comment="" key="false" length="5" name="Num_Ope" nullable="true" originalLength="5" pattern="" precision="2" sourceType="NUMBER" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="Desc_Ope" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="25" name="Composant" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="Desc_Comp" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
@@ -402,7 +402,7 @@
       <column comment="" key="false" length="15" name="SYURRF" nullable="true" originalLength="15" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE"/>
       <outputTables name="OF_JDE_Out" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Req01.SYMCU " name="Magasin" nullable="true" type="id_String"/>
@@ -416,7 +416,7 @@
         <mapperTableEntries expression="Req01.IBSTKT " name="Type_Art" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Req01.SYSRST " name="Statut_OF" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Req01.SYTYPS " name="Type_OF" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="JDE.cnvFloat(Req01.WLOPSQ)/100 " name="Num_Ope" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="JDE.cnvString(JDE.cnvFloat(Req01.WLOPSQ)/100, &quot;0.00&quot;,true) " name="Num_Ope" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Req01.WLDSC1 " name="Desc_Ope" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Req01.WMCPIL " name="Composant" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Req01.IMDSC11 " name="Desc_Comp" nullable="true" type="id_String"/>
@@ -519,7 +519,7 @@
       <column comment="" key="false" length="1" name="Type_Art" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="2" name="Statut_OF" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="1" name="Type_OF" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="5" name="Num_Ope" nullable="true" originalLength="5" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true"/>
+      <column comment="" key="false" length="5" name="Num_Ope" nullable="true" originalLength="5" pattern="" precision="2" sourceType="NUMBER" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="Desc_Ope" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="25" name="Composant" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="Desc_Comp" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
@@ -927,51 +927,6 @@
       </inputTables>
     </nodeData>
   </node>
-  <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="672" posY="416">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileOutputDelimited_2"/>
-    <elementParameter field="CHECK" name="USESTREAM" value="false"/>
-    <elementParameter field="TEXT" name="STREAMNAME" show="false" value="outputStream"/>
-    <elementParameter field="FILE" name="FILENAME" value="(String)globalMap.get(&quot;File02&quot;)"/>
-    <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
-    <elementParameter field="CHECK" name="OS_LINE_SEPARATOR_AS_ROW_SEPARATOR" show="false" value="true"/>
-    <elementParameter field="OPENED_LIST" name="CSVROWSEPARATOR" show="false" value="&quot;\n&quot;"/>
-    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;"/>
-    <elementParameter field="CHECK" name="APPEND" value="false"/>
-    <elementParameter field="CHECK" name="INCLUDEHEADER" value="false"/>
-    <elementParameter field="CHECK" name="COMPRESS" value="false"/>
-    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
-    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" show="false" value="&quot;&quot;"/>
-    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" show="false" value="&quot;.&quot;"/>
-    <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
-    <elementParameter field="TEXT" name="ESCAPE_CHAR" show="false" value="&quot;_&quot;"/>
-    <elementParameter field="TEXT" name="TEXT_ENCLOSURE" show="false" value="&quot;&quot;&quot;"/>
-    <elementParameter field="CHECK" name="CREATE" value="false"/>
-    <elementParameter field="CHECK" name="SPLIT" value="false"/>
-    <elementParameter field="TEXT" name="SPLIT_EVERY" show="false" value="1000"/>
-    <elementParameter field="CHECK" name="FLUSHONROW" value="false"/>
-    <elementParameter field="TEXT" name="FLUSHONROW_NUM" show="false" value="1"/>
-    <elementParameter field="CHECK" name="ROW_MODE" value="false"/>
-    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
-    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
-    <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="true"/>
-    <elementParameter field="CHECK" name="FILE_EXIST_EXCEPTION" value="false"/>
-    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="90"/>
-    <elementParameter field="TEXT" name="LABEL" value="File02"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" label="JDE_Qurtis_Out" name="tFileOutputDelimited_2">
-      <column comment="" key="false" length="12" name="Magasin" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="8" name="Document" nullable="true" originalLength="8" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="8" name="Reference" nullable="true" originalLength="8" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="25" name="CodeArticle" nullable="true" originalLength="25" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="5" name="Num_Ope" nullable="true" originalLength="5" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true"/>
-      <column comment="" key="false" length="2" name="Statut_Operation" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="1" name="Type_Transfert" nullable="true" originalLength="1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="6" name="Date_Operation" nullable="true" originalLength="-1" pattern="&quot;dd/MM/yy&quot;" precision="0" sourceType="NUMBER" type="id_Date" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="15" name="Qte_Operation" nullable="true" originalLength="15" pattern="" precision="4" sourceType="NUMBER" type="id_Float" usefulColumn="true"/>
-      <column comment="" key="false" length="2" name="Unite_Mesure" nullable="true" originalLength="2" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="15" name="Code_Cle" nullable="true" originalLength="15" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
-    </metadata>
-  </node>
   <node componentName="tOracleOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="672" posY="544">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBOutput_2"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="true"/>
@@ -1065,6 +1020,51 @@
       <column comment="" key="false" length="15" name="WTURRF" nullable="true" originalLength="15" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" originalLength="-1" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" originalLength="-1" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="672" posY="416">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileOutputDelimited_2"/>
+    <elementParameter field="CHECK" name="USESTREAM" value="false"/>
+    <elementParameter field="TEXT" name="STREAMNAME" show="false" value="outputStream"/>
+    <elementParameter field="FILE" name="FILENAME" value="(String)globalMap.get(&quot;File02&quot;)"/>
+    <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
+    <elementParameter field="CHECK" name="OS_LINE_SEPARATOR_AS_ROW_SEPARATOR" show="false" value="true"/>
+    <elementParameter field="OPENED_LIST" name="CSVROWSEPARATOR" show="false" value="&quot;\n&quot;"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;"/>
+    <elementParameter field="CHECK" name="APPEND" value="false"/>
+    <elementParameter field="CHECK" name="INCLUDEHEADER" value="false"/>
+    <elementParameter field="CHECK" name="COMPRESS" value="false"/>
+    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
+    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" show="false" value="&quot;&quot;"/>
+    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" show="false" value="&quot;.&quot;"/>
+    <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
+    <elementParameter field="TEXT" name="ESCAPE_CHAR" show="false" value="&quot;_&quot;"/>
+    <elementParameter field="TEXT" name="TEXT_ENCLOSURE" show="false" value="&quot;&quot;&quot;"/>
+    <elementParameter field="CHECK" name="CREATE" value="false"/>
+    <elementParameter field="CHECK" name="SPLIT" value="false"/>
+    <elementParameter field="TEXT" name="SPLIT_EVERY" show="false" value="1000"/>
+    <elementParameter field="CHECK" name="FLUSHONROW" value="false"/>
+    <elementParameter field="TEXT" name="FLUSHONROW_NUM" show="false" value="1"/>
+    <elementParameter field="CHECK" name="ROW_MODE" value="false"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="true"/>
+    <elementParameter field="CHECK" name="FILE_EXIST_EXCEPTION" value="false"/>
+    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="90"/>
+    <elementParameter field="TEXT" name="LABEL" value="File02"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" label="JDE_Qurtis_Out" name="tFileOutputDelimited_2">
+      <column comment="" key="false" length="12" name="Magasin" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="8" name="Document" nullable="true" originalLength="8" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="8" name="Reference" nullable="true" originalLength="8" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="25" name="CodeArticle" nullable="true" originalLength="25" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="5" name="Num_Ope" nullable="true" originalLength="5" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true"/>
+      <column comment="" key="false" length="2" name="Statut_Operation" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="1" name="Type_Transfert" nullable="true" originalLength="1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="6" name="Date_Operation" nullable="true" originalLength="-1" pattern="&quot;dd/MM/yy&quot;" precision="0" sourceType="NUMBER" type="id_Date" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="15" name="Qte_Operation" nullable="true" originalLength="15" pattern="" precision="4" sourceType="NUMBER" type="id_Float" usefulColumn="true"/>
+      <column comment="" key="false" length="2" name="Unite_Mesure" nullable="true" originalLength="2" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="15" name="Code_Cle" nullable="true" originalLength="15" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tOracleCommit" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="64" posY="544">
@@ -1342,13 +1342,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_aa797f25-299a-4224-a3cb-724827b435e7"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>02DICgmBDKLaI0qfBt4dfa4kSmQZCtPZ83kd9e0QC8Ps9z7BCRivKIjFQt7iGdOTBg/DZMgCtVIj
-lzEnvNnlrQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_3660cbad-29ec-4b80-a689-641624871b08"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>kfaQo8YaZvH8oFu61uQXlV1mbZ81s6AO3fXeZ3m6zv+Z8vBbk5QzKreIm1touH1gs8A2mGCsOC6f
-truOJqEn6Q==</DigestValue></Reference></SignedInfo><SignatureValue>Oq+c6/DwiC9x/SvGnfdJzbX4GkzODjTzC071M4B/jcnsVQJTLY4+pAZ9XUWAOr3u1cBWY6iP0Qor
-VzAGBQv0JgdtjYCuFgF7T60qkn9RM/OrrB0OMxEf5+S3fciR0FnpA7CSyUGSEoTEpFSZRl0wZ781
-E9c2/cqwTUik5pUM8KfAWfZO3544dw3P9ztee4AV7YYTVeDomdm6xMksa4fEmGugzCipTyIPR1re
-L3XzNwT8AyybYRykOhFWlVvG+/T7IOfPFZCU3PlnYiT0lISm1gsNDN8Ps4RqXvXkB4cuLq3NzO4m
-RBaUsa59clZGoJifjQCaSpQIqf99XP3JZu77Sw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_8cc2ab3a-b1e4-4bf3-a827-9c46e12fb8c6"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Pan2jfJx3UOXGzGsZ/UklcskD0b4ixER1rni5GXp6lcCTNRhS6iL7hpB3re2l+1sPpo7FY5fIXmd
+BthV+aXJfQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_256edd20-6d0f-4260-aa37-bb8e3075fb80"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>LxXcghvpRGgg4LBtbCPbDQTQ4WqJLXYLtBTGXtXqkTN/z1wm55+6Z2hAb91R/30/e2D5D+1VdIXH
+PZmsQ2GpqQ==</DigestValue></Reference></SignedInfo><SignatureValue>O559ykplGl0OIs7Fh22HBVep19iXRVr6SK5j2OHIVcSUk6kgDVBtAub4IZ7/vc1UV9FOPXgkH2Jr
+Y1huMbErzW6ivmlZWFrHaRFzNxkyeI+VwBd2Tg+cJX4wsL/M10xZR5wBfb1LWy5w7T3qD8OfRdkj
++hd6RWf0qufUgbcSz0fguBqnLwWn8uvh8z8DHsqVEZvcoSlfQxq7h5myZYGjvdQhp6ZLn0kLxrGZ
++oOR2cRcLCcKxZmksMM2PlWa7MgQeXlxI/W6ZmCBPymc5TkpLuIA7O2rNEqp7oNjwBom1Yz92zzy
+nHzL+geE28C58BjsZsYCECVf2w7hCjxTbWXPRg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1370,4 +1370,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_3660cbad-29ec-4b80-a689-641624871b08" Target="#_aa797f25-299a-4224-a3cb-724827b435e7"><Timestamp>2020-07-06 15:08:47</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_256edd20-6d0f-4260-aa37-bb8e3075fb80" Target="#_8cc2ab3a-b1e4-4bf3-a827-9c46e12fb8c6"><Timestamp>2020-07-07 16:21:39</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>

@@ -35,7 +35,7 @@
     <contextParameter comment="Fichier des paramètres" name="ParameterFile" prompt="ParameterFile?" promptNeeded="false" type="id_String" value="C:\TOS\INTERFACES\PARAMETRES\JDE_Quartis_Parametres.xlsx"/>
     <contextParameter comment="Heure de début de la boucle (hhmmss)" name="StartTime" prompt="Heure de début (hhmmss) ?" promptNeeded="true" type="id_Integer" value="060000"/>
     <contextParameter comment="Heure de fin de la boucle (hhmmss)" name="EndTime" prompt="Heure de fin (hhmmss) ?" promptNeeded="true" type="id_Integer" value="200000"/>
-    <contextParameter comment="Arrêt du Job après l'heure de fin" name="StopAfterEnd" prompt="Arrêt après geure de fin ?" promptNeeded="true" type="id_Boolean" value="true"/>
+    <contextParameter comment="Arrêt du Job après l'heure de fin" name="StopAfterEnd" prompt="Arrêt après l'heure de fin ?" promptNeeded="true" type="id_Boolean" value="true"/>
     <contextParameter comment="Temps d'attente entre 2 appels (en secondes)" name="Wait_Timer" prompt="Temporisation (en secondes) ?" promptNeeded="true" type="id_Long" value="30"/>
     <contextParameter comment="Nombre d'erreurs maxi" name="ErrorMax" prompt="Nombre d'erreurs maxi avant arrêt ?" promptNeeded="true" type="id_Integer" value="3"/>
     <contextParameter comment="Environnement JDE (utilsé dans les logs)" name="Environment" prompt="Environment?" promptNeeded="false" repositoryContextId="_ri8HAL-DEeq_pI4xQ68enA" type="id_String" value="PY"/>
@@ -168,6 +168,7 @@
     <routinesParameter id="_GNwcUD05Eeqa0usbncVxcA" name="TalendDate"/>
     <routinesParameter id="_GObKsD05Eeqa0usbncVxcA" name="TalendStringUtil"/>
     <routinesParameter id="_GOGakD05Eeqa0usbncVxcA" name="TalendString"/>
+    <routinesParameter id="_7z6N8NBSEeizQI71bn4YfA" name="JDE"/>
   </parameters>
   <node componentName="tPrejob" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="32" posY="32">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tPrejob_1"/>
@@ -180,7 +181,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="224" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_1"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="int CurrentTime = Integer.parseInt(new SimpleDateFormat(&quot;HHmmss&quot;).format(new Date()));&#10;&#10;globalMap.put(&quot;_Condition&quot;, &quot;LOOP&quot;);&#10;&#10;if ((String)globalMap.get(&quot;myErrStatus&quot;) == &quot;DIE&quot;){&#10;&#9;globalMap.put(&quot;_Condition&quot;, &quot;DIE&quot;);&#10;}&#10;else{&#10;&#9;if (CurrentTime &lt; context.StartTime){&#10;&#9;&#9;System.out.println(CurrentTime + &quot; : En attente de démarrage&quot;);&#10;&#9;}&#10;&#9;else{&#10;&#9;&#9;if (CurrentTime &lt;= context.EndTime){&#10;&#9;&#9;&#9;globalMap.put(&quot;_Condition&quot;, &quot;OK&quot;);&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;if (context.StopAfterEnd == true){&#10;&#9;&#9;&#9;&#9;globalMap.put(&quot;_Condition&quot;, &quot;END&quot;);&#10;&#9;&#9;&#9;}&#10;&#9;&#9;&#9;else{&#10;&#9;&#9;&#9;&#9;System.out.println(CurrentTime + &quot; : Suspendu&quot;);&#10;&#9;&#9;&#9;}&#10;&#9;&#9;}&#10;&#9;}&#10;}&#10; "/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="int CurrentTime = Integer.parseInt(new SimpleDateFormat(&quot;HHmmss&quot;).format(new Date()));&#10;&#10;globalMap.put(&quot;_Condition&quot;, &quot;LOOP&quot;);&#10;&#10;if ((String)globalMap.get(&quot;myDieStatus&quot;) == &quot;DIE&quot;){&#10;&#9;globalMap.put(&quot;_Condition&quot;, &quot;DIE&quot;);&#10;}&#10;else{&#10;&#9;if (CurrentTime &lt; context.StartTime){&#10;&#9;&#9;System.out.println(CurrentTime + &quot; : En attente de démarrage&quot;);&#10;&#9;}&#10;&#9;else{&#10;&#9;&#9;if (CurrentTime &lt;= context.EndTime){&#10;&#9;&#9;&#9;globalMap.put(&quot;_Condition&quot;, &quot;OK&quot;);&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;if (context.StopAfterEnd == true){&#10;&#9;&#9;&#9;&#9;globalMap.put(&quot;_Condition&quot;, &quot;END&quot;);&#10;&#9;&#9;&#9;&#9;globalMap.put(&quot;myDieCode&quot;, 0);&#10;&#9;&#9;&#9;&#9;globalMap.put(&quot;myDieMessage&quot;, &quot;Arrêt normal du job &quot; + jobName);&#10;&#9;&#9;&#9;}&#10;&#9;&#9;&#9;else{&#10;&#9;&#9;&#9;&#9;System.out.println(CurrentTime + &quot; : Suspendu&quot;);&#10;&#9;&#9;&#9;}&#10;&#9;&#9;}&#10;&#9;}&#10;}&#10; "/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_1"/>
@@ -332,8 +333,8 @@
   </node>
   <node componentName="tDie" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="320" posY="416">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDie_2"/>
-    <elementParameter field="TEXT" name="MESSAGE" value="&quot;Arrêt normal du job.&quot;"/>
-    <elementParameter field="TEXT" name="CODE" value="0"/>
+    <elementParameter field="TEXT" name="MESSAGE" value="(String)globalMap.get(&quot;myDieMessage&quot;)"/>
+    <elementParameter field="TEXT" name="CODE" value="(int)globalMap.get(&quot;myDieError&quot;)"/>
     <elementParameter field="CLOSED_LIST" name="PRIORITY" value="3"/>
     <elementParameter field="CHECK" name="EXIT_JVM" value="false"/>
     <elementParameter field="TEXT" name="LABEL" value="tDie_2"/>
@@ -342,8 +343,8 @@
   </node>
   <node componentName="tDie" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="608" posY="416">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDie_1"/>
-    <elementParameter field="TEXT" name="MESSAGE" value="&quot;Arrêt anormal du job &quot; + jobName + &quot; après &quot; + (int)globalMap.get(&quot;myErrCount&quot;) + &quot; erreurs consécutives.&quot;"/>
-    <elementParameter field="TEXT" name="CODE" value="90"/>
+    <elementParameter field="TEXT" name="MESSAGE" value="(String)globalMap.get(&quot;myDieMessage&quot;)"/>
+    <elementParameter field="TEXT" name="CODE" value="(int)globalMap.get(&quot;myDieError&quot;)"/>
     <elementParameter field="CLOSED_LIST" name="PRIORITY" value="6"/>
     <elementParameter field="CHECK" name="EXIT_JVM" value="false"/>
     <elementParameter field="TEXT" name="LABEL" value="tDie_1"/>
@@ -365,7 +366,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="608" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_2"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="// Gestion des erreurs : Arrêt si trop d'erreurs&#10;&#10;int returnCode = (int)globalMap.get(&quot;tRunJob_1_CHILD_RETURN_CODE&quot;);&#10;System.out.println(new SimpleDateFormat(&quot;HHmmss&quot;).format(new Date()) + &quot; : Code retour du job = &quot; + returnCode);&#10;&#10;int errorCount = (int)globalMap.get(&quot;myErrCount&quot;);&#10;&#10;if(returnCode != 0){&#10;&#9;errorCount += 1;&#10;}&#10;else{&#10;&#9;errorCount = 0;&#10;}&#10;globalMap.put(&quot;myErrCount&quot;, errorCount);&#10;&#10;if (errorCount &gt;= context.ErrorMax){&#10;&#9;globalMap.put(&quot;myErrCode&quot;, 90);&#10;&#9;globalMap.put(&quot;myErrMessage&quot;, &quot;Le nombre maximum d'erreurs (&quot; + context.ErrorMax + &quot;) a été atteint !&quot;);&#10;}"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="// Gestion des erreurs : Arrêt si trop d'erreurs&#10;&#10;int returnCode = (int)globalMap.get(&quot;tRunJob_1_CHILD_RETURN_CODE&quot;);&#10;System.out.println(new SimpleDateFormat(&quot;HHmmss&quot;).format(new Date()) + &quot; : Code retour du job = &quot; + returnCode);&#10;&#10;int errorCount = (int)globalMap.get(&quot;myErrCount&quot;);&#10;&#10;if(returnCode != 0){&#10;&#9;errorCount += 1;&#10;}&#10;else{&#10;&#9;errorCount = 0;&#10;}&#10;globalMap.put(&quot;myErrCount&quot;, errorCount);&#10;&#10;if (errorCount &gt;= context.ErrorMax){&#10;&#9;globalMap.put(&quot;myErrCode&quot;, 90);&#10;&#9;globalMap.put(&quot;myErrMessage&quot;, &quot;Le nombre maximum d'erreurs (&quot; + context.ErrorMax + &quot;) a été atteint !&quot;);&#10;&#10;&#9;globalMap.put(&quot;myDieMessage&quot;, &quot;Arrêt anormal du job &quot; + jobName + &quot; après &quot; + (int)globalMap.get(&quot;myErrCount&quot;) + &quot; erreurs consécutives.&quot;);&#10;&#9;globalMap.put(&quot;myDieCode&quot;, 90);&#10;&#9;globalMap.put(&quot;myDieStatus&quot;, &quot;DIE&quot;);&#10;}"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_2"/>
@@ -489,7 +490,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="224" posY="544">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_3"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="// Error Codes:&#10;// -----------&#10;// 10 - nom de paramétre invalide&#10;// 20 - valeur du paramétre invalide&#10;// 40 - fichier paramétre absent&#10;// 90 - nombre d'erreurs maxi dépassé&#10;&#10;// 99 - autres causes d'arrêt&#10;&#10;globalMap.put(&quot;myCondition&quot;, &quot;MAIL&quot;);&#10;&#10;switch ((int)globalMap.get(&quot;myErrCode&quot;))&#10;{&#10;&#9;case 0:case 40:&#10;&#9;// pas de message ou messages gérés préalablement et déjà signalés&#10;&#9;&#9;globalMap.put(&quot;myCondition&quot;, &quot;NO_MAIL&quot;);&#10;&#9;&#9;break;&#10;&#9;default:&#10;&#9;// autres erreurs à signaler&#10;&#9;&#9;break;&#10;}&#10; "/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="// Error Codes:&#10;// -----------&#10;// 10 - nom de paramétre invalide&#10;// 20 - valeur du paramétre invalide&#10;// 40 - fichier paramétre absent&#10;// 90 - nombre d'erreurs maxi dépassé&#10;&#10;// 99 - autres causes d'arrêt&#10;&#10;globalMap.put(&quot;_Condition&quot;, &quot;MAIL&quot;);&#10;&#10;switch ((int)globalMap.get(&quot;myDieError&quot;))&#10;{&#10;&#9;case 0:case 40:&#10;&#9;// pas de message ou messages gérés préalablement et déjà signalés&#10;&#9;&#9;globalMap.put(&quot;_Condition&quot;, &quot;NO_MAIL&quot;);&#10;&#9;&#9;break;&#10;&#9;default:&#10;&#9;// autres erreurs à signaler&#10;&#9;&#9;break;&#10;}&#10; "/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_3"/>
@@ -595,7 +596,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="1152" posY="32">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_4"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="String myName = (String)globalMap.get(&quot;NAME&quot;);&#10;String myValue = (String)globalMap.get(&quot;VALUE&quot;);&#10;&#10;globalMap.put(&quot;_Warning&quot;, false);&#10;globalMap.put(&quot;myErrCode&quot;, 0);&#10;&#10;switch (myName.toUpperCase())&#10;{&#10;&#9;case &quot;MAIN_DIRECTORY&quot;:case &quot;MAINDIRECTORY&quot;:&#10;&#9;&#9;if (myValue != null){&#10;&#9;&#9;&#9;context.MainDirectory = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;globalMap.put(&quot;myErrCode&quot;, 20);&#10;&#9;&#9;&#9;globalMap.put(&quot;myErrMessage&quot;, &quot;La valeur du paramètre [&quot; + myName + &quot;] est obligatoire.&quot;);&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;LOGS_DIRECTORY&quot;:case &quot;LOGSDIRECTORY&quot;:&#10;&#9;&#9;if (myValue != null){&#10;&#9;&#9;&#9;context.LogsDirectory = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;globalMap.put(&quot;myErrCode&quot;, 20);&#10;&#9;&#9;&#9;globalMap.put(&quot;myErrMessage&quot;, &quot;La valeur du paramètre [&quot; + myName + &quot;] est obligatoire.&quot;);&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_BCC&quot;:case &quot;MAILBCC&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_BCC = &quot;&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_BCC = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_CC&quot;:case &quot;MAILCC&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_CC = &quot;&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_CC = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_FROM&quot;:case &quot;MAILFROM&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_From = &quot;noreply.interfaces@lalique.fr&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_From = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_SUBJECT&quot;:case &quot;MAILSUBJECT&quot;:&#10;&#9;&#9;if (myValue == null || myValue.trim().length()==0){&#10;&#9;&#9;&#9;context.Mail_Subject = &quot;[ETL] Arrêt du job &quot; + jobName;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_Subject = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_TO&quot;:case &quot;MAILTO&quot;:&#10;&#9;&#9;if (myValue != null){&#10;&#9;&#9;&#9;context.Mail_To = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;globalMap.put(&quot;myErrCode&quot;, 20);&#10;&#9;&#9;&#9;globalMap.put(&quot;myErrMessage&quot;, &quot;La valeur du paramètre [&quot; + myName + &quot;] est obligatoire.&quot;);&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_SMTP&quot;:case &quot;MAILSMTP&quot;:&#10;&#9;&#9;if (myValue != null){&#10;&#9;&#9;&#9;context.Mail_SMTP = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;globalMap.put(&quot;myErrCode&quot;, 20);&#10;&#9;&#9;&#9;globalMap.put(&quot;myErrMessage&quot;, &quot;La valeur du paramètre [&quot; + myName + &quot;] est obligatoire.&quot;);&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_SMTP_PORT&quot;:case &quot;MAILSMTPPORT&quot;:&#10;&#9;&#9;if (myValue != null){&#10;&#9;&#9;&#9;context.Mail_SMTP_Port = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;globalMap.put(&quot;myErrCode&quot;, 20);&#10;&#9;&#9;&#9;globalMap.put(&quot;myErrMessage&quot;, &quot;La valeur du paramètre [&quot; + myName + &quot;] est obligatoire.&quot;);&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;default:&#10;&#9;&#9;globalMap.put(&quot;myErrCode&quot;, 10);&#10;&#9;&#9;globalMap.put(&quot;myErrMessage&quot;, &quot;Le paramètre [&quot; + myName + &quot;] n'est pas reconnu, il est ignoré.&quot;);&#10;&#9;&#9;break;&#10;}&#10;&#10;if ((int)globalMap.get(&quot;myErrCode&quot;) != 0){&#10;&#9;globalMap.put(&quot;myErrStatus&quot;, &quot;DIE&quot;);&#10;&#9;globalMap.put(&quot;_Warning&quot;, true);&#10;}&#10;&#10;System.out.println(myName + &quot; = &quot; + myValue);&#10;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="String myName = (String)globalMap.get(&quot;NAME&quot;);&#10;String myValue = (String)globalMap.get(&quot;VALUE&quot;);&#10;&#10;globalMap.put(&quot;_Warning&quot;, false);&#10;globalMap.put(&quot;myErrCode&quot;, 0);&#10;&#10;switch (myName.toUpperCase())&#10;{&#10;&#9;case &quot;MAIN_DIRECTORY&quot;:case &quot;MAINDIRECTORY&quot;:&#10;&#9;&#9;if (myValue != null){&#10;&#9;&#9;&#9;context.MainDirectory = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;globalMap.put(&quot;myErrCode&quot;, 20);&#10;&#9;&#9;&#9;globalMap.put(&quot;myErrMessage&quot;, &quot;La valeur du paramètre [&quot; + myName + &quot;] est obligatoire.&quot;);&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;FILE_01&quot;:case &quot;FILE01&quot;:&#10;&#9;&#9;if (myValue != null){&#10;&#9;&#9;&#9;context.File01 = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;globalMap.put(&quot;myErrCode&quot;, 20);&#10;&#9;&#9;&#9;globalMap.put(&quot;myErrMessage&quot;, &quot;La valeur du paramètre [&quot; + myName + &quot;] est obligatoire.&quot;);&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;FILE_02&quot;:case &quot;FILE02&quot;:&#10;&#9;&#9;if (myValue != null){&#10;&#9;&#9;&#9;context.File02 = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;globalMap.put(&quot;myErrCode&quot;, 20);&#10;&#9;&#9;&#9;globalMap.put(&quot;myErrMessage&quot;, &quot;La valeur du paramètre [&quot; + myName + &quot;] est obligatoire.&quot;);&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;FILE_EXTENSION&quot;:case &quot;FILEEXTENSION&quot;:&#10;&#9;&#9;if (myValue != null){&#10;&#9;&#9;&#9;context.FileExt = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;globalMap.put(&quot;myErrCode&quot;, 20);&#10;&#9;&#9;&#9;globalMap.put(&quot;myErrMessage&quot;, &quot;La valeur du paramètre [&quot; + myName + &quot;] est obligatoire.&quot;);&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;LOGS_DIRECTORY&quot;:case &quot;LOGSDIRECTORY&quot;:&#10;&#9;&#9;if (myValue != null){&#10;&#9;&#9;&#9;context.LogsDirectory = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;globalMap.put(&quot;myErrCode&quot;, 20);&#10;&#9;&#9;&#9;globalMap.put(&quot;myErrMessage&quot;, &quot;La valeur du paramètre [&quot; + myName + &quot;] est obligatoire.&quot;);&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_BCC&quot;:case &quot;MAILBCC&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_BCC = &quot;&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_BCC = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_CC&quot;:case &quot;MAILCC&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_CC = &quot;&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_CC = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_FROM&quot;:case &quot;MAILFROM&quot;:&#10;&#9;&#9;if (myValue == null){&#10;&#9;&#9;&#9;context.Mail_From = &quot;noreply.interfaces@lalique.fr&quot;;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_From = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_SUBJECT&quot;:case &quot;MAILSUBJECT&quot;:&#10;&#9;&#9;if (myValue == null || myValue.trim().length()==0){&#10;&#9;&#9;&#9;context.Mail_Subject = &quot;[ETL] Arrêt du job &quot; + jobName;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;context.Mail_Subject = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_TO&quot;:case &quot;MAILTO&quot;:&#10;&#9;&#9;if (myValue != null){&#10;&#9;&#9;&#9;context.Mail_To = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;globalMap.put(&quot;myErrCode&quot;, 20);&#10;&#9;&#9;&#9;globalMap.put(&quot;myErrMessage&quot;, &quot;La valeur du paramètre [&quot; + myName + &quot;] est obligatoire.&quot;);&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_SMTP&quot;:case &quot;MAILSMTP&quot;:&#10;&#9;&#9;if (myValue != null){&#10;&#9;&#9;&#9;context.Mail_SMTP = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;globalMap.put(&quot;myErrCode&quot;, 20);&#10;&#9;&#9;&#9;globalMap.put(&quot;myErrMessage&quot;, &quot;La valeur du paramètre [&quot; + myName + &quot;] est obligatoire.&quot;);&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;case &quot;MAIL_SMTP_PORT&quot;:case &quot;MAILSMTPPORT&quot;:&#10;&#9;&#9;if (myValue != null){&#10;&#9;&#9;&#9;context.Mail_SMTP_Port = myValue;&#10;&#9;&#9;}&#10;&#9;&#9;else{&#10;&#9;&#9;&#9;globalMap.put(&quot;myErrCode&quot;, 20);&#10;&#9;&#9;&#9;globalMap.put(&quot;myErrMessage&quot;, &quot;La valeur du paramètre [&quot; + myName + &quot;] est obligatoire.&quot;);&#10;&#9;&#9;}&#10;&#9;&#9;break;&#10;&#9;default:&#10;&#9;&#9;globalMap.put(&quot;myErrCode&quot;, 10);&#10;&#9;&#9;globalMap.put(&quot;myErrMessage&quot;, &quot;Le paramètre [&quot; + myName + &quot;] n'est pas reconnu, il est ignoré.&quot;);&#10;&#9;&#9;break;&#10;}&#10;&#10;if ((int)globalMap.get(&quot;myErrCode&quot;) != 0){&#10;&#9;globalMap.put(&quot;myDieStatus&quot;, &quot;DIE&quot;);&#10;&#9;globalMap.put(&quot;myDieError&quot;, (int)globalMap.get(&quot;myErrCode&quot;));&#10;&#9;globalMap.put(&quot;myDieMessage&quot;, &quot;Erreur de paramétrage dans le fichier : &quot; + context.ParameterFile);&#10;&#9;globalMap.put(&quot;_Warning&quot;, true);&#10;}&#10;&#10;System.out.println(myName + &quot; = &quot; + myValue);&#10;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_4"/>
@@ -715,8 +716,8 @@
   </node>
   <node componentName="tDie" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="416">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDie_4"/>
-    <elementParameter field="TEXT" name="MESSAGE" value="&quot;Fichier de paramétrage absent.&quot;"/>
-    <elementParameter field="TEXT" name="CODE" value="(int)globalMap.get(&quot;myErrCode&quot;)"/>
+    <elementParameter field="TEXT" name="MESSAGE" value="(String)globalMap.get(&quot;myDieMessage&quot;)"/>
+    <elementParameter field="TEXT" name="CODE" value="(int)globalMap.get(&quot;myDieError&quot;)"/>
     <elementParameter field="CLOSED_LIST" name="PRIORITY" value="6"/>
     <elementParameter field="CHECK" name="EXIT_JVM" value="false"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -724,7 +725,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="224" posY="32">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_5"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="context.LogFile = &quot;Log_&quot; + new SimpleDateFormat(&quot;yyMMddHHmmss&quot;).format(new Date()) + &quot;.csv&quot;;&#10;&#10;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="context.LogFile = &quot;Log_&quot; + new SimpleDateFormat(&quot;yyMMddHHmmss&quot;).format(new Date()) + &quot;.csv&quot;;&#10;&#10;System.out.println(&quot;Test format 0 ==&gt; &quot; + JDE.cnvString(0, &quot;0.00&quot;));&#10;System.out.println(&quot;Test format 1234.56789 ==&gt; &quot; + JDE.cnvString(-1234.56789, &quot;#,##0.0000&quot;));&#10;System.out.println(&quot;Test format 1234567.89 ==&gt; &quot; + JDE.cnvString(1234567.89, &quot;#,##0.000&quot;, true));&#10;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="LABEL" value="tJava_5"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -739,15 +740,19 @@
       <elementValue elementRef="VALUE" value="0"/>
       <elementValue elementRef="KEY" value="&quot;myErrMessage&quot;"/>
       <elementValue elementRef="VALUE" value="&quot;&quot;"/>
-      <elementValue elementRef="KEY" value="&quot;myErrStatus&quot;"/>
-      <elementValue elementRef="VALUE" value="&quot;OK&quot;"/>
+      <elementValue elementRef="KEY" value="&quot;myDieStatus&quot;"/>
+      <elementValue elementRef="VALUE" value="&quot;&quot;"/>
+      <elementValue elementRef="KEY" value="&quot;myDieError&quot;"/>
+      <elementValue elementRef="VALUE" value="0"/>
+      <elementValue elementRef="KEY" value="&quot;myDieMessage&quot;"/>
+      <elementValue elementRef="VALUE" value="&quot;&quot;"/>
     </elementParameter>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tSetGlobalVar_1"/>
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="416" posY="160">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_6"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="globalMap.put(&quot;myErrCode&quot;, 40);&#10;globalMap.put(&quot;myErrMessage&quot;, &quot;Fichier de paramétrage non trouvé. Les paramétres par défaut sont utilisés.&quot;);&#10;globalMap.put(&quot;myErrStatus&quot;, &quot;DIE&quot;);&#10;&#10;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="globalMap.put(&quot;myErrCode&quot;, 40);&#10;globalMap.put(&quot;myErrMessage&quot;, &quot;Fichier de paramétrage non trouvé. Les paramétres par défaut sont utilisés.&quot;);&#10;globalMap.put(&quot;myDieStatus&quot;, &quot;DIE&quot;);&#10;&#10;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_6"/>
@@ -872,7 +877,7 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Exist"/>
   </connection>
   <connection connectorName="RUN_IF" label="errorCount" lineStyle="6" metaname="tJava_3" offsetLabelX="0" offsetLabelY="0" source="tJava_3" target="tSendMail_1">
-    <elementParameter field="MEMO_JAVA" name="CONDITION" value="(String)globalMap.get(&quot;myCondition&quot;) == &quot;MAIL&quot;"/>
+    <elementParameter field="MEMO_JAVA" name="CONDITION" value="(String)globalMap.get(&quot;_Condition&quot;) == &quot;MAIL&quot;"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="errorCount"/>
   </connection>
   <connection connectorName="FLOW" label="row5" lineStyle="0" metaname="tFileInputExcel_2" offsetLabelX="0" offsetLabelY="0" source="tFileInputExcel_2" target="tMap_3">
@@ -1100,13 +1105,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_eec430e4-0775-4095-89fc-2b050a41c209"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>funvF8Pr/8MVUzJdeLqtj4aUFtLRcUT+BqtRFt3FDvyJKWG3jzzEO5Z4CRIrNIbdohMyksoq1J9z
-vUpHWkVo+g==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_b2a5c747-bbf8-4f2f-9ea0-b7475f939da0"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>CYhbRNLKMYTwHDsXeh0+XjU9r1S/OUDeVgHviwloTe+GP9+gXwurAXMhmpxSJmWmjkmpTC+djBZ6
-kVQ+PYjroA==</DigestValue></Reference></SignedInfo><SignatureValue>Hy0v37M0ogeMwQmpQj2cT484xj2X4jvJGRdGNKprb9fCilaNRPkcfOvUc0DLVxFWIG6hw46qHaYN
-aQZ4lHjRRawdkY8dbCNAXQwhjb0YDvAwasvN6Oq9oTshmYGGqFqc7BP2HHjq04G7OvsaGoB4e0Ud
-0GsCLaf798bDDNBiRAiRGua19NOIix2vYX/8Pxk55kUnVh1QTwttgeV6rQXU8889ctjzLMLQVB+j
-e0DJoD/OSWkU1h1TKDG8Uk493VOOebcY+qMVAX7DjOawEMhFB0Dfucw4E7tFeJmsyLD4d0SDn/Bx
-kVJuS5tT8UB4QUxF5q57szv6ThumUic+p7nZFA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_953dccaf-aa4f-4389-bc55-c9c0e0820fbd"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>aX3LOzqVP05I7qdWlyWvQhgO+xN02T8/uACo75WHZGy2QQs9b2TJyBsvFmyENgvqBQW4as4fMgnA
+kBcVzEwLjA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_40812a0f-97b6-4dd6-8355-498a7edd30f6"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>9W10BYSpJ+aOmGi3dNL9DWFO/5kSuYyc9ciwRv1mJVwJJ+SqSf5qxGCWyd/BPmo6CWmraglSYEA9
+n9wsV38bzA==</DigestValue></Reference></SignedInfo><SignatureValue>n4/Mc95durb7c4otGGsDzQJxcimya3OnJDqmuPSx5ixOGdk4z/8BzbqtcBWeWZ2MHmlyw0Ey7bEb
+dniKeHsSf+f1kA2kpFcc8dbugjmLWrJazGnccTslsV+CSj/0Kmw99R9IFGMGW2xQwsuzREO36E4h
+8JQkVWpSoXG+Vk81vWQtq4q2Jzhuy5uj3fOKaf0hmMVrg6fO1lQUxsDZYCDivrvHP4NXU561WS80
+acZ7Ar38o5cO4PkUVlyJVOIS5nPD82IHl59Q9a1nBCXstXLWpXo+YpymUzqWXTdGCnr89v+xOiaH
+AJn9JKw45u8hIddDVTGoIO1yekbs/QAdVxnlNg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1128,4 +1133,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_b2a5c747-bbf8-4f2f-9ea0-b7475f939da0" Target="#_eec430e4-0775-4095-89fc-2b050a41c209"><Timestamp>2020-07-06 15:11:12</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_40812a0f-97b6-4dd6-8355-498a7edd30f6" Target="#_953dccaf-aa4f-4389-bc55-c9c0e0820fbd"><Timestamp>2020-07-07 15:53:33</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
