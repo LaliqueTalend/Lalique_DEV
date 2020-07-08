@@ -402,13 +402,13 @@
       <column comment="" key="false" length="15" name="SYURRF" nullable="true" originalLength="15" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE"/>
       <outputTables name="OF_JDE_Out" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Req01.SYMCU " name="Magasin" nullable="true" type="id_String"/>
         <mapperTableEntries expression="JDE.cnvInt(Req01.SYDOCO) " name="Document" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="Req01.SYDL01 " name="Description" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="JDE.cnvFloat(Req01.UORG)/10000" name="Qte_OF" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="JDE.cnvString(JDE.cnvFloat(Req01.UORG)/10000,&quot;0.0000&quot;,true)" name="Qte_OF" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="JDE.convertFromJulian(Req01.SYSTRT) " name="Debut_OF" nullable="true" type="id_Date"/>
         <mapperTableEntries expression="Req01.SYLITM " name="Code_Art" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Req01.IMDSC1 " name="Desc_Art" nullable="true" type="id_String"/>
@@ -420,10 +420,10 @@
         <mapperTableEntries expression="Req01.WLDSC1 " name="Desc_Ope" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Req01.WMCPIL " name="Composant" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Req01.IMDSC11 " name="Desc_Comp" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="JDE.cnvFloat(Req01.WMUORG)/10000" name="Qte_Comp" nullable="true" type="id_Float"/>
-        <mapperTableEntries expression="JDE.cnvFloat(Req01.WMTRQT)/10000" name="Qte_Prevue" nullable="true" type="id_Float"/>
-        <mapperTableEntries expression="JDE.cnvFloat(Req01.WLSETL)/1000" name="Tps_Prepa" nullable="true" type="id_Float"/>
-        <mapperTableEntries expression="JDE.cnvFloat(Req01.WLRUNL)/JDE.cnvFloat(Req01.WLUORG)/JDE.cnvFloat(Req01.WLSETC)*100 " name="Tps_Exec" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="JDE.cnvString(JDE.cnvFloat(Req01.WMUORG)/10000,&quot;0.0000&quot;,true)" name="Qte_Comp" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="JDE.cnvString(JDE.cnvFloat(Req01.WMTRQT)/10000,&quot;0.0000&quot;,true)" name="Qte_Prevue" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="JDE.cnvString(JDE.cnvFloat(Req01.WLSETL)/1000,&quot;0.000&quot;,true)" name="Tps_Prepa" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="JDE.cnvString(JDE.cnvFloat(Req01.WLRUNL)/JDE.cnvFloat(Req01.WLUORG)/JDE.cnvFloat(Req01.WLSETC)*100 ,&quot;0.00,true)" name="Tps_Exec" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="JDE.cnvFloat(Req01.CADTHE)" name="Cadence_Theo" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="JDE.cnvFloat(Req01.WLSETC)/10" name="NB_Ope_Theo" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="Req01.SYVR01 " name="Comments" nullable="true" type="id_String"/>
@@ -1228,31 +1228,7 @@
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tDBInput_1" offsetLabelX="0" offsetLabelY="0" source="tDBInput_1" target="tDBCommit_2">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk7"/>
   </connection>
-  <connection connectorName="FLOW" label="F31122_Update" lineStyle="0" metaname="F31122_Update" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_3" target="tDBOutput_2">
-    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
-      <elementValue elementRef="TRACE_COLUMN" value="WTUKID"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="WTURCD"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="WTURDT"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="WTURAT"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="WTURAB"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="WTURRF"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-    </elementParameter>
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F31122_Update"/>
-  </connection>
-  <connection connectorName="FLOW" label="OPE_JDE_Out" lineStyle="0" metaname="OPE_JDE_Out" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_3" target="tFileOutputDelimited_2">
+  <connection connectorName="FLOW" label="OPE_JDE_Out" lineStyle="0" metaname="OPE_JDE_Out" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_3" target="tFileOutputDelimited_2">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="Date_Operation"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
@@ -1279,6 +1255,30 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OPE_JDE_Out"/>
+  </connection>
+  <connection connectorName="FLOW" label="F31122_Update" lineStyle="0" metaname="F31122_Update" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_3" target="tDBOutput_2">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="WTUKID"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="WTURCD"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="WTURDT"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="WTURAT"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="WTURAB"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="WTURRF"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F31122_Update"/>
   </connection>
   <subjob>
     <elementParameter field="CHECK" name="COLLAPSED" show="false" value="true"/>
@@ -1349,13 +1349,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_8015a7c5-2dd3-471d-b7d3-6ac2fd08474b"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>0fRhPX6TlnLwREdg+4ll5Gkt7mq89KgveJZrrMb4XDp/oaU0bu9rXCCPNTjvQiXNNq7g7Hg+z4ak
-z1IUf0CpIQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_ebea60de-6b19-4eec-b560-4043c2f2483e"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>GGccpYcyPSdy9P4PeSZuzhuBZfk1WjGXfYCvWM7GB6AXL3ahI7vzPnVztB4QTrMKUzqIbHi3PE9Q
-kFH82eAKWA==</DigestValue></Reference></SignedInfo><SignatureValue>TLRGA+G8bNVdHGUl+iFCa3YDeeToN1WzpughvUjlD2kN9nuKoD49o8uBzf4et9CrP2lEG/dTkn8D
-ppdrZjj+parMxEmh4Z4ewb7Dqe2V12UduHebMsacrUSVQEKTbN+wUtBPyotXBIKRvWf4q5uLsLAm
-jAQmd11zCBZF5NtZPouaF7sgRFmmiwZtlZ8rkXBa1ds2lXtmHEXtfRRFuWJQ2zdr2MLGHbR3X+1A
-KLxyeg1GWwstikZ3FCcb6mu4r9lmv/tIWk7Vq0zj6Ur3cnzgz7InAPiXVCO2Z3ZZ/PpJux9wdB+v
-beDbCpJNu352nzxg+MgLQAYVR38PGfrCJIsoHg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_12df9ece-03ab-41a8-aeff-931fc65bbde4"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>4M8wFP2OUuD0If3iKP6msVAoRcZexj13PxZDU3eQVusNSOLot1g4EjmisSndzK5oHQl7gc8bJtZ3
+V/69qFfUlw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_57cd860a-bc81-4e1f-a05f-01d04c623ce6"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>yCxoXAHpXXcaIGDVIdQIf/ju1BuI2TJ/ktxAhnE/FPLs+OrjbqqREwBXuXm99CP+N02VdWN/1T0s
+VLLe3V3Kvg==</DigestValue></Reference></SignedInfo><SignatureValue>ClckQ1KxfrrvzueB4FVUKzPh2vmVTxqf5seiWl8sLciLzP3C3l1BeNQwyJXWyrokPv/0uDvyt37K
+s5T8je5HmLb7brImgjmyym/hqsTcN/tfIdznoIYoFU/e9hadrL6JiMhoDalPA3yD6bv6UJiUY8v5
+mCrEsFeFco6pLEP2/6Ww+WCgwfXucNo+AlRvyOFxurdO/NjKzYacT3IZKRDBvjkV3pJ/VdW2sFDf
+JqZesjfqrFZ/+QDyG8eYt+9F/sGUoUNkwfK1ZUZijkmJ9IREPoLDvvhN4Rwdvk2pw88OYTFKkAyw
+xMHHRQ/L+rYljo0JzwKMfqCFVCVufXFmUfrquA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1377,4 +1377,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_ebea60de-6b19-4eec-b560-4043c2f2483e" Target="#_8015a7c5-2dd3-471d-b7d3-6ac2fd08474b"><Timestamp>2020-07-08 06:34:07</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_57cd860a-bc81-4e1f-a05f-01d04c623ce6" Target="#_12df9ece-03ab-41a8-aeff-931fc65bbde4"><Timestamp>2020-07-08 09:40:36</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
