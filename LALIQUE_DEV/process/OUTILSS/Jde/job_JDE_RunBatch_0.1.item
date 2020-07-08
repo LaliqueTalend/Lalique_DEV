@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><talendfile:ProcessType xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmlns:xmi="http://www.omg.org/XMI" defaultContext="Default" jobType="Standard" xmi:version="2.0">
-  <context confirmationNeeded="false" name="Default"/>
+  <context confirmationNeeded="false" name="Default">
+    <contextParameter comment="commande exécutée" name="commande" prompt="commande?" promptNeeded="true" repositoryContextId="_GUxDcME0EeqXYrUxxgJ_KA" type="id_String" value="runube"/>
+    <contextParameter comment="environnement JDE" name="environnement" prompt="environnement?" promptNeeded="true" repositoryContextId="_GUxDcME0EeqXYrUxxgJ_KA" type="id_String" value="JPY920"/>
+    <contextParameter comment="nom du serveur distant" name="hote" prompt="hote?" promptNeeded="true" repositoryContextId="_GUxDcME0EeqXYrUxxgJ_KA" type="id_String" value="entnonprod.lalique.lan"/>
+    <contextParameter comment="utilisateur de connexion" name="login" prompt="login?" promptNeeded="true" repositoryContextId="_GUxDcME0EeqXYrUxxgJ_KA" type="id_String" value=""/>
+    <contextParameter comment="options" name="options" prompt="options?" promptNeeded="true" repositoryContextId="_GUxDcME0EeqXYrUxxgJ_KA" type="id_String" value="I H S"/>
+    <contextParameter comment="password de l'utilisateur" name="passwd" prompt="passwd?" promptNeeded="true" repositoryContextId="_GUxDcME0EeqXYrUxxgJ_KA" type="id_String" value=""/>
+    <contextParameter comment="port de connexion" name="port" prompt="port?" promptNeeded="true" repositoryContextId="_GUxDcME0EeqXYrUxxgJ_KA" type="id_String" value="22"/>
+    <contextParameter comment="programme JDE" name="programme" prompt="programme?" promptNeeded="true" repositoryContextId="_GUxDcME0EeqXYrUxxgJ_KA" type="id_String" value="R0006P XJDE0005"/>
+  </context>
   <parameters>
     <elementParameter field="TEXT" name="SCREEN_OFFSET_X" show="false" value="0"/>
     <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" show="false" value="0"/>
@@ -109,26 +118,35 @@
   <node componentName="tSSH" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="256" posY="128">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSSH_1"/>
     <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="true"/>
-    <elementParameter field="TEXT" name="HOST" value="&quot;entnonprod.lalique.lan&quot;"/>
-    <elementParameter field="TEXT" name="PORT" value="22"/>
-    <elementParameter field="TEXT" name="USER" value="&quot;root&quot;"/>
+    <elementParameter field="TEXT" name="HOST" value="context.hote"/>
+    <elementParameter field="TEXT" name="PORT" value="context.port"/>
+    <elementParameter field="TEXT" name="USER" value="context.login"/>
     <elementParameter field="CLOSED_LIST" name="AUTH_METHOD" value="PASSWORD"/>
-    <elementParameter field="PASSWORD" name="PASSWORD" value="wvBGtkQiXnkgqdEtpLytkA=="/>
-    <elementParameter field="CHECK" name="PTY" value="false"/>
-    <elementParameter field="CLOSED_LIST" name="STANDARDOUTPUT" value="TO_CONSOLE"/>
-    <elementParameter field="CLOSED_LIST" name="ERROROUTPUT" value="TO_CONSOLE"/>
+    <elementParameter field="PASSWORD" name="PASSWORD" value="8pW6Nmy2kuekwKqSJHO0eg=="/>
+    <elementParameter field="CHECK" name="PTY" value="true"/>
+    <elementParameter field="CLOSED_LIST" name="STANDARDOUTPUT" value="TO_CONSOLE_AND_GLOBAL_VARIABLE"/>
+    <elementParameter field="CLOSED_LIST" name="ERROROUTPUT" value="TO_CONSOLE_AND_GLOBAL_VARIABLE"/>
     <elementParameter field="FILE" name="PRIVATEKEY" show="false" value="&quot;/.ssh/id_dsa&quot;"/>
     <elementParameter field="PASSWORD" name="PASSPHRASE" show="false" value="wiXuUBxiyoc5L4zXsOuoEQ=="/>
-    <elementParameter field="TEXT" name="COMMANDSEPARATOR" value="&quot;;&quot;"/>
+    <elementParameter field="TEXT" name="COMMANDSEPARATOR" show="false" value="&quot;;&quot;"/>
     <elementParameter field="TABLE" name="COMMANDS">
-      <elementValue elementRef="COMMAND" value="&quot;sudo -i -u jde920 runube -f /home/jde920/talend JPY920 *ALL R0006P XJDE0005 RUNONEJOB I H S&quot;"/>
+      <elementValue elementRef="COMMAND" value="context.commande +  &quot; -f /home/jde920/talend &quot; + context.environnement + &quot; *ALL &quot; + context.programme + &quot; RUNONEJOB &quot; + context.options"/>
     </elementParameter>
     <elementParameter field="CHECK" name="USE_TIMEOUT" value="false"/>
     <elementParameter field="TEXT" name="TIMEOUT" show="false" value="120"/>
     <elementParameter field="TEXT" name="LABEL" value="runBatch"/>
     <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tSSH_1"/>
+    <metadata connector="FLOW" label="metadata" name="tSSH_1">
+      <column comment="nom du serveur d'exécution" defaultValue="entnonprod.lalique.lan" key="false" length="0" name="hote" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="port de connexion sur le serveur" defaultValue="22" key="false" length="0" name="port" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="utilisateur de connexion" defaultValue="" key="false" length="0" name="login" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="password de connexion" defaultValue="" key="false" length="0" name="passwd" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="commande à exécuter" defaultValue="runube" key="false" length="0" name="commande" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="environnement JDE" defaultValue="PY920" key="false" length="0" name="environnement" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="programme JDE" defaultValue="R0006P XJDE0005" key="false" length="0" name="programme" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="options de commande" defaultValue="I H S" key="false" length="0" name="options" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+    </metadata>
   </node>
   <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="480" posY="128">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tLogRow_1"/>
@@ -143,13 +161,39 @@
     <elementParameter field="CHECK" name="PRINT_UNIQUE_NAME" value="false"/>
     <elementParameter field="CHECK" name="PRINT_COLNAMES" value="false"/>
     <elementParameter field="CHECK" name="USE_FIXED_LENGTH" value="false"/>
-    <elementParameter field="TABLE" name="LENGTHS" show="false"/>
+    <elementParameter field="TABLE" name="LENGTHS" show="false">
+      <elementValue elementRef="SCHEMA_COLUMN" value="hote"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="port"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="login"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="passwd"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="commande"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="environnement"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="programme"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="options"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+    </elementParameter>
     <elementParameter field="CHECK" name="PRINT_CONTENT_WITH_LOG4J" value="true"/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
     <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
     <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tLogRow_1"/>
+    <metadata connector="FLOW" label="metadata" name="tLogRow_1">
+      <column comment="nom du serveur d'exécution" defaultValue="entnonprod.lalique.lan" key="false" length="0" name="hote" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="port de connexion sur le serveur" defaultValue="22" key="false" length="0" name="port" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="utilisateur de connexion" defaultValue="" key="false" length="0" name="login" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="password de connexion" defaultValue="" key="false" length="0" name="passwd" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="commande à exécuter" defaultValue="runube" key="false" length="0" name="commande" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="environnement JDE" defaultValue="PY920" key="false" length="0" name="environnement" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="programme JDE" defaultValue="R0006P XJDE0005" key="false" length="0" name="programme" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="options de commande" defaultValue="I H S" key="false" length="0" name="options" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+    </metadata>
   </node>
   <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tSSH_1" offsetLabelX="0" offsetLabelY="0" source="tSSH_1" target="tLogRow_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
@@ -160,13 +204,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_76cb8d44-48b1-4bd8-b01b-33d2e0aa9572"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>8T0xovL/0Su92QaUglsU9mOjMbopNx62dHeNWSEUcQMlnsKTi65CLCrIZAm/aQB/uVyJcRP1c/pi
-LUinVrVE6g==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_2ca94aed-3a73-4e71-a634-097e818fc245"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Lfu81VfWhT/JFXm8uOkL5J+N8hWzwRIS7ih3Ubddjwmk1aTpH8rPTKeqWQi0TFNLXGlcUhxP0Iya
-7KCE/mAtAA==</DigestValue></Reference></SignedInfo><SignatureValue>enpwzHxm+5VW1RW/EJM7LsUAn45+waY3nofGS34JzQhjBa+DozdjkBUnXtE5u567TnoNG1/zEVMV
-0w0/SCMIrrFCPQNimRCytV0cjUd1h9JHF+6ruz9qDlKpx1VDPauBRsH5OiZ2HmIupY+wEpfgs3nU
-lmwb/4uuC7fesRg2RlxQ+5zvX6tbGQYmJ6NfgUJMXZ/yTFrjgP/8SLK1oAj6bz5IEmYt5wQzK0ZV
-54eL0bIB6QRVLWwXM4Av2HREB6SvWotWzl3kbIi+pipdyPT8nmV1nanjPoi2tgRKu/dX/SzepoYg
-PzFbWnWvYj6jBbbrO8w+yWuwumwZ36jOPuMe4A==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_1721d808-6e4b-41d4-9ba8-1c7dda7d46b8"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>cg2I+rV2h6C4/Jkvq3OViGLEjf73FA6IQKI6Osp9QE663XjTFZij8/1GvnnrRe7yVbjgT6S4oI8i
+SMi9cvsANQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_b61ef59f-10d6-487f-808f-ad64aca9d252"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>mJqJr62vduDEzoo35doRm8N94OlMvalwHdca9YoVGZ/8bTTeXeB9sZrCS3c7S3y/MtAtwnrprq+J
+jMx9NBk6yg==</DigestValue></Reference></SignedInfo><SignatureValue>opNEBXLPgPVz5d0tXjpBITVmw7gbfkdPl6n76E5D9fWBCIUpULcpNbgfUn154AVZq8a/e3E4zDiI
+ekFvOXMXOPa1WWixU5/7P3Sx0rgKbB0sa6Ru5tTGM9aC/4D/LCGXdOSbw+AQp8N+A33Nfmmrjh2b
+EaDI6/7wWo5o54M+mIC6gsplayeStOu2PCWY99ajwO3HHKCHqgmyIx7YJLCahK8rxIleMuLi9CTT
+BKd0A00faxclRk50OB277nf60PagHWOemgDO+KhFRGUJxhimgbAgn5e02f+BD42eELtJtGQNRa1M
+CK1RKvIXqG8sLZNUox5J6Bnw6HRRt9eEBP9BvQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -188,4 +232,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_2ca94aed-3a73-4e71-a634-097e818fc245" Target="#_76cb8d44-48b1-4bd8-b01b-33d2e0aa9572"><Timestamp>2020-07-08 15:10:11</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_b61ef59f-10d6-487f-808f-ad64aca9d252" Target="#_1721d808-6e4b-41d4-9ba8-1c7dda7d46b8"><Timestamp>2020-07-08 16:05:01</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
