@@ -448,8 +448,11 @@
       <column comment="" key="false" length="15" name="SYURRF" nullable="true" originalLength="15" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
-      <varTables name="Var" sizeState="INTERMEDIATE"/>
+      <uiProperties shellMaximized="true"/>
+      <varTables name="Var" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="JDE.cnvFloat(Req01.WLRUNL)/JDE.cnvFloat(Req01.WLUORG)/JDE.cnvFloat(Req01.WLSETC)*100 " name="Tps_Prevu" type="id_Float"/>
+        <mapperTableEntries expression="if(Req01.SYTYPS==&quot;WO&quot;){Req01.UORG}&#13;&#10;else{Req01.WLUORG} " name="Qte_OPE" type="id_Float"/>
+      </varTables>
       <outputTables name="OF_JDE_Out" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Req01.SYMCU " name="Magasin" nullable="true" type="id_String"/>
         <mapperTableEntries expression="JDE.cnvInt(Req01.SYDOCO) " name="Document" nullable="true" type="id_Integer"/>
@@ -467,9 +470,9 @@
         <mapperTableEntries expression="Req01.WMCPIL " name="Composant" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Req01.IMDSC11 " name="Desc_Comp" nullable="true" type="id_String"/>
         <mapperTableEntries expression="JDE.cnvFloat(Req01.WMUORG)/10000" name="Qte_Comp" nullable="true" type="id_Float"/>
-        <mapperTableEntries expression="JDE.cnvFloat(Req01.WMTRQT)/10000" name="Qte_Prevue" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="Var.Qte_OPE / 10000" name="Qte_Prevue" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="JDE.cnvFloat(Req01.WLSETL)/1000" name="Tps_Prepa" nullable="true" type="id_Float"/>
-        <mapperTableEntries expression="JDE.cnvFloat(Req01.WLRUNL)/JDE.cnvFloat(Req01.WLUORG)/JDE.cnvFloat(Req01.WLSETC)*100 " name="Tps_Exec" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression=" Var.Tps_Prevu " name="Tps_Exec" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="JDE.cnvFloat(Req01.CADTHE)" name="Cadence_Theo" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="JDE.cnvFloat(Req01.WLSETC)/10" name="NB_Ope_Theo" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="Req01.SYVR01 " name="Comments" nullable="true" type="id_String"/>
@@ -486,7 +489,7 @@
         <mapperTableEntries expression="(int)globalMap.get(&quot;JobTime&quot;) " name="SYURAB" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="&quot;INTERFACE&quot;" name="SYURRF" nullable="true" type="id_String"/>
       </outputTables>
-      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Req01" sizeState="INTERMEDIATE">
+      <inputTables activateColumnNameFilter="true" columnNameFilter="" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Req01" sizeState="INTERMEDIATE">
         <mapperTableEntries name="SYMCU" nullable="true" type="id_String"/>
         <mapperTableEntries name="SYDOCO" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries name="SYDL01" nullable="true" type="id_String"/>
@@ -1037,13 +1040,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_ec7bfdb2-5cf3-465d-b00a-2264520028ce"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>vHVS388VCxn5PcUDv2R5d7HfVJH69WNTyPnWSYO+/ySWlK4gY1TI4TDVOSRt17cKQ9iiw2+t6Pej
-phqCsWo75w==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_f10a0fd7-bc2d-4d55-9a39-6dd9ea631f00"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>cjS9jFR6sj5UEMuZx8SG7vXHlML40b1r/N7vYRHpoHFtWCf8hc6Pfxd1B0m9kar8uNrQYjjoGds3
-658ST/YyHQ==</DigestValue></Reference></SignedInfo><SignatureValue>dCDBkHItt1W6tPXAcTOfGY8I3qb0rJehnY2hpXa33Xf2/o5+NKW2uNEhzqFHeCFf4LfKrLHVuJ09
-1iABYM7EL7WlxKxZRUJjvLLni+RK8TQpQa9k48sh/n9FtXJkbnex/hoxh+9i7Oc7bQMKiRIead8g
-t9SEkZy0/qAfsoMznZ6mfin6FX9I12F+usPGC4qWER2iKizbhx1y6welFRO/rhsdHUgAtvg9tcqx
-LrEAwoFaAad0IB9GU+kBLAk1ih+yKKBtlOD1zDxF8FT2Kwdd2lm76oziUSDU/UNDZRRka8DYPT/+
-VZpwyjCeNDAo89/2QqkDYQfHMNZXN8+VSNgVCw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_54dedaf2-55bd-4115-8574-145be92be354"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>ISnS1ZQZNOQ+eZtz2nKpZa5rOYtpNr8WHzH4Zpne6Z07p/uUBGHwH6uJ0RGm47uiXAHUisOjIdWk
+xEJi/bGK1g==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_30e8dbdb-535f-471e-96f0-c01d68ddc32b"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>66eMmqT7crZFL7zxk5ZOPxwj9lRkr7d5e7rPG4xMzRtilBFwX1arsYb6W7f3swNWMAZGn7tpCfLL
+cys/OKFQmw==</DigestValue></Reference></SignedInfo><SignatureValue>pvbtDtSFiwSLgwJeFxgW9I6fWPtNHmxJ5nX+L3hITTrP65zTihQxypUwgIlsAuPQyMzhJlHg5sOH
+pKoulga7YEMoxEo1WvMHesMfXN/lJpAqL4figdlp+DOhSwgHtehyHqa0Uu4+LP8Q4OlPqL4Ft0Uz
+STGuJTWsohLlrEZQI5g0lnonH8L3B5CtFlZXb57UpUzN0XOFZaNLLmMfBwf/xheNmWZDlDwFRlTQ
+BeVYcVOJInk+CRbnJ8Gv9CCQ0dm4hxmBpoqGj2yj+uE/EtOhrhVxtDZ7eIeYcGgMbp210UP1rhAH
+muz9G3aJbfKjYkxypMG8YFpV9blN02szzXFzGw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1065,4 +1068,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_f10a0fd7-bc2d-4d55-9a39-6dd9ea631f00" Target="#_ec7bfdb2-5cf3-465d-b00a-2264520028ce"><Timestamp>2020-07-09 06:06:21</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_30e8dbdb-535f-471e-96f0-c01d68ddc32b" Target="#_54dedaf2-55bd-4115-8574-145be92be354"><Timestamp>2020-07-09 08:58:29</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
