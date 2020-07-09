@@ -34,6 +34,29 @@ import java.util.Date;
  */
 public class JDE {
 
+	/** Indique si l'opération doit être envoyée à Quartis
+	 * 
+	 */
+	public static char isOpeQuartis(String TYPS, String RP14, String BFPF)
+	{
+		char myChar = '0';
+		if(RP14=="F") {myChar = '1';}
+		if((RP14=="R" || RP14=="Y") && BFPF == "0") {myChar ='1';}
+		return myChar;
+	}
+	
+	/** Renvoie la quantité prévue d'une opération selon type d'OF
+	 * 
+	 */
+	public static float getPlannedQuantity(String WOType,float standardQty,float declaredQty)
+	{
+		if(WOType == "F" && declaredQty != 0) {
+			return declaredQty;
+		}else {
+			return standardQty;
+		}
+	}
+	
 	/**
      * Convertit une valeur de type BigDecimal en valeur de type Double
      * 
