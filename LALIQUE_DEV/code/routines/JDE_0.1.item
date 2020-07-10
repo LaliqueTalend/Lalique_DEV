@@ -34,30 +34,6 @@ import java.util.Date;
  */
 public class JDE {
 
-    /**
-     * getPlannedQuantity : Renvoie la quantité prévue attendue à l'opération selon le type d'OF.
-     * </br><b>Exemple :</b> Déterminer si l'opération d'un OF Verre Froid doit être envoyée à Quartis (où SYTYPS='F', MCRP14='F  ', WLBFPF=' ').
-     * <pre>    <code>isOpeQuartis(SYTYPS,MCRP14,WLBFPF)</code> --> false</pre>
-     *
-     *
-     * {talendTypes} float
-     *
-     * {Category} JDE
-     *
-     * {param} string("") TYPS : type de l'OF
-     * {param} float(0) standard : delta
-     *
-     * {example} getPlannedQuantity("CCYY-MM-DD hh:mm:ss",-1) #
-     */
-	public static float getPlannedQuantity(String WOType,float standardQty,float declaredQty)
-	{
-		if(WOType == "F" && declaredQty != 0) {
-			return declaredQty;
-		}else {
-			return standardQty;
-		}
-	}
-	
 	/**
      * Convertit une valeur de type BigDecimal en valeur de type Double
      * 
@@ -418,12 +394,36 @@ public class JDE {
         return (long) Math.round(Math.abs(a)) * (a < 0 ? -1 : 1 );
     }
 
+    /**
+     * getPlannedQuantity : Renvoie la quantité prévue attendue à l'opération selon le type d'OF.
+     * </br><b>Exemple :</b> Déterminer si l'opération d'un OF Verre Froid doit être envoyée à Quartis (où SYTYPS='F', MCRP14='F  ', WLBFPF=' ').
+     * <pre>    <code>isOpeQuartis(SYTYPS,MCRP14,WLBFPF)</code> --> false</pre>
+     *
+     *
+     * {talendTypes} float
+     *
+     * {Category} JDE
+     *
+     * {param} string("") TYPS : type de l'OF
+     * {param} float(0) standard : delta
+     *
+     * {example} getPlannedQuantity("CCYY-MM-DD hh:mm:ss",-1) #
+     */
+	public static float getPlannedQuantity(String WOType,float standardQty,float declaredQty)
+	{
+		if(WOType == "F" && declaredQty != 0) {
+			return declaredQty;
+		}else {
+			return standardQty;
+		}
+	}
+	
 	/** 
 	 * isOpeQuartis : Indique si l'opération doit être envoyée à Quartis.
      * <b>Exemple :</b> Déterminer si l'opération d'un OF Verre Froid doit être envoyée à Quartis (où SYTYPS='F', MCRP14='F  ', WLBFPF=' ').
      * <pre>    <code>isOpeQuartis(SYTYPS,MCRP14,WLBFPF)</code> --> false</pre>
      * 
-     * {TalendTypes} boolean
+     * {talendTypes} boolean
      * 
      * {Category} JDE
 	 *
