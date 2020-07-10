@@ -112,13 +112,13 @@ public class JDE {
     }
     
 	/**
-     * Renvoie un nombre sous forme d'une chaîne de caractères formatés.
+     * Renvoie un nombre sous forme d'une chaîne de caractères formatée.
      * 
-     * @param value : <code>double</code> - valeur à formater.
+     * @param value : <code>double</code> - nombre à formater.
      * @param pattern : <code>String</code> - format de nombre à appliquer (indiqué au format US ex : #,##0.00").
-     * @param formatUS : <code>boolean</code> - appliquer le format US (décimale = point).
+     * @param USFormat : <code>boolean</code> - appliquer le format US (décimale = point).
      * 
-     * @return Nombre formaté au format String
+     * @return Une valeur de type <code>String</code> représentant le nombre formaté.
      * </br><b>Exemple:</b>
      * <em>Afficher le nombre 1234.567 au format "#,##0.00" en utilisant le format US</em>
      * <pre>  cnvString(1234.567, "#,##0.00", true) ==> 1,234.57</pre>
@@ -136,11 +136,11 @@ public class JDE {
      * created : 07/07/2020 - Philippe BONGARD</br>
      * version : 1.0
      */
-	public static String cnvString(double value, String pattern, boolean formatUS)
+	public static String cnvString(double value, String pattern, boolean USFormat)
 	{
 //		NumberFormat nf = NumberFormat.getInstance(Locale inLocale);
 		DecimalFormat dfmt = new DecimalFormat(pattern);
-		if (formatUS) {
+		if (USFormat) {
 //			nf = NumberFormat.getInstance(Locale.US);
 			DecimalFormatSymbols dfs = new DecimalFormatSymbols();
 			dfs.setDecimalSeparator('.');
@@ -154,27 +154,27 @@ public class JDE {
 	}
 
 	/**
-     * Renvoie un nombre sous forme d'une chaîne de caractères formatés.
+     * Renvoie un nombre sous forme d'une chaîne de caractères formatée.
      * 
-     * @param value : <code>double</code> - valeur à formater.
-     * @param pattern : <code>String</code> - format de nombre à appliquer (format US ex : #,##0.00").
+     * @param value : <code>double</code> - nombre à formater.
+     * @param pattern : <code>String</code> - format de nombre à appliquer (indiqué au format US ex : #,##0.00").
      * 
-     * @return Nombre formaté au format local (Français)
-     * 
-     * </br><b>Exemple:</b> Afficher le nombre 123456.789 au format "#,##0.00"
-     * <pre>cnvString(123456.789, "#,##0.00") ==> 123 456,79</pre>
-     * <hr> 
+     * @return Une valeur de type <code>String</code> représentant le nombre formaté.
+     * </br><b>Exemple:</b>
+     * <em>Afficher le nombre 1234.567 au format "#,##0.00"</em>
+     * <pre>  cnvString(1234.567, "#,##0.00", true) ==> 1 234,57</pre>
+     * <hr>
      * @TalendInfos
      * 
      * {talendTypes} String
      * 
      * {Category} Lalique Defined
      * 
-     * {param} double nombre
-     * {param} String format
+     * {param} double value
+     * {param} String pattern
      * </br>
-     * created 07/07/2020 - Philippe BONGARD</br>
-     * version 1.0
+     * created : 07/07/2020 - Philippe BONGARD</br>
+     * version : 1.0
      */
 	public static String cnvString(double value, String pattern)
 	{
@@ -427,7 +427,7 @@ public class JDE {
 	 * @param RP14 : <code>String</code> Catégorie du Centre de Charge : F-Fictif, R-Réparation, . . .
 	 * @param BFPF : <code>String</code> Point de comptage de l'opération
 	 * 
-     * @return true | false
+     * @return valeur booléenne indiquant si l'opération doit être envoyée (true) ou non (false)
      * </br><b>Example :</b> 
      * <em>Déterminer si l'opération d'un OF Verre Froid doit être envoyée à Quartis
      * (où SYTYPS='F', MCRP14='F  ', WLBFPF=' ').</em>
