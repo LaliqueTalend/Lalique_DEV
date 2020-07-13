@@ -5,6 +5,15 @@
 // ============================================================================
 package routines;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+//import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+//import java.util.Locale;
+
 /*
  * user specification: the function's comment should contain keys as follows: 1. write about the function's comment.but
  * it must be before the "{talendTypes}" key.
@@ -24,6 +33,224 @@ package routines;
  * 5. {example} gives a example for the Function. it is optional.
  */
 public class JDE {
+
+	/**
+     * Convertit une valeur de type BigDecimal en valeur de type Double
+     * 
+     * @param value : <code>BigDecimal</code> valeur à convertir.
+     * @return valeur de type Double
+     * @author Philippe BONGARD (24/04/2020)
+     * @TalendInfos
+     * 
+     * {TalendTypes} Double
+     * 
+     * {Category} Lalique Defined
+     * 
+     * {param} BigDecimal value : <code>BigDecimal</code> valeur à convertir.
+     */
+    public static Double cnvDouble(BigDecimal value)
+    {
+	    if(value == null)
+	    {
+	    	return 0d;
+	    }
+	    else
+	    {
+	    	return value.doubleValue();
+	    }
+    }
+    
+    /**
+     * Convertit une valeur de type BigDecimal en valeur de type Float
+     * 
+     * @param value : <code>BigDecimal</code> valeur à convertir.
+     * @return valeur de type Float
+     * @author Philippe BONGARD (24/04/2020)
+     * @TalendInfos
+     * 
+     * {TalendTypes} float
+     * 
+     * {Category} Lalique Defined
+     * 
+     * {param} BigDecimal value : <code>BigDecimal</code> valeur à convertir.
+     */
+    public static float cnvFloat(BigDecimal value)
+    {
+	    if(value == null)
+	    {
+	    	return 0f;
+	    }
+	    else
+	    {
+	    	return value.floatValue();
+	    }
+    }
+    
+    /**
+     * Convertit une valeur de type BigDecimal en valeur de type Integer
+     * 
+     * @param value : <code>BigDecimal</code> valeur à convertir.
+     * @return valeur de type Integer
+     * @author Philippe BONGARD (24/04/2020)
+     * @TalendInfos
+     * 
+     * {TalendTypes} int
+     * 
+     * {Category} Lalique Defined
+     * 
+     * {param} BigDecimal value : valeur a convertir.
+     */
+    public static int cnvInt(BigDecimal value)
+    {
+	    if(value == null)
+	    {
+	    	return 0;
+	    }
+	    else
+	    {
+	    	return value.intValue();
+	    }
+    }
+    
+	/**
+     * Renvoie un nombre sous forme d'une chaîne de caractères formatés.
+     * </br><b>Exemple :</b> Afficher le nombre 1234.567 au format "#,##0.00" en utilisant le format US<pre>    <code>cnvString(1234.567f, "#,##0.00", true)</code> --> 1 234.57</pre>
+     * 
+     * @param value : <code>double</code> - valeur à formater.
+     * @param pattern : <code>String</code> - format de nombre à appliquer (indiqué au format US ex : #,##0.00").
+     * @param formatUS : <code>boolean</code> - appliquer le format US (décimale = point).
+     * @return Nombre formaté au format String
+     * @author Philippe BONGARD (07/07/2020)
+     * @TalendInfos
+     * 
+     * {TalendTypes} String
+     * 
+     * {Category} Lalique Defined
+     * 
+     * {param} double nombre : nombre a formater.
+     * {param} String format : format a utiliser.
+     * {param} boolean formatUS : Utiliser le format US.
+     */
+	public static String cnvString(double value, String pattern, boolean formatUS)
+	{
+//		NumberFormat nf = NumberFormat.getInstance(Locale inLocale);
+		DecimalFormat dfmt = new DecimalFormat(pattern);
+		if (formatUS) {
+//			nf = NumberFormat.getInstance(Locale.US);
+			DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+			dfs.setDecimalSeparator('.');
+			dfs.setGroupingSeparator(',');
+			dfmt.setDecimalFormatSymbols(dfs);
+		}
+			else {
+		}
+		return dfmt.format(value);
+//		return nf.format(value);
+	}
+
+	/**
+     * Renvoie un nombre sous forme d'une chaîne de caractères formatés.
+     * </br><b>Exemple :</b> Afficher le nombre 123456.789 au format "#,##0.00"<pre>    <code>cnvString(123456.789, "#,##0.00")</code> --> 123 456,79</pre>
+     * 
+     * @param value : <code>double</code> - valeur à formater.
+     * @param pattern : <code>String</code> - format de nombre à appliquer (format US ex : #,##0.00").
+     * @return Nombre formaté au format local (Français)
+     * @author Philippe BONGARD (07/07/2020)
+     * @TalendInfos
+     * 
+     * {TalendTypes} String
+     * 
+     * {Category} Lalique Defined
+     * 
+     * {param} double nombre
+     * {param} String format
+     */
+	public static String cnvString(double value, String pattern)
+	{
+		DecimalFormat dfmt = new DecimalFormat(pattern);
+		return dfmt.format(value);
+	}
+	
+    /**
+     * Renvoie une date au format Julian JDE (integer).
+     * </br><b>Exemple :</b> Convertir la date 04/02/2020 en format Julian de JDE.<pre>    <code>convertFromJulian(04/02/2020)</code> --> 120035</pre>
+     * 
+     * @param date : <code>Date</code> - Date à convertir.
+     * @return La date au format Julian (int)
+     * @author Philippe BONGARD (24/04/2020)
+     * @TalendInfos
+     * 
+     * {TalendTypes} Date
+     * 
+     * {Category} Lalique Defined
+     * 
+     * {param} Date date : <code>Date</code> - Date à convertir.
+     */
+    public static int convertToJulian(Date date) 
+    {
+    	SimpleDateFormat pFormat = new SimpleDateFormat("DDD");
+    	Calendar pDate = Calendar.getInstance();
+        pDate.setTime(date);
+    	return Integer.parseInt(Integer.toString(pDate.get(Calendar.YEAR)-1900) + pFormat.format(date));
+    }
+    
+    /**
+     * Renvoie une date au format julien JDE convertie au format Date.
+     * </br><b>Exemple :</b> Convertir le champ SZUPMJ de la table F4101 en date.<pre>    <code>convertFromJulian(F4101.SZUPMJ)</code></pre>
+     * 
+     * @param julianDate : <code>BigDecimal</code> date au format julien.
+     * @return La date au format Date de Java
+     * @author Philippe BONGARD (24/04/2020)
+     * @TalendInfos
+     * 
+     * {TalendTypes} Date
+     * 
+     * {Category} Lalique Defined
+     * 
+     * {param} BigDecimal julianDate : <code>BigDecimal</code> date au format julien.
+     */
+    public static Date convertFromJulian(BigDecimal julianDate) 
+    {
+	    if(julianDate == null)
+	    {
+	    	return convertFromJulian(0);
+	    }
+	    else
+	    {
+	    	return convertFromJulian(julianDate.intValue());
+	    }
+    }
+
+    /**
+     * Renvoie une date au format julien JDE convertie au format Date.
+     * </br><b>Exemple :</b> Convertir la valeur 120035 en date.<pre>    <code>convertFromJulian(120035)</code> --> 04/02/2020</pre>
+     * 
+     * @param julianDate : <code>int</code> date au format julien.
+     * @return La date au format Date de Java (Oracle)
+     * @author Philippe BONGARD (24/04/2020)
+     * @TalendInfos
+     * 
+     * {TalendTypes} Date
+     * 
+     * {Category} Lalique Defined
+     * 
+     * {param} int julianDate : <code>int</code> date au format julien.
+     */
+    public static Date convertFromJulian(int julianDate) 
+    {
+	    Calendar pDate = Calendar.getInstance();
+	    pDate.set(0, 0, 1); //01/01/1970
+	    
+	    if(julianDate != 0) {
+			 int pYear, pDays;
+			 pYear = Math.round(julianDate / 1000) + 1900; 
+			 pDays = Math.floorMod(julianDate, 1000);
+
+		     pDate.set(pYear, Calendar.JANUARY, 0);
+		     pDate.add(Calendar.DAY_OF_YEAR, pDays);
+	    }
+	    return pDate.getTime();
+    }
 
     /**
      * convertToJulian: return date converted in Julian format
