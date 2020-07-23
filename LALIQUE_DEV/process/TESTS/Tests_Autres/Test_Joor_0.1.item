@@ -144,7 +144,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#10;  SOC1.PRO.CODPRO, &#10;  SOC1.PRO.NOMPRO, &#10;  SOC1.PRO.CODZN1, &#10;  SOC1.PRO.CODZN2,&#13;&#10;  SOC1.PRO.CODZN11,&#13;&#10;  SOC1.PRO.CODPAY,&#13;&#10;  SOC1.PRO.CODSAI&#10;FROM SOC1.PRO&#13;&#10;WHERE SOC1.PRO.CODPRO like '10300%'&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#10;  SOC1.PRO.CODPRO, &#10;  SOC1.PRO.NOMPRO, &#10;  SOC1.PRO.CODZN1, &#10;  SOC1.PRO.CODZN2,&#13;&#10;  SOC1.PRO.CODZN11,&#13;&#10;  SOC1.PRO.CODPAY,&#13;&#10;  SOC1.PRO.CODSAI,&#13;&#10;  SOC1.PRO.COLLECT&#10;FROM SOC1.PRO&#13;&#10;WHERE SOC1.PRO.CODPRO like '10300%'&quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -173,6 +173,8 @@
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="CODSAY"/>
       <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="COLLECT"/>
+      <elementValue elementRef="TRIM" value="false"/>
     </elementParameter>
     <elementParameter field="CHECK" name="NO_NULL_VALUES" value="false"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -184,6 +186,7 @@
       <column comment="" key="false" length="-1" name="CODZN11" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="CODPAY" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="CODSAY" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="COLLECT" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="384" posY="192">
@@ -259,16 +262,18 @@
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
-      <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
+      <varTables name="Var" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="ADD" name="var1" type="id_String"/>
+      </varTables>
       <outputTables name="joor_item" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="&quot;ADD&quot;" name="action_code" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Var.var1 " name="action_code" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row1.NOMPRO " name="delivery_name" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row1.CODPRO " name="delivery_code" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;&quot;" name="start_ship_date" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;&quot;" name="end_ship_date" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;&quot; " name="cancel_date" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row1.CODSAY " name="season_name" nullable="true" type="id_String"/>
-        <mapperTableEntries name="season_year" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="row1.COLLECT " name="season_year" nullable="true" type="id_String"/>
         <mapperTableEntries expression="" name="season_code" nullable="true" type="id_String"/>
         <mapperTableEntries name="division_name" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row1.CODZN11 " name="division_code" nullable="true" type="id_String"/>
@@ -325,6 +330,7 @@
         <mapperTableEntries name="CODZN11" nullable="true" type="id_String"/>
         <mapperTableEntries name="CODPAY" nullable="true" type="id_String"/>
         <mapperTableEntries name="CODSAY" nullable="true" type="id_String"/>
+        <mapperTableEntries name="COLLECT" nullable="true" type="id_String"/>
       </inputTables>
     </nodeData>
   </node>
@@ -469,6 +475,9 @@
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
       <elementValue elementRef="TRACE_COLUMN" value="CODPAY"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="COLLECT"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
@@ -659,13 +668,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_e5b59382-5c4c-4e22-9560-0683b7d1bb31"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>xRVbyYwP52x7j0XoqZj+4e4pQdPUn8X+WA1lBUsoaMb/N98LQuaN050+ljJS32we9Bb7DQGLVXhR&#13;
-dhGiTmzF7w==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_867d0d15-57be-450e-bfe2-09fa839f6d3d"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>PGvJvzIF4q+i8WRa+l6cVAfzShr3lDxrQI9JnaY2XIIqgmQFbRXlWRYRuGCd76kNq7/mcvnirqGp&#13;
-jJtAV7RPng==</DigestValue></Reference></SignedInfo><SignatureValue>Uc+Wv38St5/frhYMVbfIIKUPUsRKDwYaXI4AFWRPXGm5wHwwEGIGRWNoHh1kMM1NgGrJ8prz1mMF&#13;
-+ki7Sx8e//FRzaUhdlN3Or+r9s3hzgKU+Hig8+nFnWszLxHEBBSkTk8Q3H6NXroGmlf1wE18WJcp&#13;
-vhKzuIz8c2rkUmtSekuoytqj0KXC7SRvE8+mYWiIZUbxr6ppijaTQPxdmiDGT88+spI55tXBzdQ6&#13;
-oQrzMdR/kTVEDkMqJt/4wj/OoSbN/G7AgH/l5KkWQClDDmyXAUEH0/qiRaa7lUo3x3guhnMCurvU&#13;
-9+hH3GQ8IPU9ELk5O6BFlrOskt1l4fWkfGJAdA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_6d01f4d7-d5ab-460f-8929-3400c84d0ff9"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>+c785gF7pQkE9jL4cAPWqoLwkw7pbp0tGVpTDwarzsoEqaess1eejSP1ABHnzgStZ1EpmXaiac2E&#13;
+2sQCLDL3GQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_de7450ac-9fae-4012-9b41-355940825d08"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>RwVB8AcCP7pDKooyBctNgnO1N76rU6cPPmQ+kMY9M0zVzMP6kP5tdiSvEAJKR9j3vLcuLiTm744s&#13;
+pgSzhA832w==</DigestValue></Reference></SignedInfo><SignatureValue>EJ5xKM4W+nCxQZnDK3AnkndwQWpwtXb23q9MCWrhuRDf1mAVZlXB9TmSfgAjZFs6w1T7zxvEwa+T&#13;
+fiHEwF+rGWVAzX9Awqdd7XLFHw61amlqEUPy04nrPDTDO8g0Kon3tD/MDML8qWgIXKpDdAatBGL0&#13;
+EYQVTkEbeR7H575aboCQaUJdB1fy4kKTIbpqat9tnUU9hu/3DSdOltZia5OeXflTW5/kUlHqnw1Y&#13;
+utte4AdFh4D9hMyIj9L4ciyoMCDVOCgOPCatZjJuFK7IrQcUeOUY4JYtgBDZ5LhYHoiYzVaj7URL&#13;
+GBAL4yGq3Pk3jl/Dxezk83ojLepZxaWadgZsAQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD&#13;
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5&#13;
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U&#13;
@@ -687,4 +696,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/&#13
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW&#13;
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+&#13;
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg&#13;
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_867d0d15-57be-450e-bfe2-09fa839f6d3d" Target="#_e5b59382-5c4c-4e22-9560-0683b7d1bb31"><Timestamp>2020-07-23 14:13:10</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_de7450ac-9fae-4012-9b41-355940825d08" Target="#_6d01f4d7-d5ab-460f-8929-3400c84d0ff9"><Timestamp>2020-07-23 14:16:50</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
