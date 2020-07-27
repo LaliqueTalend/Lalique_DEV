@@ -144,7 +144,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#10;  SOC1.PRO.CODPRO, &#10;  SOC1.PRO.NOMPRO, &#10;  SOC1.PRO.CODZN1, &#10;  SOC1.PRO.CODZN2,&#13;&#10;  SOC1.PRO.CODZN11,&#13;&#10;  SOC1.PRO.CODPAY,&#13;&#10;  SOC1.PRO.CODSAI,&#13;&#10;  SOC1.PRO.COLLECT,&#13;&#10;  SOC1.PRO.CLAABC,&#13;&#10;  SOC1.PRO.CODSOC,&#13;&#10;  SOC1.PRO.GENCOD&#10;FROM SOC1.PRO&#13;&#10;WHERE SOC1.PRO.CODPRO like '10722%'&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#10;  SOC1.PRO.CODPRO, &#10;  SOC1.PRO.NOMPRO, &#10;  SOC1.PRO.CODZN1, &#10;  SOC1.PRO.CODZN2,&#13;&#10;  SOC1.PRO.CODZN11,&#13;&#10;  SOC1.PRO.CODPAY,&#13;&#10;  SOC1.PRO.CODSAI,&#13;&#10;  SOC1.PRO.COLLECT,&#13;&#10;  SOC1.PRO.CLAABC,&#13;&#10;  SOC1.PRO.CODSOC,&#13;&#10;  SOC1.PRO.GENCOD,&#13;&#10;  SOC1.TBL&#10;FROM SOC1.PRO&#13;&#10;WHERE SOC1.PRO.CODPRO like '10722%'&quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -171,7 +171,7 @@
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="CODPAY"/>
       <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="CODSAY"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="CODSAI"/>
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="COLLECT"/>
       <elementValue elementRef="TRIM" value="false"/>
@@ -191,7 +191,7 @@
       <column comment="" key="false" length="40" name="CODZN2" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="CODZN11" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="CODPAY" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="CODSAY" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="CODSAI" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="COLLECT" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="CLAABC" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="CODSOC" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
@@ -214,6 +214,8 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" label="joor_item" name="joor_item">
       <column comment="" key="false" length="-1" name="action_code" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="linesheet_name" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="linesheet_code" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="delivery_name" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="delivery_code" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="start_ship_date" nullable="true" originalLength="-1" pattern="&quot;dd-MM-yyyy&quot;" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
@@ -275,12 +277,14 @@
       <varTables name="Var" sizeState="INTERMEDIATE"/>
       <outputTables name="joor_item" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="&quot;ADD&quot;" name="action_code" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="row2.Linesheet_name " name="linesheet_name" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="row2.Linesheet_code " name="linesheet_code" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row1.NOMPRO " name="delivery_name" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row1.CODPRO " name="delivery_code" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;&quot;" name="start_ship_date" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;&quot;" name="end_ship_date" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;&quot; " name="cancel_date" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="row1.CODSAY " name="season_name" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="row1.CODSAI " name="season_name" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row1.COLLECT " name="season_year" nullable="true" type="id_String"/>
         <mapperTableEntries expression="" name="season_code" nullable="true" type="id_String"/>
         <mapperTableEntries name="division_name" nullable="true" type="id_String"/>
@@ -338,11 +342,15 @@
         <mapperTableEntries name="CODZN2" nullable="true" type="id_String"/>
         <mapperTableEntries name="CODZN11" nullable="true" type="id_String"/>
         <mapperTableEntries name="CODPAY" nullable="true" type="id_String"/>
-        <mapperTableEntries name="CODSAY" nullable="true" type="id_String"/>
+        <mapperTableEntries name="CODSAI" nullable="true" type="id_String"/>
         <mapperTableEntries name="COLLECT" nullable="true" type="id_String"/>
         <mapperTableEntries name="CLAABC" nullable="true" type="id_String"/>
         <mapperTableEntries name="CODSOC" nullable="true" type="id_String"/>
         <mapperTableEntries name="GENCOD" nullable="true" type="id_String"/>
+      </inputTables>
+      <inputTables lookupMode="LOAD_ONCE" matchingMode="ALL_ROWS" name="row2" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="" name="Linesheet_name" nullable="true" type="id_String"/>
+        <mapperTableEntries name="Linesheet_code" nullable="true" type="id_String"/>
       </inputTables>
     </nodeData>
   </node>
@@ -378,6 +386,8 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" label="joor_item" name="tFileOutputDelimited_1">
       <column comment="" key="false" length="-1" name="action_code" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="linesheet_name" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="linesheet_code" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="delivery_name" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="delivery_code" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="start_ship_date" nullable="true" originalLength="-1" pattern="&quot;dd-MM-yyyy&quot;" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
@@ -435,6 +445,60 @@
       <column comment="" key="false" length="-1" name="suggested_retail_price_5" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
+  <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="192" posY="384">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileInputDelimited_1"/>
+    <elementParameter field="LABEL" name="FILENAMETEXT" value="&quot;When the input source is a stream or a zip file,footer and random shouldn't be bigger than 0.&quot;"/>
+    <elementParameter field="FILE" name="FILENAME" value="&quot;C:/Users/plemeunier/OneDrive - LALIQUE/Talend/New_linesheet.xlsx&quot;"/>
+    <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
+    <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
+    <elementParameter field="OPENED_LIST" name="CSVROWSEPARATOR" show="false" value="&quot;\n&quot;"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;"/>
+    <elementParameter field="TEXT" name="ESCAPE_CHAR" show="false" value="&quot;&quot;&quot;"/>
+    <elementParameter field="TEXT" name="TEXT_ENCLOSURE" show="false" value="&quot;&quot;&quot;"/>
+    <elementParameter field="TEXT" name="HEADER" value="1"/>
+    <elementParameter field="TEXT" name="FOOTER" value="0"/>
+    <elementParameter field="TEXT" name="LIMIT" value=""/>
+    <elementParameter field="CHECK" name="REMOVE_EMPTY_ROW" value="true"/>
+    <elementParameter field="CHECK" name="UNCOMPRESS" value="false"/>
+    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false"/>
+    <elementParameter field="DIRECTORY" name="TEMP_DIR" show="false" value="&quot;C:/Talend-Studio-20190620_1446-V7.2.1/workspace&quot;"/>
+    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
+    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" show="false" value="&quot;,&quot;"/>
+    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" show="false" value="&quot;.&quot;"/>
+    <elementParameter field="CHECK" name="RANDOM" value="false"/>
+    <elementParameter field="TEXT" name="NB_RANDOM" show="false" value="10"/>
+    <elementParameter field="CHECK" name="TRIMALL" value="false"/>
+    <elementParameter field="TABLE" name="TRIMSELECT">
+      <elementValue elementRef="SCHEMA_COLUMN" value="Linesheet_name"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Linesheet_code"/>
+      <elementValue elementRef="TRIM" value="false"/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="CHECK_FIELDS_NUM" value="false"/>
+    <elementParameter field="CHECK" name="CHECK_DATE" value="false"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;UTF-8&quot;"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="UTF-8"/>
+    <elementParameter field="CHECK" name="SPLITRECORD" value="false"/>
+    <elementParameter field="CHECK" name="ENABLE_DECODE" value="false"/>
+    <elementParameter field="TABLE" name="DECODE_COLS" show="false">
+      <elementValue elementRef="SCHEMA_COLUMN" value="Linesheet_name"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Linesheet_code"/>
+      <elementValue elementRef="DECODE" value="false"/>
+    </elementParameter>
+    <elementParameter field="TEXT" name="DESTINATION" show="false" value=""/>
+    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tFileInputDelimited_1">
+      <column comment="" key="false" length="-1" name="Linesheet_name" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Linesheet_code" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
+    <metadata connector="REJECT" name="REJECT">
+      <column comment="" key="false" length="-1" name="Linesheet" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
   <node componentName="tOracleConnection" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="64">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBConnection_1"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="REPOSITORY"/>
@@ -484,7 +548,7 @@
       <elementValue elementRef="TRACE_COLUMN" value="CODZN11"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="CODSAY"/>
+      <elementValue elementRef="TRACE_COLUMN" value="CODSAI"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
       <elementValue elementRef="TRACE_COLUMN" value="CODPAY"/>
@@ -676,9 +740,27 @@
       <elementValue elementRef="TRACE_COLUMN" value="size_run"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="linesheet_code"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="linesheet_name"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="joor_item"/>
+  </connection>
+  <connection connectorName="FLOW" label="row2" lineStyle="8" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tMap_1">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="Linesheet_name"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Linesheet_code"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row2"/>
   </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tDBConnection_1" offsetLabelX="0" offsetLabelY="0" source="tDBConnection_1" target="tDBInput_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk2"/>
@@ -693,13 +775,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_1bf2cdc7-980e-475b-91b4-f2b9e3403fe1"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>qYM9XNSpqpEM6YV4cVWNKj7J6BwSzLNiyADWQ2FxiNnLPT7hPHop1Jq431m837yf+pnfb++tTBHu&#13;
-PCYguB8B0g==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_f67ae8b5-dd61-410b-9b4b-b95f8341c168"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>aTnRt/2L8YZjZx6FjVYT5J+CM2ndZuOyuWAbVuwPHwNDgWbjMz8zNtA3IkKb+TvUdVV6LNlYa3AS&#13;
-A9Vk+8xyEw==</DigestValue></Reference></SignedInfo><SignatureValue>G9gDqjE+EmjYdUf2E3myekllRYZe7/6MD7OolC5+2kv8l5SYUMZa/9DQ1lIuEB0mJtugH1d/GHSh&#13;
-vus1Qk6wavHT1j2E6XxoD5g8MVXc66UxHePclDha/Z8112ClXNMPpPLVrnuoD1uHtxxRLNNGvxrJ&#13;
-Loc7Q+VDaEIB2zuqQoO33X0HzMSdFa1pixTRcRTDCaVYbYWQiMBdHXUukeZ8/UousQ8P6jTkTNaF&#13;
-xXAgcIyA2KBAFJHj8EL0OQ0uTRgtEN6LGpox6DlmHVpX+ueRfYPh3bNaf7fWptcBtgiIRIPk/QAt&#13;
-euTpNjS9N7p+HWg6MnErsGBApqzyGtWpS9W1MA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_be770cfc-f497-4b52-8b7d-db9dd234adf6"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>SBEQGoSTy7HS7mM6phemp4wK0uxAW0Qp9EJ0clA7Q3asiNipF3R+XT8ox6aXIKHCkmPezNPRA7Qy&#13;
+Bd12WyT1Xw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_43885766-c680-4099-8a41-96f805cfb5ef"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>ZPJbD73obtrFyP6eNufK8d1McTvy2BeizJ+St02OLkC42fjvj4Q5EgCZFSE7OiaGEdbfhXi0gq+a&#13;
+jKdd9MdkyA==</DigestValue></Reference></SignedInfo><SignatureValue>Rk1uKDASIwFJJdQqR6Ah1mMQH2JP2XndAn8TL91PEZSUJiiaLWHLahiS9vNem1EXxFkWpiBfwWoJ&#13;
+NMLl8JGVCXihnMGgl1yt7cQJvn76yR9S2SgZ0ZU54tNgq5KU6nkNmEqdwIuPL6EaEENoSsr6AVaV&#13;
+cqPR0w68LCmXxvc5VfhavN1gkEYo+H/nEEjZNc2rMIW7jv8uUPE5l19eS6aOzdL5v+zc1PMtzM2C&#13;
+l9x/oJ6IUN40eDEQreni6ltEbS0Ya2d9Hd3NdPG/mTDQqaBYsjj/8/Uv2vjOBxWWRoYCfLTbLIkx&#13;
+T8aIzX50cjTy1jSDCdSkSN4C/UMSX8PPr55WOA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD&#13;
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5&#13;
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U&#13;
@@ -721,4 +803,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/&#13
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW&#13;
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+&#13;
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg&#13;
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_f67ae8b5-dd61-410b-9b4b-b95f8341c168" Target="#_1bf2cdc7-980e-475b-91b4-f2b9e3403fe1"><Timestamp>2020-07-24 13:19:15</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_43885766-c680-4099-8a41-96f805cfb5ef" Target="#_be770cfc-f497-4b52-8b7d-db9dd234adf6"><Timestamp>2020-07-27 09:47:21</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
