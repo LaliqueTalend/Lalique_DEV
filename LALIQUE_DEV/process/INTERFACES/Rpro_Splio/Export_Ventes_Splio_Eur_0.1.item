@@ -1579,7 +1579,7 @@
       <column comment="" key="false" length="16" name="amt_ht" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="16" name="amt_ttc" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+      <column comment="" key="false" length="16" name="total_amount" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
     </metadata>
@@ -1590,18 +1590,18 @@
       <column comment="" key="false" length="20" name="product_id" nullable="false" originalLength="20" pattern="" precision="0" sourceType="NUMBER" type="id_Long" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="16" name="price" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+      <column comment="" key="false" length="16" name="unit_price" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="3" name="currency" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="10" name="qty" nullable="true" pattern="" precision="3" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+      <column comment="" key="false" length="10" name="quantity" nullable="true" pattern="" precision="3" sourceType="NUMBER" type="id_Float" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
       <outputTables name="Tickets" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Vtes_Splio.order_id " name="order_id" nullable="true" type="id_Long"/>
@@ -1610,14 +1610,14 @@
         <mapperTableEntries expression="Vtes_Splio.store_id " name="store_id" nullable="true" type="id_String"/>
         <mapperTableEntries expression="StringHandling.EREPLACE(StringHandling.LEFT(Vtes_Splio.order_date,10),&quot;/&quot;,&quot;-&quot;) " name="order_date" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Vtes_Splio.AMT_HT" name="amt_ht" nullable="true" type="id_Float"/>
-        <mapperTableEntries expression="Vtes_Splio.AMT_TTC" name="amt_ttc" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="Vtes_Splio.AMT_TTC" name="total_amount" nullable="true" type="id_Float"/>
       </outputTables>
       <outputTables name="Tickets_Items" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Vtes_Splio.order_id " name="order_id" nullable="true" type="id_Long"/>
         <mapperTableEntries expression="row10.ITEM_SID " name="product_id" type="id_Long"/>
-        <mapperTableEntries expression="Vtes_Splio.PRICE" name="price" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="Vtes_Splio.PRICE" name="unit_price" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="Currency.CURRENCY_ABBR " name="currency" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="Vtes_Splio.QTY" name="qty" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="Vtes_Splio.QTY" name="quantity" nullable="true" type="id_Float"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Vtes_Splio" sizeState="INTERMEDIATE">
         <mapperTableEntries name="SBS_NO" nullable="true" type="id_Integer"/>
@@ -1727,13 +1727,13 @@
       <column comment="" key="false" length="20" name="product_id" nullable="false" originalLength="20" pattern="" precision="0" sourceType="NUMBER" type="id_Long" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="16" name="price" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+      <column comment="" key="false" length="16" name="unit_price" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="3" name="currency" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="10" name="qty" nullable="true" pattern="" precision="3" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+      <column comment="" key="false" length="10" name="quantity" nullable="true" pattern="" precision="3" sourceType="NUMBER" type="id_Float" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
     </metadata>
@@ -1755,9 +1755,9 @@
       <elementValue elementRef="FUNCTION" value="sum"/>
       <elementValue elementRef="INPUT_COLUMN" value="amt_ht"/>
       <elementValue elementRef="IGNORE_NULL" value="false"/>
-      <elementValue elementRef="OUTPUT_COLUMN" value="amt_ttc"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="total_amount"/>
       <elementValue elementRef="FUNCTION" value="sum"/>
-      <elementValue elementRef="INPUT_COLUMN" value="amt_ttc"/>
+      <elementValue elementRef="INPUT_COLUMN" value="order_id"/>
       <elementValue elementRef="IGNORE_NULL" value="false"/>
     </elementParameter>
     <elementParameter field="TEXT" name="LIST_DELIMITER" value="&quot;,&quot;"/>
@@ -1781,7 +1781,7 @@
       <column comment="" key="false" length="16" name="amt_ht" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="16" name="amt_ttc" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+      <column comment="" key="false" length="16" name="total_amount" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
     </metadata>
@@ -1833,7 +1833,7 @@
       <column comment="" key="false" length="16" name="amt_ht" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="16" name="amt_ttc" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+      <column comment="" key="false" length="16" name="total_amount" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
     </metadata>
@@ -2474,7 +2474,7 @@
       <elementValue elementRef="TRACE_COLUMN" value="order_id"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="amt_ttc"/>
+      <elementValue elementRef="TRACE_COLUMN" value="total_amount"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
       <elementValue elementRef="TRACE_COLUMN" value="email"/>
@@ -2496,6 +2496,9 @@
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
       <elementValue elementRef="TRACE_COLUMN" value="currency"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="unit_price"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
@@ -2621,13 +2624,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="160;190;240"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_c2cf2d7a-552e-4e14-a300-8cfbd13de2f8"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>QYvGFpUzxo8lwksVewTk2CqxsgrixOxbCqMFhkV4QU7SrKLXE3VQ1JCMAhb07CyIclBu6afcWjzn
-TiTFQTbcxQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_a2f9cf2f-78a1-4599-81ec-7d4eaad2c3ef"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>A6Tgy78XAdWmLeaFzBq09j09KImTWyr02ZbQn+yV+odP4aVV04UlHo8AdY5MP+CujDe/IZKxddGr
-NnY3pos+Sw==</DigestValue></Reference></SignedInfo><SignatureValue>V9GV0m2wFIlzcCv66M0tPkQqkaAqZjtTLUuNft6dI5GRUMl1kjvfarB1mOdANbfltnViFdc2DqsP
-hj8WldDQJpqklcDDTrvEaYLXbIAlNqVYez1iWEMWSOrmAvWklDDUXRTYjvNvM3GL0FErUy7absnN
-sm7u+6vhLs5IbxHl4rengu6p/SJVtEK84yOQZ92hLPFwRHkmiI9jBf8zUaa43wDvvSr73q9TjKjn
-ZNonIamBdMtqZFue+22H4PdMaraLJNOmN7VsgZDkjFtbKu9KsM+Z3+CQo0gP6NA4vkKeMOq2bKpP
-zxRWhroPlQMGWo2bS3Q9YZvTkwScOUzn+qLelg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_9d139e7e-df0e-464c-8e6a-b8c2487ad4c0"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>xvk3weinjOx9582G/0J9wbtp1Op1JYe7RV5aPH6s7qAESXPKSCwhQMXWqsQCcJfJ8r4oqL4DPzxC
+JKaTgvtQEw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_bb14010a-259f-4c77-a190-04b113851013"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>W44hCtybDciHS8s6Iy5RyBGK5IJeFHdfIy3EAPWLhnnaouScMmjATpGkxim+qHblYkeRVBTNzmB9
+qw76AIDBXg==</DigestValue></Reference></SignedInfo><SignatureValue>SQ8alMRGxj/vrOWkrOAGHI525brKdUyCaP3Q/YvhE04pH0+eWSbc+IoJbB3agowYN1/P6F9dNcQu
+u7Jj5ZSKzFvR/2yPu8+XeKOT7sppBnuSPoMtSWwjEy9zlAS/WlDJH4pJ399Y1a+RQ5MLya/TycTM
+4cuJK/O3JqDaTpGMSIiFWFikSkZ2ieG/fzZLQvndm38LgS2pKP2m7gcwJS8roQcSmN9AUNy41RDC
+kaPONuRxRw6hLb6QvVi4zta8agVs+sjfrXREdRVRL3i2CMEsVnvcwhtEuSTRwP0FM471c3PngJFu
+0KtWz1q28YZsorj+IOXPRdeIODcOd9nN7Z91jg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -2649,4 +2652,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_a2f9cf2f-78a1-4599-81ec-7d4eaad2c3ef" Target="#_c2cf2d7a-552e-4e14-a300-8cfbd13de2f8"><Timestamp>2020-07-22 12:40:38</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_bb14010a-259f-4c77-a190-04b113851013" Target="#_9d139e7e-df0e-464c-8e6a-b8c2487ad4c0"><Timestamp>2020-07-28 12:37:49</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
