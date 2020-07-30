@@ -62,8 +62,8 @@
   <parameters>
     <elementParameter field="TEXT" name="JOB_RUN_VM_ARGUMENTS" show="false" value="{&quot;JOB_RUN_VM_ARGUMENTS&quot;:[&quot;-Xms256M&quot;,&quot;-Xmx12G&quot;]}"/>
     <elementParameter field="CHECK" name="JOB_RUN_VM_ARGUMENTS_OPTION" show="false" value="true"/>
-    <elementParameter field="TEXT" name="SCREEN_OFFSET_X" show="false" value="128"/>
-    <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" show="false" value="96"/>
+    <elementParameter field="TEXT" name="SCREEN_OFFSET_X" show="false" value="162"/>
+    <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" show="false" value="122"/>
     <elementParameter field="TEXT" name="REPOSITORY_CONNECTION_ID" show="false" value=""/>
     <elementParameter field="TEXT" name="OOZIE_PROPERTY_TYPENAME" show="false" value=""/>
     <elementParameter field="TEXT" name="OOZIE_HADOOP_DISTRIBUTION" show="false" value=""/>
@@ -311,7 +311,7 @@
       <column comment="" key="false" length="20" name="ALU" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="10" name="QTY" nullable="true" pattern="" precision="3" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+      <column comment="" key="false" length="10" name="QTY" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="16" name="PRICE" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true">
@@ -326,7 +326,9 @@
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
-      <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
+      <varTables name="Var" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="(int)((float)Int_Inv_Lig.QTY) " name="Qty" type="id_Integer"/>
+      </varTables>
       <outputTables name="Vtes_Splio_0" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Int_Inv_Ent.SBS_NO " name="SBS_NO" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="Store.STORE_CODE " name="store_id" nullable="true" type="id_String"/>
@@ -335,7 +337,7 @@
         <mapperTableEntries expression="Int_Inv_Ent.INVC_TYPE " name="INVC_TYPE" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Customer.EMAIL_ADDR " name="customer_key" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Int_Inv_Lig.ALU " name="ALU" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="&quot;R&quot; .equals (Int_Inv_Ent.INVC_TYPE) ? Int_Inv_Lig.QTY * -1 : Int_Inv_Lig.QTY " name="QTY" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="&quot;R&quot; .equals (Int_Inv_Ent.INVC_TYPE) ? Var.QTY * -1 : Var.QTY " name="QTY" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="Int_Inv_Lig.PRICE " name="PRICE" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="&quot;R&quot; .equals (Int_Inv_Ent.INVC_TYPE) ? Int_Inv_Lig.AMT_HT * -1 : Int_Inv_Lig.AMT_HT " name="AMT_HT" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="&quot;R&quot; .equals (Int_Inv_Ent.INVC_TYPE) ? Int_Inv_Lig.AMT_TTC * -1 : Int_Inv_Lig.AMT_TTC " name="AMT_TTC" nullable="true" type="id_Float"/>
@@ -395,7 +397,7 @@
         <mapperTableEntries name="ZIP_LIV" nullable="true" type="id_String"/>
         <mapperTableEntries name="COD_COMPTA" nullable="true" type="id_String"/>
       </inputTables>
-      <inputTables activateCondensedTool="true" innerJoin="true" lookupMode="LOAD_ONCE" matchingMode="ALL_MATCHES" minimized="true" name="Int_Inv_Lig" sizeState="INTERMEDIATE">
+      <inputTables activateCondensedTool="true" innerJoin="true" lookupMode="LOAD_ONCE" matchingMode="ALL_MATCHES" name="Int_Inv_Lig" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Int_Inv_Top7.SBS_NO " name="SBS_NO" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="Int_Inv_Top7.STORE_NO " name="STORE_NO" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="Int_Inv_Top7.CREATED_DATE " name="CREATED_DATE" nullable="true" type="id_String"/>
@@ -1203,7 +1205,7 @@
       <column comment="" key="false" length="20" name="ALU" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="10" name="QTY" nullable="true" pattern="" precision="3" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+      <column comment="" key="false" length="10" name="QTY" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="16" name="PRICE" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true">
@@ -1258,7 +1260,6 @@
   </node>
   <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="-64" posY="416">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileInputDelimited_4"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="LABEL" name="FILENAMETEXT" value="&quot;When the input source is a stream or a zip file,footer and random shouldn't be bigger than 0.&quot;"/>
     <elementParameter field="FILE" name="FILENAME" value="context.Chemin_WorkFiles +&quot;Vtes_Splio_Eur.csv&quot; "/>
     <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
@@ -1360,7 +1361,7 @@
       <column comment="" key="false" length="20" name="ALU" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="10" name="QTY" nullable="true" pattern="" precision="3" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+      <column comment="" key="false" length="10" name="QTY" nullable="true" pattern="" precision="3" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="16" name="PRICE" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true">
@@ -1395,7 +1396,7 @@
       <column comment="" key="false" length="20" name="ALU" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="10" name="QTY" nullable="true" pattern="" precision="3" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+      <column comment="" key="false" length="10" name="QTY" nullable="true" pattern="" precision="3" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="16" name="PRICE" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true">
@@ -1413,7 +1414,6 @@
   </node>
   <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="32" posY="320">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tOracleInput_16"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="REPOSITORY"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" show="false" value="_meOGsAU8EeWJ1-j0u2vNsQ"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
@@ -1539,7 +1539,6 @@
   </node>
   <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="128" posY="416">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tMap_6"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
     <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
     <elementParameter field="DIRECTORY" name="TEMPORARY_DATA_DIRECTORY" value=""/>
@@ -1585,7 +1584,7 @@
       <column comment="" key="false" length="3" name="currency" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="10" name="quantity" nullable="true" pattern="" precision="3" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+      <column comment="" key="false" length="10" name="quantity" nullable="true" pattern="" precision="3" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
     </metadata>
@@ -1595,7 +1594,7 @@
       </column>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
       <outputTables name="Tickets" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Vtes_Splio.order_id " name="order_id" nullable="true" type="id_Long"/>
@@ -1610,7 +1609,7 @@
         <mapperTableEntries expression="row10.ITEM_SID " name="product_id" type="id_Long"/>
         <mapperTableEntries expression="Vtes_Splio.PRICE" name="unit_price" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="Currency.CURRENCY_ABBR " name="currency" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="Vtes_Splio.QTY" name="quantity" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="Vtes_Splio.QTY" name="quantity" nullable="true" type="id_Integer"/>
       </outputTables>
       <outputTables name="Top7" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Vtes_Splio.order_id " name="order_id" nullable="true" type="id_Long"/>
@@ -1623,7 +1622,7 @@
         <mapperTableEntries name="INVC_TYPE" nullable="true" type="id_String"/>
         <mapperTableEntries name="customer_key" nullable="true" type="id_String"/>
         <mapperTableEntries name="ALU" nullable="true" type="id_String"/>
-        <mapperTableEntries name="QTY" nullable="true" type="id_Float"/>
+        <mapperTableEntries name="QTY" nullable="true" type="id_Integer"/>
         <mapperTableEntries name="PRICE" nullable="true" type="id_Float"/>
         <mapperTableEntries name="AMT_HT" nullable="true" type="id_Float"/>
         <mapperTableEntries name="AMT_TTC" nullable="true" type="id_Float"/>
@@ -1686,7 +1685,6 @@
   </node>
   <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="512" posY="416">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileOutputDelimited_5"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="CHECK" name="USESTREAM" value="false"/>
     <elementParameter field="TEXT" name="STREAMNAME" show="false" value="outputStream"/>
     <elementParameter field="FILE" name="FILENAME" value="context.Table_Tickets_Items_Eur"/>
@@ -1729,14 +1727,13 @@
       <column comment="" key="false" length="3" name="currency" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="10" name="quantity" nullable="true" pattern="" precision="3" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+      <column comment="" key="false" length="10" name="quantity" nullable="true" pattern="" precision="3" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
     </metadata>
   </node>
   <node componentName="tAggregateRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="352" posY="352">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tAggregateRow_1"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="TABLE" name="GROUPBYS">
       <elementValue elementRef="OUTPUT_COLUMN" value="order_id"/>
       <elementValue elementRef="INPUT_COLUMN" value="order_id"/>
@@ -1785,7 +1782,6 @@
   </node>
   <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="512" posY="352">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileOutputDelimited_4"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="CHECK" name="USESTREAM" value="false"/>
     <elementParameter field="TEXT" name="STREAMNAME" show="false" value="outputStream"/>
     <elementParameter field="FILE" name="FILENAME" value="context.Table_Tickets_Eur"/>
@@ -1838,7 +1834,6 @@
   </node>
   <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="320">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBInput_1"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="REPOSITORY"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" show="false" value="_meOGsAU8EeWJ1-j0u2vNsQ"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
@@ -1976,7 +1971,6 @@
   </node>
   <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="224" posY="320">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBInput_2"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="REPOSITORY"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" show="false" value="_meOGsAU8EeWJ1-j0u2vNsQ"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
@@ -2070,7 +2064,6 @@
   </node>
   <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="512" posY="480">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileOutputDelimited_1"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="CHECK" name="USESTREAM" value="false"/>
     <elementParameter field="TEXT" name="STREAMNAME" show="false" value="outputStream"/>
     <elementParameter field="FILE" name="FILENAME" value="context.Chemin_WorkFiles +&quot;Top7_Eur.csv&quot; "/>
@@ -2108,7 +2101,6 @@
   </node>
   <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="-64" posY="672">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBInput_3"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="REPOSITORY"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" show="false" value="_YjVyYP-5EeSreZ8yPvtoag"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
@@ -2177,7 +2169,6 @@
   </node>
   <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="192" posY="672">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tMap_1"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
     <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
     <elementParameter field="DIRECTORY" name="TEMPORARY_DATA_DIRECTORY" value=""/>
@@ -2223,7 +2214,6 @@
   </node>
   <node componentName="tOracleOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="384" posY="672">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBOutput_1"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="REPOSITORY"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" show="false" value="_YjVyYP-5EeSreZ8yPvtoag"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
@@ -2323,7 +2313,6 @@
   </node>
   <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="192" posY="608">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileInputDelimited_2"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="LABEL" name="FILENAMETEXT" value="&quot;When the input source is a stream or a zip file,footer and random shouldn't be bigger than 0.&quot;"/>
     <elementParameter field="FILE" name="FILENAME" value="context.Chemin_WorkFiles +&quot;Top7_Eur.csv&quot; "/>
     <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
@@ -2384,7 +2373,6 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Int_Inv_Top7"/>
   </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tOracleInput_3" offsetLabelX="0" offsetLabelY="0" source="tOracleInput_3" target="tFileInputDelimited_4">
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk4"/>
   </connection>
   <connection connectorName="FLOW" label="Vtes_Splio_0" lineStyle="0" metaname="Vtes_Splio_0" offsetLabelX="0" offsetLabelY="0" source="tMap_2" target="tFileOutputDelimited_3">
@@ -2442,16 +2430,13 @@
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Vtes_Splio"/>
   </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputDelimited_4" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_4" target="tDBInput_3">
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk2"/>
   </connection>
   <connection connectorName="FLOW" label="row10" lineStyle="8" metaname="tOracleInput_16" offsetLabelX="0" offsetLabelY="0" source="tOracleInput_16" target="tMap_6">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row10"/>
   </connection>
   <connection connectorName="FLOW" label="Tickets" lineStyle="0" metaname="Tickets" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_6" target="tAggregateRow_1">
@@ -2476,7 +2461,6 @@
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Tickets"/>
   </connection>
   <connection connectorName="FLOW" label="Tickets_Items" lineStyle="0" metaname="Tickets_Items" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_6" target="tFileOutputDelimited_5">
@@ -2495,12 +2479,10 @@
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Tickets_Items"/>
   </connection>
   <connection connectorName="FLOW" label="Top7" lineStyle="0" metaname="Top7" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tMap_6" target="tFileOutputDelimited_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Top7"/>
   </connection>
   <connection connectorName="FLOW" label="row5" lineStyle="0" metaname="tAggregateRow_1" offsetLabelX="0" offsetLabelY="0" source="tAggregateRow_1" target="tFileOutputDelimited_4">
@@ -2510,17 +2492,14 @@
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row5"/>
   </connection>
   <connection connectorName="FLOW" label="Subsidiary" lineStyle="8" metaname="tDBInput_1" offsetLabelX="0" offsetLabelY="0" source="tDBInput_1" target="tMap_6">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Subsidiary"/>
   </connection>
   <connection connectorName="FLOW" label="Currency" lineStyle="8" metaname="tDBInput_2" offsetLabelX="0" offsetLabelY="0" source="tDBInput_2" target="tMap_6">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Currency"/>
   </connection>
   <connection connectorName="FLOW" label="row14" lineStyle="0" metaname="tDBInput_3" offsetLabelX="0" offsetLabelY="0" source="tDBInput_3" target="tMap_1">
@@ -2539,7 +2518,6 @@
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row14"/>
   </connection>
   <connection connectorName="FLOW" label="Int_Inv_Top_Maj" lineStyle="0" metaname="Int_Inv_Top_Maj" offsetLabelX="0" offsetLabelY="0" source="tMap_1" target="tDBOutput_1">
@@ -2588,12 +2566,10 @@
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Int_Inv_Top_Maj"/>
   </connection>
   <connection connectorName="FLOW" label="Top7_I" lineStyle="8" metaname="tFileInputDelimited_2" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_2" target="tMap_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Top7_I"/>
   </connection>
   <subjob>
@@ -2628,13 +2604,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="160;190;240"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_f9aa5fdf-3ce2-44c0-a121-a3ebfb6ba8a6"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>AfhE96hmoFYaoUKIHIt5YguXScRe1cgqbflCpp/cIFd8buiUuZS3g8o+WQv1S4oMXDdewxN9ad3h
-zr8TFoaZhQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_a9c4e95e-df65-4771-a6d9-2235feffb1d5"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>/uak2/V4Yf4nYnKQ2RI0Xdd9jVlnIH36XX1ywNyG7pnL3cKeXfuL6ngy6PjjGRVr9C40dwh1wy3R
-YfHG604law==</DigestValue></Reference></SignedInfo><SignatureValue>ozLfCjAvBRhEWDf/IMTeJ4MlEPceXYuDJL8LW3BlojLRG5qPlZbLW1ZhEYlcJPELfbfXrrxaLx+t
-zFLM1EdF7gvP45gVPQu0p4ojJrjgPZyuPyuZf13CSU8RhITnsubRxDwLV667v80dRSDLCcJAEc+E
-ABR+vrFEb0fRDLQpVNtOJ9t6y5T5L1mw+Q/2wwa7M9/Cje4DynRsMTE3RMXcwUv7wqvaG/HfMLND
-9R1e+ccWzP3IC/Gp/Y9JCGA57TOBPQDYVKSM/+pwQIEEBIq+Wcy1whZiORhUei8FrB7VxuuRo5EY
-egjBTjVlyvBiC9Nc9JGKS0536gBoFHgWBXpNDA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_640f050e-ffd7-4485-aba0-f4fd42f8c87c"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>7YWxBno7GkUXSEWJzT8zrSUtKw/jK6c2FZ+e/c+cOutbayKwnUHDEh0L3rcjx6273jEknl58nKbI
+GG5OzM5tOg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_4c23aef9-9f9d-4f6c-803d-0ceef979314e"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>vNYnIZT87hjGs0ozjQ/aifH/VgN6ij0UyKbXSejryxkejU0D+o6Fq5wdsCeZ72RpFJDTq4o93PDy
+zQ5F5hsmVA==</DigestValue></Reference></SignedInfo><SignatureValue>BfZPjSN5cpm7aamU6GlUl1yLK0XEEiM4NXs7TJKCmeihsIPnklozuyZZg5dzYI7+hFwNglr4pEwz
+ToLq65NL1ZRNjs4Qe85mZjCe2twLPSpQBwqR8czZVApDnsMW8Jqbrxnp/+PwLR8ITUIkEwHSHzHZ
+j08ZmHIKxcpAVztMdBHm9V2flWjKNHt1EdMKIA/8uYO/G+RG8vbqUXiPewtj1Gnilb/NGWxwlJ7y
+9IeIh4U6qPl3+Qu6ZmxAZ6p7wwh7CBygUZr0UejVP3yoaFAJqMBGHZeusAmr4QU6zv7HSExEMyTa
+8MFp0WgrQWhyCS4kOJDInz0lb+FPuH8aV7r/qw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -2656,4 +2632,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_a9c4e95e-df65-4771-a6d9-2235feffb1d5" Target="#_f9aa5fdf-3ce2-44c0-a121-a3ebfb6ba8a6"><Timestamp>2020-07-30 08:14:33</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_4c23aef9-9f9d-4f6c-803d-0ceef979314e" Target="#_640f050e-ffd7-4485-aba0-f4fd42f8c87c"><Timestamp>2020-07-30 09:09:32</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
