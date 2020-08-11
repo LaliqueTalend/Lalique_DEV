@@ -400,7 +400,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="608" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_2"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="// Gestion des erreurs du tRunJob &#10;&#10;int returnCode = (int)globalMap.get(&quot;tRunJob_1_CHILD_RETURN_CODE&quot;);&#10;System.out.println(&quot;Child Return Code = &quot; + returnCode);&#10;&#10;try{&#10;&#9;globalMap.put(&quot;myWarnCode&quot;, Integer.parseInt(System.getProperty(&quot;Quartis_JDE_ERROR&quot;)));&#10;}catch(Exception e){&#10;&#9;globalMap.put(&quot;myWarnCode&quot;, 0);&#10;}&#10;&#10;System.out.println(&quot;Child ErrorCode = &quot; + (int)globalMap.get(&quot;myWarnCode&quot;));&#10;System.out.println(&quot;Child ErrorMessage = &quot; + System.getProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;));&#10;//System.out.println((String)globalMap.get(&quot;tRunJob_1_CHILD_EXCEPTION_STACKTRACE&quot;));&#10;&#10;int errorCount = (int)globalMap.get(&quot;myErrCount&quot;);&#10;&#10;if(returnCode != 0){&#10;&#9;errorCount += 1;&#10;}&#10;else{&#10;&#9;errorCount = 0;&#10;}&#10;globalMap.put(&quot;myErrCount&quot;, errorCount);&#10;&#10;if (errorCount &gt;= context.ErrorMax){&#10;&#9;globalMap.put(&quot;myDieMessage&quot;, &quot;Le nombre maximum d'erreurs (&quot; + context.ErrorMax + &quot;) a été atteint !&quot;);&#10;&#9;globalMap.put(&quot;myDieCode&quot;, 90);&#10;&#9;globalMap.put(&quot;myDiePriority&quot;, 5);&#10;}&#10;else{&#10;&#9;if ((int)globalMap.get(&quot;myWarnCode&quot;) != 50){&#10;&#9;&#9;globalMap.put(&quot;myDieMessage&quot;, (String)globalMap.get(&quot;tRunJob_1_CHILD_MESSAGE&quot;));&#10;&#9;&#9;globalMap.put(&quot;myDieCode&quot;, 99);&#10;&#9;&#9;globalMap.put(&quot;myDiePriority&quot;, 5);&#10;&#9;}&#10;}"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="// Gestion des erreurs du tRunJob &#10;&#10;globalMap.put(&quot;myWarnCode&quot;, 0);&#10;int returnCode = (int)globalMap.get(&quot;tRunJob_1_CHILD_RETURN_CODE&quot;);&#10;System.out.println(&quot;Child Return Code = &quot; + returnCode);&#10;&#10;try{&#10;&#9;globalMap.put(&quot;myWarnCode&quot;, Integer.parseInt(System.getProperty(&quot;Quartis_JDE_ERROR&quot;)));&#10;}catch(Exception e){&#10;&#9;globalMap.put(&quot;myWarnCode&quot;, 0);&#10;}&#10;&#10;System.out.println(&quot;Child ErrorCode = &quot; + (int)globalMap.get(&quot;myWarnCode&quot;));&#10;System.out.println(&quot;Child ErrorMessage = &quot; + System.getProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;));&#10;//System.out.println((String)globalMap.get(&quot;tRunJob_1_CHILD_EXCEPTION_STACKTRACE&quot;));&#10;&#10;int errorCount = (int)globalMap.get(&quot;myErrCount&quot;);&#10;&#10;if(returnCode != 0){&#10;&#9;errorCount += 1;&#10;}&#10;else{&#10;&#9;errorCount = 0;&#10;}&#10;globalMap.put(&quot;myErrCount&quot;, errorCount);&#10;&#10;if (errorCount &gt;= context.ErrorMax){&#10;&#9;globalMap.put(&quot;myDieMessage&quot;, &quot;Le nombre maximum d'erreurs (&quot; + context.ErrorMax + &quot;) a été atteint !&quot;);&#10;&#9;globalMap.put(&quot;myDieCode&quot;, 90);&#10;&#9;globalMap.put(&quot;myDiePriority&quot;, 5);&#10;}&#10;else{&#10;&#9;if ((int)globalMap.get(&quot;myWarnCode&quot;) == 50){&#10;&#9;&#9;globalMap.put(&quot;myDieMessage&quot;, (String)globalMap.get(&quot;tRunJob_1_CHILD_MESSAGE&quot;));&#10;&#9;&#9;globalMap.put(&quot;myDieCode&quot;, 99);&#10;&#9;&#9;globalMap.put(&quot;myDiePriority&quot;, 5);&#10;&#9;}&#10;}"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_2"/>
@@ -599,111 +599,6 @@
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_4"/>
-  </node>
-  <node componentName="tLogCatcher" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="1376" posY="32">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tLogCatcher_3"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
-    <elementParameter field="CHECK" name="CATCH_JAVA_EXCEPTION" value="true"/>
-    <elementParameter field="CHECK" name="CATCH_TDIE" value="false"/>
-    <elementParameter field="CHECK" name="CATCH_TWARN" value="false"/>
-    <elementParameter field="CHECK" name="CATCH_TACTIONFAILURE" value="true"/>
-    <elementParameter field="TEXT" name="LABEL" value="Log"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tLogCatcher_3">
-      <column key="false" length="0" name="moment" nullable="true" originalLength="-1" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="0" sourceType="" type="id_Date" usefulColumn="true"/>
-      <column key="false" length="20" name="pid" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="20" name="root_pid" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="20" name="father_pid" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="50" name="project" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="255" name="job" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="50" name="context" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="3" name="priority" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column key="false" length="255" name="type" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="255" name="origin" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="255" name="message" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="3" name="code" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
-    </metadata>
-  </node>
-  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="1504" posY="32">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tLogRow_2"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
-    <elementParameter field="RADIO" name="BASIC_MODE" value="false"/>
-    <elementParameter field="RADIO" name="TABLE_PRINT" value="true"/>
-    <elementParameter field="RADIO" name="VERTICAL" value="false"/>
-    <elementParameter field="RADIO" name="PRINT_UNIQUE" show="false" value="true"/>
-    <elementParameter field="RADIO" name="PRINT_LABEL" show="false" value="false"/>
-    <elementParameter field="RADIO" name="PRINT_UNIQUE_LABEL" show="false" value="false"/>
-    <elementParameter field="TEXT" name="FIELDSEPARATOR" show="false" value="&quot;|&quot;"/>
-    <elementParameter field="CHECK" name="PRINT_HEADER" show="false" value="false"/>
-    <elementParameter field="CHECK" name="PRINT_UNIQUE_NAME" show="false" value="false"/>
-    <elementParameter field="CHECK" name="PRINT_COLNAMES" show="false" value="false"/>
-    <elementParameter field="CHECK" name="USE_FIXED_LENGTH" show="false" value="false"/>
-    <elementParameter field="TABLE" name="LENGTHS" show="false">
-      <elementValue elementRef="SCHEMA_COLUMN" value="moment"/>
-      <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="pid"/>
-      <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="root_pid"/>
-      <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="father_pid"/>
-      <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="project"/>
-      <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="job"/>
-      <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="context"/>
-      <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="priority"/>
-      <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="type"/>
-      <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="origin"/>
-      <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="message"/>
-      <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="code"/>
-      <elementValue elementRef="LENGTH" value="10"/>
-    </elementParameter>
-    <elementParameter field="CHECK" name="PRINT_CONTENT_WITH_LOG4J" value="true"/>
-    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tLogRow_2">
-      <column key="false" length="0" name="moment" nullable="true" originalLength="-1" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="0" sourceType="" type="id_Date" usefulColumn="true"/>
-      <column key="false" length="20" name="pid" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="20" name="root_pid" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="20" name="father_pid" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="50" name="project" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="255" name="job" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="50" name="context" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="3" name="priority" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column key="false" length="255" name="type" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="255" name="origin" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="255" name="message" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="3" name="code" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
-    </metadata>
-  </node>
-  <node componentName="tDie" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="1632" posY="32">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDie_3"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
-    <elementParameter field="TEXT" name="MESSAGE" value="&quot;Erreur de parametrage&quot;"/>
-    <elementParameter field="TEXT" name="CODE" value="4"/>
-    <elementParameter field="CLOSED_LIST" name="PRIORITY" value="6"/>
-    <elementParameter field="CHECK" name="EXIT_JVM" value="false"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tDie_3">
-      <column key="false" length="0" name="moment" nullable="true" originalLength="-1" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="0" sourceType="" type="id_Date" usefulColumn="true"/>
-      <column key="false" length="20" name="pid" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="20" name="root_pid" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="20" name="father_pid" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="50" name="project" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="255" name="job" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="50" name="context" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="3" name="priority" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column key="false" length="255" name="type" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="255" name="origin" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column key="false" length="255" name="message" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="3" name="code" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
-    </metadata>
   </node>
   <node componentName="tWarn" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="992" posY="160">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tWarn_1"/>
@@ -1006,16 +901,6 @@
     <elementParameter field="MEMO_JAVA" name="CONDITION" value="(int)globalMap.get(&quot;myWarnCode&quot;) != 0"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Error_xx"/>
   </connection>
-  <connection connectorName="FLOW" label="row4" lineStyle="0" metaname="tLogCatcher_3" offsetLabelX="0" offsetLabelY="0" source="tLogCatcher_3" target="tLogRow_2">
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row4"/>
-  </connection>
-  <connection connectorName="FLOW" label="row6" lineStyle="0" metaname="tLogRow_2" offsetLabelX="0" offsetLabelY="0" source="tLogRow_2" target="tDie_3">
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row6"/>
-  </connection>
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tJava_5" offsetLabelX="0" offsetLabelY="0" source="tJava_5" target="tFileInputExcel_2">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk6"/>
   </connection>
@@ -1105,13 +990,6 @@
   </subjob>
   <subjob>
     <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tLogCatcher_3"/>
-    <elementParameter field="TEXT" name="SUBJOB_TITLE" value="Traitement erreurs Prejob"/>
-    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
-    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
-  </subjob>
-  <subjob>
-    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tWarn_1"/>
     <elementParameter field="TEXT" name="SUBJOB_TITLE" value="Démarrage"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
@@ -1180,13 +1058,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_9e444ffb-b5c4-4c50-8869-3e12a20da3cc"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>PNRWYEf2qNCTT4BevCLWKjzMMi3qAnvwXqwmjidgI6zLNGGfXPPHifdyqetLFVPqq7i+ZpPXCQMJ
-XWz8NzrtPw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_950d1318-c431-430e-8b29-8622b6d6e023"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>LA68XLbVWvHguiA+BhgD795INAJHjyPZknw7zSURVhddAX5cqeII2DlQ/LMhRJqBxXOoNCCZDrUa
-lp6GpTlNeg==</DigestValue></Reference></SignedInfo><SignatureValue>Mo0IkaQbv0AffNGYi/GNkciKG8QZwT83pWSgKv5dIwlxxpltLtpkRZ9YkHbfXdMQLh2RG8zI2mOY
-rKIuxmj1vAU2pwU7S/Tt0IzS9H3nf9fjemfwOzwR4tU2S8L0Iut6/OxmRL0j0bwowIFaDk5lqB9M
-tH/ikgM13ImBun/AuD5uC6hjbMvE6vP8ZKNMPxArARLKKW00N/YaXs/YUmWfsExfkWGEu7/UQAHf
-u3/pU1mJG1sA+1k4TxKE0UAbBd3T2Ddlpxyo9wRcv3wPfApUlBo9+ABqgLdr/grwo7sc2uLh7hlv
-MXcJojWRae4Sm64d3CYb411E27JjNvFyzcCt/Q==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_7429a7d1-38b3-4ce3-b2d6-330a487f4e0f"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>brjjbB/2YwCSeAOMON6jPL0WMR5wl8xON3rzAB9rTb+UzAG/0zoXUK/QYE0HY+hUvU7VUTzpBHaa
+8Sj2r2IYXQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_70d00a48-3bb9-4ab5-b671-ac03d3d80935"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>oYn1ATMIw+axvba1t1Y++ppB8J9Rs86kxzrDNSRHZx3p/BGIVEo6jUYngQrgiI4CT7Wydsuv6hYb
+WXO+MCmt6w==</DigestValue></Reference></SignedInfo><SignatureValue>RcyRW4qPfyOO/6+vJMEmcVV5fz/yuLlIqgnHm1YOh0TGTRdPBrg31i64lTiR2kGfgauDHEJ9LKjH
+AZ9hVcro919kmtUM68RfIswT5RMQue0yQvLnpWc24XP1erlKocrN5xM63l2M1Wy88FNRJHB/IyBI
+A1tEqZNZRaCvJYiIbN0hnyFdmJPo622gp/z7v2n6EEenEQPHL/Wkn4g//apwIYHGVnuWSwRCCL8w
+MWuTgSdlXrAI583XovzvgMW0DTbMmU7BppoAfbqI1AdqIz19Wf9/aWtDGZNj0+qGrhgd0//DAymR
+Rtmn4r90P8E4j3ZD8cwxEaGDOwKMeeoKVWNsxA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1208,4 +1086,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_950d1318-c431-430e-8b29-8622b6d6e023" Target="#_9e444ffb-b5c4-4c50-8869-3e12a20da3cc"><Timestamp>2020-08-11 07:59:43</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_70d00a48-3bb9-4ab5-b671-ac03d3d80935" Target="#_7429a7d1-38b3-4ce3-b2d6-330a487f4e0f"><Timestamp>2020-08-11 08:12:44</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
