@@ -281,6 +281,75 @@ public class JDE {
     }
 
     /**
+     * Renvoie une valeur temps JDE (hhmmss) de type <code>Integer</code> au format <code>Date</code>.
+     * </br><b>Exemple :</b> Convertir la valeur 143527 en date.<pre>    <code>convertFromTime(143527)</code> --> 14:35:27</pre>
+     * 
+     * @param timeValue : <code>int</code> Heure au format JDE.
+     * 
+     * @return L'heure au format Date de Java (Oracle)
+     * <hr>
+     * 
+     * {talendTypes} Date
+     * 
+     * {Category} Lalique Defined
+     * 
+     * {param} int timeValue
+     * </br>
+     * created : 12/08/2020 - Philippe Bongard</br>
+     * version : 1.0
+     */
+    public static Date convertFromTime(int timeValue) 
+    {
+	    Calendar pDate = Calendar.getInstance();
+	    pDate.set(0, 0, 1); //01/01/1970
+	    
+	    if(timeValue != 0) {
+			 int pTime, pHour, pMinute, pSecond;
+			 pTime=timeValue;
+			 pHour = Math.round(pTime / 10000);
+			 pTime -= pHour * 10000;
+			 pMinute = Math.round(pTime / 100);
+			 pSecond = Math.floorMod(pTime, 100);
+
+		     //pDate.set(pYear, Calendar.JANUARY, 0);
+		     pDate.add(Calendar.HOUR_OF_DAY, pHour);
+		     pDate.add(Calendar.MINUTE, pMinute);
+		     pDate.add(Calendar.SECOND, pSecond);
+	    }
+	    return pDate.getTime();
+    }
+
+    /**
+     * Renvoie une valeur temps JDE (hhmmss) de type <code>BigDecimal</code> au format <code>Date</code>.
+     * </br><b>Exemple :</b> Convertir le champ WTTDAY en date.<pre>    <code>convertFromTime(WTTDAY)</code> --> 14:35:27</pre>
+     * 
+     * @param JDEField : <code>BigDecimal</code> Heure au format JDE.
+     * 
+     * @return L'heure au format Date de Java (Oracle)
+     * <hr>
+     * 
+     * {talendTypes} Date
+     * 
+     * {Category} Lalique Defined
+     * 
+     * {param} BigDecimal JDEField
+     * </br>
+     * created : 12/08/2020 - Philippe Bongard</br>
+     * version : 1.0
+     */
+    public static Date convertFromTime(BigDecimal JDEField) 
+    {
+	    if(JDEField == null)
+	    {
+	    	return convertFromTime(0);
+	    }
+	    else
+	    {
+	    	return convertFromTime(JDEField.intValue());
+	    }
+    }
+
+    /**
      * convertToJulian: return date converted in Julian format
      * 
      * {TalendTypes} int
