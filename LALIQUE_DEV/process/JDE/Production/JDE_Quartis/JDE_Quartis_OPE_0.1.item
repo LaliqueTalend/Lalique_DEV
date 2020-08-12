@@ -480,7 +480,7 @@
       <column comment="" key="false" length="2" name="Statut_Operation" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="1" name="Type_Transfert" nullable="true" originalLength="1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="6" name="Date_Operation" nullable="true" originalLength="-1" pattern="&quot;dd/MM/yy&quot;" precision="0" sourceType="NUMBER" type="id_Date" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Heure_Operation" nullable="true" originalLength="-1" pattern="&quot;hh:mm&quot;" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Heure_Operation" nullable="true" originalLength="-1" pattern="&quot;hh:mm&quot;" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="15" name="Qte_Operation" nullable="true" originalLength="15" pattern="" precision="4" sourceType="NUMBER" type="id_Float" usefulColumn="true"/>
       <column comment="" key="false" length="2" name="Unite_Mesure" nullable="true" originalLength="2" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="15" name="Code_Cle" nullable="true" originalLength="15" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
@@ -505,14 +505,14 @@
         <mapperTableEntries expression="Req02.WTOPST " name="Statut_Operation" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Req02.WTTYR " name="Type_Transfert" nullable="true" type="id_String"/>
         <mapperTableEntries expression="JDE.convertFromJulian(Req02.WTDGL)" name="Date_Operation" nullable="true" type="id_Date"/>
-        <mapperTableEntries expression="JDE.cnvString(JDE.cnvDouble(Req02.WTTDAY),&quot;HH:mm:ss&quot;) " name="Heure_Operation" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="JDE.cnvInt(Req02.WTTDAY)" name="Heure_Operation" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="JDE.cnvFloat(Req02.QTY)/10000" name="Qte_Operation" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="Req02.WTUOM " name="Unite_Mesure" nullable="true" type="id_String"/>
         <mapperTableEntries expression="JDE.cnvInt(Req02.WTUKID)" name="Code_Cle" nullable="true" type="id_Integer"/>
       </outputTables>
       <outputTables name="F31122_Update" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Req02.WTUKID " name="WTUKID" type="id_BigDecimal"/>
-        <mapperTableEntries expression="&quot;T&quot;" name="WTURCD" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Relational.NOT(JDE.isOpeQuartis(Req02.WATYPS,Req02.MCRP14,Req02.WLBFPF) ?&quot;T&quot;: &quot;X&quot;) " name="WTURCD" nullable="true" type="id_String"/>
         <mapperTableEntries expression="new BigDecimal((int)globalMap.get(&quot;JobDate&quot;)) " name="WTURDT" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries expression="new BigDecimal((long)globalMap.get(&quot;JobTimeStamp&quot;)) " name="WTURAT" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries expression="new BigDecimal((int)globalMap.get(&quot;JobTime&quot;)) " name="WTURAB" nullable="true" type="id_BigDecimal"/>
@@ -672,7 +672,7 @@
       <column comment="" key="false" length="2" name="Statut_Operation" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="1" name="Type_Transfert" nullable="true" originalLength="1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="6" name="Date_Operation" nullable="true" originalLength="-1" pattern="&quot;dd/MM/yy&quot;" precision="0" sourceType="NUMBER" type="id_Date" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Heure_Operation" nullable="true" originalLength="-1" pattern="&quot;hh:mm&quot;" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Heure_Operation" nullable="true" originalLength="-1" pattern="&quot;hh:mm&quot;" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="15" name="Qte_Operation" nullable="true" originalLength="15" pattern="" precision="4" sourceType="NUMBER" type="id_Float" usefulColumn="true"/>
       <column comment="" key="false" length="2" name="Unite_Mesure" nullable="true" originalLength="2" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="15" name="Code_Cle" nullable="true" originalLength="15" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
@@ -860,13 +860,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_178b4cd1-782d-424e-91a9-6713100a6b4c"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>xhRher5kSQP6syaN6gDro7OFsGTl8Nbia0dvXVfzNyrQrszaiBLg0LjVMFGCRTjiHvklYjmMak2F
-STFl2ruv7g==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_883586e2-fd86-4954-aadc-c2bea1a48786"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>ziuMYNztUwlDsXQH2AS7/spFHBn0KcBOsgdFrhJMATn0/JscAJIvpe9rmAlufIjg75sDGxr4NFwM
-y6pLZkc+7w==</DigestValue></Reference></SignedInfo><SignatureValue>DHdDIsxd5jOzD/tn2bO6wg+8dFhntIxsct4sulmjxVaMyqlEJIDydx/Y+n8Jqd6LeApmBHyJRAJ+
-jp4n8ziogvrCi7XF0GBgl0INiia6ouyKyzybDi0xu1aFvbIE3cFqZcH6d5+4wvv/LA2AfsCmDn3V
-MnhkkEPMzk9nG1WqcGSVw3DiUIODVI4ImYd1v+/JPjgLulJFW117jp1gS0UICkWNSls9yW/KnHOl
-pjXhTNopS0MhE6QDQBUYzJm9E3rzBHzbgBIdTmcdMDGwPCQAUEjvKPjV+Osl/18HE/vkMJWQoEhA
-7zlgz494VRswASBlNu0Sg8ECNgBGNStqQhKz3w==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_09713341-0ab4-44ea-984c-358b9a827e7b"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>3z0mmbUyt/Q0st45ATqpv+ytfqSgJ13bk5JK1jXqfC8f6BhsymA1BfX3TJFvZboH69yBtHA/g2Dl
+pCqE2MlqTg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_26d101bf-02a4-414a-b341-73159e6a4fca"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>ducnYXH+H1axAKcTncXt6trhC0/QR/EDDrmsvABEUCdxzpMUfKzX+JWL53uGdMSPwO2X50f7A+xJ
+W0MVzfeoCQ==</DigestValue></Reference></SignedInfo><SignatureValue>kRJkgMONUO7ndWT9mpcUEcSXzjQ6g+/ZvAJwG2WpqnhG+wcGP1rH77tUbJpkyxK2I3Uea1+F9ITF
+U5LFfpSJNKs/FBRJnFOwy9Vo+2UJLDMZsyCo7Ayf2vNzSK5PZue41gsSLKDpCrIuzQ1FYxAUQ96A
+WlzKkYSmfcxZyOccuNodhVr+1df+WGOm+rUKv7c1vOftTDI7N7CjtjegvvYDlhOzqNM94wZSg+82
+hOpnZpW10GYyFt/Ja4NehHxuLIKIRSTxLLkGweaFibB6PAeBVemRUsvLsaf1mLTELVV/4y7IN1Lo
+MP51NUVZR0bMJdT1A1F7qGC8cG9Tvi2X37dkrA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -888,4 +888,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_883586e2-fd86-4954-aadc-c2bea1a48786" Target="#_178b4cd1-782d-424e-91a9-6713100a6b4c"><Timestamp>2020-08-12 06:17:32</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_26d101bf-02a4-414a-b341-73159e6a4fca" Target="#_09713341-0ab4-44ea-984c-358b9a827e7b"><Timestamp>2020-08-12 06:37:48</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
