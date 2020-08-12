@@ -390,7 +390,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT DISTINCT&#13;&#10;WTMMCU,WTDOCO,WTAN8,WTKITL,WTOPSQ,WTOPST,&#13;&#10;WTTYR,WTDGL,WTSOQS,WTUOM,WTUKID&#13;&#10;FROM &quot;+context.JDE920_Schema_DTA+&quot;.F31122&#13;&#10;WHERE (WTURCD IS NULL OR WTURCD=' ') and WTTYR in('4','5') &quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT DISTINCT&#13;&#10;WTMMCU,WTDOCO,WTAN8,WTKITL,WTOPSQ,WTOPST,&#13;&#10;WTTYR,WTDGL,WTTDAY,Case when WTTYR='4' then WTSOQS else WTSOCN end QTY ,WTUOM,WTUKID&#13;&#10;FROM &quot;+context.JDE920_Schema_DTA+&quot;.F31122&#13;&#10;WHERE (WTURCD IS NULL OR WTURCD=' ') and WTTYR in('4','5') &quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -421,7 +421,9 @@
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="WTDGL"/>
       <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="WTSOQS"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="WTTDAY"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="QTY"/>
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="WTUOM"/>
       <elementValue elementRef="TRIM" value="false"/>
@@ -433,16 +435,17 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tDBInput_1">
       <column comment="" key="false" length="12" name="WTMMCU" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="8" name="WTDOCO" nullable="true" originalLength="8" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="8" name="WTAN8" nullable="true" originalLength="8" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="0" name="WTDOCO" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="0" name="WTAN8" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="" key="false" length="25" name="WTKITL" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="5" name="WTOPSQ" nullable="true" originalLength="5" pattern="" precision="2" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="0" name="WTOPSQ" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="" key="false" length="2" name="WTOPST" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="1" name="WTTYR" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="6" name="WTDGL" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="15" name="WTSOQS" nullable="true" originalLength="15" pattern="" precision="4" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="0" name="WTTDAY" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="0" name="QTY" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="" key="false" length="2" name="WTUOM" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="15" name="WTUKID" nullable="false" originalLength="15" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="0" name="WTUKID" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="448" posY="224">
@@ -464,10 +467,11 @@
       <column comment="" defaultValue="" key="false" length="8" name="Document" nullable="true" originalLength="8" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="8" name="Reference" nullable="true" originalLength="8" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="25" name="CodeArticle" nullable="true" originalLength="25" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="5" name="Num_Ope" nullable="true" originalLength="5" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true"/>
+      <column comment="" key="false" length="5" name="Num_Ope" nullable="true" originalLength="5" pattern="" precision="2" sourceType="NUMBER" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="2" name="Statut_Operation" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="1" name="Type_Transfert" nullable="true" originalLength="1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="6" name="Date_Operation" nullable="true" originalLength="-1" pattern="&quot;dd/MM/yy&quot;" precision="0" sourceType="NUMBER" type="id_Date" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Heure_Operation" nullable="true" originalLength="-1" pattern="&quot;hh:mm&quot;" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="15" name="Qte_Operation" nullable="true" originalLength="15" pattern="" precision="4" sourceType="NUMBER" type="id_Float" usefulColumn="true"/>
       <column comment="" key="false" length="2" name="Unite_Mesure" nullable="true" originalLength="2" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="15" name="Code_Cle" nullable="true" originalLength="15" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
@@ -481,18 +485,19 @@
       <column comment="" key="false" length="15" name="WTURRF" nullable="true" originalLength="15" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE"/>
       <outputTables name="OPE_JDE_Out" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Req02.WTMMCU " name="Magasin" nullable="true" type="id_String"/>
         <mapperTableEntries expression="JDE.cnvInt(Req02.WTDOCO) " name="Document" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="JDE.cnvInt(Req02.WTAN8 )" name="Reference" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="Req02.WTKITL " name="CodeArticle" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="JDE.cnvFloat(Req02.WTOPSQ)/100" name="Num_Ope" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="JDE.cnvString(JDE.cnvFloat(Req02.WTOPSQ)/100,&quot;0.00&quot;,true)" name="Num_Ope" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Req02.WTOPST " name="Statut_Operation" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Req02.WTTYR " name="Type_Transfert" nullable="true" type="id_String"/>
         <mapperTableEntries expression="JDE.convertFromJulian(Req02.WTDGL)" name="Date_Operation" nullable="true" type="id_Date"/>
-        <mapperTableEntries expression="JDE.cnvFloat(Req02.WTSOQS)/10000" name="Qte_Operation" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="JDE.cnvString(JDE.cnvDouble(Req02.WTTDAY),&quot;HH:mm:ss&quot;) " name="Heure_Operation" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="JDE.cnvFloat(Req02.QTY)/10000" name="Qte_Operation" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="Req02.WTUOM " name="Unite_Mesure" nullable="true" type="id_String"/>
         <mapperTableEntries expression="JDE.cnvInt(Req02.WTUKID)" name="Code_Cle" nullable="true" type="id_Integer"/>
       </outputTables>
@@ -513,7 +518,8 @@
         <mapperTableEntries name="WTOPST" nullable="true" type="id_String"/>
         <mapperTableEntries name="WTTYR" nullable="true" type="id_String"/>
         <mapperTableEntries name="WTDGL" nullable="true" type="id_BigDecimal"/>
-        <mapperTableEntries name="WTSOQS" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries name="WTTDAY" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries name="QTY" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries name="WTUOM" nullable="true" type="id_String"/>
         <mapperTableEntries name="WTUKID" type="id_BigDecimal"/>
       </inputTables>
@@ -650,10 +656,11 @@
       <column comment="" defaultValue="" key="false" length="8" name="Document" nullable="true" originalLength="8" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="8" name="Reference" nullable="true" originalLength="8" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="25" name="CodeArticle" nullable="true" originalLength="25" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="5" name="Num_Ope" nullable="true" originalLength="5" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true"/>
+      <column comment="" key="false" length="5" name="Num_Ope" nullable="true" originalLength="5" pattern="" precision="2" sourceType="NUMBER" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="2" name="Statut_Operation" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="1" name="Type_Transfert" nullable="true" originalLength="1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="6" name="Date_Operation" nullable="true" originalLength="-1" pattern="&quot;dd/MM/yy&quot;" precision="0" sourceType="NUMBER" type="id_Date" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Heure_Operation" nullable="true" originalLength="-1" pattern="&quot;hh:mm&quot;" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="15" name="Qte_Operation" nullable="true" originalLength="15" pattern="" precision="4" sourceType="NUMBER" type="id_Float" usefulColumn="true"/>
       <column comment="" key="false" length="2" name="Unite_Mesure" nullable="true" originalLength="2" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="15" name="Code_Cle" nullable="true" originalLength="15" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
@@ -744,6 +751,9 @@
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
       <elementValue elementRef="TRACE_COLUMN" value="CodeArticle"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Heure_Operation"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
@@ -838,13 +848,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_7a9aa410-6723-4de1-8cc4-49e3b07ed164"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>AOD5tgIjV3BDmaztQQxVYXCqk1mGAtZQPkh/aQh9TyqnqQ5GkMyGZFMVyWn+DZDXzT3eirDQDJqT
-3FZGiYuwng==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_d50a4c93-c120-4264-8ad5-3740d2de0856"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>5wuqRZ9Qd4NE+d7cr9K7maSqG/ENxRDYINKISsqcOUVQP8nLk6Eew7igWsaOush8N3Eza7lumMKJ
-KRy2OPZ9Eg==</DigestValue></Reference></SignedInfo><SignatureValue>b2PvfJylC8jyXO6qSLjXAbR23CtZcXAuAyJ5t5gOXHEIUrpjn36HnsY6lg5QWyVY5foGTJym5wHH
-C1BNryLWrUOsc9CbmUbq7fIDYJDK5W2u9IJLTlvCs6qZS0WzBHASfoYJBWmxcjN+kCL2Gjscxs8Q
-JiYalTPMQia08QTIFw5ieiByJJ60dW0AWGpdQDRYlcxMuvEV7YgPZ/fZmd3g4+9SdF/5T1JM0wZG
-twEi477RIWIC3OEUqJw7twdkx0DMSuqm9++YGvffzqX0qRtSVGRCXn3QathetinzBuxJNXtGrAtp
-76SI3kpdNavw2Ft/fKcIAAyfl2twmbrbmwOWQA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_b6f2c500-33d4-4241-aeb3-c22776da86d0"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>rI5EBG3iVBcA+CUV44zc+Ma19KWfc0GUSbbrH73pM8ewqQQhB3SKQXI1MurpQyI5Dv3yr5lswSnb
+HFt1P9sKrA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_dcc85ac4-356f-4198-840a-a331e7d145c3"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>HDo0n183afzbN4Cn6LF4nLC+XfbaN/VGtOx0FEW8jXvXSlb3PHN8x7qJjAjrdr14rC2XAQdIK1Y5
+ppxavvsAIA==</DigestValue></Reference></SignedInfo><SignatureValue>i1bMluuwAFF/e6ul0QDgfhjavUsLiAZX8M1ooOq16UlQGDTu5WeCCdfxX9sEVvl9J0xlXH/3/hK9
+S9JYLr1acHpeJiafaR0M/OE5ifV5VLUrjwc42YDmXl63ZReJStzYCuajn8ZYDpGnxUFdRePw1LOX
+OYtyGMazqg7Kr0mi6Sbua5thE4F9uGcIYk58YMR41BCs3CDPHDO1NHnP9qVx6h8wFdI1wIOCCIcz
+0pC1RXaPUFNx82Lfh8YuvbS54zCRSlUP3ncXEPRhc/fei6LM1YFRAUMxzA9rpw3tr4bLRROJr3I6
+SzfrbiQhReG3QZC/wvLDIeuxTUNqhEPHbwe/mw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -866,4 +876,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_d50a4c93-c120-4264-8ad5-3740d2de0856" Target="#_7a9aa410-6723-4de1-8cc4-49e3b07ed164"><Timestamp>2020-07-09 06:06:27</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_dcc85ac4-356f-4198-840a-a331e7d145c3" Target="#_b6f2c500-33d4-4241-aeb3-c22776da86d0"><Timestamp>2020-08-11 14:34:14</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
