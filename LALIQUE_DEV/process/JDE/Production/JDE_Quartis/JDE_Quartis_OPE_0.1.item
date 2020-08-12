@@ -390,7 +390,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT DISTINCT&#13;&#10;WTMMCU,WTDOCO,WTAN8,WTKITL,WTOPSQ,WTOPST,&#13;&#10;WTTYR,WTDGL,WTTDAY,Case when WTTYR='4' then WTSOQS else WTSOCN end QTY ,WTUOM,WTUKID&#13;&#10;FROM &quot;+context.JDE920_Schema_DTA+&quot;.F31122&#13;&#10;WHERE (WTURCD IS NULL OR WTURCD=' ') and WTTYR in('4','5') &quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT DISTINCT&#13;&#10;WTMMCU,WTDOCO,WTAN8,WTKITL,WTOPSQ,WTOPST,&#13;&#10;WTTYR,WTDGL,WTTDAY,Case when WTTYR='4' then WTSOQS else WTSOCN end QTY ,WTUOM,WTUKID,&#13;&#10;WATYPS,MCRP14,WLBFPF&#13;&#10;FROM &quot;+context.JDE920_Schema_DTA+&quot;.F31122&#13;&#10;JOIN &quot;+context.JDE920_Schema_DTA+&quot;.F4801 ON WADOCO=WTDOCO&#13;&#10;JOIN &quot;+context.JDE920_Schema_DTA+&quot;.F0006 ON MCMCU=WTMCU&#13;&#10;JOIN &quot;+context.JDE920_Schema_DTA+&quot;.F3112 ON WLDOCO=WTDOCO and WLOPSQ=WTOPSQ&#13;&#10;WHERE (WTURCD IS NULL OR WTURCD=' ') and WTTYR in('4','5') &quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -429,6 +429,12 @@
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="WTUKID"/>
       <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="WATYPS"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="MCRP14"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="WLBFPF"/>
+      <elementValue elementRef="TRIM" value="false"/>
     </elementParameter>
     <elementParameter field="CHECK" name="NO_NULL_VALUES" value="false"/>
     <elementParameter field="TEXT" name="LABEL" value="Requête02"/>
@@ -446,6 +452,9 @@
       <column comment="" defaultValue="" key="false" length="0" name="QTY" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="" key="false" length="2" name="WTUOM" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="0" name="WTUKID" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="1" name="WATYPS" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="3" name="MCRP14" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="1" name="WLBFPF" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="448" posY="224">
@@ -487,7 +496,7 @@
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE"/>
-      <outputTables name="OPE_JDE_Out" sizeState="INTERMEDIATE">
+      <outputTables activateExpressionFilter="true" expressionFilter="JDE.isOpeQuartis(Req02.WATYPS,Req02.MCRP14,Req02.WLBFPF) " name="OPE_JDE_Out" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Req02.WTMMCU " name="Magasin" nullable="true" type="id_String"/>
         <mapperTableEntries expression="JDE.cnvInt(Req02.WTDOCO) " name="Document" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="JDE.cnvInt(Req02.WTAN8 )" name="Reference" nullable="true" type="id_Integer"/>
@@ -522,6 +531,9 @@
         <mapperTableEntries name="QTY" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries name="WTUOM" nullable="true" type="id_String"/>
         <mapperTableEntries name="WTUKID" type="id_BigDecimal"/>
+        <mapperTableEntries name="WATYPS" nullable="true" type="id_String"/>
+        <mapperTableEntries name="MCRP14" nullable="true" type="id_String"/>
+        <mapperTableEntries name="WLBFPF" nullable="true" type="id_String"/>
       </inputTables>
     </nodeData>
   </node>
@@ -848,13 +860,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_b6f2c500-33d4-4241-aeb3-c22776da86d0"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>rI5EBG3iVBcA+CUV44zc+Ma19KWfc0GUSbbrH73pM8ewqQQhB3SKQXI1MurpQyI5Dv3yr5lswSnb
-HFt1P9sKrA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_dcc85ac4-356f-4198-840a-a331e7d145c3"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>HDo0n183afzbN4Cn6LF4nLC+XfbaN/VGtOx0FEW8jXvXSlb3PHN8x7qJjAjrdr14rC2XAQdIK1Y5
-ppxavvsAIA==</DigestValue></Reference></SignedInfo><SignatureValue>i1bMluuwAFF/e6ul0QDgfhjavUsLiAZX8M1ooOq16UlQGDTu5WeCCdfxX9sEVvl9J0xlXH/3/hK9
-S9JYLr1acHpeJiafaR0M/OE5ifV5VLUrjwc42YDmXl63ZReJStzYCuajn8ZYDpGnxUFdRePw1LOX
-OYtyGMazqg7Kr0mi6Sbua5thE4F9uGcIYk58YMR41BCs3CDPHDO1NHnP9qVx6h8wFdI1wIOCCIcz
-0pC1RXaPUFNx82Lfh8YuvbS54zCRSlUP3ncXEPRhc/fei6LM1YFRAUMxzA9rpw3tr4bLRROJr3I6
-SzfrbiQhReG3QZC/wvLDIeuxTUNqhEPHbwe/mw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_178b4cd1-782d-424e-91a9-6713100a6b4c"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>xhRher5kSQP6syaN6gDro7OFsGTl8Nbia0dvXVfzNyrQrszaiBLg0LjVMFGCRTjiHvklYjmMak2F
+STFl2ruv7g==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_883586e2-fd86-4954-aadc-c2bea1a48786"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>ziuMYNztUwlDsXQH2AS7/spFHBn0KcBOsgdFrhJMATn0/JscAJIvpe9rmAlufIjg75sDGxr4NFwM
+y6pLZkc+7w==</DigestValue></Reference></SignedInfo><SignatureValue>DHdDIsxd5jOzD/tn2bO6wg+8dFhntIxsct4sulmjxVaMyqlEJIDydx/Y+n8Jqd6LeApmBHyJRAJ+
+jp4n8ziogvrCi7XF0GBgl0INiia6ouyKyzybDi0xu1aFvbIE3cFqZcH6d5+4wvv/LA2AfsCmDn3V
+MnhkkEPMzk9nG1WqcGSVw3DiUIODVI4ImYd1v+/JPjgLulJFW117jp1gS0UICkWNSls9yW/KnHOl
+pjXhTNopS0MhE6QDQBUYzJm9E3rzBHzbgBIdTmcdMDGwPCQAUEjvKPjV+Osl/18HE/vkMJWQoEhA
+7zlgz494VRswASBlNu0Sg8ECNgBGNStqQhKz3w==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -876,4 +888,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_dcc85ac4-356f-4198-840a-a331e7d145c3" Target="#_b6f2c500-33d4-4241-aeb3-c22776da86d0"><Timestamp>2020-08-11 14:34:14</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_883586e2-fd86-4954-aadc-c2bea1a48786" Target="#_178b4cd1-782d-424e-91a9-6713100a6b4c"><Timestamp>2020-08-12 06:17:32</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
