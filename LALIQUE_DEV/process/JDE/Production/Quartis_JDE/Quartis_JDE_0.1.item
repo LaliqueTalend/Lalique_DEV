@@ -403,9 +403,9 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" label="row3" name="row3">
       <column comment="Code Magasin" key="false" length="12" name="MMCU" nullable="true" originalLength="12" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="N° Employé" key="false" length="8" name="AN8" nullable="true" originalLength="8" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="N° Employé" key="false" length="8" name="AN8" nullable="true" originalLength="8" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="Date Opération" key="false" length="6" name="DGL" nullable="true" originalLength="6" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="N° OF" defaultValue="" key="false" length="8" name="DOCO" nullable="true" originalLength="8" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="N° OF" key="false" length="8" name="DOCO" nullable="true" originalLength="8" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="N° Opération" key="false" length="5" name="OPSQ" nullable="true" originalLength="5" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="Type Transaction" key="false" length="1" name="TYR" nullable="true" originalLength="1" pattern="" precision="-1" sourceType="" type="id_Character" usefulColumn="true"/>
       <column comment="Heures de Travail" key="false" length="15" name="HRW" nullable="true" originalLength="15" pattern="" precision="2" sourceType="" type="id_Float" usefulColumn="true"/>
@@ -416,17 +416,19 @@
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
-      <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
+      <varTables name="Var" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="Integer.parseInt(StringHandling.EREPLACE(row1.Operateur,&quot;WSM&quot;,&quot;0&quot;)) " name="var1" type="id_String"/>
+      </varTables>
       <outputTables name="row3" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="StringHandling.RIGHT(StringHandling.SPACE(12) + StringHandling.TRIM(row1.Site), 12) " name="MMCU" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="Integer.parseInt(StringHandling.EREPLACE(row1.Operateur,&quot;WSM&quot;,&quot;0&quot;)) " name="AN8" nullable="true" type="id_Integer"/>
+        <mapperTableEntries expression="(StringHandling.EREPLACE(row1.Operateur,&quot;WSM&quot;,&quot;0&quot;)) " name="AN8" nullable="true" type="id_String"/>
         <mapperTableEntries expression="JDE.convertToJulian(row1.Date) " name="DGL" nullable="true" type="id_Integer"/>
-        <mapperTableEntries expression="Integer.parseInt(StringHandling.EREPLACE(row1.NumOF,&quot;WSM&quot;,&quot;0&quot;)) " name="DOCO" nullable="true" type="id_Integer"/>
+        <mapperTableEntries expression="(StringHandling.EREPLACE(row1.NumOF,&quot;WSM&quot;,&quot;0&quot;)) " name="DOCO" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Math.round(row1.Operation * 100) " name="OPSQ" nullable="true" type="id_Integer"/>
-        <mapperTableEntries name="TYR" nullable="true" type="id_Character"/>
-        <mapperTableEntries name="HRW" nullable="true" type="id_Float"/>
-        <mapperTableEntries name="SOQS" nullable="true" type="id_Float"/>
-        <mapperTableEntries name="SOCN" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="&quot;1&quot;" name="TYR" nullable="true" type="id_Character"/>
+        <mapperTableEntries expression="1" name="HRW" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="2" name="SOQS" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="3" name="SOCN" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="row1.CodeRebut " name="RCD" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row1.Activite " name="URRF" nullable="true" type="id_String"/>
       </outputTables>
@@ -478,9 +480,9 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" label="row3" name="tFileOutputDelimited_2">
       <column comment="Code Magasin" key="false" length="12" name="MMCU" nullable="true" originalLength="12" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="N° Employé" key="false" length="8" name="AN8" nullable="true" originalLength="8" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="N° Employé" key="false" length="8" name="AN8" nullable="true" originalLength="8" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="Date Opération" key="false" length="6" name="DGL" nullable="true" originalLength="6" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="N° OF" defaultValue="" key="false" length="8" name="DOCO" nullable="true" originalLength="8" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="N° OF" key="false" length="8" name="DOCO" nullable="true" originalLength="8" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="N° Opération" key="false" length="5" name="OPSQ" nullable="true" originalLength="5" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="Type Transaction" key="false" length="1" name="TYR" nullable="true" originalLength="1" pattern="" precision="-1" sourceType="" type="id_Character" usefulColumn="true"/>
       <column comment="Heures de Travail" key="false" length="15" name="HRW" nullable="true" originalLength="15" pattern="" precision="2" sourceType="" type="id_Float" usefulColumn="true"/>
@@ -1543,13 +1545,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_45f8294e-d28d-4329-a73b-4d53010a450a"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>ldgGi1XzqkALU9lP+8Ei/TVpvwQWoXcl2kkH/wowuBPWAJcSOcM9kYIEd7kj9bA+ySxzb417VDZf
-GAojSHwKYg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_f7694628-c057-43f7-b14e-df9792f05b8c"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>6O+mjZoK9KrmomByGsa6b3x4IoCvyA6FDPH/F9Byv2gbbTV/YIcjJKJi3zlcyBemFnYcZPGYo5Ve
-41eytddWlg==</DigestValue></Reference></SignedInfo><SignatureValue>j1PyRK3CXozfc6irovQbymwkpW7yhdnY6fqjIEuwOkjhpbhLLdtIGunsd5I3Qu8JrpNkK7oEb3+D
-bg4HPNkc8z8PXwm7lMk0dwpd2dSy/9dGf84cE2Potn6i+YshwpSfNYC5dgBkeR31x7ZufNfNJ45I
-oNkVJZXy36vGdtvgA6Jf52oHSDrWxfaltlMMsE6o/M5N/WjztFsREjK4NFcqGNS2nLROA+ljnN7G
-nCY67CTKiIwgKyzFOlzrXArsCNjxNEI+jTtoXKdCE+UirnZxsEuQAclv0XkjgAMO5Q2Af8nDBdHD
-kYGyZCb4h58pVJvaCdQI4dCZ5i+ma2QOgIzSOA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_78cf197a-af2a-435b-acd3-cae1e891d5da"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>i0D4jLk7uxjGsijwpDEmsYpxiEFVEYVDXnUbToZSCQAbH1vDTVaFEWYNsVY0ao2Duu/mb46rABRM
+3cfuAr+cDQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_b967be14-db76-487c-96c1-737ab5fbbfec"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>DbUtsmF/Kttcf3lytCCr9bBp7RLW+C4RMC9MLfsMYcrX+ojj6cj/vw7BFPLuf/dIWKK05BaKZIE+
+9iDnaol9ww==</DigestValue></Reference></SignedInfo><SignatureValue>N2ENKv1Dou6RbqqZldGS/GsYBe5z9JeNNAfrqzVT06he+8F7ORp0DowKq1frBs/SRqJbNH3Mh3eN
+GvTCu1PySgp7qnDjkFM+NM9IFkAQV+wIM4tssHeLr3lSCe8E0J27mZpdBrpjLQBH2Y/ftaihSAZm
+cW2klQS3/9zUpFUA6IT3Vc1U19NwWHq0iJ+akUzSnzs11pg5g4/LD2tS36PystEBo0q1rYAWr/YY
+UiZWGmVeH/gRUIFrvl9v5ETzjzqnDbdMzcLpeS87dvpqrvkSfYKigHQNGPKlcK4Cl32a8ouYRhEi
+xe1gaore1OUta4SzHLkuFfC/KBtoil0W7ixCJQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1571,4 +1573,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_f7694628-c057-43f7-b14e-df9792f05b8c" Target="#_45f8294e-d28d-4329-a73b-4d53010a450a"><Timestamp>2020-08-13 14:23:27</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_b967be14-db76-487c-96c1-737ab5fbbfec" Target="#_78cf197a-af2a-435b-acd3-cae1e891d5da"><Timestamp>2020-08-13 14:27:13</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
