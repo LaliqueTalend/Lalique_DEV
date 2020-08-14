@@ -406,7 +406,7 @@
       <column comment="N° Employé" key="false" length="8" name="AN8" nullable="true" originalLength="8" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="Date Opération" key="false" length="6" name="DGL" nullable="true" originalLength="6" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="N° OF" key="true" length="8" name="DOCO" nullable="true" originalLength="8" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="N° Opération" key="false" length="5" name="OPSQ" nullable="true" originalLength="5" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="N° Opération" key="true" length="5" name="OPSQ" nullable="true" originalLength="5" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="Type Transaction" key="false" length="1" name="TYR" nullable="true" originalLength="1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="Heures de Travail" key="false" length="15" name="HRW" nullable="true" originalLength="15" pattern="" precision="3" sourceType="" type="id_Double" usefulColumn="true"/>
       <column comment="Quantité Bonne" key="false" length="15" name="SOQS" nullable="true" originalLength="15" pattern="" precision="4" sourceType="" type="id_Double" usefulColumn="true"/>
@@ -546,18 +546,18 @@
         <mapperTableEntries expression="&quot;A&quot;" name="SZTNAC" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="SZYST" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row3.DOCO " name="SZDOCO" nullable="true" type="id_Integer"/>
-        <mapperTableEntries expression="row2.WADCTO " name="SZDCTO" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="row2.WLDCTO " name="SZDCTO" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row3.AN8 " name="SZAN8" nullable="true" type="id_Integer"/>
         <mapperTableEntries name="SZPRTR" nullable="true" type="id_Integer"/>
-        <mapperTableEntries expression="row2.WAITM " name="SZKIT" nullable="true" type="id_BigDecimal"/>
-        <mapperTableEntries expression="row2.WAAITM " name="SZKITL" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="row2.WLKIT " name="SZKIT" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries expression="row2.WLKITL " name="SZKITL" nullable="true" type="id_String"/>
         <mapperTableEntries expression="" name="SZKITA" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row3.MMCU " name="SZMMCU" nullable="true" type="id_String"/>
         <mapperTableEntries name="SZMCU" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row3.OPSQ " name="SZOPSQ" nullable="true" type="id_Integer"/>
         <mapperTableEntries name="SZOPST" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row3.TYR " name="SZTYR" nullable="true" type="id_String"/>
-        <mapperTableEntries name="SZEXR" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="" name="SZEXR" nullable="true" type="id_String"/>
         <mapperTableEntries name="SZICU" nullable="true" type="id_Integer"/>
         <mapperTableEntries name="SZDCT" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row3.DGL " name="SZDGL" nullable="true" type="id_Integer"/>
@@ -609,12 +609,12 @@
         <mapperTableEntries name="URRF" nullable="true" type="id_String"/>
       </inputTables>
       <inputTables activateCondensedTool="true" innerJoin="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="row2" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="row3.DOCO " name="WADOCO" operator="=" type="id_Integer"/>
-        <mapperTableEntries name="WADCTO" nullable="true" type="id_String"/>
-        <mapperTableEntries name="WATYPS" nullable="true" type="id_String"/>
-        <mapperTableEntries name="WADL01" nullable="true" type="id_String"/>
-        <mapperTableEntries name="WAITM" nullable="true" type="id_BigDecimal"/>
-        <mapperTableEntries name="WAAITM" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="row3.DOCO " name="WLDOCO" operator="=" type="id_BigDecimal"/>
+        <mapperTableEntries expression="row3.OPSQ " name="WLOPSQ" operator="=" type="id_BigDecimal"/>
+        <mapperTableEntries name="WLDCTO" nullable="true" type="id_String"/>
+        <mapperTableEntries name="WLKIT" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries name="WLKITL" nullable="true" type="id_String"/>
+        <mapperTableEntries name="WLDSC1" nullable="true" type="id_String"/>
       </inputTables>
     </nodeData>
   </node>
@@ -1131,7 +1131,7 @@
       <column comment="" defaultValue="" key="false" length="255" name="errorMessage" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="192">
+  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="224" posY="192">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBInput_1"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="true"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="tDBConnection_1"/>
@@ -1147,12 +1147,12 @@
     <elementParameter field="TEXT" name="USER" show="false" value="&quot;&quot;"/>
     <elementParameter field="PASSWORD" name="PASS" show="false" value="0RMsyjmybrE="/>
     <elementParameter field="TEXT" name="JDBC_URL" show="false" value="&quot;jdbc:oracle:oci:/@talend&quot;"/>
-    <elementParameter field="DBTABLE" name="TABLE" value="&quot;F4801&quot;"/>
+    <elementParameter field="DBTABLE" name="TABLE" value="&quot;F3112&quot;"/>
     <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="&quot;&quot;"/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT WADOCO, WADCTO, WATYPS, WADL01, WAITM, WAAITM &#13;&#10;FROM  &quot;+context.JDE920_Schema_DTA+&quot;.F4801&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT WLDOCO, WLOPSQ, WLDCTO, WLKIT, WLKITL, WLDSC1 &#13;&#10;FROM  &quot;+context.JDE920_Schema_DTA+&quot;.F3112&quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -1167,27 +1167,28 @@
     <elementParameter field="TEXT" name="CURSOR_SIZE" show="false" value="1000"/>
     <elementParameter field="CHECK" name="TRIM_ALL_COLUMN" value="false"/>
     <elementParameter field="TABLE" name="TRIM_COLUMN">
-      <elementValue elementRef="SCHEMA_COLUMN" value="WADOCO"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="WLDOCO"/>
       <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="WADCTO"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="WLOPSQ"/>
       <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="WATYPS"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="WLDCTO"/>
       <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="WADL01"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="WLKIT"/>
       <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="WAITM"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="WLKITL"/>
       <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="WAAITM"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="WLDSC1"/>
       <elementValue elementRef="TRIM" value="false"/>
     </elementParameter>
     <elementParameter field="CHECK" name="NO_NULL_VALUES" value="false"/>
+    <elementParameter field="TEXT" name="LABEL" value="F3112"/>
     <metadata connector="FLOW" name="tDBInput_1">
-      <column comment="" defaultValue="" key="true" length="0" name="WADOCO" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="2" name="WADCTO" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="1" name="WATYPS" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="WADL01" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="0" name="WAITM" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" key="false" length="25" name="WAAITM" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="true" length="0" name="WLDOCO" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="true" length="0" name="WLOPSQ" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="2" name="WLDCTO" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="0" name="WLKIT" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="25" name="WLKITL" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="30" name="WLDSC1" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tDie" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="-64" posY="704">
@@ -1632,13 +1633,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_bbcbbcfd-ec09-4a66-b016-cdb6f593a555"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>4gHTZwEqysT3/m5lllDtFStl5egZ42xcFuOQ0CrUYlkM1i+PvLE7TCQnIG2R0lfl9gbVpy3tC4wV
-0Rwzx9aOsg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_6e0a87f5-14e4-4a7d-91c3-e63e9957a649"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>25z7mS3kOsdgwBECq3jeWmC2+p2SIYGLzDdGhOYQtMePbSryPzkydUfP7cjA9ro+rafI2YMqPYjg
-eq84CwQxYw==</DigestValue></Reference></SignedInfo><SignatureValue>npu2DwlDEbiNMY4tUCisQAg2cqpK7WoPwVZ3xAC3TU0cyy8mQyJYC/oLr4qWfqdYt01VQ9UWcVTD
-lGO+gW6/DaVurQmf/sMQ7mYUPMBUuwT8dLEcBGPJ7O6itAj2c1rIR3Z3cLDNRohxSm/YRRcAmOss
-jsEU1qSUig3M6+848b1Fb8IONTZEGqwZnRsphhWnmQmp4vidYUBZWGSwyMbtgolLzN8c771Qyznv
-memiQFtJamRTNTLuo2wKWNr3mkbXxRdHGYwQRSPKbap56TzXy7oZ1WmzcBTn+SGhmS/shRcINnu4
-DPX1bvOV2wxUrj5wBagR28quhlAp3tfMBVKDbg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_bbd0ac86-5268-40f4-bfa8-1bef4236fc3c"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>+dCNBRZHu6dOHk+ie2D316hI8DPC4637WM/PXRO65oLAIQUKU12t2kmniD9IFBl8JzCtlNwocAJu
+sn8MrWE4aQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_9723ca46-6d80-4d2b-b02b-497c7e7218a7"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>evwrmG8XQ2e3XOOZpQIji/WkL0qm1OzFl7gA7QJA78OSHgqWHZ43SN1jydyYuSCibg/wsh705XXR
+IGyBwpFGAA==</DigestValue></Reference></SignedInfo><SignatureValue>LbODHRphgIg7JR/XXf+1Dt9ILhJ+XF6x98bjYatd6zlSN+JpHg+C2zbvyLmBkvewnotHETwB+wf3
+SuW86Fi2Y7VUiRaoH/iNSjrMOt47IWPdHiffeS8yKvywttWDtqGuaGgK/0vtbY38zfxgJTcbLrBH
+wPQ0nLRnUNtGqyKIud1X+Vfyq3tGZyI04Knejz7EF/BjKBM6v/EtskUZ8uQg3fCBjn012rmU+zvY
+NojrwPMDG6y7mRCvLvbxUDuhk7Uvw3H217b/Fe0TwpISliBUn8rwsMgztZLThl6QXabCoeO696yP
+uJTYyA9Z+LPcvwXgiAu3Hh1iM+otLHIz6Ul98A==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1660,4 +1661,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_6e0a87f5-14e4-4a7d-91c3-e63e9957a649" Target="#_bbcbbcfd-ec09-4a66-b016-cdb6f593a555"><Timestamp>2020-08-14 10:05:18</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_9723ca46-6d80-4d2b-b02b-497c7e7218a7" Target="#_bbd0ac86-5268-40f4-bfa8-1bef4236fc3c"><Timestamp>2020-08-14 10:50:14</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
