@@ -370,7 +370,7 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tFileInputDelimited_1">
       <column comment="" key="false" length="-1" name="Site" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Operateur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="Integer.parseInt(StringHandling.EREPLACE(row1.Operateur,&quot;WSM&quot;,&quot;0&quot;)) " key="false" length="-1" name="Operateur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Date" nullable="true" originalLength="-1" pattern="&quot;dd/MM/yy&quot;" precision="-1" sourceType="" type="id_Date" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Activite" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="TempsBrut" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Double" usefulColumn="true"/>
@@ -437,10 +437,10 @@
       </varTables>
       <outputTables activateExpressionFilter="true" columnNameFilter="" expressionFilter="Var.TYR != &quot; &quot;" name="Quartis" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="JDE.stringRAB(row1.Site,12) " name="MMCU" type="id_String"/>
-        <mapperTableEntries expression="Integer.parseInt(StringHandling.EREPLACE(row1.Operateur,&quot;WSM&quot;,&quot;0&quot;)) " name="AN8" type="id_BigDecimal"/>
-        <mapperTableEntries expression="JDE.convertToJulian(row1.Date) " name="DGL" type="id_BigDecimal"/>
-        <mapperTableEntries expression="Integer.parseInt(StringHandling.EREPLACE(row1.NumOF,&quot;WSM&quot;,&quot;0&quot;)) " name="DOCO" type="id_BigDecimal"/>
-        <mapperTableEntries expression="Math.round(row1.Operation * 100) " name="OPSQ" type="id_BigDecimal"/>
+        <mapperTableEntries expression="new BigDecimal(StringHandling.EREPLACE(row1.Operateur,&quot;WSM&quot;,&quot;0&quot;)) " name="AN8" type="id_BigDecimal"/>
+        <mapperTableEntries expression="new BigDecimal(JDE.convertToJulian(row1.Date))" name="DGL" type="id_BigDecimal"/>
+        <mapperTableEntries expression="new BigDecimal(StringHandling.EREPLACE(row1.NumOF,&quot;WSM&quot;,&quot;0&quot;)) " name="DOCO" type="id_BigDecimal"/>
+        <mapperTableEntries expression="new BigDecimal(Math.round(row1.Operation * 100))" name="OPSQ" type="id_BigDecimal"/>
         <mapperTableEntries expression="Var.TYR " name="TYR" type="id_String"/>
         <mapperTableEntries expression="new BigDecimal(Math.round(row1.TempsBrut / 36))" name="HRW" type="id_BigDecimal"/>
         <mapperTableEntries expression="new BigDecimal(Math.round(row1.QteBonne  * 10000))" name="SOQS" type="id_BigDecimal"/>
@@ -1742,13 +1742,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_770e4229-b13f-4eb8-b083-5d35cbc5fceb"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>DPpu+epDgB8v3b9BOhHqGdrsxv+Mgy6qTrIdO0VUsQTHCA2588N9s3tCtaTwTqX3i2AuUOiQ0ToX
-gQiTiblMtw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_8769bb86-909b-4498-b623-a06781eb1237"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>nRcKbINuxwmIJxOWF4MhQPfP0Ll7EFcHSEvxwh9uP8YnaecW008UHlmXP+LGgV/4gLfVc4ecVne7
-Q1OK19bo8w==</DigestValue></Reference></SignedInfo><SignatureValue>EuNKDVk7f/XWVpXQrYMcGh+PNY0YthG7O1wTdFSAkrZygTWqru2QN5un8FMxubbRrzZc/vqP6WFZ
-onlOT8/NJT26/dBdGLrCOL+TCSp91eOyR2MrYsoQYWX0kd4PwA+iqrwBqvz67seB7R44m0/KP4FU
-ns2ZEMERj7BLz3W0Q0TbZTrfRhg05SnsEy1XPOm4HIFu/XE43UgU4xgUkngQUSNVjjrrDr46rpCR
-cdz8EDvZzME7YHMBXfq/kK0DmimTikXg+vsj9wozxaQSUQIHBF8MfdLxRj13rsl2qBp53iYGeMAD
-4CTeHBjp4+mUb+yIWmvwfVVFkSqdpuoLP1cETA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_466c05e3-e206-4704-842f-70247b564b36"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>HZrdsuOBsgZN+h3dgGcDvXNqSOndQp8S8zJT0X1b/BkvMkjVu2SVKYqQ6xJDut1k7QvR7knj6FgB
+ChrjR3Xudw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_f11aff2d-a955-4d45-9ec5-af78a5d08114"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>oHmf5SIaBOyb9yLm2uHLo1UukeP06iYCUpa++QWwqn9aaupwJ/cFvMnmDcgB3+y03kehQV1Ln7+n
+sSt6j3okcg==</DigestValue></Reference></SignedInfo><SignatureValue>T19vjArv7FarzOuptWCQo21+m5+ZR/YGLQHcOPM9i4Se8/ElDQvmO2kgMs06UedId//st9G2Jwyq
+pU7AICHjYTFnIIJX12jsHgP3ccnAVNdrssJACKWGNsz91dTqVOy245kNDZ0ybC1cuFvK/fwYtIMh
+HjtELyDa8Clh25pqglC/Eg/kD/SDvZiI6v+x+oRZz2Og3gDUrzOsMuvBxyFEIdCNDfSabDIZBkUh
+Hf1+WfyD7G3qIuLiPEqeTIMTWdizt7PQQLsh4MS81DGGoM6R0ZuK6N5YKW0Jn2vjZPK4zEVJTjPQ
+RmWxHHYtV6iAozPzIamk+a17o2qPv3MDXHZTfA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1770,4 +1770,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_8769bb86-909b-4498-b623-a06781eb1237" Target="#_770e4229-b13f-4eb8-b083-5d35cbc5fceb"><Timestamp>2020-08-20 08:00:17</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_f11aff2d-a955-4d45-9ec5-af78a5d08114" Target="#_466c05e3-e206-4704-842f-70247b564b36"><Timestamp>2020-08-20 08:04:45</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
