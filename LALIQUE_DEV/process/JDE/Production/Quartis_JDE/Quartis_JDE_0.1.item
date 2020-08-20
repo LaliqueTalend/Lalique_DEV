@@ -407,8 +407,8 @@
       <column comment="Code Magasin" key="false" length="12" name="MMCU" nullable="false" originalLength="12" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="N° Employé" key="false" length="8" name="AN8" nullable="false" originalLength="8" pattern="" precision="0" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Date Opération" key="false" length="6" name="DGL" nullable="false" originalLength="6" pattern="" precision="0" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="N° OF" key="true" length="8" name="DOCO" nullable="false" originalLength="8" pattern="" precision="0" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="N° Opération" key="true" length="5" name="OPSQ" nullable="false" originalLength="5" pattern="" precision="0" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="N° OF" key="true" length="8" name="DOCO" nullable="false" originalLength="8" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="N° Opération" key="true" length="5" name="OPSQ" nullable="false" originalLength="5" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="Type Transaction" key="false" length="1" name="TYR" nullable="false" originalLength="1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="Heures de Travail" key="false" length="15" name="HRW" nullable="false" originalLength="15" pattern="" precision="2" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Quantité Bonne" key="false" length="15" name="SOQS" nullable="false" originalLength="15" pattern="" precision="4" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
@@ -439,8 +439,8 @@
         <mapperTableEntries expression="JDE.stringRAB(row1.Site,12) " name="MMCU" type="id_String"/>
         <mapperTableEntries expression="new BigDecimal(StringHandling.EREPLACE(row1.Operateur,&quot;WSM&quot;,&quot;0&quot;)) " name="AN8" type="id_BigDecimal"/>
         <mapperTableEntries expression="new BigDecimal(JDE.convertToJulian(row1.Date))" name="DGL" type="id_BigDecimal"/>
-        <mapperTableEntries expression="new BigDecimal(StringHandling.EREPLACE(row1.NumOF,&quot;WSM&quot;,&quot;0&quot;)) " name="DOCO" type="id_BigDecimal"/>
-        <mapperTableEntries expression="new BigDecimal(Math.round(row1.Operation * 100))" name="OPSQ" type="id_BigDecimal"/>
+        <mapperTableEntries expression="Integer.parseInt(StringHandling.EREPLACE(row1.NumOF,&quot;WSM&quot;,&quot;0&quot;)) " name="DOCO" type="id_Integer"/>
+        <mapperTableEntries expression="Integer.parseInt(Math.round(row1.Operation * 100))" name="OPSQ" type="id_Integer"/>
         <mapperTableEntries expression="Var.TYR " name="TYR" type="id_String"/>
         <mapperTableEntries expression="new BigDecimal(Math.round(row1.TempsBrut / 36))" name="HRW" type="id_BigDecimal"/>
         <mapperTableEntries expression="new BigDecimal(Math.round(row1.QteBonne  * 10000))" name="SOQS" type="id_BigDecimal"/>
@@ -577,7 +577,7 @@
         <mapperTableEntries expression="&quot; &quot;" name="SZPNID" type="id_String"/>
         <mapperTableEntries expression="&quot;A&quot;" name="SZTNAC" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="SZYST" type="id_String"/>
-        <mapperTableEntries expression="Quartis.DOCO " name="SZDOCO" type="id_BigDecimal"/>
+        <mapperTableEntries expression="new BigDecimal(Quartis.DOCO )" name="SZDOCO" type="id_BigDecimal"/>
         <mapperTableEntries expression="F3112.WLDCTO " name="SZDCTO" type="id_String"/>
         <mapperTableEntries expression="Quartis.AN8 " name="SZAN8" type="id_BigDecimal"/>
         <mapperTableEntries expression="" name="SZPRTR" type="id_BigDecimal"/>
@@ -586,7 +586,7 @@
         <mapperTableEntries expression="" name="SZKITA" type="id_String"/>
         <mapperTableEntries expression="Quartis.MMCU " name="SZMMCU" type="id_String"/>
         <mapperTableEntries expression="F3112.WLMCU " name="SZMCU" type="id_String"/>
-        <mapperTableEntries expression="Quartis.OPSQ " name="SZOPSQ" type="id_BigDecimal"/>
+        <mapperTableEntries expression="new BigDecimal(Quartis.OPSQ )" name="SZOPSQ" type="id_BigDecimal"/>
         <mapperTableEntries name="SZOPST" type="id_String"/>
         <mapperTableEntries expression="Quartis.TYR " name="SZTYR" type="id_String"/>
         <mapperTableEntries expression="F3112.IMDSC1 " name="SZEXR" type="id_String"/>
@@ -632,8 +632,8 @@
         <mapperTableEntries name="MMCU" type="id_String"/>
         <mapperTableEntries name="AN8" type="id_BigDecimal"/>
         <mapperTableEntries name="DGL" type="id_BigDecimal"/>
-        <mapperTableEntries name="DOCO" type="id_BigDecimal"/>
-        <mapperTableEntries name="OPSQ" type="id_BigDecimal"/>
+        <mapperTableEntries name="DOCO" type="id_Integer"/>
+        <mapperTableEntries name="OPSQ" type="id_Integer"/>
         <mapperTableEntries name="TYR" type="id_String"/>
         <mapperTableEntries name="HRW" type="id_BigDecimal"/>
         <mapperTableEntries name="SOQS" type="id_BigDecimal"/>
@@ -1742,13 +1742,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_016d0d48-91a2-46a5-bd40-6c2e91657e9e"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>WQ+eXKUHDSKLg3DieIWAryM4cUCzphXmhlWu2XRGF1hjWWh3ith03T+K5cd/z1GWpuc0oFwdtqb8
-qIk/Lk8s8g==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_c6886ab2-2e56-467a-8034-a7060429f930"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>mPViUrGkbGqH7eOM4rxcU2naUrr8ezHROoZ7NtSkjsvycilDY1bzb2/ybGT5X4lIq5t5zXgHPI72
-gM2lCGYTAw==</DigestValue></Reference></SignedInfo><SignatureValue>nrga3ajxxypaVUpjKt+xWLLlDeYfK26uwXG88BxR3ptXYM4NZgKtzuUeyTxZiXKq0/vZdyFinsIw
-e5N0vY5CNV16vOfCQApvuolX3NwxUOdYE4t8K9iTqDycVoVDafWIcVXoCjiwiWjFAh8BlwkKZVEm
-GQj0wNSBLKZ7LBvaMcPKLsolfHhPBJHpvTFu50eDgVperNa+f9rqHUaaX4RiJBwe2aRqe2kCHpak
-gOnCpV9myzwxhF7SPUBFgso8B3+F6vIJgQFOBsLAG0SIN68anHfdW/zqhytkbMw8qW14kvHhmRTV
-ePpz4HhZAoNZpf7PPnTPSYEM1SK+LK/mWKSFSg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_28cb11d4-097e-4fef-9f4f-0599fb101a8e"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>VGxOcW3EPHjZ3cP6O7c900fhF2KujmtSqL1UGfZjM0MKAkSYrEhbPP8xk3feZNNM0yZ/SpxnjzQB
+V63HNvehpQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_931c7a4f-cca3-4b1a-abb6-a986dea35169"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>7W5wapaxZEIV5jiSea/RVzpa9jyLQsb4QH6enXTA8uQnNXN0JJTfEJEwXKvc0V+Av5wWk8ooviix
+BgY4/qfAKg==</DigestValue></Reference></SignedInfo><SignatureValue>b8eykLX/Ge8OJCHi3zIYqmRemX/igpTJGJEhz+Cpw2iCklnMLgN65wq1pBt5lY9YLFMdUSCi9bbX
+kF/Jv+9AwB6bv/TZpMgbko1tC7nMqU7o5/fniYg50YXASY5lfJRLm8gTuNfyCBiRyvRkb7RNLOFB
+2W+wG2LVwYkQSHDuuvLIN7FsSntdR/BGvv3AXYQ2G33juDSWVezGoBJxfOg8mWgFN9ijJP4iSUkP
+wVlTLXL1vPUDAAsocFv9FnvUbBY9Z5B0NfzpWswIVxRQ3eGu/pPl1P3Y2BzamwGjoVXoEuYupHMp
+Yre/G37ADrlvFAUmWiUa5jIXn+RLllox3fD3Cw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1770,4 +1770,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_c6886ab2-2e56-467a-8034-a7060429f930" Target="#_016d0d48-91a2-46a5-bd40-6c2e91657e9e"><Timestamp>2020-08-20 08:26:17</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_931c7a4f-cca3-4b1a-abb6-a986dea35169" Target="#_28cb11d4-097e-4fef-9f4f-0599fb101a8e"><Timestamp>2020-08-20 08:29:51</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
