@@ -405,14 +405,14 @@
     <elementParameter field="MEMO" name="COMMENT" value="Mise en forme des données Quartis au format JDE"/>
     <metadata connector="FLOW" label="row3" name="Quartis">
       <column comment="Code Magasin" key="false" length="12" name="MMCU" nullable="false" originalLength="12" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="N° Employé" key="false" length="8" name="AN8" nullable="false" originalLength="8" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="Date Opération" key="false" length="6" name="DGL" nullable="false" originalLength="6" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="N° OF" key="true" length="8" name="DOCO" nullable="false" originalLength="8" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="N° Opération" key="true" length="5" name="OPSQ" nullable="false" originalLength="5" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="N° Employé" key="false" length="8" name="AN8" nullable="false" originalLength="8" pattern="" precision="0" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Date Opération" key="false" length="6" name="DGL" nullable="false" originalLength="6" pattern="" precision="0" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="N° OF" key="true" length="8" name="DOCO" nullable="false" originalLength="8" pattern="" precision="0" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="N° Opération" key="true" length="5" name="OPSQ" nullable="false" originalLength="5" pattern="" precision="0" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Type Transaction" key="false" length="1" name="TYR" nullable="false" originalLength="1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="Heures de Travail" key="false" length="15" name="HRW" nullable="false" originalLength="15" pattern="" precision="2" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="Quantité Bonne" key="false" length="15" name="SOQS" nullable="false" originalLength="15" pattern="" precision="4" sourceType="" type="id_Double" usefulColumn="true"/>
-      <column comment="Quantité Rebut" key="false" length="15" name="SOCN" nullable="false" originalLength="15" pattern="" precision="4" sourceType="" type="id_Double" usefulColumn="true"/>
+      <column comment="Quantité Bonne" key="false" length="15" name="SOQS" nullable="false" originalLength="15" pattern="" precision="4" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Quantité Rebut" key="false" length="15" name="SOCN" nullable="false" originalLength="15" pattern="" precision="4" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Code Rebut" key="false" length="3" name="RCD" nullable="false" originalLength="3" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="Code Activité" key="false" length="15" name="URRF" nullable="false" originalLength="15" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
@@ -431,20 +431,20 @@
       <column comment="" key="false" length="-1" name="CodeRebut" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="row1.TempsBrut !=0 ? &quot;1&quot; : row1.QteBonne!=0 ? &quot;4&quot; : row1.QteRebut!=0 ? &quot;5&quot; : &quot; &quot; " name="TYR" nullable="true" type="id_String"/>
       </varTables>
       <outputTables activateExpressionFilter="true" columnNameFilter="" expressionFilter="Var.TYR != &quot; &quot;" name="Quartis" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="JDE.stringRAB(row1.Site,12) " name="MMCU" type="id_String"/>
-        <mapperTableEntries expression="Integer.parseInt(StringHandling.EREPLACE(row1.Operateur,&quot;WSM&quot;,&quot;0&quot;)) " name="AN8" type="id_Integer"/>
-        <mapperTableEntries expression="JDE.convertToJulian(row1.Date) " name="DGL" type="id_Integer"/>
-        <mapperTableEntries expression="Integer.parseInt(StringHandling.EREPLACE(row1.NumOF,&quot;WSM&quot;,&quot;0&quot;)) " name="DOCO" type="id_Integer"/>
-        <mapperTableEntries expression="Math.round(row1.Operation * 100) " name="OPSQ" type="id_Integer"/>
+        <mapperTableEntries expression="Integer.parseInt(StringHandling.EREPLACE(row1.Operateur,&quot;WSM&quot;,&quot;0&quot;)) " name="AN8" type="id_BigDecimal"/>
+        <mapperTableEntries expression="JDE.convertToJulian(row1.Date) " name="DGL" type="id_BigDecimal"/>
+        <mapperTableEntries expression="Integer.parseInt(StringHandling.EREPLACE(row1.NumOF,&quot;WSM&quot;,&quot;0&quot;)) " name="DOCO" type="id_BigDecimal"/>
+        <mapperTableEntries expression="Math.round(row1.Operation * 100) " name="OPSQ" type="id_BigDecimal"/>
         <mapperTableEntries expression="Var.TYR " name="TYR" type="id_String"/>
         <mapperTableEntries expression="new BigDecimal(Math.round(row1.TempsBrut / 36))" name="HRW" type="id_BigDecimal"/>
-        <mapperTableEntries expression="row1.QteBonne " name="SOQS" type="id_Double"/>
-        <mapperTableEntries expression="row1.QteRebut " name="SOCN" type="id_Double"/>
+        <mapperTableEntries expression="new BigDecimal(Math.round(row1.QteBonne  * 10000))" name="SOQS" type="id_BigDecimal"/>
+        <mapperTableEntries expression="new BigDecimal(Math.round(row1.QteRebut * 10000)) " name="SOCN" type="id_BigDecimal"/>
         <mapperTableEntries expression="row1.CodeRebut " name="RCD" type="id_String"/>
         <mapperTableEntries expression="row1.Activite " name="URRF" type="id_String"/>
       </outputTables>
@@ -497,50 +497,50 @@
       <column comment="Utilisateur EDI" key="true" length="10" name="SZEDUS" nullable="false" originalLength="10" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="N° Lot EDI" key="true" length="15" name="SZEDBT" nullable="false" originalLength="15" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="N° Transaction EDI" key="true" length="22" name="SZEDTN" nullable="false" originalLength="22" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="N° Ligne EDI" defaultValue="" key="true" length="7" name="SZEDLN" nullable="false" originalLength="7" pattern="" precision="3" sourceType="INT" type="id_Integer" usefulColumn="true"/>
+      <column comment="N° Ligne EDI" defaultValue="" key="true" length="7" name="SZEDLN" nullable="false" originalLength="7" pattern="" precision="3" sourceType="INT" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Type document EDI" key="false" length="2" name="SZEDCT" nullable="false" originalLength="7" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Type Transaction" key="false" length="8" name="SZTYTN" nullable="false" originalLength="8" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Format Conversion" key="false" length="10" name="SZEDFT" nullable="false" originalLength="10" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="Date Transmission EDI" defaultValue="" key="false" length="6" name="SZEDDT" nullable="false" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
+      <column comment="Date Transmission EDI" defaultValue="" key="false" length="6" name="SZEDDT" nullable="false" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Indic. Direction" key="false" length="1" name="SZDRIN" nullable="false" originalLength="1" pattern="" precision="-1" sourceType="CHAR" type="id_String" usefulColumn="true"/>
-      <column comment="Nbre Lignes Traitées" defaultValue="" key="false" length="5" name="SZEDDL" nullable="false" originalLength="5" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
+      <column comment="Nbre Lignes Traitées" defaultValue="" key="false" length="5" name="SZEDDL" nullable="false" originalLength="5" pattern="" precision="0" sourceType="INT" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Traitement EDI Réussi" key="false" length="1" name="SZEDSP" nullable="false" originalLength="1" pattern="" precision="-1" sourceType="CHAR" type="id_String" usefulColumn="true"/>
       <column comment="Code Partenaire Commercial" key="false" length="15" name="SZPNID" nullable="false" originalLength="15" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Action Transaction" key="false" length="2" name="SZTNAC" nullable="false" originalLength="2" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Code traitement" key="false" length="1" name="SZYST" nullable="false" originalLength="1" pattern="" precision="-1" sourceType="CHAR" type="id_String" usefulColumn="true"/>
-      <column comment="N° Document" defaultValue="" key="false" length="8" name="SZDOCO" nullable="false" originalLength="8" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
+      <column comment="N° Document" defaultValue="" key="false" length="8" name="SZDOCO" nullable="false" originalLength="8" pattern="" precision="0" sourceType="INT" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Type Document" key="false" length="2" name="SZDCTO" nullable="false" originalLength="2" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="N° Référence" defaultValue="" key="false" length="8" name="SZAN8" nullable="false" originalLength="8" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
-      <column comment="N° Transaction" defaultValue="" key="false" length="9" name="SZPRTR" nullable="false" originalLength="9" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
+      <column comment="N° Référence" defaultValue="" key="false" length="8" name="SZAN8" nullable="false" originalLength="8" pattern="" precision="0" sourceType="INT" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="N° Transaction" defaultValue="" key="false" length="9" name="SZPRTR" nullable="false" originalLength="9" pattern="" precision="0" sourceType="INT" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="N° Article" defaultValue="" key="false" length="8" name="SZKIT" nullable="false" originalLength="8" pattern="" precision="0" sourceType="INT" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Code Article" key="false" length="25" name="SZKITL" nullable="false" originalLength="25" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="3è Code Article" key="false" length="25" name="SZKITA" nullable="false" originalLength="25" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Magasin (*RAB)" key="false" length="12" name="SZMMCU" nullable="false" originalLength="12" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Centre de Coût (*RAB)" key="false" length="12" name="SZMCU" nullable="false" originalLength="12" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="N° Opération" defaultValue="" key="false" length="5" name="SZOPSQ" nullable="false" originalLength="5" pattern="" precision="2" sourceType="FLOAT" type="id_Integer" usefulColumn="true"/>
+      <column comment="N° Opération" defaultValue="" key="false" length="5" name="SZOPSQ" nullable="false" originalLength="5" pattern="" precision="2" sourceType="FLOAT" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Statut Opération" key="false" length="2" name="SZOPST" nullable="false" originalLength="2" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Type Heures" key="false" length="1" name="SZTYR" nullable="false" originalLength="1" pattern="&quot;dd-MM-yyyy&quot;" precision="-1" sourceType="CHAR" type="id_String" usefulColumn="true"/>
       <column comment="Description Article" key="false" length="30" name="SZEXR" nullable="false" originalLength="30" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="N° Lot" key="false" length="8" name="SZICU" nullable="false" originalLength="8" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
+      <column comment="N° Lot" key="false" length="8" name="SZICU" nullable="false" originalLength="8" pattern="" precision="0" sourceType="INT" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Type Document" key="false" length="2" name="SZDCT" nullable="false" originalLength="2" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="Date G/L" key="false" length="6" name="SZDGL" nullable="false" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
-      <column comment="Date Début Pointage" key="false" length="6" name="SZPBDT" nullable="false" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
-      <column comment="Heure Début " defaultValue="" key="false" length="6" name="SZPBTM" nullable="false" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
-      <column comment="Heure Fin" defaultValue="" key="false" length="6" name="SZPETM" nullable="false" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
+      <column comment="Date G/L" key="false" length="6" name="SZDGL" nullable="false" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Date Début Pointage" key="false" length="6" name="SZPBDT" nullable="false" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Heure Début " defaultValue="" key="false" length="6" name="SZPBTM" nullable="false" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Heure Fin" defaultValue="" key="false" length="6" name="SZPETM" nullable="false" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Code Equipe" key="false" length="1" name="SZSHFT" nullable="false" originalLength="1" pattern="" precision="-1" sourceType="CHAR" type="id_String" usefulColumn="true"/>
       <column comment="ID Immobilsation" key="false" length="12" name="SZAPID" nullable="false" originalLength="12" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="Taux Facturation" defaultValue="" key="false" length="15" name="SZEBRT" nullable="false" originalLength="15" pattern="" precision="2" sourceType="FLOAT" type="id_Float" usefulColumn="true"/>
-      <column comment="Taux Horaire" defaultValue="" key="false" length="15" name="SZHRT" nullable="false" originalLength="15" pattern="" precision="2" sourceType="FLOAT" type="id_Float" usefulColumn="true"/>
+      <column comment="Taux Facturation" defaultValue="" key="false" length="15" name="SZEBRT" nullable="false" originalLength="15" pattern="" precision="2" sourceType="FLOAT" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Taux Horaire" defaultValue="" key="false" length="15" name="SZHRT" nullable="false" originalLength="15" pattern="" precision="2" sourceType="FLOAT" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Heures de Travail" defaultValue="" key="false" length="15" name="SZHRW" nullable="false" originalLength="15" pattern="" precision="2" sourceType="FLOAT" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="Heures Equipement" defaultValue="" key="false" length="15" name="SZHREQ" nullable="false" originalLength="15" pattern="" precision="2" sourceType="FLOAT" type="id_Float" usefulColumn="true"/>
-      <column comment="Rém. Brute" key="false" length="15" name="SZGPAY" nullable="false" originalLength="15" pattern="" precision="2" sourceType="" type="id_Float" usefulColumn="true"/>
-      <column comment="Paie Brute" defaultValue="" key="false" length="15" name="SZEPAY" nullable="false" originalLength="15" pattern="" precision="2" sourceType="FLOAT" type="id_Float" usefulColumn="true"/>
-      <column comment="Quantité Expédiée" defaultValue="" key="false" length="15" name="SZSOQS" nullable="false" originalLength="15" pattern="" precision="4" sourceType="FLOAT" type="id_Long" usefulColumn="true"/>
-      <column comment="Quantité Annulée" defaultValue="" key="false" length="15" name="SZSOCN" nullable="false" originalLength="15" pattern="" precision="4" sourceType="FLOAT" type="id_Long" usefulColumn="true"/>
+      <column comment="Heures Equipement" defaultValue="" key="false" length="15" name="SZHREQ" nullable="false" originalLength="15" pattern="" precision="2" sourceType="FLOAT" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Rém. Brute" key="false" length="15" name="SZGPAY" nullable="false" originalLength="15" pattern="" precision="2" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Paie Brute" defaultValue="" key="false" length="15" name="SZEPAY" nullable="false" originalLength="15" pattern="" precision="2" sourceType="FLOAT" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Quantité Expédiée" defaultValue="" key="false" length="15" name="SZSOQS" nullable="false" originalLength="15" pattern="" precision="4" sourceType="FLOAT" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Quantité Annulée" defaultValue="" key="false" length="15" name="SZSOCN" nullable="false" originalLength="15" pattern="" precision="4" sourceType="FLOAT" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Unité Mesure" key="false" length="2" name="SZUOM" nullable="false" originalLength="2" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Enr. de résumé" key="false" length="1" name="SZSUMR" nullable="false" originalLength="1" pattern="" precision="-1" sourceType="CHAR" type="id_String" usefulColumn="true"/>
-      <column comment="Code clé Unique" defaultValue="" key="false" length="15" name="SZUKID" nullable="false" originalLength="15" pattern="" precision="0" sourceType="NUMBER" type="id_Long" usefulColumn="true"/>
-      <column comment="Temps Standard" defaultValue="" key="false" length="15" name="SZSTH" nullable="false" originalLength="15" pattern="" precision="2" sourceType="FLOAT" type="id_Float" usefulColumn="true"/>
+      <column comment="Code clé Unique" defaultValue="" key="false" length="15" name="SZUKID" nullable="false" originalLength="15" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Temps Standard" defaultValue="" key="false" length="15" name="SZSTH" nullable="false" originalLength="15" pattern="" precision="2" sourceType="FLOAT" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Code Chaîne de Production" key="false" length="12" name="SZLINE" nullable="false" originalLength="12" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Code Motif" key="false" length="3" name="SZRCD" nullable="false" originalLength="3" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Code réservé utilisateur" key="false" length="2" name="SZURCD" nullable="false" originalLength="2" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
@@ -552,64 +552,64 @@
       <column comment="Code utilisateur" key="false" length="10" name="SZUSER" nullable="false" originalLength="10" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Code programme" key="false" length="10" name="SZPID" nullable="false" originalLength="10" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Code poste de travail" key="false" length="10" name="SZJOBN" nullable="false" originalLength="10" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="Date mise à jour" key="false" length="6" name="SZUPMJ" nullable="false" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
-      <column comment="Heure mise à jour" defaultValue="" key="false" length="6" name="SZTDAY" nullable="false" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
-      <column comment="N° immobilisation" defaultValue="" key="false" length="8" name="SZNUMB" nullable="false" originalLength="8" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
+      <column comment="Date mise à jour" key="false" length="6" name="SZUPMJ" nullable="false" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Heure mise à jour" defaultValue="" key="false" length="6" name="SZTDAY" nullable="false" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="N° immobilisation" defaultValue="" key="false" length="8" name="SZNUMB" nullable="false" originalLength="8" pattern="" precision="0" sourceType="INT" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Code activité compta analytique" key="false" length="10" name="SZACTB" nullable="false" originalLength="10" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Source des heures" key="false" length="1" name="SZSOHR" nullable="false" originalLength="1" pattern="" precision="-1" sourceType="CHAR" type="id_String" usefulColumn="true"/>
       <column comment="Source des taux" key="false" length="1" name="SZSORE" nullable="false" originalLength="1" pattern="" precision="-1" sourceType="CHAR" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
       <outputTables name="F31122Z1" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="&quot;QUARTIS&quot;" name="SZEDUS" type="id_String"/>
         <mapperTableEntries expression="(String)globalMap.get(&quot;JobTimeStamp&quot;)" name="SZEDBT" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="SZEDTN" type="id_String"/>
-        <mapperTableEntries expression="Numeric.sequence(&quot;9&quot;,1,1)" name="SZEDLN" type="id_Integer"/>
+        <mapperTableEntries expression="Numeric.sequence(&quot;9&quot;,1,1)" name="SZEDLN" type="id_BigDecimal"/>
         <mapperTableEntries expression="&quot; &quot;" name="SZEDCT" type="id_String"/>
         <mapperTableEntries expression="&quot;JDEHQ&quot;" name="SZTYTN" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="SZEDFT" type="id_String"/>
-        <mapperTableEntries expression="(int)globalMap.get(&quot;JobDate&quot;)" name="SZEDDT" type="id_Integer"/>
+        <mapperTableEntries expression="new BigDecimal((int)globalMap.get(&quot;JobDate&quot;))" name="SZEDDT" type="id_BigDecimal"/>
         <mapperTableEntries expression="&quot;1&quot;" name="SZDRIN" type="id_String"/>
-        <mapperTableEntries expression="0" name="SZEDDL" type="id_Integer"/>
+        <mapperTableEntries expression="0" name="SZEDDL" type="id_BigDecimal"/>
         <mapperTableEntries expression="&quot; &quot;" name="SZEDSP" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="SZPNID" type="id_String"/>
         <mapperTableEntries expression="&quot;A&quot;" name="SZTNAC" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="SZYST" type="id_String"/>
-        <mapperTableEntries expression="Quartis.DOCO " name="SZDOCO" type="id_Integer"/>
+        <mapperTableEntries expression="Quartis.DOCO " name="SZDOCO" type="id_BigDecimal"/>
         <mapperTableEntries expression="F3112.WLDCTO " name="SZDCTO" type="id_String"/>
-        <mapperTableEntries expression="Quartis.AN8 " name="SZAN8" type="id_Integer"/>
-        <mapperTableEntries expression="" name="SZPRTR" type="id_Integer"/>
+        <mapperTableEntries expression="Quartis.AN8 " name="SZAN8" type="id_BigDecimal"/>
+        <mapperTableEntries expression="" name="SZPRTR" type="id_BigDecimal"/>
         <mapperTableEntries expression="F3112.WLKIT " name="SZKIT" type="id_BigDecimal"/>
         <mapperTableEntries expression="F3112.WLKITL " name="SZKITL" type="id_String"/>
         <mapperTableEntries expression="" name="SZKITA" type="id_String"/>
         <mapperTableEntries expression="Quartis.MMCU " name="SZMMCU" type="id_String"/>
         <mapperTableEntries expression="F3112.WLMCU " name="SZMCU" type="id_String"/>
-        <mapperTableEntries expression="Quartis.OPSQ " name="SZOPSQ" type="id_Integer"/>
+        <mapperTableEntries expression="Quartis.OPSQ " name="SZOPSQ" type="id_BigDecimal"/>
         <mapperTableEntries name="SZOPST" type="id_String"/>
         <mapperTableEntries expression="Quartis.TYR " name="SZTYR" type="id_String"/>
         <mapperTableEntries expression="F3112.IMDSC1 " name="SZEXR" type="id_String"/>
-        <mapperTableEntries name="SZICU" type="id_Integer"/>
+        <mapperTableEntries name="SZICU" type="id_BigDecimal"/>
         <mapperTableEntries name="SZDCT" type="id_String"/>
-        <mapperTableEntries expression="Quartis.DGL " name="SZDGL" type="id_Integer"/>
-        <mapperTableEntries name="SZPBDT" type="id_Integer"/>
-        <mapperTableEntries name="SZPBTM" type="id_Integer"/>
-        <mapperTableEntries name="SZPETM" type="id_Integer"/>
+        <mapperTableEntries expression="Quartis.DGL " name="SZDGL" type="id_BigDecimal"/>
+        <mapperTableEntries name="SZPBDT" type="id_BigDecimal"/>
+        <mapperTableEntries name="SZPBTM" type="id_BigDecimal"/>
+        <mapperTableEntries name="SZPETM" type="id_BigDecimal"/>
         <mapperTableEntries name="SZSHFT" type="id_String"/>
         <mapperTableEntries name="SZAPID" type="id_String"/>
-        <mapperTableEntries name="SZEBRT" type="id_Float"/>
-        <mapperTableEntries name="SZHRT" type="id_Float"/>
+        <mapperTableEntries name="SZEBRT" type="id_BigDecimal"/>
+        <mapperTableEntries name="SZHRT" type="id_BigDecimal"/>
         <mapperTableEntries expression="Quartis.HRW " name="SZHRW" type="id_BigDecimal"/>
-        <mapperTableEntries name="SZHREQ" type="id_Float"/>
-        <mapperTableEntries expression="" name="SZGPAY" type="id_Float"/>
-        <mapperTableEntries name="SZEPAY" type="id_Float"/>
-        <mapperTableEntries expression="Math.round(Quartis.SOQS * 10000) " name="SZSOQS" type="id_Long"/>
-        <mapperTableEntries expression="Math.round(Quartis.SOCN * 10000)" name="SZSOCN" type="id_Long"/>
+        <mapperTableEntries name="SZHREQ" type="id_BigDecimal"/>
+        <mapperTableEntries expression="" name="SZGPAY" type="id_BigDecimal"/>
+        <mapperTableEntries name="SZEPAY" type="id_BigDecimal"/>
+        <mapperTableEntries expression="Quartis.SOQS " name="SZSOQS" type="id_BigDecimal"/>
+        <mapperTableEntries expression="Quartis.SOCN" name="SZSOCN" type="id_BigDecimal"/>
         <mapperTableEntries expression="" name="SZUOM" type="id_String"/>
         <mapperTableEntries expression="" name="SZSUMR" type="id_String"/>
-        <mapperTableEntries expression="" name="SZUKID" type="id_Long"/>
-        <mapperTableEntries name="SZSTH" type="id_Float"/>
+        <mapperTableEntries expression="" name="SZUKID" type="id_BigDecimal"/>
+        <mapperTableEntries expression="" name="SZSTH" type="id_BigDecimal"/>
         <mapperTableEntries name="SZLINE" type="id_String"/>
         <mapperTableEntries expression="Quartis.RCD " name="SZRCD" type="id_String"/>
         <mapperTableEntries expression="" name="SZURCD" type="id_String"/>
@@ -621,33 +621,33 @@
         <mapperTableEntries expression="&quot;INTERFACE&quot;" name="SZUSER" type="id_String"/>
         <mapperTableEntries expression="" name="SZPID" type="id_String"/>
         <mapperTableEntries expression="&quot;TALEND&quot;" name="SZJOBN" type="id_String"/>
-        <mapperTableEntries expression="(int)globalMap.get(&quot;JobDate&quot;)" name="SZUPMJ" type="id_Integer"/>
-        <mapperTableEntries expression="(int)globalMap.get(&quot;JobTime&quot;)" name="SZTDAY" type="id_Integer"/>
-        <mapperTableEntries name="SZNUMB" type="id_Integer"/>
+        <mapperTableEntries expression="new BigDecimal((int)globalMap.get(&quot;JobDate&quot;))" name="SZUPMJ" type="id_BigDecimal"/>
+        <mapperTableEntries expression="new BigDecimal((int)globalMap.get(&quot;JobTime&quot;))" name="SZTDAY" type="id_BigDecimal"/>
+        <mapperTableEntries name="SZNUMB" type="id_BigDecimal"/>
         <mapperTableEntries name="SZACTB" type="id_String"/>
         <mapperTableEntries expression="&quot;Q&quot;" name="SZSOHR" type="id_String"/>
         <mapperTableEntries name="SZSORE" type="id_String"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Quartis" sizeState="INTERMEDIATE">
         <mapperTableEntries name="MMCU" type="id_String"/>
-        <mapperTableEntries name="AN8" type="id_Integer"/>
-        <mapperTableEntries name="DGL" type="id_Integer"/>
-        <mapperTableEntries name="DOCO" type="id_Integer"/>
-        <mapperTableEntries name="OPSQ" type="id_Integer"/>
+        <mapperTableEntries name="AN8" type="id_BigDecimal"/>
+        <mapperTableEntries name="DGL" type="id_BigDecimal"/>
+        <mapperTableEntries name="DOCO" type="id_BigDecimal"/>
+        <mapperTableEntries name="OPSQ" type="id_BigDecimal"/>
         <mapperTableEntries name="TYR" type="id_String"/>
         <mapperTableEntries name="HRW" type="id_BigDecimal"/>
-        <mapperTableEntries name="SOQS" type="id_Double"/>
-        <mapperTableEntries name="SOCN" type="id_Double"/>
+        <mapperTableEntries name="SOQS" type="id_BigDecimal"/>
+        <mapperTableEntries name="SOCN" type="id_BigDecimal"/>
         <mapperTableEntries name="RCD" type="id_String"/>
         <mapperTableEntries name="URRF" type="id_String"/>
       </inputTables>
       <inputTables activateCondensedTool="true" innerJoin="true" lookupMode="RELOAD" matchingMode="ALL_MATCHES" name="F3112" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="Quartis.DOCO " name="WLDOCO" operator="=" type="id_Integer"/>
-        <mapperTableEntries expression="Quartis.OPSQ " name="WLOPSQ" operator="=" type="id_Integer"/>
+        <mapperTableEntries expression="Quartis.DOCO " name="WLDOCO" operator="=" type="id_BigDecimal"/>
+        <mapperTableEntries expression="Quartis.OPSQ " name="WLOPSQ" operator="=" type="id_BigDecimal"/>
         <mapperTableEntries name="WLDCTO" nullable="true" type="id_String"/>
         <mapperTableEntries name="WLKIT" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries name="WLKITL" nullable="true" type="id_String"/>
-        <mapperTableEntries name="WLMCU" type="id_String"/>
+        <mapperTableEntries name="WLMCU" nullable="true" type="id_String"/>
         <mapperTableEntries name="IMDSC1" nullable="true" type="id_String"/>
         <globalMapKeysValues expression="Quartis.DOCO" name="&quot;Quartis.DOCO&quot;"/>
         <globalMapKeysValues expression="Quartis.OPSQ" name="&quot;Quartis.OPSQ&quot;"/>
@@ -1030,50 +1030,50 @@
       <column comment="Utilisateur EDI" key="true" length="10" name="SZEDUS" nullable="false" originalLength="10" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="N° Lot EDI" key="true" length="15" name="SZEDBT" nullable="false" originalLength="15" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="N° Transaction EDI" key="true" length="22" name="SZEDTN" nullable="false" originalLength="22" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="N° Ligne EDI" defaultValue="" key="true" length="7" name="SZEDLN" nullable="false" originalLength="7" pattern="" precision="3" sourceType="INT" type="id_Integer" usefulColumn="true"/>
+      <column comment="N° Ligne EDI" defaultValue="" key="true" length="7" name="SZEDLN" nullable="false" originalLength="7" pattern="" precision="3" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Type document EDI" key="false" length="2" name="SZEDCT" nullable="false" originalLength="7" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Type Transaction" key="false" length="8" name="SZTYTN" nullable="false" originalLength="8" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Format Conversion" key="false" length="10" name="SZEDFT" nullable="false" originalLength="10" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="Date Transmission EDI" defaultValue="" key="false" length="6" name="SZEDDT" nullable="false" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
+      <column comment="Date Transmission EDI" defaultValue="" key="false" length="6" name="SZEDDT" nullable="false" originalLength="6" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Indic. Direction" key="false" length="1" name="SZDRIN" nullable="false" originalLength="1" pattern="" precision="-1" sourceType="CHAR" type="id_String" usefulColumn="true"/>
-      <column comment="Nbre Lignes Traitées" defaultValue="" key="false" length="5" name="SZEDDL" nullable="false" originalLength="5" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
+      <column comment="Nbre Lignes Traitées" defaultValue="" key="false" length="5" name="SZEDDL" nullable="false" originalLength="5" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Traitement EDI Réussi" key="false" length="1" name="SZEDSP" nullable="false" originalLength="1" pattern="" precision="-1" sourceType="CHAR" type="id_String" usefulColumn="true"/>
       <column comment="Code Partenaire Commercial" key="false" length="15" name="SZPNID" nullable="false" originalLength="15" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Action Transaction" key="false" length="2" name="SZTNAC" nullable="false" originalLength="2" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Code traitement" key="false" length="1" name="SZYST" nullable="false" originalLength="1" pattern="" precision="-1" sourceType="CHAR" type="id_String" usefulColumn="true"/>
-      <column comment="N° Document" defaultValue="" key="false" length="8" name="SZDOCO" nullable="false" originalLength="8" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
+      <column comment="N° Document" defaultValue="" key="false" length="8" name="SZDOCO" nullable="false" originalLength="8" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Type Document" key="false" length="2" name="SZDCTO" nullable="false" originalLength="2" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="N° Référence" defaultValue="" key="false" length="8" name="SZAN8" nullable="false" originalLength="8" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
-      <column comment="N° Transaction" defaultValue="" key="false" length="9" name="SZPRTR" nullable="false" originalLength="9" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
+      <column comment="N° Référence" defaultValue="" key="false" length="8" name="SZAN8" nullable="false" originalLength="8" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="N° Transaction" defaultValue="" key="false" length="9" name="SZPRTR" nullable="false" originalLength="9" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="N° Article" defaultValue="" key="false" length="8" name="SZKIT" nullable="false" originalLength="8" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Code Article" key="false" length="25" name="SZKITL" nullable="false" originalLength="25" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="3è Code Article" key="false" length="25" name="SZKITA" nullable="false" originalLength="25" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Magasin (*RAB)" key="false" length="12" name="SZMMCU" nullable="false" originalLength="12" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Centre de Coût (*RAB)" key="false" length="12" name="SZMCU" nullable="false" originalLength="12" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="N° Opération" defaultValue="" key="false" length="5" name="SZOPSQ" nullable="false" originalLength="5" pattern="" precision="2" sourceType="INT" type="id_Integer" usefulColumn="true"/>
+      <column comment="N° Opération" defaultValue="" key="false" length="5" name="SZOPSQ" nullable="false" originalLength="5" pattern="" precision="2" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Statut Opération" key="false" length="2" name="SZOPST" nullable="false" originalLength="2" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Type Heures" key="false" length="1" name="SZTYR" nullable="false" originalLength="1" pattern="&quot;dd-MM-yyyy&quot;" precision="-1" sourceType="CHAR" type="id_String" usefulColumn="true"/>
       <column comment="Description Article" key="false" length="30" name="SZEXR" nullable="false" originalLength="30" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="N° Lot" key="false" length="8" name="SZICU" nullable="false" originalLength="8" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
+      <column comment="N° Lot" key="false" length="8" name="SZICU" nullable="false" originalLength="8" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Type Document" key="false" length="2" name="SZDCT" nullable="false" originalLength="2" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="Date G/L" key="false" length="6" name="SZDGL" nullable="false" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
-      <column comment="Date Début Pointage" key="false" length="6" name="SZPBDT" nullable="false" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
-      <column comment="Heure Début " defaultValue="" key="false" length="6" name="SZPBTM" nullable="false" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
-      <column comment="Heure Fin" defaultValue="" key="false" length="6" name="SZPETM" nullable="false" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
+      <column comment="Date G/L" key="false" length="6" name="SZDGL" nullable="false" originalLength="6" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Date Début Pointage" key="false" length="6" name="SZPBDT" nullable="false" originalLength="6" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Heure Début " defaultValue="" key="false" length="6" name="SZPBTM" nullable="false" originalLength="6" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Heure Fin" defaultValue="" key="false" length="6" name="SZPETM" nullable="false" originalLength="6" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Code Equipe" key="false" length="1" name="SZSHFT" nullable="false" originalLength="1" pattern="" precision="-1" sourceType="CHAR" type="id_String" usefulColumn="true"/>
       <column comment="ID Immobilsation" key="false" length="12" name="SZAPID" nullable="false" originalLength="12" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="Taux Facturation" defaultValue="" key="false" length="15" name="SZEBRT" nullable="false" originalLength="15" pattern="" precision="2" sourceType="FLOAT" type="id_Float" usefulColumn="true"/>
-      <column comment="Taux Horaire" defaultValue="" key="false" length="15" name="SZHRT" nullable="false" originalLength="15" pattern="" precision="2" sourceType="FLOAT" type="id_Float" usefulColumn="true"/>
+      <column comment="Taux Facturation" defaultValue="" key="false" length="15" name="SZEBRT" nullable="false" originalLength="15" pattern="" precision="2" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Taux Horaire" defaultValue="" key="false" length="15" name="SZHRT" nullable="false" originalLength="15" pattern="" precision="2" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Heures de Travail" defaultValue="" key="false" length="15" name="SZHRW" nullable="false" originalLength="15" pattern="" precision="2" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="Heures Equipement" defaultValue="" key="false" length="15" name="SZHREQ" nullable="false" originalLength="15" pattern="" precision="2" sourceType="FLOAT" type="id_Float" usefulColumn="true"/>
-      <column comment="Rém. Brute" key="false" length="15" name="SZGPAY" nullable="false" originalLength="15" pattern="" precision="2" sourceType="FLOAT" type="id_Float" usefulColumn="true"/>
-      <column comment="Paie Brute" defaultValue="" key="false" length="15" name="SZEPAY" nullable="false" originalLength="15" pattern="" precision="2" sourceType="FLOAT" type="id_Float" usefulColumn="true"/>
-      <column comment="Quantité Expédiée" defaultValue="" key="false" length="15" name="SZSOQS" nullable="false" originalLength="15" pattern="" precision="4" sourceType="NUMBER" type="id_Long" usefulColumn="true"/>
-      <column comment="Quantité Annulée" defaultValue="" key="false" length="15" name="SZSOCN" nullable="false" originalLength="15" pattern="" precision="4" sourceType="NUMBER" type="id_Long" usefulColumn="true"/>
+      <column comment="Heures Equipement" defaultValue="" key="false" length="15" name="SZHREQ" nullable="false" originalLength="15" pattern="" precision="2" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Rém. Brute" key="false" length="15" name="SZGPAY" nullable="false" originalLength="15" pattern="" precision="2" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Paie Brute" defaultValue="" key="false" length="15" name="SZEPAY" nullable="false" originalLength="15" pattern="" precision="2" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Quantité Expédiée" defaultValue="" key="false" length="15" name="SZSOQS" nullable="false" originalLength="15" pattern="" precision="4" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Quantité Annulée" defaultValue="" key="false" length="15" name="SZSOCN" nullable="false" originalLength="15" pattern="" precision="4" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Unité Mesure" key="false" length="2" name="SZUOM" nullable="false" originalLength="2" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Enr. de résumé" key="false" length="1" name="SZSUMR" nullable="false" originalLength="1" pattern="" precision="-1" sourceType="CHAR" type="id_String" usefulColumn="true"/>
-      <column comment="Code clé Unique" defaultValue="" key="false" length="15" name="SZUKID" nullable="false" originalLength="15" pattern="" precision="0" sourceType="NUMBER" type="id_Long" usefulColumn="true"/>
-      <column comment="Temps Standard" defaultValue="" key="false" length="15" name="SZSTH" nullable="false" originalLength="15" pattern="" precision="2" sourceType="FLOAT" type="id_Float" usefulColumn="true"/>
+      <column comment="Code clé Unique" defaultValue="" key="false" length="15" name="SZUKID" nullable="false" originalLength="15" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Temps Standard" defaultValue="" key="false" length="15" name="SZSTH" nullable="false" originalLength="15" pattern="" precision="2" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Code Chaîne de Production" key="false" length="12" name="SZLINE" nullable="false" originalLength="12" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Code Motif" key="false" length="3" name="SZRCD" nullable="false" originalLength="3" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Code réservé utilisateur" key="false" length="2" name="SZURCD" nullable="false" originalLength="2" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
@@ -1085,9 +1085,9 @@
       <column comment="Code utilisateur" key="false" length="10" name="SZUSER" nullable="false" originalLength="10" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Code programme" key="false" length="10" name="SZPID" nullable="false" originalLength="10" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Code poste de travail" key="false" length="10" name="SZJOBN" nullable="false" originalLength="10" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="Date mise à jour" key="false" length="6" name="SZUPMJ" nullable="false" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
-      <column comment="Heure mise à jour" defaultValue="" key="false" length="6" name="SZTDAY" nullable="false" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
-      <column comment="N° immobilisation" defaultValue="" key="false" length="8" name="SZNUMB" nullable="false" originalLength="8" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
+      <column comment="Date mise à jour" key="false" length="6" name="SZUPMJ" nullable="false" originalLength="6" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Heure mise à jour" defaultValue="" key="false" length="6" name="SZTDAY" nullable="false" originalLength="6" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="N° immobilisation" defaultValue="" key="false" length="8" name="SZNUMB" nullable="false" originalLength="8" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Code activité compta analytique" key="false" length="10" name="SZACTB" nullable="false" originalLength="10" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Source des heures" key="false" length="1" name="SZSOHR" nullable="false" originalLength="1" pattern="" precision="-1" sourceType="CHAR" type="id_String" usefulColumn="true"/>
       <column comment="Source des taux" key="false" length="1" name="SZSORE" nullable="false" originalLength="1" pattern="" precision="-1" sourceType="CHAR" type="id_String" usefulColumn="true"/>
@@ -1096,50 +1096,50 @@
       <column comment="Utilisateur EDI" key="true" length="10" name="SZEDUS" nullable="false" originalLength="10" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="N° Lot EDI" key="true" length="15" name="SZEDBT" nullable="false" originalLength="15" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="N° Transaction EDI" key="true" length="22" name="SZEDTN" nullable="false" originalLength="22" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="N° Ligne EDI" defaultValue="" key="true" length="7" name="SZEDLN" nullable="false" originalLength="7" pattern="" precision="3" sourceType="INT" type="id_Integer" usefulColumn="true"/>
+      <column comment="N° Ligne EDI" defaultValue="" key="true" length="7" name="SZEDLN" nullable="false" originalLength="7" pattern="" precision="3" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Type document EDI" key="false" length="2" name="SZEDCT" nullable="false" originalLength="7" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Type Transaction" key="false" length="8" name="SZTYTN" nullable="false" originalLength="8" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Format Conversion" key="false" length="10" name="SZEDFT" nullable="false" originalLength="10" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="Date Transmission EDI" defaultValue="" key="false" length="6" name="SZEDDT" nullable="false" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
+      <column comment="Date Transmission EDI" defaultValue="" key="false" length="6" name="SZEDDT" nullable="false" originalLength="6" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Indic. Direction" key="false" length="1" name="SZDRIN" nullable="false" originalLength="1" pattern="" precision="-1" sourceType="CHAR" type="id_String" usefulColumn="true"/>
-      <column comment="Nbre Lignes Traitées" defaultValue="" key="false" length="5" name="SZEDDL" nullable="false" originalLength="5" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
+      <column comment="Nbre Lignes Traitées" defaultValue="" key="false" length="5" name="SZEDDL" nullable="false" originalLength="5" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Traitement EDI Réussi" key="false" length="1" name="SZEDSP" nullable="false" originalLength="1" pattern="" precision="-1" sourceType="CHAR" type="id_String" usefulColumn="true"/>
       <column comment="Code Partenaire Commercial" key="false" length="15" name="SZPNID" nullable="false" originalLength="15" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Action Transaction" key="false" length="2" name="SZTNAC" nullable="false" originalLength="2" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Code traitement" key="false" length="1" name="SZYST" nullable="false" originalLength="1" pattern="" precision="-1" sourceType="CHAR" type="id_String" usefulColumn="true"/>
-      <column comment="N° Document" defaultValue="" key="false" length="8" name="SZDOCO" nullable="false" originalLength="8" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
+      <column comment="N° Document" defaultValue="" key="false" length="8" name="SZDOCO" nullable="false" originalLength="8" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Type Document" key="false" length="2" name="SZDCTO" nullable="false" originalLength="2" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="N° Référence" defaultValue="" key="false" length="8" name="SZAN8" nullable="false" originalLength="8" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
-      <column comment="N° Transaction" defaultValue="" key="false" length="9" name="SZPRTR" nullable="false" originalLength="9" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
+      <column comment="N° Référence" defaultValue="" key="false" length="8" name="SZAN8" nullable="false" originalLength="8" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="N° Transaction" defaultValue="" key="false" length="9" name="SZPRTR" nullable="false" originalLength="9" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="N° Article" defaultValue="" key="false" length="8" name="SZKIT" nullable="false" originalLength="8" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Code Article" key="false" length="25" name="SZKITL" nullable="false" originalLength="25" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="3è Code Article" key="false" length="25" name="SZKITA" nullable="false" originalLength="25" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Magasin (*RAB)" key="false" length="12" name="SZMMCU" nullable="false" originalLength="12" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Centre de Coût (*RAB)" key="false" length="12" name="SZMCU" nullable="false" originalLength="12" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="N° Opération" defaultValue="" key="false" length="5" name="SZOPSQ" nullable="false" originalLength="5" pattern="" precision="2" sourceType="INT" type="id_Integer" usefulColumn="true"/>
+      <column comment="N° Opération" defaultValue="" key="false" length="5" name="SZOPSQ" nullable="false" originalLength="5" pattern="" precision="2" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Statut Opération" key="false" length="2" name="SZOPST" nullable="false" originalLength="2" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Type Heures" key="false" length="1" name="SZTYR" nullable="false" originalLength="1" pattern="&quot;dd-MM-yyyy&quot;" precision="-1" sourceType="CHAR" type="id_String" usefulColumn="true"/>
       <column comment="Description Article" key="false" length="30" name="SZEXR" nullable="false" originalLength="30" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="N° Lot" key="false" length="8" name="SZICU" nullable="false" originalLength="8" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
+      <column comment="N° Lot" key="false" length="8" name="SZICU" nullable="false" originalLength="8" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Type Document" key="false" length="2" name="SZDCT" nullable="false" originalLength="2" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="Date G/L" key="false" length="6" name="SZDGL" nullable="false" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
-      <column comment="Date Début Pointage" key="false" length="6" name="SZPBDT" nullable="false" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
-      <column comment="Heure Début " defaultValue="" key="false" length="6" name="SZPBTM" nullable="false" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
-      <column comment="Heure Fin" defaultValue="" key="false" length="6" name="SZPETM" nullable="false" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
+      <column comment="Date G/L" key="false" length="6" name="SZDGL" nullable="false" originalLength="6" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Date Début Pointage" key="false" length="6" name="SZPBDT" nullable="false" originalLength="6" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Heure Début " defaultValue="" key="false" length="6" name="SZPBTM" nullable="false" originalLength="6" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Heure Fin" defaultValue="" key="false" length="6" name="SZPETM" nullable="false" originalLength="6" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Code Equipe" key="false" length="1" name="SZSHFT" nullable="false" originalLength="1" pattern="" precision="-1" sourceType="CHAR" type="id_String" usefulColumn="true"/>
       <column comment="ID Immobilsation" key="false" length="12" name="SZAPID" nullable="false" originalLength="12" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="Taux Facturation" defaultValue="" key="false" length="15" name="SZEBRT" nullable="false" originalLength="15" pattern="" precision="2" sourceType="FLOAT" type="id_Float" usefulColumn="true"/>
-      <column comment="Taux Horaire" defaultValue="" key="false" length="15" name="SZHRT" nullable="false" originalLength="15" pattern="" precision="2" sourceType="FLOAT" type="id_Float" usefulColumn="true"/>
+      <column comment="Taux Facturation" defaultValue="" key="false" length="15" name="SZEBRT" nullable="false" originalLength="15" pattern="" precision="2" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Taux Horaire" defaultValue="" key="false" length="15" name="SZHRT" nullable="false" originalLength="15" pattern="" precision="2" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Heures de Travail" defaultValue="" key="false" length="15" name="SZHRW" nullable="false" originalLength="15" pattern="" precision="2" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="Heures Equipement" defaultValue="" key="false" length="15" name="SZHREQ" nullable="false" originalLength="15" pattern="" precision="2" sourceType="FLOAT" type="id_Float" usefulColumn="true"/>
-      <column comment="Rém. Brute" key="false" length="15" name="SZGPAY" nullable="false" originalLength="15" pattern="" precision="2" sourceType="FLOAT" type="id_Float" usefulColumn="true"/>
-      <column comment="Paie Brute" defaultValue="" key="false" length="15" name="SZEPAY" nullable="false" originalLength="15" pattern="" precision="2" sourceType="FLOAT" type="id_Float" usefulColumn="true"/>
-      <column comment="Quantité Expédiée" defaultValue="" key="false" length="15" name="SZSOQS" nullable="false" originalLength="15" pattern="" precision="4" sourceType="NUMBER" type="id_Long" usefulColumn="true"/>
-      <column comment="Quantité Annulée" defaultValue="" key="false" length="15" name="SZSOCN" nullable="false" originalLength="15" pattern="" precision="4" sourceType="NUMBER" type="id_Long" usefulColumn="true"/>
+      <column comment="Heures Equipement" defaultValue="" key="false" length="15" name="SZHREQ" nullable="false" originalLength="15" pattern="" precision="2" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Rém. Brute" key="false" length="15" name="SZGPAY" nullable="false" originalLength="15" pattern="" precision="2" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Paie Brute" defaultValue="" key="false" length="15" name="SZEPAY" nullable="false" originalLength="15" pattern="" precision="2" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Quantité Expédiée" defaultValue="" key="false" length="15" name="SZSOQS" nullable="false" originalLength="15" pattern="" precision="4" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Quantité Annulée" defaultValue="" key="false" length="15" name="SZSOCN" nullable="false" originalLength="15" pattern="" precision="4" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Unité Mesure" key="false" length="2" name="SZUOM" nullable="false" originalLength="2" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Enr. de résumé" key="false" length="1" name="SZSUMR" nullable="false" originalLength="1" pattern="" precision="-1" sourceType="CHAR" type="id_String" usefulColumn="true"/>
-      <column comment="Code clé Unique" defaultValue="" key="false" length="15" name="SZUKID" nullable="false" originalLength="15" pattern="" precision="0" sourceType="NUMBER" type="id_Long" usefulColumn="true"/>
-      <column comment="Temps Standard" defaultValue="" key="false" length="15" name="SZSTH" nullable="false" originalLength="15" pattern="" precision="2" sourceType="FLOAT" type="id_Float" usefulColumn="true"/>
+      <column comment="Code clé Unique" defaultValue="" key="false" length="15" name="SZUKID" nullable="false" originalLength="15" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Temps Standard" defaultValue="" key="false" length="15" name="SZSTH" nullable="false" originalLength="15" pattern="" precision="2" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Code Chaîne de Production" key="false" length="12" name="SZLINE" nullable="false" originalLength="12" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Code Motif" key="false" length="3" name="SZRCD" nullable="false" originalLength="3" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Code réservé utilisateur" key="false" length="2" name="SZURCD" nullable="false" originalLength="2" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
@@ -1151,9 +1151,9 @@
       <column comment="Code utilisateur" key="false" length="10" name="SZUSER" nullable="false" originalLength="10" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Code programme" key="false" length="10" name="SZPID" nullable="false" originalLength="10" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Code poste de travail" key="false" length="10" name="SZJOBN" nullable="false" originalLength="10" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="Date mise à jour" key="false" length="6" name="SZUPMJ" nullable="false" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
-      <column comment="Heure mise à jour" defaultValue="" key="false" length="6" name="SZTDAY" nullable="false" originalLength="6" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
-      <column comment="N° immobilisation" defaultValue="" key="false" length="8" name="SZNUMB" nullable="false" originalLength="8" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true"/>
+      <column comment="Date mise à jour" key="false" length="6" name="SZUPMJ" nullable="false" originalLength="6" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Heure mise à jour" defaultValue="" key="false" length="6" name="SZTDAY" nullable="false" originalLength="6" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="N° immobilisation" defaultValue="" key="false" length="8" name="SZNUMB" nullable="false" originalLength="8" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="Code activité compta analytique" key="false" length="10" name="SZACTB" nullable="false" originalLength="10" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="Source des heures" key="false" length="1" name="SZSOHR" nullable="false" originalLength="1" pattern="" precision="-1" sourceType="CHAR" type="id_String" usefulColumn="true"/>
       <column comment="Source des taux" key="false" length="1" name="SZSORE" nullable="false" originalLength="1" pattern="" precision="-1" sourceType="CHAR" type="id_String" usefulColumn="true"/>
@@ -1229,13 +1229,13 @@
     <elementParameter field="TEXT" name="LABEL" value="F3112"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tDBInput_1">
-      <column comment="N° Document (OF)" defaultValue="" key="false" length="0" name="WLDOCO" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
-      <column comment="N° Opération" defaultValue="" key="false" length="0" name="WLOPSQ" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
-      <column comment="Type de document" key="false" length="2" name="WLDCTO" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="N° Article" defaultValue="" key="false" length="0" name="WLKIT" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="Code Article Lalique" key="false" length="25" name="WLKITL" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="Centre de Coût" key="false" length="12" name="WLMCU" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="Description Article" key="false" length="30" name="IMDSC1" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="N° Document (OF)" defaultValue="" key="false" length="8" name="WLDOCO" nullable="false" originalLength="8" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="N° Opération" defaultValue="" key="false" length="5" name="WLOPSQ" nullable="false" originalLength="5" pattern="" precision="2" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Type de document" key="false" length="2" name="WLDCTO" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="N° Article" defaultValue="" key="false" length="8" name="WLKIT" nullable="true" originalLength="8" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Code Article Lalique" key="false" length="25" name="WLKITL" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="Centre de Coût" key="false" length="12" name="WLMCU" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="Description Article" key="false" length="30" name="IMDSC1" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="256" posY="352">
@@ -1742,13 +1742,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_96811aca-7c5f-4d29-8ad0-dbb455c34c2b"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>zp9CBLd5O5ogjOcBNT4DXTAXEQHaszfDoqlVLZIfBt5j6z23+X4UmbgvOsFvSirNWzKY8nNy8Psg
-5i8WByVsqA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_113ad05e-0d03-47ce-9224-c42fef3d7c7c"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Djz0ak/yP5K1ixCHelc2WD8X/NpJ/tEt7TyeAX+1o5vZfJ2PYL1BGBb1Fhonl0CicBIicuKnF9qb
-ibiBGqZXzQ==</DigestValue></Reference></SignedInfo><SignatureValue>PRziSz7RL020zzxFvhFoC3ca5644m9xfqog+h3WPf2R8rmXB7KK5VhKy04ulwUXq8xvvrdnU8WGg
-TBiv3P0WQozd8x6Vsl0jvEE/MZW8VXUS9nefxVcxpUbOELklutMC/HJgCjRRmvA9EyHv3xxF4foz
-TY3zpw6pa2+oWejWko+E1GH84+TJTiI+HNPTUfmvGV38rYluC8sfk2GEMssAwO1J0C5hy+8V4ZRx
-b6yb7y8C2fX3tzX15U1xLRqljLcD4LlyDmS8U8hTkuHowUDsBvvX399fmSQuTY+LzkmIjsPyuWYk
-Ml1M4V1YNNJsMq6Jhrw2+zvBubg4cZogJTucoQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_770e4229-b13f-4eb8-b083-5d35cbc5fceb"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>DPpu+epDgB8v3b9BOhHqGdrsxv+Mgy6qTrIdO0VUsQTHCA2588N9s3tCtaTwTqX3i2AuUOiQ0ToX
+gQiTiblMtw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_8769bb86-909b-4498-b623-a06781eb1237"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>nRcKbINuxwmIJxOWF4MhQPfP0Ll7EFcHSEvxwh9uP8YnaecW008UHlmXP+LGgV/4gLfVc4ecVne7
+Q1OK19bo8w==</DigestValue></Reference></SignedInfo><SignatureValue>EuNKDVk7f/XWVpXQrYMcGh+PNY0YthG7O1wTdFSAkrZygTWqru2QN5un8FMxubbRrzZc/vqP6WFZ
+onlOT8/NJT26/dBdGLrCOL+TCSp91eOyR2MrYsoQYWX0kd4PwA+iqrwBqvz67seB7R44m0/KP4FU
+ns2ZEMERj7BLz3W0Q0TbZTrfRhg05SnsEy1XPOm4HIFu/XE43UgU4xgUkngQUSNVjjrrDr46rpCR
+cdz8EDvZzME7YHMBXfq/kK0DmimTikXg+vsj9wozxaQSUQIHBF8MfdLxRj13rsl2qBp53iYGeMAD
+4CTeHBjp4+mUb+yIWmvwfVVFkSqdpuoLP1cETA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1770,4 +1770,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_113ad05e-0d03-47ce-9224-c42fef3d7c7c" Target="#_96811aca-7c5f-4d29-8ad0-dbb455c34c2b"><Timestamp>2020-08-20 07:26:35</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_8769bb86-909b-4498-b623-a06781eb1237" Target="#_770e4229-b13f-4eb8-b083-5d35cbc5fceb"><Timestamp>2020-08-20 08:00:17</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
