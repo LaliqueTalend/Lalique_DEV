@@ -453,7 +453,7 @@
         <mapperTableEntries expression="row1.TempsBrut !=0 ? &quot;1&quot; : row1.QteBonne!=0 ? &quot;4&quot; : row1.QteRebut!=0 ? &quot;5&quot; : &quot; &quot; " name="TYR" type="id_String"/>
         <mapperTableEntries expression="StringHandling.TRIM(StringHandling.EREPLACE(row1.Operateur,&quot;WSM&quot;,&quot; &quot;))" name="KY" type="id_String"/>
       </varTables>
-      <outputTables activateExpressionFilter="true" columnNameFilter="" expressionFilter="Var.TYR != &quot; &quot;" minimized="true" name="Quartis" sizeState="INTERMEDIATE">
+      <outputTables activateExpressionFilter="true" columnNameFilter="" expressionFilter="Var.TYR != &quot; &quot;" name="Quartis" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="JDE.stringRAB(row1.Site,12) " name="MMCU" type="id_String"/>
         <mapperTableEntries expression="Integer.parseInt(Var.KY) " name="AN8" type="id_Integer"/>
         <mapperTableEntries expression="JDE.convertToJulian(row1.Date)" name="DGL" type="id_Integer"/>
@@ -603,10 +603,24 @@
       <column comment="Source des heures" key="false" length="1" name="SZSOHR" nullable="true" originalLength="1" pattern="" precision="-1" sourceType="CHAR" type="id_String" usefulColumn="true"/>
       <column comment="Source des taux" key="false" length="1" name="SZSORE" nullable="true" originalLength="1" pattern="" precision="-1" sourceType="CHAR" type="id_String" usefulColumn="true"/>
     </metadata>
+    <metadata connector="FLOW" label="Output" name="Output">
+      <column comment="Code Magasin" key="false" length="12" name="MMCU" nullable="false" originalLength="12" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="N° Employé" key="false" length="8" name="AN8" nullable="false" originalLength="8" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="Date Opération" key="false" length="6" name="DGL" nullable="false" originalLength="6" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="N° OF" key="true" length="8" name="DOCO" nullable="false" originalLength="8" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="N° Opération" key="true" length="5" name="OPSQ" nullable="false" originalLength="5" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="Type Transaction" key="false" length="1" name="TYR" nullable="false" originalLength="1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="Heures de Travail" key="false" length="15" name="HRW" nullable="false" originalLength="15" pattern="" precision="2" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Quantité Bonne" key="false" length="15" name="SOQS" nullable="false" originalLength="15" pattern="" precision="4" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Quantité Rebut" key="false" length="15" name="SOCN" nullable="false" originalLength="15" pattern="" precision="4" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Code Rebut" key="false" length="3" name="RCD" nullable="false" originalLength="3" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="Code Activité" key="false" length="15" name="URRF" nullable="false" originalLength="15" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="N° Employé formaté" key="false" length="8" name="KY" nullable="false" originalLength="8" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
-      <outputTables name="F31122Z1" sizeState="INTERMEDIATE">
+      <outputTables minimized="true" name="F31122Z1" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="&quot;QUARTIS&quot;" name="SZEDUS" type="id_String"/>
         <mapperTableEntries expression="(String)globalMap.get(&quot;JobTimeStamp&quot;)" name="SZEDBT" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="SZEDTN" type="id_String"/>
@@ -671,6 +685,20 @@
         <mapperTableEntries name="SZACTB" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;Q&quot;" name="SZSOHR" nullable="true" type="id_String"/>
         <mapperTableEntries name="SZSORE" nullable="true" type="id_String"/>
+      </outputTables>
+      <outputTables name="Output" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="Quartis.MMCU " name="MMCU" type="id_String"/>
+        <mapperTableEntries expression="Quartis.AN8 " name="AN8" type="id_Integer"/>
+        <mapperTableEntries expression="Quartis.DGL " name="DGL" type="id_Integer"/>
+        <mapperTableEntries expression="Quartis.DOCO " name="DOCO" type="id_Integer"/>
+        <mapperTableEntries expression="Quartis.OPSQ " name="OPSQ" type="id_Integer"/>
+        <mapperTableEntries expression="Quartis.TYR " name="TYR" type="id_String"/>
+        <mapperTableEntries expression="Quartis.HRW " name="HRW" type="id_BigDecimal"/>
+        <mapperTableEntries expression="Quartis.SOQS " name="SOQS" type="id_BigDecimal"/>
+        <mapperTableEntries expression="Quartis.SOCN " name="SOCN" type="id_BigDecimal"/>
+        <mapperTableEntries expression="Quartis.RCD " name="RCD" type="id_String"/>
+        <mapperTableEntries expression="Quartis.URRF " name="URRF" type="id_String"/>
+        <mapperTableEntries expression="Quartis.KY " name="KY" type="id_String"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Quartis" sizeState="INTERMEDIATE">
         <mapperTableEntries name="MMCU" type="id_String"/>
@@ -1437,6 +1465,51 @@
       <column comment="" key="false" length="-1" name="Erreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
+  <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="448" posY="192">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileOutputDelimited_4"/>
+    <elementParameter field="CHECK" name="USESTREAM" value="false"/>
+    <elementParameter field="TEXT" name="STREAMNAME" show="false" value="outputStream"/>
+    <elementParameter field="FILE" name="FILENAME" value="&quot;C:/TOS/TEST_QUARTIS01.TXT&quot;"/>
+    <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
+    <elementParameter field="CHECK" name="OS_LINE_SEPARATOR_AS_ROW_SEPARATOR" show="false" value="true"/>
+    <elementParameter field="OPENED_LIST" name="CSVROWSEPARATOR" show="false" value="&quot;\n&quot;"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;"/>
+    <elementParameter field="CHECK" name="APPEND" value="true"/>
+    <elementParameter field="CHECK" name="INCLUDEHEADER" value="true"/>
+    <elementParameter field="CHECK" name="COMPRESS" show="false" value="false"/>
+    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
+    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" show="false" value="&quot;,&quot;"/>
+    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" show="false" value="&quot;.&quot;"/>
+    <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
+    <elementParameter field="TEXT" name="ESCAPE_CHAR" show="false" value="&quot;&quot;&quot;"/>
+    <elementParameter field="TEXT" name="TEXT_ENCLOSURE" show="false" value="&quot;&quot;&quot;"/>
+    <elementParameter field="CHECK" name="CREATE" value="true"/>
+    <elementParameter field="CHECK" name="SPLIT" value="false"/>
+    <elementParameter field="TEXT" name="SPLIT_EVERY" show="false" value="1000"/>
+    <elementParameter field="CHECK" name="FLUSHONROW" value="false"/>
+    <elementParameter field="TEXT" name="FLUSHONROW_NUM" show="false" value="1"/>
+    <elementParameter field="CHECK" name="ROW_MODE" value="false"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="false"/>
+    <elementParameter field="CHECK" name="FILE_EXIST_EXCEPTION" show="false" value="true"/>
+    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="90"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" label="Output" name="tFileOutputDelimited_4">
+      <column comment="Code Magasin" key="false" length="12" name="MMCU" nullable="false" originalLength="12" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="N° Employé" key="false" length="8" name="AN8" nullable="false" originalLength="8" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="Date Opération" key="false" length="6" name="DGL" nullable="false" originalLength="6" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="N° OF" key="true" length="8" name="DOCO" nullable="false" originalLength="8" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="N° Opération" key="true" length="5" name="OPSQ" nullable="false" originalLength="5" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="Type Transaction" key="false" length="1" name="TYR" nullable="false" originalLength="1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="Heures de Travail" key="false" length="15" name="HRW" nullable="false" originalLength="15" pattern="" precision="2" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Quantité Bonne" key="false" length="15" name="SOQS" nullable="false" originalLength="15" pattern="" precision="4" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Quantité Rebut" key="false" length="15" name="SOCN" nullable="false" originalLength="15" pattern="" precision="4" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="Code Rebut" key="false" length="3" name="RCD" nullable="false" originalLength="3" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="Code Activité" key="false" length="15" name="URRF" nullable="false" originalLength="15" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="N° Employé formaté" key="false" length="8" name="KY" nullable="false" originalLength="8" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
   <node componentName="tDie" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="-64" posY="768">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDie_2"/>
     <elementParameter field="TEXT" name="MESSAGE" value="System.getProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;)"/>
@@ -1756,7 +1829,7 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Rejets"/>
   </connection>
-  <connection connectorName="FLOW" label="F31122Z1" lineStyle="0" metaname="F31122Z1" offsetLabelX="0" offsetLabelY="0" source="tMap_3" target="tDBOutput_1">
+  <connection connectorName="FLOW" label="F31122Z1" lineStyle="0" metaname="F31122Z1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_3" target="tDBOutput_1">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="SZGPAY"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
@@ -1764,6 +1837,10 @@
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F31122Z1"/>
+  </connection>
+  <connection connectorName="FLOW" label="Output" lineStyle="0" metaname="Output" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_3" target="tFileOutputDelimited_4">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Output"/>
   </connection>
   <connection connectorName="FLOW" label="F3112" lineStyle="8" metaname="tDBInput_1" offsetLabelX="0" offsetLabelY="0" source="tDBInput_1" target="tMap_3">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
@@ -1919,13 +1996,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_2c0f90a2-5693-4e41-8dd1-947d93781708"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>sdJdwjRE9u0z15OVBdkG+h0PxkEiCKJZQy8M8w6B/d8ypdKpPosCzSjnc3xcWPZO++zykIc9G3g4
-uE795PLMJQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_d0ce86de-08b3-4769-8bb2-043568f897b2"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>9ehrQrew9fMmWKPruzfMxbsRhNeSw+4ywCvkcC7xQ5fIziXZkFryDX0QRzl4/+W+6gN4tUWV4JNH
-9MPzK2LJmw==</DigestValue></Reference></SignedInfo><SignatureValue>X3gMxXzQF8DWirg0C1ScWOEwGarZHSjFJ6/OMYj5YT9YuXMHp4HIcl4GMt3XBvyaXxnSqcdWZuzW
-DnsYA7TqKdePDpxXh775A4J7eHxl2yyb44JJ9JQNreWRcbsY0H8hk2fFrQR5mwinbXmgbksBLm70
-DqSAHbPiBwHj3Mp0mEwFwZEQHmpLW5u7XToxjQ01dt658II8vBQhGgSGIK4hQkrKxMgc4R8XoOgZ
-1HRAWWUhq5ew+nXZ81rzC5uEBieNxHzHbFkiYtWV+Kyi4zphCnx1r8vgBNKS8wLj/OxXGtYINQ9S
-ldqih/Be1hla/xRDp2X2L/rIzoLyZyQJmyWadg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_788f189b-4e38-491d-b120-7ff6048045b9"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>3Q6fF833GZEJGXmOoFJgxOhOO8z8qoIFbvQZ2ZdvSGWsZ2rHMgk57N8fbeR62YkDpeWiPR5F2Duo
+4X2c30RaZA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_66bc9b65-1735-4337-b4e2-a24f3b98827e"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>ke5zJfTJtIxYvv05nXUTWAfo5RU9W/3UrYmibVoQ5fzXmPzVJb4ozTNG8iUUEpx/vtJ5q3r6iXJG
+ZncRRy26eA==</DigestValue></Reference></SignedInfo><SignatureValue>M10xhN2hm6XHXCLZBuYbvlIjbcVMC4OnOkTMxpPhxYVH99TUKrwgKuUsrBK+WL1jLVL05mt9IIW+
+KUF0sAzXOGQUcKzs8idQ/zcLbCRYEYq4WkClWgvyog0IbV31XMU6xf6vuKVfjrX3c6Zifx0Rk2pf
+1TPQzuDWrRdgsUfPx5ACKuVCaJZg3vebE4TMU2Z5/yxz1hRcOL9Grx9ubnFiNQ6fTviE8k0Lz3GV
+gMTB6oSXJTQzvzZ0pfsrT5Y6uAUO3DbcTM2tZj6A99vPQFrA7sxjFqtCsifgv0snEZMd7Og3wSLT
+rltZghbC9UJe8g9MtVKxw4PFHwGw39yaEwU9tg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1947,4 +2024,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_d0ce86de-08b3-4769-8bb2-043568f897b2" Target="#_2c0f90a2-5693-4e41-8dd1-947d93781708"><Timestamp>2020-08-24 13:08:13</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_66bc9b65-1735-4337-b4e2-a24f3b98827e" Target="#_788f189b-4e38-491d-b120-7ff6048045b9"><Timestamp>2020-08-24 13:14:49</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
