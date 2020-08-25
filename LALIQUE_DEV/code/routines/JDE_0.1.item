@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 //import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
+//import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 //import java.util.Locale;
@@ -35,19 +35,18 @@ import java.util.Date;
 public class JDE {
 
 	/**
-     * Convertit une valeur de type <code>BigDecimal</code> en valeur de type <code>Double</code>
+     * Convertit une valeur de type <code>BigDecimal</code> en valeur de type <code>Double</code> (renvoie 0 si la valeur est nulle)
      * 
      * @param value : <code>BigDecimal</code> - valeur à convertir.
      * 
      * @return valeur de type <code>Double</code>
      * <hr>
-     * @talendInfos
      * 
      * {talendTypes} Double
      * 
      * {Category} Lalique Defined
      * 
-     * {param} BigDecimal value : <code>BigDecimal</code> valeur à convertir.
+     * {param} BigDecimal value
      * </br>
      * created : 24/04/2020 - Philippe Bongard</br>
      * version : 1.0
@@ -65,17 +64,21 @@ public class JDE {
     }
     
     /**
-     * Convertit une valeur de type BigDecimal en valeur de type Float
+     * Convertit une valeur de type <code>BigDecimal</code> en valeur de type <code>Float</code> (renvoie 0 si la valeur est nulle)
      * 
      * @param value : <code>BigDecimal</code> valeur à convertir.
-     * @return valeur de type Float
-     * @author Philippe BONGARD (24/04/2020)
      * 
-     * {talendTypes} float
+     * @return valeur de type <code>Float</code>
+     * <hr>
+     * 
+     * {talendTypes} Float
      * 
      * {Category} Lalique Defined
      * 
-     * {param} BigDecimal value : <code>BigDecimal</code> valeur à convertir.
+     * {param} BigDecimal value
+     * </br>
+     * created : 24/04/2020 - Philippe Bongard</br>
+     * version : 1.0
      */
     public static float cnvFloat(BigDecimal value)
     {
@@ -90,18 +93,21 @@ public class JDE {
     }
     
     /**
-     * Convertit une valeur de type BigDecimal en valeur de type Integer
+     * Convertit une valeur de type <code>BigDecimal</code> en valeur de type <code>Integer</code> (renvoie 0 si la valeur est nulle)
      * 
      * @param value : <code>BigDecimal</code> valeur à convertir.
-     * @return valeur de type Integer
-     * @author Philippe BONGARD (24/04/2020)
-     * @TalendInfos
+     * 
+     * @return valeur de type <code>Integer</code>
+     * <hr>
      * 
      * {talendTypes} int
      * 
      * {Category} Lalique Defined
      * 
-     * {param} BigDecimal value : valeur a convertir.
+     * {param} BigDecimal value
+     * </br>
+     * created : 24/04/2020 - Philippe Bongard</br>
+     * version : 1.0
      */
     public static int cnvInt(BigDecimal value)
     {
@@ -118,9 +124,9 @@ public class JDE {
 	/**
      * Renvoie un nombre sous forme d'une chaîne de caractères formatée.
      * 
-     * @param value : <code>double</code> - nombre à formater.
+     * @param value : <code>Double</code> - nombre à formater.
      * @param pattern : <code>String</code> - format de nombre à appliquer (indiqué au format US ex : #,##0.00").
-     * @param USFormat : <code>boolean</code> - appliquer le format US (décimale = point).
+     * @param USFormat : <code>Boolean</code> - appliquer le format US (décimale = point).
      * 
      * @return Une valeur de type <code>String</code> représentant le nombre formaté.
      * </br><b>Exemple:</b>
@@ -132,9 +138,9 @@ public class JDE {
      * 
      * {Category} Lalique Defined
      * 
-     * {param} double value
+     * {param} Double value
      * {param} String pattern
-     * {param} boolean formatUS
+     * {param} Boolean formatUS
      * </br>
      * created : 07/07/2020 - Philippe BONGARD</br>
      * version : 1.0
@@ -159,7 +165,7 @@ public class JDE {
 	/**
      * Renvoie un nombre sous forme d'une chaîne de caractères formatée.
      * 
-     * @param value : <code>double</code> - nombre à formater.
+     * @param value : <code>Double</code> - nombre à formater.
      * @param pattern : <code>String</code> - format de nombre à appliquer (indiqué au format US ex : #,##0.00").
      * 
      * @return Une valeur de type <code>String</code> représentant le nombre formaté.
@@ -172,7 +178,7 @@ public class JDE {
      * 
      * {Category} Lalique Defined
      * 
-     * {param} double value
+     * {param} Double value
      * {param} String pattern
      * </br>
      * created : 07/07/2020 - Philippe BONGARD</br>
@@ -189,65 +195,73 @@ public class JDE {
      * </br><b>Exemple :</b> Convertir la date 04/02/2020 en format Julian de JDE.<pre>    <code>convertFromJulian(04/02/2020)</code> --> 120035</pre>
      * 
      * @param date : <code>Date</code> - Date à convertir.
+     * 
      * @return La date au format Julian (int)
-     * @author Philippe BONGARD (24/04/2020)
-     * @TalendInfos
+     * <hr>
      * 
      * {TalendTypes} Date
      * 
      * {Category} Lalique Defined
      * 
-     * {param} Date date : <code>Date</code> - Date à convertir.
+     * {param} Date date
+     * </br>
+     * created : 24/04/2020 - Philippe Bongard</br>
+     * version : 1.0
      */
     public static int convertToJulian(Date date) 
     {
-    	SimpleDateFormat pFormat = new SimpleDateFormat("DDD");
     	Calendar pDate = Calendar.getInstance();
         pDate.setTime(date);
-    	return Integer.parseInt(Integer.toString(pDate.get(Calendar.YEAR)-1900) + pFormat.format(date));
+        return (pDate.get(Calendar.YEAR)-1900)*1000 + pDate.get(Calendar.DAY_OF_YEAR);
     }
     
     /**
-     * Renvoie une date au format julien JDE convertie au format Date.
+     * Renvoie une date julien JDE (SAAJJJ) de type <code>BigDecimal</code> au format <code>Date</code>.
      * </br><b>Exemple :</b> Convertir le champ SZUPMJ de la table F4101 en date.<pre>    <code>convertFromJulian(F4101.SZUPMJ)</code></pre>
      * 
-     * @param julianDate : <code>BigDecimal</code> date au format julien.
-     * @return La date au format Date de Java
-     * @author Philippe BONGARD (24/04/2020)
-     * @TalendInfos
+     * @param JDEField : <code>BigDecimal</code> date au format julien.
+     * 
+     * @return La date au format <code>Date</code> de Java
+     * <hr>
      * 
      * {talendTypes} Date
      * 
      * {Category} Lalique Defined
      * 
-     * {param} BigDecimal julianDate : <code>BigDecimal</code> date au format julien.
+     * {param} BigDecimal JDEField
+     * </br>
+     * created : 24/04/2020 - Philippe Bongard</br>
+     * version : 1.0
      */
-    public static Date convertFromJulian(BigDecimal julianDate) 
+    public static Date convertFromJulian(BigDecimal JDEField) 
     {
-	    if(julianDate == null)
+	    if(JDEField == null)
 	    {
 	    	return convertFromJulian(0);
 	    }
 	    else
 	    {
-	    	return convertFromJulian(julianDate.intValue());
+	    	return convertFromJulian(JDEField.intValue());
 	    }
     }
 
     /**
-     * Renvoie une date au format julien JDE convertie au format Date.
+     * Renvoie une date julien JDE (SAAJJJ) de type <code>Integer</code> au format <code>Date</code>.
      * </br><b>Exemple :</b> Convertir la valeur 120035 en date.<pre>    <code>convertFromJulian(120035)</code> --> 04/02/2020</pre>
      * 
-     * @param julianDate : <code>int</code> date au format julien.
-     * @return La date au format Date de Java (Oracle)
-     * @author Philippe BONGARD (24/04/2020)
-     * @TalendInfos
+     * @param julianDate : <code>Integer</code> date au format julien.
+     * 
+     * @return La date au format <code>Date</code> de Java (Oracle)
+     * <hr>
      * 
      * {talendTypes} Date
      * 
      * {Category} Lalique Defined
      * 
-     * {param} int julianDate : <code>int</code> date au format julien.
+     * {param} int julianDate
+     * </br>
+     * created : 24/04/2020 - Philippe Bongard</br>
+     * version : 1.0
      */
     public static Date convertFromJulian(int julianDate) 
     {
@@ -259,10 +273,75 @@ public class JDE {
 			 pYear = Math.round(julianDate / 1000) + 1900; 
 			 pDays = Math.floorMod(julianDate, 1000);
 
-		     pDate.set(pYear, Calendar.JANUARY, 0);
-		     pDate.add(Calendar.DAY_OF_YEAR, pDays);
+		     pDate.set(pYear, Calendar.JANUARY, pDays);
 	    }
 	    return pDate.getTime();
+    }
+
+    /**
+     * Renvoie une valeur temps JDE (hhmmss) de type <code>Integer</code> au format <code>Date</code>.
+     * </br><b>Exemple :</b> Convertir la valeur 143527 en date.<pre>    <code>convertFromTime(143527)</code> --> 14:35:27</pre>
+     * 
+     * @param timeValue : <code>Integer</code> Heure au format JDE.
+     * 
+     * @return L'heure au format <code>Date</code> de Java (Oracle)
+     * <hr>
+     * 
+     * {talendTypes} Date
+     * 
+     * {Category} Lalique Defined
+     * 
+     * {param} Integer timeValue
+     * </br>
+     * created : 12/08/2020 - Philippe Bongard</br>
+     * version : 1.0
+     */
+    public static Date convertFromTime(int timeValue) 
+    {
+	    Calendar pDate = Calendar.getInstance();
+	    pDate.set(0, 0, 1); //01/01/1970
+	    
+	    if(timeValue != 0) {
+			 int pTime, pHour, pMinute, pSecond;
+			 pTime=timeValue;
+			 pHour = Math.round(pTime / 10000);
+			 pTime -= pHour * 10000;
+			 pMinute = Math.round(pTime / 100);
+			 pSecond = Math.floorMod(pTime, 100);
+
+		     pDate.set(0, Calendar.JANUARY, 1, pHour, pMinute, pSecond);
+	    }
+	    return pDate.getTime();
+    }
+
+    /**
+     * Renvoie une valeur temps JDE (hhmmss) de type <code>BigDecimal</code> au format <code>Date</code>.
+     * </br><b>Exemple :</b> Convertir le champ WTTDAY en date.<pre>    <code>convertFromTime(WTTDAY)</code> --> 14:35:27</pre>
+     * 
+     * @param JDEField : <code>BigDecimal</code> Heure au format JDE.
+     * 
+     * @return L'heure au format <code>Date</code> de Java (Oracle)
+     * <hr>
+     * 
+     * {talendTypes} Date
+     * 
+     * {Category} Lalique Defined
+     * 
+     * {param} BigDecimal JDEField
+     * </br>
+     * created : 12/08/2020 - Philippe Bongard</br>
+     * version : 1.0
+     */
+    public static Date convertFromTime(BigDecimal JDEField) 
+    {
+	    if(JDEField == null)
+	    {
+	    	return convertFromTime(0);
+	    }
+	    else
+	    {
+	    	return convertFromTime(JDEField.intValue());
+	    }
     }
 
     /**
@@ -402,18 +481,30 @@ public class JDE {
     }
 
     /**
-     * getPlannedQuantity : Renvoie la quantité prévue attendue à l'opération selon le type d'OF.
+     * getPlannedQuantity : Renvoie la quantité attendue de l'OF selon le type d'OF. Si OF Verre Froid, c'est la quantité sortie, sinon c'est la quantité attendue.
      *
-     * {talendTypes} float
+     * @param WOType : <code>String</code> Type d'OF (1 car.)
+	 * @param standardQty : <code>Float</code> Quantité attendue de l'OF.
+	 * @param declaredQty : <code>Float</code> Quantité déclarée et sortie du stock brut.
+	 * 
+     * @return valeur de type <code>Float</code> Quantité à prendre en compte
+     * </br><b>Exemple:</b> 
+     * <em>Un OF Verre Froid quantité attendue 10, quantité sortie de stock brut 12</em></br>
+     * <code>  JDE.getPlannedQuantity(SYTYPS,SYUORG,COUORG) ==> 12</code>
+     * <hr>
+	 *
+     * {talendTypes} Float
      *
      * {Category} Lalique Defined
      *
-     * {param} string("") TYPS : type de l'OF
-     * {param} float(0) standard : delta
-     *
-     * {example} getPlannedQuantity("CCYY-MM-DD hh:mm:ss",-1) #
+     * {param} String("") WOType : type de l'OF
+     * {param} Float(0) standardQty :
+     * {param} Float(0) declaredQty :
+	 * </br>
+     * created : 09/07/2020 - Philippe BONGARD</br>
+     * version : 1.0
      */
-	public static float getPlannedQuantity(String WOType,float standardQty,float declaredQty)
+	public static Float getPlannedQuantity(String WOType,float standardQty,float declaredQty)
 	{
 		if(WOType == "F" && declaredQty != 0) {
 			return declaredQty;
@@ -429,7 +520,11 @@ public class JDE {
 	 * @param RP14 : <code>String</code> Catégorie du Centre de Charge : F-Fictif, R-Réparation, . . .
 	 * @param BFPF : <code>String</code> Point de comptage de l'opération
 	 * 
-     * @return valeur de type <code>boolean</code> indiquant si l'opération doit être envoyée (true) ou non (false)
+     * @return valeur de type <code>boolean</code> indiquant si l'opération doit être envoyée (true) ou non (false)</br>
+     * <b>Remarques:</b></br>
+     * Sont considérées comme étant des opérations non Quartis :
+     * <li>les opérations dont le centre de charge est fictif.</li>
+     * <li>les opérations de réparation sur les OF de non réparation dont le code catégorie CC est égal à 'R' ou 'Y' et dont le point de comptage est égal à '0'</li>
      * </br><b>Exemple:</b> 
      * <em>Déterminer si l'opération d'un OF Verre Froid doit être envoyée à Quartis
      * (où SYTYPS='F', MCRP14='F  ', WLBFPF=' ')</em></br>
@@ -444,7 +539,7 @@ public class JDE {
 	 * {param} String("") RP14
 	 * {param} String("") BFPF
 	 * </br>
-     * created : 24/04/2020 - Philippe BONGARD</br>
+     * created : 09/07/2020 - Philippe BONGARD</br>
      * version : 1.0
 	 */
 	public static boolean isOpeQuartis(String TYPS, String RP14, String BFPF)
@@ -460,5 +555,39 @@ public class JDE {
 		}
 		return myVal;
 	}
-	
+
+	/** 
+	 * Renvoie une chaîne de caractères de longueur donnée en alignant le texte à droite.
+     * 
+     * @param text : <code>String</code> Texte à aligner à droite.
+	 * @param size : <code>Integer</code> Longueur de la chaîne souhaitée 
+	 * 
+     * @return valeur de type <code>String</code> Chaîne de caractères de longueur (size) avec le texte aligné à droite.
+     * </br><b>Exemple:</b> 
+     * <em>Aligner un code magasin à droite dans un champ de 12 caractères :</em></br>
+     * <code>  JDE.stringRAB("10WU", 12) ==> '........10WU'</code></br>
+     * <code>  JDE.stringRAB("UDC...", 12) ==> '......UDC...'</code></br>
+     * <i> NB: les '.' représentent des espaces</i>
+     * <hr>
+     * 
+     * {talendTypes} String
+     * 
+     * {Category} Lalique Defined
+	 *
+	 * {param} String("") text
+	 * {param} Integer() size
+	 * </br>
+     * created : 03/08/2020 - Philippe BONGARD</br>
+     * version : 1.0
+	 */
+	public static String stringRAB(String text, int size)
+	{
+        StringBuffer pBuffer = new StringBuffer();
+        for (int i = 0; i < size; i++) {
+            pBuffer.append(" ");
+        }
+        String pStr = pBuffer.toString() + text;
+        return pStr.substring(pStr.length() - Math.min(pStr.length(), size));
+	}
+
 }
