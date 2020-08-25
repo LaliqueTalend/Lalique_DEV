@@ -434,10 +434,10 @@
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="row1.TempsBrut !=0 ? &quot;1&quot; : row1.QteBonne!=0 ? &quot;4&quot; : row1.QteRebut!=0 ? &quot;5&quot; : &quot; &quot; " name="TYR" type="id_String"/>
-        <mapperTableEntries expression="StringHandling.TRIM(StringHandling.EREPLACE(row1.Operateur,&quot;WSM&quot;,&quot; &quot;))" name="KY" type="id_String"/>
+        <mapperTableEntries expression="row1.TempsBrut !=0 ? &quot;1&quot; : row1.QteBonne!=0 ? &quot;4&quot; : row1.QteRebut!=0 ? &quot;5&quot; : &quot; &quot; " name="TYR" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="StringHandling.TRIM(StringHandling.EREPLACE(row1.Operateur,&quot;WSM&quot;,&quot; &quot;))" name="KY" nullable="true" type="id_String"/>
       </varTables>
-      <outputTables activateExpressionFilter="true" columnNameFilter="" expressionFilter="Var.TYR != &quot; &quot;" name="Quartis" sizeState="INTERMEDIATE">
+      <outputTables activateExpressionFilter="true" columnNameFilter="" expressionFilter="Var.TYR != &quot;X&quot;" name="Quartis" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="JDE.stringRAB(row1.Site,12) " name="MMCU" type="id_String"/>
         <mapperTableEntries expression="Integer.parseInt(Var.KY) " name="AN8" type="id_Integer"/>
         <mapperTableEntries expression="JDE.convertToJulian(row1.Date)" name="DGL" type="id_Integer"/>
@@ -463,7 +463,7 @@
         <mapperTableEntries expression="row1.Operation " name="Operation" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="Var.KY " name="Operateur" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row1.Date " name="Date" nullable="true" type="id_Date"/>
-        <mapperTableEntries expression="&quot;Type de transaction non défini&quot;" name="CodeErreur" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot;Type de transaction non défini&quot;+Var.TYR" name="CodeErreur" nullable="true" type="id_String"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="row1" sizeState="INTERMEDIATE">
         <mapperTableEntries name="Site" nullable="true" type="id_String"/>
@@ -1352,7 +1352,7 @@
     <elementParameter field="CHECK" name="ROW_MODE" value="false"/>
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
     <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
-    <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="false"/>
+    <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="true"/>
     <elementParameter field="CHECK" name="FILE_EXIST_EXCEPTION" show="false" value="true"/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="90"/>
     <elementParameter field="TEXT" name="LABEL" value="Report_1"/>
@@ -1391,7 +1391,7 @@
     <elementParameter field="CHECK" name="ROW_MODE" value="false"/>
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
     <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
-    <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="false"/>
+    <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="true"/>
     <elementParameter field="CHECK" name="FILE_EXIST_EXCEPTION" show="false" value="true"/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="90"/>
     <elementParameter field="TEXT" name="LABEL" value="Report_1"/>
@@ -1918,13 +1918,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_cb2171cb-2836-4631-94d9-687cb8fbf8df"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>39yE7rw56dPKtyXRzb9ZCnDN4Rhu27iQI7xB/GyMElJti2IkmuZRoE8atLFa0/H4kGD1vvvm2F6a
-zCBBdgYSqA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_8ef5ec74-bb79-4e8e-b845-a5a91ad15a3c"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>FPh3TkJz9taIp2f5B8uOB7cfzqxhGcv3vGoBSHZaNumq4sQFxhvBgwIAJ49TpxCHPuIZB8121qH3
-lMscmMcHow==</DigestValue></Reference></SignedInfo><SignatureValue>Ce80me5FfGFj3bpluvx+uJLbeziel7+pUtsV8dNT8BksATy59RDhgu1UgKS8ZC1QZlng3ybraCjO
-EYJc9yTWWW+xZ0Cxt7jqHjJj43B2lRyUPTvo3IOAAse6+TtYWVjbwQru8hn+6/Oq7Jq8c72iOsVW
-LXZqIPDjcc5OhjYllaVLf5z1eH/ApzGaV2kHD+Eu87o0pNO6F3pwG+RDXHr+f9I/erGP6Pu+ANq/
-pfxGjhH1vKdS2idXe3MmP/ajTX03+6eNfO1AQg0eQmo0hH28Jk1Xc1rvbXR5VOELxdjCYmggzPVE
-5NCRY4WFzfPtyBW5v9tVTfMZTiQmP7qve0i30A==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_fe752b77-31e7-44b7-91b4-dd4c967b277c"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>ZV0H0/1qEr+oLAK0yZ1nJ8flwiYlxOTd1JzvmhSMBt5IhoNdmYyHc95wLRF3vlg43a/Tbtl7ujA5
+VHa8yAGiww==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_a335b6fb-5691-43e1-a8bd-2f064297b4ea"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>YkgB7YZG1XOZvOUPpEnugBDpxy1jT8BvIv4ODY3DOWtj6bWsX5KY4urz6PO51YmXsyN4udvf3I3O
+cj7lTU3r5A==</DigestValue></Reference></SignedInfo><SignatureValue>F7swEL6dzU1dI+P90ahS5VR7RT/8DF9/g2XZm/1j3+UEeSc5Y5TvgtqWHw6RyXEw+EsahXpZKGt5
+ylZDQuMt03j95FMXjHfiFqG9JysOlZmxu9PB+r3k1c7K9+6Zl1Sx13Vj9jVQOSqPBDVrqIMECTPk
+ERBGrZSJwsXVD4+4PoJL3qhacnNJIcPaYd0e+li8nPDG2Ff8Wb2GM7pe+WJ7K6uU+vEH8flISN5R
+6OPlqkXLjUXkQtMsgrTzeXn7YnyIbPhD37ej7VPTQ173yFF4L06hX49tpb4Ds4MumRzScVN1dSnU
+27XXIHcp/BZoIm0h6d8V87co/N74/v4m7IRoCw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1946,4 +1946,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_8ef5ec74-bb79-4e8e-b845-a5a91ad15a3c" Target="#_cb2171cb-2836-4631-94d9-687cb8fbf8df"><Timestamp>2020-08-25 08:24:23</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_a335b6fb-5691-43e1-a8bd-2f064297b4ea" Target="#_fe752b77-31e7-44b7-91b4-dd4c967b277c"><Timestamp>2020-08-25 08:30:31</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
