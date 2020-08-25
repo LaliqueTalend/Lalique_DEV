@@ -430,7 +430,6 @@
       <column comment="" key="false" length="-1" name="QteBonne" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Double" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="QteRebut" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Double" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="CodeRebut" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Erreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <metadata connector="FLOW" label="Rejets" name="Rejet_Operateur">
       <column comment="" key="false" length="-1" name="Site" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
@@ -445,7 +444,6 @@
       <column comment="" key="false" length="-1" name="QteBonne" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Double" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="QteRebut" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Double" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="CodeRebut" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Erreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
@@ -480,7 +478,6 @@
         <mapperTableEntries expression="row1.QteBonne " name="QteBonne" nullable="true" type="id_Double"/>
         <mapperTableEntries expression="row1.QteRebut " name="QteRebut" nullable="true" type="id_Double"/>
         <mapperTableEntries expression="row1.CodeRebut " name="CodeRebut" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="&quot;Type transaction impossible à définir&quot;" name="Erreur" nullable="true" type="id_String"/>
       </outputTables>
       <outputTables activateCondensedTool="true" name="Rejet_Operateur" rejectInnerJoin="true" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="row1.Site " name="Site" nullable="true" type="id_String"/>
@@ -495,7 +492,6 @@
         <mapperTableEntries expression="row1.QteBonne " name="QteBonne" nullable="true" type="id_Double"/>
         <mapperTableEntries expression="row1.QteRebut " name="QteRebut" nullable="true" type="id_Double"/>
         <mapperTableEntries expression="row1.CodeRebut " name="CodeRebut" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="&quot;Code employé sans taux horaire&quot;" name="Erreur" nullable="true" type="id_String"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="row1" sizeState="INTERMEDIATE">
         <mapperTableEntries name="Site" nullable="true" type="id_String"/>
@@ -511,9 +507,9 @@
         <mapperTableEntries name="QteRebut" nullable="true" type="id_Double"/>
         <mapperTableEntries name="CodeRebut" nullable="true" type="id_String"/>
       </inputTables>
-      <inputTables activateCondensedTool="true" innerJoin="true" lookupMode="RELOAD" matchingMode="UNIQUE_MATCH" name="F00191" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="" name="CESY" type="id_String"/>
-        <mapperTableEntries name="CERT" type="id_String"/>
+      <inputTables activateCondensedTool="true" innerJoin="true" lookupMode="RELOAD" matchingMode="ALL_MATCHES" name="F00191" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="&quot;31&quot;" name="CESY" type="id_String"/>
+        <mapperTableEntries expression="&quot;ER&quot;" name="CERT" type="id_String"/>
         <mapperTableEntries expression="&quot;  &quot; + StringHandling.RIGHT(&quot;00000000&quot;+StringHandling.TRIM(StringHandling.EREPLACE(row1.Operateur,&quot;WSM&quot;,&quot; &quot;)),8) " name="CEKY" operator="=" type="id_String"/>
         <mapperTableEntries name="CEDL01" nullable="true" type="id_String"/>
         <mapperTableEntries expression="" name="CEDL02" nullable="true" type="id_String"/>
@@ -1390,12 +1386,11 @@
       <column comment="" key="false" length="-1" name="QteBonne" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Double" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="QteRebut" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Double" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="CodeRebut" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Erreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="320" posY="352">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_5"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="// Variables à partager avec le job père&#10;System.setProperty(&quot;Quartis_JDE_ERROR&quot;, &quot;15&quot;);&#10;System.setProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;, (String)globalMap.get(&quot;myFileIn&quot;) + &quot;:N° d'employé (&quot; + (String)globalMap.get(&quot;myKY&quot;) + &quot;) non défini dans la table des taux horaires (F00191)&quot;);"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="// Variables à partager avec le job père&#10;System.setProperty(&quot;Quartis_JDE_ERROR&quot;, &quot;15&quot;);&#10;System.setProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;, (String)globalMap.get(&quot;tWaitForFile_1_FILENAME&quot;) + &quot;:N° d'employé (&quot; + (String)globalMap.get(&quot;myKY&quot;) + &quot;) non défini dans la table des taux horaires (F00191)&quot;);"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" label="Rejets" name="tJava_5">
@@ -1411,7 +1406,6 @@
       <column comment="" key="false" length="-1" name="QteBonne" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Double" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="QteRebut" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Double" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="CodeRebut" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Erreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tDie" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="-64" posY="768">
@@ -1974,13 +1968,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_7a2ca220-3dae-4c15-be4b-4829e68d8771"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>06Y/uOS0rrGEoNZzhQ1c9QR4TIYILhNmAD5NP/6zgjtOzI7OK1hc3bUvPqF6zHIw3hqHOTzB9sYa
-snNxt3QXwA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_6da317a0-b010-4418-b998-07fb5237b61e"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>05kb6JChU0HEBjsRZ0vNe8M6guV+TH3n0Kdfhk2dqzGztOngl/zHAN/orgtFifZcGYPjodU41bLB
-PxPdxTon5A==</DigestValue></Reference></SignedInfo><SignatureValue>WoF4VTcriAgmdTQJxoJoJpk08G/H6Tu6keACRBSMcEPbuxCbjkxdGM45t4egS6e9QQegetj/dd/p
-Y/Q8tm5FjJzP6hWocC0bjzMZGKsGESA5uYAaUOMBA4NMUB7XljMVXa1D84AYYDB+8fzP8ATLu9rU
-5hfemIYXKVxSkbppjEkRcbGtlgEj/mv3FbIWDo3jDCaXZpQ//TrfGQ1ichJ+DkUpyKvCOL7tnZ0s
-9OfSGEt45u7BU0ZUC4JG2kHMK+5p85dapeq5oM4SEjdI14+43UEOtEGw/DJu/obYpQtY+n+bfTYp
-ZGg8KSl6sFTHt3LiqxafnMLAIPjx+SkekKXwqA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_d09666d4-30d1-4ef6-941b-ace1159e4c7d"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>ilGW8qck7gGVra8oWqX9BnAPJkHecW5QQUKdbrl5uhJpCZBQ8kB/ax102hOAasBbACvQepL+X5AT
+oMarD5cQWQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_f3dec8f2-3624-400f-921a-e42974e83445"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>4AWUvx/z90BYJ1Xyv+zJuJuYZM4Et9iQWxK5brwEM/bq8IOAByp4VAKrQ1JJm1cM0mWRDQt8n1Q5
+rwlpbyV/1A==</DigestValue></Reference></SignedInfo><SignatureValue>iEMwWxYPgbOzB7ry0/a56sgpBgueORdXlCQ06JzLKGPiXsi3VJammDdpBXOTNRMm6o6MnALGqjhn
+jLgUGSRMV3l/kdv2ZqP58wF5Xhf7M/tk2mXeFay3zM7fDsPZyEAxqrggMFXxFbZ76AbTN6x2IVBz
+Phd6i9gTl0zH9mRdzYDTNvhRHEWW6PDBWXKFcGkiu/6WG4YgbI9bRSEnApif0EM6GdhTmVHw/xgI
+s2zU9WqeolfmH9Ieex2+GRukKC9/pY1OiEck5gtX11EUIaYQFF4aL7Sk9dtXLhjLZ2MxcE5XC7gS
+YxmkysK+iOpGG1v08FRyz+KFNGdNvW3mzNeI4A==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -2002,4 +1996,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_6da317a0-b010-4418-b998-07fb5237b61e" Target="#_7a2ca220-3dae-4c15-be4b-4829e68d8771"><Timestamp>2020-08-25 06:05:02</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_f3dec8f2-3624-400f-921a-e42974e83445" Target="#_d09666d4-30d1-4ef6-941b-ace1159e4c7d"><Timestamp>2020-08-25 06:12:50</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
