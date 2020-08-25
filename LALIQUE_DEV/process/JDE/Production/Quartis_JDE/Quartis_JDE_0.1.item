@@ -417,7 +417,7 @@
       <column comment="Code Activité" key="false" length="15" name="URRF" nullable="false" originalLength="15" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="N° Employé formaté" key="false" length="8" name="KY" nullable="false" originalLength="8" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
-    <metadata connector="FLOW" label="Rejets" name="Errors">
+    <metadata connector="FLOW" label="Rejets" name="Rejet_Type">
       <column comment="" key="false" length="-1" name="Site" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Operateur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Date" nullable="true" originalLength="-1" pattern="&quot;dd/MM/yy&quot;" precision="-1" sourceType="" type="id_Date" usefulColumn="true"/>
@@ -432,7 +432,7 @@
       <column comment="" key="false" length="-1" name="CodeRebut" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Erreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
-    <metadata connector="FLOW" label="Rejets" name="Rejets">
+    <metadata connector="FLOW" label="Rejets" name="Rejet_Operateur">
       <column comment="" key="false" length="-1" name="Site" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Operateur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Date" nullable="true" originalLength="-1" pattern="&quot;dd/MM/yy&quot;" precision="-1" sourceType="" type="id_Date" usefulColumn="true"/>
@@ -448,7 +448,7 @@
       <column comment="" key="false" length="-1" name="Erreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="row1.TempsBrut !=0 ? &quot;1&quot; : row1.QteBonne!=0 ? &quot;4&quot; : row1.QteRebut!=0 ? &quot;5&quot; : &quot; &quot; " name="TYR" type="id_String"/>
         <mapperTableEntries expression="StringHandling.TRIM(StringHandling.EREPLACE(row1.Operateur,&quot;WSM&quot;,&quot; &quot;))" name="KY" type="id_String"/>
@@ -467,7 +467,7 @@
         <mapperTableEntries expression="row1.Activite " name="URRF" type="id_String"/>
         <mapperTableEntries expression="StringHandling.RIGHT(&quot;00000000&quot;+Var.KY,8) " name="KY" type="id_String"/>
       </outputTables>
-      <outputTables activateCondensedTool="true" name="Errors" reject="true" sizeState="INTERMEDIATE">
+      <outputTables activateCondensedTool="true" name="Rejet_Type" reject="true" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="row1.Site " name="Site" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row1.Operateur " name="Operateur" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row1.Date " name="Date" nullable="true" type="id_Date"/>
@@ -482,7 +482,7 @@
         <mapperTableEntries expression="row1.CodeRebut " name="CodeRebut" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;Type transaction impossible à définir&quot;" name="Erreur" nullable="true" type="id_String"/>
       </outputTables>
-      <outputTables activateCondensedTool="true" name="Rejets" rejectInnerJoin="true" sizeState="INTERMEDIATE">
+      <outputTables activateCondensedTool="true" name="Rejet_Operateur" rejectInnerJoin="true" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="row1.Site " name="Site" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row1.Operateur " name="Operateur" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row1.Date " name="Date" nullable="true" type="id_Date"/>
@@ -1395,7 +1395,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="320" posY="352">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_5"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="// Variables à partager avec le job père&#10;System.setProperty(&quot;Quartis_JDE_ERROR&quot;, &quot;15&quot;);&#10;System.setProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;, &quot;N° employé &quot; + (String)globalMap.get(&quot;myKY&quot;) + &quot; non défini dans la table des taux horaires (F00191)&quot;);"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="// Variables à partager avec le job père&#10;System.setProperty(&quot;Quartis_JDE_ERROR&quot;, &quot;15&quot;);&#10;System.setProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;, (String)globalMap.get(&quot;myFileIn&quot;) + &quot;:N° d'employé (&quot; + (String)globalMap.get(&quot;myKY&quot;) + &quot;) non défini dans la table des taux horaires (F00191)&quot;);"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" label="Rejets" name="tJava_5">
@@ -1791,23 +1791,23 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Quartis"/>
   </connection>
-  <connection connectorName="FLOW" label="Errors" lineStyle="0" metaname="Errors" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_1" target="tJava_4">
+  <connection connectorName="FLOW" label="Rejet_Type" lineStyle="0" metaname="Rejet_Type" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_1" target="tJava_4">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="Erreur"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Errors"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Rejet_Type"/>
   </connection>
-  <connection connectorName="FLOW" label="Rejets" lineStyle="0" metaname="Rejets" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tMap_1" target="tJava_5">
+  <connection connectorName="FLOW" label="Rejet_Operateur" lineStyle="0" metaname="Rejet_Operateur" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tMap_1" target="tJava_5">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="Erreur"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Rejets"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Rejet_Operateur"/>
   </connection>
   <connection connectorName="FLOW" label="F31122Z1" lineStyle="0" metaname="F31122Z1" offsetLabelX="0" offsetLabelY="0" source="tMap_3" target="tDBOutput_1">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
@@ -1974,13 +1974,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_2531e653-0bf8-43b4-ba1c-b3712881bed4"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>jxY3XrsGBP5ceeg4Jq2xDCb6Cg2bz+n/EG5UIlDFz7qDaIcPKYOWxwgZLGJdX34oRwZ0I9Omwmed
-ZatnHaeALA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_e487aacd-356c-4e7a-8000-f69775342e58"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>xG5IHr6xxiYaR78ZdwTBNzrew3fZqRPo90sqKINvbsf5pFsrmKMQRLCv+BlnNvl801svO+64cPGu
-dDmiqZN7mA==</DigestValue></Reference></SignedInfo><SignatureValue>I1jLKyVa3RajB9bI6bkGfyQnb3ce6haQkyz2bqePMi78UO39g9jO9yfmHJ2rpHdyECuuY1wsd3rW
-PDjU/EWKRqVk7msV47iw0WbR5FHlwV6gx06AzaAuaFMq/xVxK8LnKDxMzDR+75VI3CstwC0WV59Z
-vW3uUWYiq05KZWpxcXWOLHmDdUWe9zJXc5DpVACj8XJ0i5J0zcZgy2T5FusniEtFbrVDh5yeT5ll
-YiVz+w2s7h5cXgM8fbvDouA4gY9JqJb2whCnlYE4uFpdSCyFsu5p2C6Kn196K8vKp3Pz2MRnuav8
-IES43cmNlE1Ac7zxshtxaE/1vSssjfhDjHYUoA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_7a2ca220-3dae-4c15-be4b-4829e68d8771"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>06Y/uOS0rrGEoNZzhQ1c9QR4TIYILhNmAD5NP/6zgjtOzI7OK1hc3bUvPqF6zHIw3hqHOTzB9sYa
+snNxt3QXwA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_6da317a0-b010-4418-b998-07fb5237b61e"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>05kb6JChU0HEBjsRZ0vNe8M6guV+TH3n0Kdfhk2dqzGztOngl/zHAN/orgtFifZcGYPjodU41bLB
+PxPdxTon5A==</DigestValue></Reference></SignedInfo><SignatureValue>WoF4VTcriAgmdTQJxoJoJpk08G/H6Tu6keACRBSMcEPbuxCbjkxdGM45t4egS6e9QQegetj/dd/p
+Y/Q8tm5FjJzP6hWocC0bjzMZGKsGESA5uYAaUOMBA4NMUB7XljMVXa1D84AYYDB+8fzP8ATLu9rU
+5hfemIYXKVxSkbppjEkRcbGtlgEj/mv3FbIWDo3jDCaXZpQ//TrfGQ1ichJ+DkUpyKvCOL7tnZ0s
+9OfSGEt45u7BU0ZUC4JG2kHMK+5p85dapeq5oM4SEjdI14+43UEOtEGw/DJu/obYpQtY+n+bfTYp
+ZGg8KSl6sFTHt3LiqxafnMLAIPjx+SkekKXwqA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -2002,4 +2002,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_e487aacd-356c-4e7a-8000-f69775342e58" Target="#_2531e653-0bf8-43b4-ba1c-b3712881bed4"><Timestamp>2020-08-25 05:47:54</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_6da317a0-b010-4418-b998-07fb5237b61e" Target="#_7a2ca220-3dae-4c15-be4b-4829e68d8771"><Timestamp>2020-08-25 06:05:02</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
