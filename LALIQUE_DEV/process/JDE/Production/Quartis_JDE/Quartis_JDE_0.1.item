@@ -571,10 +571,17 @@
       <column comment="Source des heures" key="false" length="1" name="SZSOHR" nullable="true" originalLength="1" pattern="" precision="-1" sourceType="CHAR" type="id_String" usefulColumn="true"/>
       <column comment="Source des taux" key="false" length="1" name="SZSORE" nullable="true" originalLength="1" pattern="" precision="-1" sourceType="CHAR" type="id_String" usefulColumn="true"/>
     </metadata>
+    <metadata connector="FLOW" label="Rejet_Type" name="Rejet_Type1">
+      <column comment="" key="false" length="-1" name="NumOF" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Operation" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Operateur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Date" nullable="true" originalLength="-1" pattern="&quot;dd/MM/yy&quot;" precision="-1" sourceType="" type="id_Date" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="CodeErreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
-      <outputTables name="F31122Z1" sizeState="INTERMEDIATE">
+      <outputTables minimized="true" name="F31122Z1" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="&quot;QUARTIS&quot;" name="SZEDUS" type="id_String"/>
         <mapperTableEntries expression="(String)globalMap.get(&quot;JobTimeStamp&quot;)" name="SZEDBT" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="SZEDTN" type="id_String"/>
@@ -639,6 +646,13 @@
         <mapperTableEntries name="SZACTB" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;Q&quot;" name="SZSOHR" nullable="true" type="id_String"/>
         <mapperTableEntries name="SZSORE" nullable="true" type="id_String"/>
+      </outputTables>
+      <outputTables activateCondensedTool="true" name="Rejet_Type1" reject="true" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="Quartis.DOCO " name="NumOF" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Quartis.OPSQ / 100" name="Operation" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="Quartis.KY " name="Operateur" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="JDE.convertFromJulian(Quartis.DGL) " name="Date" nullable="true" type="id_Date"/>
+        <mapperTableEntries expression="&quot;Type non défini&quot;" name="CodeErreur" nullable="true" type="id_String"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Quartis" sizeState="INTERMEDIATE">
         <mapperTableEntries name="MMCU" type="id_String"/>
@@ -1312,72 +1326,6 @@
       <column comment="" defaultValue="" key="false" length="-1" name="CERATE" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="128" posY="416">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileOutputDelimited_2"/>
-    <elementParameter field="CHECK" name="USESTREAM" value="false"/>
-    <elementParameter field="TEXT" name="STREAMNAME" show="false" value="outputStream"/>
-    <elementParameter field="FILE" name="FILENAME" value="context.Errors_Folder + &quot;Rapport_&quot; + (String)globalMap.get(&quot;tWaitForFile_1_FILENAME&quot;)"/>
-    <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
-    <elementParameter field="CHECK" name="OS_LINE_SEPARATOR_AS_ROW_SEPARATOR" show="false" value="true"/>
-    <elementParameter field="OPENED_LIST" name="CSVROWSEPARATOR" show="false" value="&quot;\n&quot;"/>
-    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;"/>
-    <elementParameter field="CHECK" name="APPEND" value="true"/>
-    <elementParameter field="CHECK" name="INCLUDEHEADER" value="true"/>
-    <elementParameter field="CHECK" name="COMPRESS" show="false" value="false"/>
-    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
-    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" show="false" value="&quot;,&quot;"/>
-    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" show="false" value="&quot;.&quot;"/>
-    <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
-    <elementParameter field="TEXT" name="ESCAPE_CHAR" show="false" value="&quot;&quot;&quot;"/>
-    <elementParameter field="TEXT" name="TEXT_ENCLOSURE" show="false" value="&quot;&quot;&quot;"/>
-    <elementParameter field="CHECK" name="CREATE" value="true"/>
-    <elementParameter field="CHECK" name="SPLIT" value="false"/>
-    <elementParameter field="TEXT" name="SPLIT_EVERY" show="false" value="1000"/>
-    <elementParameter field="CHECK" name="FLUSHONROW" value="false"/>
-    <elementParameter field="TEXT" name="FLUSHONROW_NUM" show="false" value="1"/>
-    <elementParameter field="CHECK" name="ROW_MODE" value="false"/>
-    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
-    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
-    <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="false"/>
-    <elementParameter field="CHECK" name="FILE_EXIST_EXCEPTION" show="false" value="true"/>
-    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="90"/>
-    <elementParameter field="TEXT" name="LABEL" value="Report_1"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" label="Rejet_Type" name="tFileOutputDelimited_2">
-      <column comment="" key="false" length="-1" name="NumOF" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Operation" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Operateur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Date" nullable="true" originalLength="-1" pattern="&quot;dd/MM/yy&quot;" precision="-1" sourceType="" type="id_Date" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="CodeErreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-    </metadata>
-  </node>
-  <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="224" posY="448">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_4"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="// Variables à partager avec le job père&#10;System.setProperty(&quot;Quartis_JDE_ERROR&quot;, &quot;10&quot;);&#10;System.setProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;, (String)globalMap.get(&quot;tWaitForFile_1_FILENAME&quot;) + &quot;: Impossible de définir le type d'opération (pas de temps ou de quantité déclarés)&quot;);"/>
-    <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" label="Rejet_Type" name="tJava_4">
-      <column comment="" key="false" length="-1" name="NumOF" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Operation" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Operateur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Date" nullable="true" originalLength="-1" pattern="&quot;dd/MM/yy&quot;" precision="-1" sourceType="" type="id_Date" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="CodeErreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-    </metadata>
-  </node>
-  <node componentName="tWarn" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="320" posY="448">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tWarn_1"/>
-    <elementParameter field="TEXT" name="MESSAGE" value="System.getProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;)"/>
-    <elementParameter field="TEXT" name="CODE" value="Integer.parseInt(System.getProperty(&quot;Quartis_JDE_ERROR&quot;))"/>
-    <elementParameter field="CLOSED_LIST" name="PRIORITY" value="4"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" label="Rejet_Type" name="tWarn_1">
-      <column comment="" key="false" length="-1" name="NumOF" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Operation" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Operateur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Date" nullable="true" originalLength="-1" pattern="&quot;dd/MM/yy&quot;" precision="-1" sourceType="" type="id_Date" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="CodeErreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-    </metadata>
-  </node>
   <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="256" posY="384">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileOutputDelimited_3"/>
     <elementParameter field="CHECK" name="USESTREAM" value="false"/>
@@ -1440,6 +1388,72 @@
       <column comment="" key="false" length="-1" name="NumOF" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Operation" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Operateur" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Date" nullable="true" originalLength="-1" pattern="&quot;dd/MM/yy&quot;" precision="-1" sourceType="" type="id_Date" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="CodeErreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="320" posY="192">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileOutputDelimited_2"/>
+    <elementParameter field="CHECK" name="USESTREAM" value="false"/>
+    <elementParameter field="TEXT" name="STREAMNAME" show="false" value="outputStream"/>
+    <elementParameter field="FILE" name="FILENAME" value="context.Errors_Folder + &quot;Rapport_&quot; + (String)globalMap.get(&quot;tWaitForFile_1_FILENAME&quot;)"/>
+    <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
+    <elementParameter field="CHECK" name="OS_LINE_SEPARATOR_AS_ROW_SEPARATOR" show="false" value="true"/>
+    <elementParameter field="OPENED_LIST" name="CSVROWSEPARATOR" show="false" value="&quot;\n&quot;"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;"/>
+    <elementParameter field="CHECK" name="APPEND" value="true"/>
+    <elementParameter field="CHECK" name="INCLUDEHEADER" value="true"/>
+    <elementParameter field="CHECK" name="COMPRESS" show="false" value="false"/>
+    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
+    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" show="false" value="&quot;,&quot;"/>
+    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" show="false" value="&quot;.&quot;"/>
+    <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
+    <elementParameter field="TEXT" name="ESCAPE_CHAR" show="false" value="&quot;&quot;&quot;"/>
+    <elementParameter field="TEXT" name="TEXT_ENCLOSURE" show="false" value="&quot;&quot;&quot;"/>
+    <elementParameter field="CHECK" name="CREATE" value="true"/>
+    <elementParameter field="CHECK" name="SPLIT" value="false"/>
+    <elementParameter field="TEXT" name="SPLIT_EVERY" show="false" value="1000"/>
+    <elementParameter field="CHECK" name="FLUSHONROW" value="false"/>
+    <elementParameter field="TEXT" name="FLUSHONROW_NUM" show="false" value="1"/>
+    <elementParameter field="CHECK" name="ROW_MODE" value="false"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="false"/>
+    <elementParameter field="CHECK" name="FILE_EXIST_EXCEPTION" show="false" value="true"/>
+    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="90"/>
+    <elementParameter field="TEXT" name="LABEL" value="Report_1"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" label="Rejet_Type" name="tFileOutputDelimited_2">
+      <column comment="" key="false" length="-1" name="NumOF" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Operation" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Operateur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Date" nullable="true" originalLength="-1" pattern="&quot;dd/MM/yy&quot;" precision="-1" sourceType="" type="id_Date" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="CodeErreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="416" posY="192">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_4"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="// Variables à partager avec le job père&#10;System.setProperty(&quot;Quartis_JDE_ERROR&quot;, &quot;10&quot;);&#10;System.setProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;, (String)globalMap.get(&quot;tWaitForFile_1_FILENAME&quot;) + &quot;: Impossible de définir le type d'opération (pas de temps ou de quantité déclarés)&quot;);"/>
+    <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" label="Rejet_Type" name="tJava_4">
+      <column comment="" key="false" length="-1" name="NumOF" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Operation" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Operateur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Date" nullable="true" originalLength="-1" pattern="&quot;dd/MM/yy&quot;" precision="-1" sourceType="" type="id_Date" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="CodeErreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tWarn" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="512" posY="192">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tWarn_1"/>
+    <elementParameter field="TEXT" name="MESSAGE" value="System.getProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;)"/>
+    <elementParameter field="TEXT" name="CODE" value="Integer.parseInt(System.getProperty(&quot;Quartis_JDE_ERROR&quot;))"/>
+    <elementParameter field="CLOSED_LIST" name="PRIORITY" value="4"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" label="Rejet_Type" name="tWarn_1">
+      <column comment="" key="false" length="-1" name="NumOF" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Operation" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Operateur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Date" nullable="true" originalLength="-1" pattern="&quot;dd/MM/yy&quot;" precision="-1" sourceType="" type="id_Date" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="CodeErreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
@@ -1704,25 +1718,7 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Quartis"/>
   </connection>
-  <connection connectorName="FLOW" label="Rejet_Type" lineStyle="0" metaname="Rejet_Type" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_1" target="tFileOutputDelimited_2">
-    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
-      <elementValue elementRef="TRACE_COLUMN" value="Operation"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="NumOF"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="Operateur"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="Date"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-    </elementParameter>
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Rejet_Type"/>
-  </connection>
-  <connection connectorName="FLOW" label="Rejet_Operateur" lineStyle="0" metaname="Rejet_Operateur" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tMap_1" target="tFileOutputDelimited_3">
+  <connection connectorName="FLOW" label="Rejet_Operateur" lineStyle="0" metaname="Rejet_Operateur" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_1" target="tFileOutputDelimited_3">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="Operation"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
@@ -1740,7 +1736,7 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Rejet_Operateur"/>
   </connection>
-  <connection connectorName="FLOW" label="F31122Z1" lineStyle="0" metaname="F31122Z1" offsetLabelX="0" offsetLabelY="0" source="tMap_3" target="tDBOutput_1">
+  <connection connectorName="FLOW" label="F31122Z1" lineStyle="0" metaname="F31122Z1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_3" target="tDBOutput_1">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="SZGPAY"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
@@ -1748,6 +1744,10 @@
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F31122Z1"/>
+  </connection>
+  <connection connectorName="FLOW" label="Rejet_Type1" lineStyle="0" metaname="Rejet_Type1" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_3" target="tFileOutputDelimited_2">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Rejet_Type1"/>
   </connection>
   <connection connectorName="FLOW" label="F3112" lineStyle="8" metaname="tDBInput_1" offsetLabelX="0" offsetLabelY="0" source="tDBInput_1" target="tMap_3">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
@@ -1757,14 +1757,6 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F00191"/>
   </connection>
-  <connection connectorName="FLOW" label="row2" lineStyle="0" metaname="tFileOutputDelimited_2" offsetLabelX="0" offsetLabelY="0" source="tFileOutputDelimited_2" target="tJava_4">
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row2"/>
-  </connection>
-  <connection connectorName="FLOW" label="row5" lineStyle="0" metaname="tJava_4" offsetLabelX="0" offsetLabelY="0" source="tJava_4" target="tWarn_1">
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row5"/>
-  </connection>
   <connection connectorName="FLOW" label="row6" lineStyle="0" metaname="tFileOutputDelimited_3" offsetLabelX="0" offsetLabelY="0" source="tFileOutputDelimited_3" target="tJava_5">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row6"/>
@@ -1772,6 +1764,14 @@
   <connection connectorName="FLOW" label="row3" lineStyle="0" metaname="tJava_5" offsetLabelX="0" offsetLabelY="0" source="tJava_5" target="tWarn_2">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row3"/>
+  </connection>
+  <connection connectorName="FLOW" label="row2" lineStyle="0" metaname="tFileOutputDelimited_2" offsetLabelX="0" offsetLabelY="0" source="tFileOutputDelimited_2" target="tJava_4">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row2"/>
+  </connection>
+  <connection connectorName="FLOW" label="row5" lineStyle="0" metaname="tJava_4" offsetLabelX="0" offsetLabelY="0" source="tJava_4" target="tWarn_1">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row5"/>
   </connection>
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tPostjob_1" offsetLabelX="0" offsetLabelY="0" source="tPostjob_1" target="tDBClose_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk4"/>
@@ -1900,13 +1900,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_71dcebef-73fd-4406-8f1a-9784c223b3e2"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>RdrQ9XD6549rhRzgqYviwDQK2kV8hzCLPoM2bqaeje9LUSp6daswS0bsz91sZ0a/BDlTdKiFcaLX
-rWcGBsd3uw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_52c4205a-18a9-4399-a629-65e304a0055c"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Wc+jUPDhdTDhk9x97Pv9Hv4B7NyqwVtyLtNGW7BRnUfRpKqyv24RJD5VhMb5iIPpMddeq6qlUwTZ
-JFbzriE+DQ==</DigestValue></Reference></SignedInfo><SignatureValue>S/4YAF6gsHC+aHtFMZIqgYYwoo5kd6Wl91nOBSMVEibQqq0w+r1kR0InCPrFMLHTXSnxVIG/tf2Q
-zNWy7xgUfs9iq1qYUdlw4hltEweFY0MJIP7VAc4OKAjarXHrs1BgkCva3S1UxTrcYz3RYNrFMSto
-oMC+6y74VTUakk5y36UtnIiCChvChYsTO+m/Ll/XX4EUaqbiO2u3V54Ih+AyYOig/2D/q5M81js7
-5IyPBiQky68EIduGo7ZBOGRXxZirf7tyL+JDL5zBqxMDfE4a1Ia4PBboaZHmaXhcf1FMRkubDn8j
-lFawjlfdLb2wGMJoiWf8bX8IJc0EuS+RyJLIpg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_9cb64d29-5b08-42a7-b7b0-5147f11daba5"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>4AIFxMt7i+GS7Yy3TYyhOSq+k1b5fWZzf+ulR/x+xE76kmAQDrapSSkXStNEMEEht05iiTN6t4r4
+DatfwfQe2Q==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_ea74d401-a7e0-424c-a6bd-c86da80de823"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>6Vrgudh6k7idjlcENuWLA/Xafs+cHWjY72MnAIVgjk5FjuWUTN14tNmcqCYivIxrePsRwjoLOuCy
+AvsEvNm5/A==</DigestValue></Reference></SignedInfo><SignatureValue>MWnM6+IuCyyzsr8kGQdLJ/o5SDiCBzkQnrjOBRPnvsISIIgM1wyW9nbCAzYM+vgyZxgYeBIwbcah
+OK4K8aAOnP1BV+8mjBtjeXMII/xvSxVv7qKYOJh3qmpwAlW8zFrRlK9UNfgnpjhCfu4phlpAq2Ks
+we0kaHAEtznKz2AUkwyRqxk8PE4iEIou09Dlcbb/rzzOnVhCieD9oWmzvmUIel/M5JZXWcdgSduM
+sMWGbcNFJX2nCpX9/1mleAgjJ3bieWNdITfXBHDfVWKp2EbKRjCXFvIDMYF4WnkPAqPWZHGAvckV
+FiaxcHAjYvpUVTI2yEc7aaY+jhWUdzjVye4yoA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1928,4 +1928,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_52c4205a-18a9-4399-a629-65e304a0055c" Target="#_71dcebef-73fd-4406-8f1a-9784c223b3e2"><Timestamp>2020-08-25 08:00:44</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_ea74d401-a7e0-424c-a6bd-c86da80de823" Target="#_9cb64d29-5b08-42a7-b7b0-5147f11daba5"><Timestamp>2020-08-25 08:06:48</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
