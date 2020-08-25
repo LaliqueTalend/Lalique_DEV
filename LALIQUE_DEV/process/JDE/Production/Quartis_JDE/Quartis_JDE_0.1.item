@@ -424,7 +424,7 @@
       <column comment="" key="false" length="-1" name="CodeErreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="row1.TempsBrut !=0 ? &quot;1&quot; : row1.QteBonne!=0 ? &quot;4&quot; : row1.QteRebut!=0 ? &quot;5&quot; : &quot; &quot; " name="TYR" type="id_String"/>
         <mapperTableEntries expression="StringHandling.TRIM(StringHandling.EREPLACE(row1.Operateur,&quot;WSM&quot;,&quot; &quot;))" name="KY" type="id_String"/>
@@ -444,7 +444,7 @@
         <mapperTableEntries expression="StringHandling.RIGHT(&quot;00000000&quot;+Var.KY,8) " name="KY" type="id_String"/>
       </outputTables>
       <outputTables activateCondensedTool="true" name="Rejet_Type" reject="true" sizeState="INTERMEDIATE">
-        <mapperTableEntries name="CodeErreur" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot;Type non definissable&quot;" name="CodeErreur" nullable="true" type="id_String"/>
       </outputTables>
       <outputTables activateCondensedTool="true" name="Rejet_Operateur" rejectInnerJoin="true" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="&quot;Code operateur sans taux horaire&quot;" name="CodeErreur" nullable="true" type="id_String"/>
@@ -1324,7 +1324,42 @@
       <column comment="" defaultValue="" key="false" length="-1" name="CERATE" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="160" posY="384">
+  <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="128" posY="416">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileOutputDelimited_2"/>
+    <elementParameter field="CHECK" name="USESTREAM" value="false"/>
+    <elementParameter field="TEXT" name="STREAMNAME" show="false" value="outputStream"/>
+    <elementParameter field="FILE" name="FILENAME" value="context.Errors_Folder + &quot;Rapport_&quot; + (String)globalMap.get(&quot;tWaitForFile_1_FILENAME&quot;)"/>
+    <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
+    <elementParameter field="CHECK" name="OS_LINE_SEPARATOR_AS_ROW_SEPARATOR" show="false" value="true"/>
+    <elementParameter field="OPENED_LIST" name="CSVROWSEPARATOR" show="false" value="&quot;\n&quot;"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;"/>
+    <elementParameter field="CHECK" name="APPEND" value="true"/>
+    <elementParameter field="CHECK" name="INCLUDEHEADER" value="true"/>
+    <elementParameter field="CHECK" name="COMPRESS" show="false" value="false"/>
+    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
+    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" show="false" value="&quot;,&quot;"/>
+    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" show="false" value="&quot;.&quot;"/>
+    <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
+    <elementParameter field="TEXT" name="ESCAPE_CHAR" show="false" value="&quot;&quot;&quot;"/>
+    <elementParameter field="TEXT" name="TEXT_ENCLOSURE" show="false" value="&quot;&quot;&quot;"/>
+    <elementParameter field="CHECK" name="CREATE" value="true"/>
+    <elementParameter field="CHECK" name="SPLIT" value="false"/>
+    <elementParameter field="TEXT" name="SPLIT_EVERY" show="false" value="1000"/>
+    <elementParameter field="CHECK" name="FLUSHONROW" value="false"/>
+    <elementParameter field="TEXT" name="FLUSHONROW_NUM" show="false" value="1"/>
+    <elementParameter field="CHECK" name="ROW_MODE" value="false"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="false"/>
+    <elementParameter field="CHECK" name="FILE_EXIST_EXCEPTION" show="false" value="true"/>
+    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="90"/>
+    <elementParameter field="TEXT" name="LABEL" value="Report_1"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" label="Rejet_Type" name="tFileOutputDelimited_2">
+      <column comment="" key="false" length="-1" name="CodeErreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="224" posY="448">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_4"/>
     <elementParameter field="MEMO_JAVA" name="CODE" value="// Variables à partager avec le job père&#10;System.setProperty(&quot;Quartis_JDE_ERROR&quot;, &quot;10&quot;);&#10;System.setProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;, (String)globalMap.get(&quot;tWaitForFile_1_FILENAME&quot;) + &quot;: Impossible de définir le type d'opération (pas de temps ou de quantité déclarés)&quot;);"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
@@ -1333,16 +1368,7 @@
       <column comment="" key="false" length="-1" name="CodeErreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="352" posY="352">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_5"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="// Variables à partager avec le job père&#10;System.setProperty(&quot;Quartis_JDE_ERROR&quot;, &quot;15&quot;);&#10;System.setProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;, (String)globalMap.get(&quot;tWaitForFile_1_FILENAME&quot;) + &quot;: Code opérateur non défini dans la table des taux horaire (F00191)&quot;);"/>
-    <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" label="Rejet_Operateur" name="tJava_5">
-      <column comment="" key="false" length="-1" name="CodeErreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-    </metadata>
-  </node>
-  <node componentName="tWarn" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="224" posY="448">
+  <node componentName="tWarn" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="320" posY="448">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tWarn_1"/>
     <elementParameter field="TEXT" name="MESSAGE" value="System.getProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;)"/>
     <elementParameter field="TEXT" name="CODE" value="Integer.parseInt(System.getProperty(&quot;Quartis_JDE_ERROR&quot;))"/>
@@ -1352,7 +1378,51 @@
       <column comment="" key="false" length="-1" name="CodeErreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tWarn" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="416" posY="416">
+  <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="256" posY="384">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileOutputDelimited_3"/>
+    <elementParameter field="CHECK" name="USESTREAM" value="false"/>
+    <elementParameter field="TEXT" name="STREAMNAME" show="false" value="outputStream"/>
+    <elementParameter field="FILE" name="FILENAME" value="context.Errors_Folder + &quot;Rapport_&quot; + (String)globalMap.get(&quot;tWaitForFile_1_FILENAME&quot;)"/>
+    <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
+    <elementParameter field="CHECK" name="OS_LINE_SEPARATOR_AS_ROW_SEPARATOR" show="false" value="true"/>
+    <elementParameter field="OPENED_LIST" name="CSVROWSEPARATOR" show="false" value="&quot;\n&quot;"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;"/>
+    <elementParameter field="CHECK" name="APPEND" value="true"/>
+    <elementParameter field="CHECK" name="INCLUDEHEADER" value="true"/>
+    <elementParameter field="CHECK" name="COMPRESS" show="false" value="false"/>
+    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
+    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" show="false" value="&quot;,&quot;"/>
+    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" show="false" value="&quot;.&quot;"/>
+    <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
+    <elementParameter field="TEXT" name="ESCAPE_CHAR" show="false" value="&quot;&quot;&quot;"/>
+    <elementParameter field="TEXT" name="TEXT_ENCLOSURE" show="false" value="&quot;&quot;&quot;"/>
+    <elementParameter field="CHECK" name="CREATE" value="true"/>
+    <elementParameter field="CHECK" name="SPLIT" value="false"/>
+    <elementParameter field="TEXT" name="SPLIT_EVERY" show="false" value="1000"/>
+    <elementParameter field="CHECK" name="FLUSHONROW" value="false"/>
+    <elementParameter field="TEXT" name="FLUSHONROW_NUM" show="false" value="1"/>
+    <elementParameter field="CHECK" name="ROW_MODE" value="false"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="false"/>
+    <elementParameter field="CHECK" name="FILE_EXIST_EXCEPTION" show="false" value="true"/>
+    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="90"/>
+    <elementParameter field="TEXT" name="LABEL" value="Report_1"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" label="Rejet_Type" name="tFileOutputDelimited_3">
+      <column comment="" key="false" length="-1" name="CodeErreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="352" posY="384">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_5"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="// Variables à partager avec le job père&#10;System.setProperty(&quot;Quartis_JDE_ERROR&quot;, &quot;15&quot;);&#10;System.setProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;, (String)globalMap.get(&quot;tWaitForFile_1_FILENAME&quot;) + &quot;: Code opérateur non défini dans la table des taux horaire (F00191)&quot;);"/>
+    <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" label="Rejet_Operateur" name="tJava_5">
+      <column comment="" key="false" length="-1" name="CodeErreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tWarn" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="448" posY="416">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tWarn_2"/>
     <elementParameter field="TEXT" name="MESSAGE" value="System.getProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;)"/>
     <elementParameter field="TEXT" name="CODE" value="Integer.parseInt(System.getProperty(&quot;Quartis_JDE_ERROR&quot;))"/>
@@ -1622,11 +1692,11 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Quartis"/>
   </connection>
-  <connection connectorName="FLOW" label="Rejet_Type" lineStyle="0" metaname="Rejet_Type" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_1" target="tJava_4">
+  <connection connectorName="FLOW" label="Rejet_Type" lineStyle="0" metaname="Rejet_Type" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_1" target="tFileOutputDelimited_2">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Rejet_Type"/>
   </connection>
-  <connection connectorName="FLOW" label="Rejet_Operateur" lineStyle="0" metaname="Rejet_Operateur" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tMap_1" target="tJava_5">
+  <connection connectorName="FLOW" label="Rejet_Operateur" lineStyle="0" metaname="Rejet_Operateur" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tMap_1" target="tFileOutputDelimited_3">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Rejet_Operateur"/>
   </connection>
@@ -1647,9 +1717,17 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F00191"/>
   </connection>
-  <connection connectorName="FLOW" label="row2" lineStyle="0" metaname="tJava_4" offsetLabelX="0" offsetLabelY="0" source="tJava_4" target="tWarn_1">
+  <connection connectorName="FLOW" label="row2" lineStyle="0" metaname="tFileOutputDelimited_2" offsetLabelX="0" offsetLabelY="0" source="tFileOutputDelimited_2" target="tJava_4">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row2"/>
+  </connection>
+  <connection connectorName="FLOW" label="row5" lineStyle="0" metaname="tJava_4" offsetLabelX="0" offsetLabelY="0" source="tJava_4" target="tWarn_1">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row5"/>
+  </connection>
+  <connection connectorName="FLOW" label="row6" lineStyle="0" metaname="tFileOutputDelimited_3" offsetLabelX="0" offsetLabelY="0" source="tFileOutputDelimited_3" target="tJava_5">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row6"/>
   </connection>
   <connection connectorName="FLOW" label="row3" lineStyle="0" metaname="tJava_5" offsetLabelX="0" offsetLabelY="0" source="tJava_5" target="tWarn_2">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
@@ -1782,13 +1860,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_93216115-65fa-45f5-9a8f-44d55efb3ac0"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>h7j7v/1jAy6jdS+dXfEHoSvMBpoelECppmedv4HGkowOw6yKt3iT3UTnMmMQ/Nkhpg0GZy7AMYDh
-oMCTONPObg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_200e405d-d412-4603-a01e-e9ea8dce7216"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>7AiIhrGHSRsbHwaRkt/oiRWCXVcA0KXRWxr2fvMRe4QfrsUwsVhnlW14pefAANd0wcgNotl5v8tp
-LHYupLVOhA==</DigestValue></Reference></SignedInfo><SignatureValue>DuHUzNHZvmVbwvE4gzbXgdZriJj8mwXrt+h8VOc7NYp6LPF0bgZ8STMoRWDeOnJVxfJ+hH1c3tja
-ep6MNQiz5R9MVViPcjjC1jg/wGzrgj/6TdZ3Hn2uyuV6e2Xhc/0SetcR+KOc81VhJdmYYGbqX6bS
-LmICcMX6f4QkJhCJbCBz4/F+M9MLb7sjAya2Qxe8oEP//7QT3917TDFxupjaMOcnbHx2i4YSS7Rr
-YLZHFYpF/YwS3cz3wc1UR4X3VnWHCmaqHKeFXME24JXawqkshyogLqGIQY5Zzrzkxn9uySgbyTYQ
-Fyv/cY316L5pKmGt51m+UspKQnky/DIYBYqKcQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_789231b6-2dab-481b-920a-5956a82166ca"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>y528Uxt00J5nojLnwCjoHTMJ1NiIfvQ7ICfYjGorZ5gQEuoQwHlgoQHLX73zxkN1jocs8XyGCLmc
+ba7ns+eQkg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_5636ad71-de9e-4dac-bb09-fce9ee362730"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>4ami9HcpdecRpiHAfpedzM2ATgKIOaIJhaBGNsQZr2RVkxEScZ74RnF2vEDNgDwVEn5ElHZur234
+Po5YfDq9bw==</DigestValue></Reference></SignedInfo><SignatureValue>bbWBo3dhidPA53WTpBzIk44d4VHZaHK28Qb4C0o6e2rEojAO7CajvwPsHbUATn9y3RfWJ2ac9n+i
+Y7gNP6XMRUi3tUCAUPAN87AoeRRGA4o6lzqBn7btwjz0g/axUQ0g9znEAG0ph+ugUaqU67qGCIG6
+dUnicOop9IlqxhV4nPDBT6QgODyZbK5k40aFQCxE/+OOg/wYBndNCMAlqddCYmsFTs+dSMR8fd7E
+jm090osaXTWMjwHviRHE7MC1xa1GA6wH0f46wS/BJhGtrpsPmkij1AWTYgynZ3MJ+PND2C/oc+oG
+DLV6iqeagzMxl/jfSzDc3ZNIaD6M9Z/rKiWfwA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1810,4 +1888,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_200e405d-d412-4603-a01e-e9ea8dce7216" Target="#_93216115-65fa-45f5-9a8f-44d55efb3ac0"><Timestamp>2020-08-25 06:56:36</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_5636ad71-de9e-4dac-bb09-fce9ee362730" Target="#_789231b6-2dab-481b-920a-5956a82166ca"><Timestamp>2020-08-25 07:39:01</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
