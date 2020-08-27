@@ -37,66 +37,6 @@ public class JDE {
     private static final java.util.Map<String, String> str_Hash = new java.util.HashMap<String, String>();
 
 	/**
-     * Sauvegarde une valeur de type <code>String</code> dans une table sous un nom libre.</br>
-     * Cette valeur peut être retrouvée tout au long de l'execution du Job.
-     * 
-     * @param strName : <code>String</code> - nom de la variable.
-     * @param value : <code>String</code> - valeur à sauvegarder.
-     * 
-     * @return La valeur sauvegardée.
-     * </br><b>Exemple:</b>
-     * <code>  StringSet("DSC1", "ma description")
-     * <hr>
-     * 
-     * {talendTypes} String
-     * 
-     * {Category} Lalique Defined
-     * 
-     * {param} String strName
-     * {param} String value
-     * </br>
-     * created : 26/08/2020 - Philippe Bongard</br>
-     * version : 1.0
-     */
-    public static String StringSet(String strName, String value) {
-    	str_Hash.put(strName, value);
-    	return value;
-    }
-
-	/**
-     * Renvoie une valeur de type <code>String</code> précédemment sauvegardée dans une table.
-     * 
-     * @param strName : <code>String</code> - nom de la variable.
-     * 
-     * @return La valeur de type <code>String</code> sauvegardée.
-     * </br><b>Exemple:</b>
-     * <code>  StringGet("DSC1") ==> "ma description"
-     * <hr>
-     * 
-     * {talendTypes} String
-     * 
-     * {Category} Lalique Defined
-     * 
-     * {param} String strName
-     * </br>
-     * created : 26/08/2020 - Philippe Bongard</br>
-     * version : 1.0
-     */
-    public static String StringGet(String strName) {
-        if (str_Hash.containsKey(strName)) {
-            return str_Hash.get(strName);
-        } else {
-            return null;
-        }
-    }
-
-    public static void StringClear(String strName) {
-        if (str_Hash.containsKey(strName)) {
-            str_Hash.remove(strName);
-        }
-    }
-    
-	/**
      * Convertit une valeur de type <code>BigDecimal</code> en valeur de type <code>Double</code> (renvoie 0 si la valeur est nulle)
      * 
      * @param value : <code>BigDecimal</code> - valeur à convertir.
@@ -618,6 +558,39 @@ public class JDE {
 		return myVal;
 	}
 
+    public static void stringClear(String name) {
+        if (str_Hash.containsKey(name)) {
+            str_Hash.remove(name);
+        }
+    }
+    
+	/**
+     * Renvoie une valeur de type <code>String</code> précédemment sauvegardée dans une table.
+     * 
+     * @param name : <code>String</code> - nom de la variable.
+     * 
+     * @return La valeur de type <code>String</code> sauvegardée.
+     * </br><b>Exemple:</b>
+     * <code>  stringGet("DSC1") ==> "ma description"
+     * <hr>
+     * 
+     * {talendTypes} String
+     * 
+     * {Category} Lalique Defined
+     * 
+     * {param} String("") name
+     * </br>
+     * created : 26/08/2020 - Philippe Bongard</br>
+     * version : 1.0
+     */
+    public static String stringGet(String name) {
+        if (str_Hash.containsKey(name)) {
+            return str_Hash.get(name);
+        } else {
+            return null;
+        }
+    }
+
 	/** 
 	 * Renvoie une chaîne de caractères de longueur donnée en alignant le texte à droite.
      * 
@@ -651,5 +624,32 @@ public class JDE {
         String pStr = pBuffer.toString() + text;
         return pStr.substring(pStr.length() - Math.min(pStr.length(), size));
 	}
+
+	/**
+     * Sauvegarde une valeur de type <code>String</code> dans une table sous un nom libre.</br>
+     * Cette valeur peut être retrouvée tout au long de l'execution du Job.
+     * 
+     * @param name : <code>String</code> - nom de la variable.
+     * @param value : <code>String</code> - valeur à sauvegarder.
+     * 
+     * @return La valeur sauvegardée.
+     * </br><b>Exemple:</b>
+     * <code>  StringSet("DSC1", "ma description")
+     * <hr>
+     * 
+     * {talendTypes} String
+     * 
+     * {Category} Lalique Defined
+     * 
+     * {param} String("") name
+     * {param} String("") value
+     * </br>
+     * created : 26/08/2020 - Philippe Bongard</br>
+     * version : 1.0
+     */
+    public static String stringSet(String name, String value) {
+    	str_Hash.put(name, value);
+    	return value;
+    }
 
 }
