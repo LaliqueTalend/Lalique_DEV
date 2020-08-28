@@ -285,14 +285,12 @@
     <elementParameter field="MEMO_JAVA" name="CODE" value="// Positionne le dossier cible du fichier à importer&#10;// Il dépend du contexte.typ : IMP ou TF&#10;// sinon stopper l'exécution du job&#10;System.setProperty(&quot;Execution_OK&quot;, &quot;OK&quot;);&#10;&#10;// Initialisation pour la boucle myForeach&#10;class BytesLimit65535_myForeach {&#10;&#9;public void limitLog4jByte() throws Exception {&#10;&#10;&#9;}&#10;}&#10;&#10;new BytesLimit65535_myForeach().limitLog4jByte();&#10;&#10;// positionne le nom de fichier&#10;// récupération et déterminsation du timestamp dans le nom du fichier&#10;//   par défaut c'est l'instant du traitement&#10;String nomfichier = context.fichier;&#10;Object[] values_myForeach = new Object[] { nomfichier, };&#10;&#10;if ( ! context.timestamp.equals(&quot;&quot;)) {&#10;    String[] patternTS = context.timestamp.split(&quot;%&quot;, 4);&#10;    Integer nbmorpheme = patternTS.length;&#10;    // format dans 1ère cellule&#10;    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(patternTS[0]);&#10;  &#9;java.util.Calendar calendar = java.util.Calendar.getInstance();&#10;  &#9;String timestamp = simpleDateFormat.format(calendar.getTime());&#10;//&#9;  System.out.println(timestamp);&#10;  &#9;// Détermination d'un timestamp relatif&#10;    if ( nbmorpheme &gt; 1) {&#10;          // délai max dans 2nd cellule et delai min dans 3ème cellule&#10;        Integer delaimax = Integer.valueOf(patternTS[1]);&#10;//        System.out.println(delaimax);&#10;        // nombre de jours à récupérer - par défaut c'est 1&#10;        Integer nbjours = 1;&#10;        if ( nbmorpheme &gt; 2) {&#10;        &#9;Integer delaimin = Integer.valueOf(patternTS[2]);&#10;        &#9;nbjours = Math.abs(delaimax-delaimin)+1;&#10;          values_myForeach = new Object[nbjours];   // réinitialise un tableau de nbjours valeurs&#10;        }&#10;        calendar.add(java.util.Calendar.DATE, delaimax);&#10;        for (int x = 0; x &lt; nbjours; x++) {&#10;        &#9;calendar.add(java.util.Calendar.DATE, x&gt;0 ? 1 : 0);&#10;        &#9;timestamp = simpleDateFormat.format(calendar.getTime());&#10;        &#9;nomfichier = context.fichier + timestamp;&#10;//        &#9;System.out.println(timestamp);&#10;        &#9;if ( ! context.suffixe.equals(&quot;&quot;)) {&#10;        &#9;  nomfichier = nomfichier + context.suffixe;&#10;          }&#10;          values_myForeach[x] = nomfichier;&#10;//        &#9;System.out.println(nomfichier);&#10;        }&#10;  &#9;} else {&#10;          nomfichier = nomfichier + timestamp;&#10;          values_myForeach[0] = nomfichier;&#10;//          System.out.println(nomfichier);       &#10;    }&#10;} else if ( ! context.suffixe.equals(&quot;&quot;)) {&#10;  &#9;nomfichier = nomfichier + context.suffixe;&#10;    if ( ! context.ext.equals(&quot;&quot;)) {&#10;        // récupération de l'extention&#10;      &#9;nomfichier = nomfichier + &quot;.&quot; + context.ext;&#10;    }&#10;    values_myForeach[0] = nomfichier;&#10;} else if ( ! context.ext.equals(&quot;&quot;)) {&#10;    // récupération de l'extention&#10;  &#9;nomfichier = nomfichier + &quot;.&quot; + context.ext;&#10;    values_myForeach[0] = nomfichier;&#10;}&#10;&#10;globalMap.put(&quot;myForeach_ARRAY&quot;, values_myForeach);&#10;&#10;// positionne le type de transfert&#10;if ( context.typ.equals(&quot;IMP&quot;) ) {&#10;&#9;System.setProperty(&quot;Temporary_folder&quot;, context.repcbl);&#10;&#9;System.out.println(&quot;IMPORT &quot;+context.typ+&quot; sur &quot; + System.getProperty(&quot;Temporary_folder&quot;) );&#10;&#9;System.out.println(System.getProperty(&quot;Temporary_folder&quot;) + &quot;\\&quot;+System.getProperty(&quot;Fichier&quot;));&#10;} else if ( context.typ.equals(&quot;TF&quot;) ) {&#10;&#9;System.setProperty(&quot;Temporary_folder&quot;, context.repertoire_tmp);&#10;&#9;System.out.println(&quot;IMPORT &quot;+context.typ+&quot; vers &quot; + System.getProperty(&quot;Temporary_folder&quot;));&#10;&#9;System.out.println(System.getProperty(&quot;Temporary_folder&quot;) + &quot;\\&quot;+System.getProperty(&quot;Fichier&quot;));&#10;} else {&#10;&#9;System.out.println(&quot;Stop process &quot;+jobName+ &quot;. Type import (&quot;+context.typ+&quot;) non compatible.&quot;);&#10;&#9;System.setProperty(&quot;Execution_OK&quot;, &quot;KO&quot;);&#10;}&#10;// Positionne les paramètres de la connexion &#10;if ( context.sftp.toString().equals(&quot;O&quot;) || context.sftp.toString().equals(&quot;N&quot;) ) {&#10;&#9;System.setProperty(&quot;Mode_sftp&quot;, context.sftp.toString());&#10;&#9;System.out.println(&quot;Mode_sftp &quot;+context.sftp.toString());&#10;} else {&#10;&#9;System.out.println(&quot;Stop process &quot;+jobName+ &quot;. modes sftp (&quot;+context.sftp.toString()+&quot;) non compatible.&quot;);&#10;&#9;System.setProperty(&quot;Execution_OK&quot;, &quot;KO&quot;);&#10;}"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="LABEL" value="Preprocess_import"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_3"/>
   </node>
   <node componentName="tPrejob" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="32" posY="64">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tPrejob_1"/>
     <elementParameter field="TEXT" name="LABEL" value="Preprocess"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="1184" posY="192">
@@ -300,7 +298,6 @@
     <elementParameter field="MEMO_JAVA" name="CODE" value="//Création d'un timestamp pour l'archivage&#10;System.setProperty(&quot;Timestamp&quot;, &quot;&quot;+System.currentTimeMillis());"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="LABEL" value="Postprocess_import"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_1"/>
   </node>
@@ -310,7 +307,6 @@
     <elementParameter field="MEMO_JAVA" name="CODE" value="System.out.println(&quot;Fichier : (&quot; + ((String)globalMap.get(&quot;tFTPFileList_1_CURRENT_FILE&quot;)) +&quot;)  inexistant&quot;);&#10;&#10;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="LABEL" value="Fichier_inexistant"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_2"/>
   </node>
@@ -321,7 +317,6 @@
     <elementParameter field="TEXT" name="CODE" value="42"/>
     <elementParameter field="CLOSED_LIST" name="PRIORITY" value="4"/>
     <elementParameter field="TEXT" name="LABEL" value="Alert_1"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tWarn_1"/>
   </node>
@@ -332,7 +327,6 @@
     <elementParameter field="CHECK" name="CATCH_TWARN" value="true"/>
     <elementParameter field="CHECK" name="CATCH_TACTIONFAILURE" value="true"/>
     <elementParameter field="TEXT" name="LABEL" value="Log"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tLogCatcher_1">
       <column defaultValue="" key="false" length="0" name="moment" nullable="true" originalLength="-1" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="0" sourceType="" type="id_Date" usefulColumn="true"/>
@@ -391,7 +385,6 @@
     <elementParameter field="CHECK" name="PRINT_CONTENT_WITH_LOG4J" value="true"/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
     <elementParameter field="TEXT" name="LABEL" value="Sur_console"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tLogRow_1">
       <column defaultValue="" key="false" length="0" name="moment" nullable="true" originalLength="-1" pattern="&quot;yyyy-MM-dd HH:mm:ss&quot;" precision="0" sourceType="" type="id_Date" usefulColumn="true"/>
@@ -414,7 +407,6 @@
     <elementParameter field="TEXT" name="CODE" value="42"/>
     <elementParameter field="CLOSED_LIST" name="PRIORITY" value="4"/>
     <elementParameter field="TEXT" name="LABEL" value="Alert_2"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tWarn_2"/>
   </node>
@@ -424,7 +416,6 @@
     <elementParameter field="TEXT" name="CODE" value="42"/>
     <elementParameter field="CLOSED_LIST" name="PRIORITY" value="4"/>
     <elementParameter field="TEXT" name="LABEL" value="Alert_3"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tWarn_3"/>
   </node>
@@ -456,7 +447,6 @@
     <elementParameter field="TEXT" name="FTPS_PROTECTION_BUFF_SIZE" show="false" value="0"/>
     <elementParameter field="CHECK" name="REMOTE_VERIFICATION" show="false" value="true"/>
     <elementParameter field="TEXT" name="LABEL" value="SFTP_Connect"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
   </node>
   <node componentName="tFTPRename" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="1408" posY="192">
@@ -498,7 +488,6 @@
     <elementParameter field="TEXT" name="FTPS_PROTECTION_BUFF_SIZE" show="false" value="0"/>
     <elementParameter field="CHECK" name="REMOTE_VERIFICATION" show="false" value="true"/>
     <elementParameter field="TEXT" name="LABEL" value="SFTP_archive_fichier"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tFTPRename_1"/>
   </node>
@@ -516,7 +505,7 @@
     <elementParameter field="CLOSED_LIST" name="AUTH_METHOD" show="false" value="PASSWORD"/>
     <elementParameter field="FILE" name="PRIVATEKEY" show="false" value="&quot;/.ssh/id_dsa&quot;"/>
     <elementParameter field="PASSWORD" name="PASSPHRASE" show="false" value="wiXuUBxiyoc5L4zXsOuoEQ=="/>
-    <elementParameter field="CLOSED_LIST" name="CONNECT_MODE" value="PASSIVE"/>
+    <elementParameter field="CLOSED_LIST" name="CONNECT_MODE" value="ACTIVE"/>
     <elementParameter field="CLOSED_LIST" name="SECURITY_MODE" show="false" value="IMPLICIT"/>
     <elementParameter field="CHECK" name="USE_ENCODING" show="false" value="false"/>
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
@@ -530,7 +519,6 @@
     <elementParameter field="TEXT" name="FTPS_PROTECTION_BUFF_SIZE" show="false" value="0"/>
     <elementParameter field="CHECK" name="REMOTE_VERIFICATION" show="false" value="true"/>
     <elementParameter field="TEXT" name="LABEL" value="FTP_Connect"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
   </node>
   <node componentName="tFTPRename" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="1408" posY="448">
@@ -572,7 +560,6 @@
     <elementParameter field="TEXT" name="FTPS_PROTECTION_BUFF_SIZE" show="false" value="0"/>
     <elementParameter field="CHECK" name="REMOTE_VERIFICATION" show="false" value="true"/>
     <elementParameter field="TEXT" name="LABEL" value="FTP_archive_fichier"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tFTPRename_2"/>
   </node>
@@ -580,14 +567,12 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFTPClose_2"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="tFTPConnection_2"/>
     <elementParameter field="TEXT" name="LABEL" value="FTP_close"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
   </node>
   <node componentName="tFTPClose" componentVersion="2.0" offsetLabelX="0" offsetLabelY="0" posX="1600" posY="192">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFTPClose_1"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="tFTPConnection_2"/>
     <elementParameter field="TEXT" name="LABEL" value="SFTP_close"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
   </node>
   <node componentName="tJavaFlex" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="512" posY="64">
@@ -601,7 +586,6 @@
     <elementParameter field="CHECK" name="Version_V4.0" show="false" value="true"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="LABEL" value="SFTP_LoopFiles"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJavaFlex_1"/>
   </node>
@@ -642,7 +626,6 @@
     <elementParameter field="TEXT" name="FTPS_PROTECTION_BUFF_SIZE" show="false" value="0"/>
     <elementParameter field="CHECK" name="REMOTE_VERIFICATION" show="false" value="true"/>
     <elementParameter field="TEXT" name="LABEL" value="SFTP_ListFiles"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
   </node>
   <node componentName="tFTPGet" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="864" posY="64">
@@ -689,7 +672,6 @@
     <elementParameter field="TEXT" name="FTPS_PROTECTION_BUFF_SIZE" show="false" value="0"/>
     <elementParameter field="CHECK" name="REMOTE_VERIFICATION" show="false" value="true"/>
     <elementParameter field="TEXT" name="LABEL" value="Import_sftp"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tFTPGet_1"/>
   </node>
@@ -704,7 +686,6 @@
     <elementParameter field="CHECK" name="Version_V4.0" show="false" value="true"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="LABEL" value="FTP_LoopFiles"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJavaFlex_2"/>
   </node>
@@ -745,7 +726,6 @@
     <elementParameter field="TEXT" name="FTPS_PROTECTION_BUFF_SIZE" show="false" value="0"/>
     <elementParameter field="CHECK" name="REMOTE_VERIFICATION" show="false" value="true"/>
     <elementParameter field="TEXT" name="LABEL" value="FTP_ListFiles"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
   </node>
   <node componentName="tFTPGet" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="864" posY="320">
@@ -792,7 +772,6 @@
     <elementParameter field="TEXT" name="FTPS_PROTECTION_BUFF_SIZE" show="false" value="0"/>
     <elementParameter field="CHECK" name="REMOTE_VERIFICATION" show="false" value="true"/>
     <elementParameter field="TEXT" name="LABEL" value="Import_ftp"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tFTPGet_2"/>
   </node>
@@ -802,7 +781,6 @@
     <elementParameter field="MEMO_JAVA" name="CODE" value="System.out.println(&quot;Fichier : (&quot; + context.repsrc + &quot;(&quot;+((String)globalMap.get(&quot;tFTPFileList_3_CURRENT_FILEPATH&quot;)) +&quot;)&quot; +&quot;/&quot;+ ((String)globalMap.get(&quot;tFTPFileList_3_CURRENT_FILE&quot;)) +&quot;)  inexistant&quot;);&#10;&#10;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="LABEL" value="Fichier_inexistant"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_4"/>
   </node>
@@ -813,7 +791,6 @@
     <elementParameter field="TEXT" name="CODE" value="42"/>
     <elementParameter field="CLOSED_LIST" name="PRIORITY" value="4"/>
     <elementParameter field="TEXT" name="LABEL" value="Alert_1"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tWarn_4"/>
   </node>
@@ -822,7 +799,6 @@
     <elementParameter field="MEMO_JAVA" name="CODE" value="//Création d'un timestamp pour l'archivage&#10;System.setProperty(&quot;Timestamp&quot;, &quot;&quot;+System.currentTimeMillis());"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="LABEL" value="Postprocess_import"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_5"/>
   </node>
@@ -833,8 +809,6 @@
       <elementValue elementRef="SCHEMA_COLUMN" value="file"/>
       <elementValue elementRef="VALUE" value="((String)globalMap.get(&quot;tFTPFileList_3_CURRENT_FILE&quot;))"/>
     </elementParameter>
-    <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tIterateToFlow_1">
       <column comment="" key="false" length="-1" name="file" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
@@ -860,8 +834,6 @@
     </elementParameter>
     <elementParameter field="CHECK" name="PRINT_CONTENT_WITH_LOG4J" value="true"/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
-    <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tLogRow_2">
       <column comment="" key="false" length="-1" name="file" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
@@ -903,8 +875,6 @@
     <elementParameter field="OPENED_LIST" name="FTPS_PROT" show="false" value="&quot;P&quot;"/>
     <elementParameter field="TEXT" name="FTPS_PROTECTION_BUFF_SIZE" show="false" value="0"/>
     <elementParameter field="CHECK" name="REMOTE_VERIFICATION" show="false" value="true"/>
-    <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tFTPFileExist_3"/>
   </node>
@@ -945,7 +915,6 @@
     <elementParameter field="TEXT" name="FTPS_PROTECTION_BUFF_SIZE" show="false" value="0"/>
     <elementParameter field="CHECK" name="REMOTE_VERIFICATION" show="false" value="true"/>
     <elementParameter field="TEXT" name="LABEL" value="SFTP_file_exist"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b&gt;__UNIQUE_NAME__&lt;/b&gt;&lt;br&gt;__COMMENT__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tFTPFileExist_1"/>
   </node>
@@ -1154,13 +1123,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_8efda435-c3b1-4560-9057-6f445c7be6d4"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>pTzCgAOQ7bk9Qz1CJDCbht2Grk0mx2NE302gDyrZKqgcUIJhzq+pqKVT1BZ3ZDXwqDgbggH2oUfk
-He7YfR2BVw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_628b2bad-1fee-421c-8623-5392c6dd6b1b"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Vts9RYHRxKYV4Dm52XXvVTJYbvZTzo3T4osI1J0MEHPCphdbpku8lQ7+uUwIVSCiZM4MiFotMtts
-wWs/ZamgEQ==</DigestValue></Reference></SignedInfo><SignatureValue>NTrr/Gsh5Ahca5ZuTlbddoY7u+pk6IcXe9N/mAGHqFbJ2G83Rn3rfDGYN6waV6IzZsqrejlWSoqO
-pLaFBMETa0odnZwsUav6dY13h0MqwMjlhVHGMado0EqXoHoRzVffbctVCnQ+rRbMDetkq1p1aDB7
-oHEYOv5XttpAUEzG/qymCNmdrW3l5dVgZb6jLsxvLdr2Vq1nGOgS7Lu+kA1mM3s71CnELsfNiCC7
-Y0QfaZmGHIqUDp6E35WaIvMESugFN64qtbCJQf/0EVCe2VqRbbpOtWoPOcmMdHwXWIJKBPQyn/wv
-IZ2HI8t/Ob1PS5OF9gZQqNksXy7NrtBqTByypQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_49c7ece6-6f46-4129-973f-f0e1bf8feb98"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>VX/PlMbgHUgogQ5st+BbJh8Mx3SF2xOHm3qOV1jQcp8Y/HrFRX2yUKH/5D0UcMKJec//PLEgRGtH
+dUaZoVSjyw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_d9e88ed2-a74e-4257-a5cc-27ca4a9ae82a"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>w26CiLBPQe5f4Qxoob563dcQBJn4BGXtoZWhvSD06/tFd/ybQr9GMTlqMbyTdjZJ1JWUniCIXy37
+EAnZUvmoaw==</DigestValue></Reference></SignedInfo><SignatureValue>pRtLHlceaZboIfS79HVRf/2Fmf8rTSXuz+nnRAGdTlxHMRW7iHfXChaRCoIBguaySpEWJqZpOIpP
+v/7I8kfny49jjh35xIfdb9WPE8+fmdahsazZnKxSOz9tEa2BurE+XU6E0qUEgFonTHqTQPe7gEAT
+E8b3WvI+12/JCgpBFTeeVR5TK6pSA8pv4jxXmOFCgEislnFRHCpOk3QJJhpVBVcohM5d04GjspWR
+5REWfz0+UG5P3IKW50RiFP7wgQ94F27PnhjioNq6b6Py56i8dYJclhEvIoLbeu2xBfqeOhRRNEf+
+Z/KJojGOSMPeRuO2g5M/CVyXigG6WJwCZ8RWbA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1182,4 +1151,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_628b2bad-1fee-421c-8623-5392c6dd6b1b" Target="#_8efda435-c3b1-4560-9057-6f445c7be6d4"><Timestamp>2020-08-27 08:02:34</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_d9e88ed2-a74e-4257-a5cc-27ca4a9ae82a" Target="#_49c7ece6-6f46-4129-973f-f0e1bf8feb98"><Timestamp>2020-08-28 10:27:34</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
