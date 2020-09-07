@@ -299,12 +299,12 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tFTPPut_1"/>
   </node>
-  <node componentName="tPostjob" componentVersion="0.102" offsetLabelX="-7" offsetLabelY="32" posX="64" posY="544">
+  <node componentName="tPostjob" componentVersion="0.102" offsetLabelX="-7" offsetLabelY="32" posX="64" posY="512">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tPostjob_1"/>
     <elementParameter field="TEXT" name="LABEL" value="Postprocess"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
   </node>
-  <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="256" posY="544">
+  <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="256" posY="512">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_1"/>
     <elementParameter field="MEMO_JAVA" name="CODE" value="//Création d'un timestamp pour l'archivage&#10;System.setProperty(&quot;Timestamp&quot;, &quot;&quot;+System.currentTimeMillis());"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
@@ -452,17 +452,6 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tWarn_3"/>
   </node>
-  <node componentName="tDie" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="1088" posY="192">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDie_3"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
-    <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="true"/>
-    <elementParameter field="TEXT" name="MESSAGE" value="&quot;Export ftp en erreur - arrêt job&quot;"/>
-    <elementParameter field="TEXT" name="CODE" value="4"/>
-    <elementParameter field="CLOSED_LIST" name="PRIORITY" value="5"/>
-    <elementParameter field="CHECK" name="EXIT_JVM" value="true"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tDie_3"/>
-  </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="192" posY="64">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_5"/>
     <elementParameter field="MEMO_JAVA" name="CODE" value="// Positionne le dossier source du fichier à exporter&#10;// Il dépend du contexte.typ : EXP ou TF&#10;// sinon stopper l'exécution du job&#10;System.setProperty(&quot;Execution_OK&quot;, &quot;OK&quot;);&#10;System.setProperty(&quot;Fichier&quot;, context.fichier+&quot;.&quot;+context.ext); &#10;if ( context.typ.equals(&quot;EXP&quot;) ) {&#10;&#9;System.setProperty(&quot;Temporary_folder&quot;, context.repsrc);&#10;&#9;System.out.println(&quot;EXPORT &quot;+context.typ+&quot; depuis &quot; + System.getProperty(&quot;Temporary_folder&quot;) );&#10;&#9;System.out.println(System.getProperty(&quot;Temporary_folder&quot;) + &quot;\\&quot;+System.getProperty(&quot;Fichier&quot;));&#10;} else if ( context.typ.equals(&quot;TF&quot;) ) {&#10;&#9;System.setProperty(&quot;Temporary_folder&quot;, context.repsrc);&#10;&#9;System.out.println(&quot;TRANSFERT &quot;+context.typ+&quot; depuis &quot; + System.getProperty(&quot;Temporary_folder&quot;));&#10;&#9;System.out.println(System.getProperty(&quot;Temporary_folder&quot;) + &quot;\\&quot;+System.getProperty(&quot;Fichier&quot;));&#10;} else {&#10;&#9;System.out.println(&quot;Stop process &quot;+jobName+ &quot;. Type export (&quot;+context.typ+&quot;) non compatible.&quot;);&#10;&#9;System.setProperty(&quot;Execution_OK&quot;, &quot;KO&quot;);&#10;}&#10;// Positionne les paramètres de la connexion &#10;if ( context.sftp.toString().equals(&quot;O&quot;) ) {&#10;&#9;// mode SFTP&#10;&#9;System.setProperty(&quot;Mode_sftp&quot;, context.sftp.toString());&#10;&#9;System.setProperty(&quot;FTP_actif&quot;, &quot;0&quot;);&#10;&#9;System.setProperty(&quot;FTP_passif&quot;, &quot;0&quot;);&#10;&#9;System.out.println(&quot;Mode_sftp &quot;+context.sftp.toString());&#10;} else if ( context.sftp.toString().equals(&quot;N&quot;) ) {&#10;&#9;// mode FTP&#10;&#9;System.setProperty(&quot;Mode_sftp&quot;, context.sftp.toString());&#10;&#9;if ( context.actifpassif.toString().equals(&quot;0&quot;)) {&#10;&#9;&#9;// mode FTP actif&#10;&#9;&#9;System.setProperty(&quot;FTP_actif&quot;, &quot;1&quot;);&#10;&#9;&#9;System.setProperty(&quot;FTP_passif&quot;, &quot;0&quot;);&#10;&#9;&#9;System.out.println(&quot;Mode_sftp &quot;+context.sftp.toString()+&quot; - FTP mode actif&quot;);&#10;&#9;} else {&#10;&#9;&#9;// mode FTP passif&#10;&#9;&#9;System.setProperty(&quot;FTP_actif&quot;, &quot;0&quot;);&#10;&#9;&#9;System.setProperty(&quot;FTP_passif&quot;, &quot;1&quot;);&#10;&#9;&#9;System.out.println(&quot;Mode_sftp &quot;+context.sftp.toString()+&quot; - FTP mode passif&quot;);&#10;&#9;}&#10;} else {&#10;&#9;System.out.println(&quot;Stop process &quot;+jobName+ &quot;. modes sftp (&quot;+context.sftp.toString()+&quot;) non compatible.&quot;);&#10;&#9;System.setProperty(&quot;Execution_OK&quot;, &quot;KO&quot;);&#10;}&#10;//Contrôle le port si non positionné&#10;if ( context.port.toString().equals(&quot;O&quot;) || context.port.toString().equals(&quot;&quot;) ) {&#10;  // initialise en fonction du type de ftp&#10;  if ( context.sftp.toString().equals(&quot;O&quot;)) {&#10;    context.setProperty(&quot;port&quot;, &quot;22&quot;); &#10;&#9;System.out.println(&quot;Port forcé sftp &quot;+context.port);&#10;  } else {&#10;    context.setProperty(&quot;port&quot;, &quot;21&quot;); &#10;&#9;System.out.println(&quot;Port forcé ftp &quot;+context.port);&#10;  }&#10;}&#10;"/>
@@ -508,17 +497,6 @@
     <elementParameter field="FILE" name="FILE_NAME" value="System.getProperty(&quot;Temporary_folder&quot;)+&quot;\\&quot;+((String)globalMap.get(&quot;tFileList_1_CURRENT_FILE&quot;))"/>
     <elementParameter field="TEXT" name="LABEL" value="Fichier_existe"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-  </node>
-  <node componentName="tDie" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="1088" posY="64">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDie_2"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
-    <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="true"/>
-    <elementParameter field="TEXT" name="MESSAGE" value="&quot;Export sftp en erreur - arrêt job&quot;"/>
-    <elementParameter field="TEXT" name="CODE" value="4"/>
-    <elementParameter field="CLOSED_LIST" name="PRIORITY" value="5"/>
-    <elementParameter field="CHECK" name="EXIT_JVM" value="true"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tDie_2"/>
   </node>
   <node componentName="tFileList" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="416" posY="512">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileList_2"/>
@@ -668,17 +646,6 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tWarn_4"/>
   </node>
-  <node componentName="tDie" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="1088" posY="288">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDie_4"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
-    <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="true"/>
-    <elementParameter field="TEXT" name="MESSAGE" value="&quot;Export ftp en erreur - arrêt job&quot;"/>
-    <elementParameter field="TEXT" name="CODE" value="4"/>
-    <elementParameter field="CLOSED_LIST" name="PRIORITY" value="5"/>
-    <elementParameter field="CHECK" name="EXIT_JVM" value="true"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tDie_4"/>
-  </node>
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tPrejob_1" offsetLabelX="0" offsetLabelY="0" source="tPrejob_1" target="tJava_5">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk3"/>
   </connection>
@@ -707,14 +674,6 @@
   <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tLogCatcher_1" offsetLabelX="0" offsetLabelY="0" source="tLogCatcher_1" target="tLogRow_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row1"/>
-  </connection>
-  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tWarn_2" offsetLabelX="10" offsetLabelY="-34" source="tWarn_2" target="tDie_2">
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk7"/>
-  </connection>
-  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tWarn_3" offsetLabelX="0" offsetLabelY="0" source="tWarn_3" target="tDie_3">
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk8"/>
   </connection>
   <connection connectorName="RUN_IF" label="OK" lineStyle="6" metaname="tJava_5" offsetLabelX="0" offsetLabelY="0" source="tJava_5" target="tFileList_1">
     <elementParameter field="MEMO_JAVA" name="CONDITION" value="(System.getProperty(&quot;Execution_OK&quot;).equals(&quot;OK&quot;))"/>
@@ -758,10 +717,6 @@
   <connection connectorName="RUN_IF" label="If" lineStyle="6" metaname="tFTPPut_3" offsetLabelX="0" offsetLabelY="0" source="tFTPPut_3" target="tWarn_4">
     <elementParameter field="MEMO_JAVA" name="CONDITION" value="(Integer)globalMap.get(&quot;tFTPPut_3_NB_FILE&quot;)==0"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="If5"/>
-  </connection>
-  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tWarn_4" offsetLabelX="0" offsetLabelY="0" source="tWarn_4" target="tDie_4">
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk9"/>
   </connection>
   <subjob>
     <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" show="false" value="true"/>
@@ -822,22 +777,12 @@
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
   <subjob>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDie_3"/>
-    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
-    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
-  </subjob>
-  <subjob>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_5"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
   <subjob>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileList_1"/>
-    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
-    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
-  </subjob>
-  <subjob>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDie_2"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
@@ -861,18 +806,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-  <subjob>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDie_4"/>
-    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
-    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
-  </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_2e7d5151-2d6b-4f3a-b2e6-9ddb078b7790"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>vpcudvAbWUe+UFAeCp/McFOC820ruxuvY75KodxhXCHeigS9J0Vg6L3/d1mKzWeN/TSBbZlgPBpP
-EeTb1IKaGw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_56d25021-982d-40a3-aafd-a742ec2a3f67"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>ZWevAePIGaOPS5HaQBZtamTWP0SWQzkWv11arm8fsu691vfHjoW7bu0mEYs3+VXDFepe6fv9aZTe
-4Ex0npmSqg==</DigestValue></Reference></SignedInfo><SignatureValue>Tq9QYgBhPm+Ch5gQ8FoJ7WRo3p7taKtH8eVHjCb7SyGPQvi4W7FpElssTAsszavF5KRpQCQwpm4e
-F5wupq5LdJSVX0O06EhOj82M7go6vahNsdB1F1kA9Yo2eGA9/oX2VcLgHZvF3uuoXg34SGKf7epD
-vBjbNayZm51eYUfqwxNfqESfe1uhz6MGrq+tClKwH/3zspoWHPykGLlBkS4qkEhGObjwlEmQFo+d
-m6vPXrqYfkC4H1Lehu5beMILtnN3pVPTPxbnOJO2Gw+6Iq1Un9dUK0sjco+uPEzxzxXSxoGatrFB
-reyOVqFRhupcd/rxsu+DiX3Zup3IwjwFDBLxKA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_bca49da0-5c9e-4be3-b4f5-aed6627dbace"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>ScTN/xAveEyd9wdnp+gIjsz2Jvwuf9n+9dkE84B+BvUk7MyhF07ZOZgEGoQfCWU36E+IZbJOeOFl
+YUYQX5WzIQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_d463f33c-9344-4669-820d-a0dd49f2b9d1"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>46rc1hS+LFQt60rNmVdEqF2aHm3Jrg3Xe1d1nYO8iSpx+w2XUS3nYt1HJYTlVvJxeLkYM8kG03Ew
+QkR8eo2LZg==</DigestValue></Reference></SignedInfo><SignatureValue>MVcwkYgXItKFJnlaf2RXfCXovF4XUe0Sz95u5utA/P11cnEG43lxBXWMeAYxe8quP0UIuJf9sp8m
+rQPKhYfX4e/2w9zxGDoP3hpKNxRcHEMRMbi02qipxbrunMcOgdFSyEnCyj4i6eDVdBgPqs/7LrFw
+wL8O+5dZYg83P9nj4RjU4qhe+PHeefv0iIvsYi6lgm26PxsW/fwq+x2bwnyYcrn77oanA02BiWOG
+pndta/m70stU76XReQ6UgXGliipVKeBuhia75q/VsVmzeeQ7LV9UU9zCzp4p85XgvtWGzn4KhUxH
+H+K6Lt5xvFQYI3N7tfkGh3hvH2ig/hTBkXHIDA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -894,4 +834,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_56d25021-982d-40a3-aafd-a742ec2a3f67" Target="#_2e7d5151-2d6b-4f3a-b2e6-9ddb078b7790"><Timestamp>2020-09-07 09:55:29</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_d463f33c-9344-4669-820d-a0dd49f2b9d1" Target="#_bca49da0-5c9e-4be3-b4f5-aed6627dbace"><Timestamp>2020-09-07 15:22:15</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
