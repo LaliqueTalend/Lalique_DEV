@@ -231,7 +231,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="64" posY="32">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_1"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="Date today = new Date();&#10;&#10;//System.setProperty(&quot;JDE_Quartis_OF_ERROR&quot;, &quot;0&quot;);&#10;//System.setProperty(&quot;JDE_Quartis_OF_ERROR_MESSAGE&quot;, &quot;&quot;);&#10;&#10;long myTimeStamp = Long.parseLong(new SimpleDateFormat(&quot;yyMMddHHmmss&quot;).format(today));&#10;globalMap.put(&quot;JobTimeStamp&quot;, myTimeStamp);&#10;globalMap.put(&quot;JobDate&quot;, Integer.parseInt(Integer.toString(today.getYear()) + new SimpleDateFormat(&quot;DDD&quot;).format(today)));&#10;globalMap.put(&quot;JobTime&quot;, Integer.parseInt(new SimpleDateFormat(&quot;HHmmss&quot;).format(today)));&#10;&#10;&#10;globalMap.put(&quot;FileName&quot;, context.File_OPE + myTimeStamp + context.File_Extension);&#10;&#10;//System.out.println(&quot;File Name : &quot; + (String)globalMap.get(&quot;FileName&quot;));&#10;//System.out.println(&quot;Log Name : &quot; + (String)globalMap.get(&quot;LogFile&quot;));&#10;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="Date today = new Date();&#10;&#10;//System.setProperty(&quot;JDE_Quartis_OF_ERROR&quot;, &quot;0&quot;);&#10;//System.setProperty(&quot;JDE_Quartis_OF_ERROR_MESSAGE&quot;, &quot;&quot;);&#10;&#10;long myTimeStamp = Long.parseLong(new SimpleDateFormat(&quot;yyMMddHHmmss&quot;).format(today));&#10;globalMap.put(&quot;JobTimeStamp&quot;, myTimeStamp);&#10;globalMap.put(&quot;JobDate&quot;, Integer.parseInt(Integer.toString(today.getYear()) + new SimpleDateFormat(&quot;DDD&quot;).format(today)));&#10;globalMap.put(&quot;JobTime&quot;, Integer.parseInt(new SimpleDateFormat(&quot;HHmmss&quot;).format(today)));&#10;&#10;&#10;globalMap.put(&quot;FileName&quot;, context.File_OPE + myTimeStamp + context.File_Extension);&#10;&#10;//System.out.println(&quot;File Name : &quot; + (String)globalMap.get(&quot;FileName&quot;));&#10;//System.out.println(&quot;Log Name : &quot; + (String)globalMap.get(&quot;LogFile&quot;));&#10;//System.out.println(&quot;Heure 142557 ==&gt; &quot; + JDE.convertFromTime(142557));&#10;//System.out.println(&quot;Heure  83554 ==&gt; &quot; + JDE.convertFromTime(83554));&#10;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="LABEL" value="tJava_1"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -390,7 +390,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT DISTINCT&#13;&#10;WTMMCU,WTDOCO,WTAN8,WTKITL,WTOPSQ,WTOPST,&#13;&#10;WTTYR,WTDGL,WTSOQS,WTUOM,WTUKID&#13;&#10;FROM &quot;+context.JDE920_Schema_DTA+&quot;.F31122&#13;&#10;WHERE (WTURCD IS NULL OR WTURCD=' ') and WTTYR in('4','5') &quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT DISTINCT&#13;&#10;WTMMCU,WTDOCO,WTAN8,WTKITL,WTOPSQ,WTOPST,WTTYR,WTDGL,WTTDAY,&#13;&#10;Case when WTTYR='4' then WTSOQS else WTSOCN end QTY ,&#13;&#10;WTUOM,WTUKID,&#13;&#10;WATYPS,MCRP14,WLBFPF&#13;&#10;FROM &quot;+context.JDE920_Schema_DTA+&quot;.F31122&#13;&#10;JOIN &quot;+context.JDE920_Schema_DTA+&quot;.F4801 ON WADOCO=WTDOCO&#13;&#10;JOIN &quot;+context.JDE920_Schema_DTA+&quot;.F0006 ON MCMCU=WTMCU&#13;&#10;JOIN &quot;+context.JDE920_Schema_DTA+&quot;.F3112 ON WLDOCO=WTDOCO and WLOPSQ=WTOPSQ&#13;&#10;WHERE (WTURCD IS NULL OR WTURCD=' ') and WTTYR in('4','5') &quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -421,11 +421,19 @@
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="WTDGL"/>
       <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="WTSOQS"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="WTTDAY"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="QTY"/>
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="WTUOM"/>
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="WTUKID"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="WATYPS"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="MCRP14"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="WLBFPF"/>
       <elementValue elementRef="TRIM" value="false"/>
     </elementParameter>
     <elementParameter field="CHECK" name="NO_NULL_VALUES" value="false"/>
@@ -433,16 +441,20 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tDBInput_1">
       <column comment="" key="false" length="12" name="WTMMCU" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="8" name="WTDOCO" nullable="true" originalLength="8" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="8" name="WTAN8" nullable="true" originalLength="8" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="0" name="WTDOCO" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="0" name="WTAN8" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="" key="false" length="25" name="WTKITL" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="5" name="WTOPSQ" nullable="true" originalLength="5" pattern="" precision="2" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="0" name="WTOPSQ" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="" key="false" length="2" name="WTOPST" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="1" name="WTTYR" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="6" name="WTDGL" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="15" name="WTSOQS" nullable="true" originalLength="15" pattern="" precision="4" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="0" name="WTTDAY" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="0" name="QTY" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="" key="false" length="2" name="WTUOM" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="15" name="WTUKID" nullable="false" originalLength="15" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="0" name="WTUKID" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="1" name="WATYPS" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="3" name="MCRP14" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="1" name="WLBFPF" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="448" posY="224">
@@ -464,10 +476,11 @@
       <column comment="" defaultValue="" key="false" length="8" name="Document" nullable="true" originalLength="8" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="8" name="Reference" nullable="true" originalLength="8" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="25" name="CodeArticle" nullable="true" originalLength="25" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="5" name="Num_Ope" nullable="true" originalLength="5" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true"/>
+      <column comment="" key="false" length="5" name="Num_Ope" nullable="true" originalLength="5" pattern="" precision="2" sourceType="NUMBER" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="2" name="Statut_Operation" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="1" name="Type_Transfert" nullable="true" originalLength="1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="6" name="Date_Operation" nullable="true" originalLength="-1" pattern="&quot;dd/MM/yy&quot;" precision="0" sourceType="NUMBER" type="id_Date" usefulColumn="true"/>
+      <column comment="" key="false" length="6" name="Heure_Operation" nullable="true" originalLength="6" pattern="&quot;HH:mm:ss&quot;" precision="0" sourceType="" type="id_Date" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="15" name="Qte_Operation" nullable="true" originalLength="15" pattern="" precision="4" sourceType="NUMBER" type="id_Float" usefulColumn="true"/>
       <column comment="" key="false" length="2" name="Unite_Mesure" nullable="true" originalLength="2" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="15" name="Code_Cle" nullable="true" originalLength="15" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
@@ -483,22 +496,23 @@
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties/>
       <varTables name="Var" sizeState="INTERMEDIATE"/>
-      <outputTables name="OPE_JDE_Out" sizeState="INTERMEDIATE">
+      <outputTables activateExpressionFilter="true" expressionFilter="JDE.isOpeQuartis(Req02.WATYPS,Req02.MCRP14,Req02.WLBFPF) " name="OPE_JDE_Out" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Req02.WTMMCU " name="Magasin" nullable="true" type="id_String"/>
         <mapperTableEntries expression="JDE.cnvInt(Req02.WTDOCO) " name="Document" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="JDE.cnvInt(Req02.WTAN8 )" name="Reference" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="Req02.WTKITL " name="CodeArticle" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="JDE.cnvFloat(Req02.WTOPSQ)/100" name="Num_Ope" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="JDE.cnvString(JDE.cnvFloat(Req02.WTOPSQ)/100,&quot;0.00&quot;,true)" name="Num_Ope" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Req02.WTOPST " name="Statut_Operation" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Req02.WTTYR " name="Type_Transfert" nullable="true" type="id_String"/>
         <mapperTableEntries expression="JDE.convertFromJulian(Req02.WTDGL)" name="Date_Operation" nullable="true" type="id_Date"/>
-        <mapperTableEntries expression="JDE.cnvFloat(Req02.WTSOQS)/10000" name="Qte_Operation" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="JDE.convertFromTime(Req02.WTTDAY) " name="Heure_Operation" nullable="true" type="id_Date"/>
+        <mapperTableEntries expression="JDE.cnvFloat(Req02.QTY)/10000" name="Qte_Operation" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="Req02.WTUOM " name="Unite_Mesure" nullable="true" type="id_String"/>
         <mapperTableEntries expression="JDE.cnvInt(Req02.WTUKID)" name="Code_Cle" nullable="true" type="id_Integer"/>
       </outputTables>
       <outputTables name="F31122_Update" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Req02.WTUKID " name="WTUKID" type="id_BigDecimal"/>
-        <mapperTableEntries expression="&quot;T&quot;" name="WTURCD" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="JDE.isOpeQuartis(Req02.WATYPS,Req02.MCRP14,Req02.WLBFPF)==true ? &quot;T&quot;: &quot;X&quot; " name="WTURCD" nullable="true" type="id_String"/>
         <mapperTableEntries expression="new BigDecimal((int)globalMap.get(&quot;JobDate&quot;)) " name="WTURDT" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries expression="new BigDecimal((long)globalMap.get(&quot;JobTimeStamp&quot;)) " name="WTURAT" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries expression="new BigDecimal((int)globalMap.get(&quot;JobTime&quot;)) " name="WTURAB" nullable="true" type="id_BigDecimal"/>
@@ -513,9 +527,13 @@
         <mapperTableEntries name="WTOPST" nullable="true" type="id_String"/>
         <mapperTableEntries name="WTTYR" nullable="true" type="id_String"/>
         <mapperTableEntries name="WTDGL" nullable="true" type="id_BigDecimal"/>
-        <mapperTableEntries name="WTSOQS" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries name="WTTDAY" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries name="QTY" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries name="WTUOM" nullable="true" type="id_String"/>
         <mapperTableEntries name="WTUKID" type="id_BigDecimal"/>
+        <mapperTableEntries name="WATYPS" nullable="true" type="id_String"/>
+        <mapperTableEntries name="MCRP14" nullable="true" type="id_String"/>
+        <mapperTableEntries name="WLBFPF" nullable="true" type="id_String"/>
       </inputTables>
     </nodeData>
   </node>
@@ -650,16 +668,17 @@
       <column comment="" defaultValue="" key="false" length="8" name="Document" nullable="true" originalLength="8" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="8" name="Reference" nullable="true" originalLength="8" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="25" name="CodeArticle" nullable="true" originalLength="25" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="5" name="Num_Ope" nullable="true" originalLength="5" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true"/>
+      <column comment="" key="false" length="5" name="Num_Ope" nullable="true" originalLength="5" pattern="" precision="2" sourceType="NUMBER" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="2" name="Statut_Operation" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="1" name="Type_Transfert" nullable="true" originalLength="1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="6" name="Date_Operation" nullable="true" originalLength="-1" pattern="&quot;dd/MM/yy&quot;" precision="0" sourceType="NUMBER" type="id_Date" usefulColumn="true"/>
+      <column comment="" key="false" length="6" name="Heure_Operation" nullable="true" originalLength="6" pattern="&quot;HH:mm:ss&quot;" precision="0" sourceType="" type="id_Date" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="15" name="Qte_Operation" nullable="true" originalLength="15" pattern="" precision="4" sourceType="NUMBER" type="id_Float" usefulColumn="true"/>
       <column comment="" key="false" length="2" name="Unite_Mesure" nullable="true" originalLength="2" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="15" name="Code_Cle" nullable="true" originalLength="15" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tOracleCommit" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="448" posY="416">
+  <node componentName="tOracleCommit" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="64" posY="416">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBCommit_2"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="tDBConnection_2"/>
     <elementParameter field="CHECK" name="CLOSE" value="true"/>
@@ -683,7 +702,7 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tFileCopy_1"/>
   </node>
-  <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="256" posY="416">
+  <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="448" posY="416">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_2"/>
     <elementParameter field="MEMO_JAVA" name="CODE" value="//System.out.println(&quot;Nb Lines : &quot; +  (int)globalMap.get(&quot;tFileOutputDelimited_2_NB_LINE&quot;));&#10;System.setProperty(&quot;JDE_Quartis_OPE_NB_LINE&quot;, Integer.toString((int)globalMap.get(&quot;tFileOutputDelimited_2_NB_LINE&quot;)));&#10;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
@@ -720,8 +739,11 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Req02"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tDBInput_1" offsetLabelX="0" offsetLabelY="0" source="tDBInput_1" target="tJava_2">
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tDBInput_1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tDBInput_1" target="tDBCommit_2">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk7"/>
+  </connection>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tDBInput_1" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tDBInput_1" target="tJava_2">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk6"/>
   </connection>
   <connection connectorName="FLOW" label="OPE_JDE_Out" lineStyle="0" metaname="OPE_JDE_Out" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_3" target="tFileOutputDelimited_2">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
@@ -744,6 +766,9 @@
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
       <elementValue elementRef="TRACE_COLUMN" value="CodeArticle"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Heure_Operation"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
@@ -774,10 +799,7 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F31122_Update"/>
   </connection>
-  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tDBCommit_2" offsetLabelX="0" offsetLabelY="0" source="tDBCommit_2" target="tFileCopy_1">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk1"/>
-  </connection>
-  <connection connectorName="RUN_IF" label="NB_LINE" lineStyle="6" metaname="tJava_2" offsetLabelX="0" offsetLabelY="0" source="tJava_2" target="tDBCommit_2">
+  <connection connectorName="RUN_IF" label="NB_LINE" lineStyle="6" metaname="tJava_2" offsetLabelX="0" offsetLabelY="0" source="tJava_2" target="tFileCopy_1">
     <elementParameter field="MEMO_JAVA" name="CONDITION" value="(int)globalMap.get(&quot;tFileOutputDelimited_2_NB_LINE&quot;) &gt; 0"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="NB_LINE"/>
   </connection>
@@ -838,13 +860,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_7a9aa410-6723-4de1-8cc4-49e3b07ed164"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>AOD5tgIjV3BDmaztQQxVYXCqk1mGAtZQPkh/aQh9TyqnqQ5GkMyGZFMVyWn+DZDXzT3eirDQDJqT
-3FZGiYuwng==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_d50a4c93-c120-4264-8ad5-3740d2de0856"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>5wuqRZ9Qd4NE+d7cr9K7maSqG/ENxRDYINKISsqcOUVQP8nLk6Eew7igWsaOush8N3Eza7lumMKJ
-KRy2OPZ9Eg==</DigestValue></Reference></SignedInfo><SignatureValue>b2PvfJylC8jyXO6qSLjXAbR23CtZcXAuAyJ5t5gOXHEIUrpjn36HnsY6lg5QWyVY5foGTJym5wHH
-C1BNryLWrUOsc9CbmUbq7fIDYJDK5W2u9IJLTlvCs6qZS0WzBHASfoYJBWmxcjN+kCL2Gjscxs8Q
-JiYalTPMQia08QTIFw5ieiByJJ60dW0AWGpdQDRYlcxMuvEV7YgPZ/fZmd3g4+9SdF/5T1JM0wZG
-twEi477RIWIC3OEUqJw7twdkx0DMSuqm9++YGvffzqX0qRtSVGRCXn3QathetinzBuxJNXtGrAtp
-76SI3kpdNavw2Ft/fKcIAAyfl2twmbrbmwOWQA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_8bdcc639-3436-448c-a596-88805ea98fa7"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>ypIig9zap022Ko5YVYgPzw3qbXHqA+EdW6RSeJWYO1tjw2YCILJ67q0RbARZ8VP47qVe98UnZfVb
+xvjTtSG2Fg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_a6fb09d2-2e6e-43cd-bff0-c311be699d20"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>7VZ6+ZXnG7N1HVb3Ea+SV+8hqTu4uOnDjQpgGazJbW7kYXOvBmsax66dC9b1ZL01YzqS4Ik5qfrf
+NjFN2eGqjw==</DigestValue></Reference></SignedInfo><SignatureValue>Pcq5okxUm2JqS+OKY9jigSI5mGnliXcWAib2DPEYQ1xxM0rh4c7FUuyEmHnjgOCEvuJmtt/AIxuq
+FkOVy5zQvPzwiEAvlix7wZkb39Xf+NzJwh/uJzynvt6rsTxDKzfvwHWPx9qFn3+Dzq/z3eKMTtEH
+TRunatjHPD3W3Rz/ctpet0rwcTS48J7XFCFE+Z8fovtnYnOQwGLu1jLEphcSn2eTedKsgv9/gkkL
+6wT7d62uW9MuW6VpRWpd7NssTgIFs9QnsAaHuSw/2t0ZRonTh1CKZnJN/OiZuWlsUvbWSnecoH03
+0p92zkwYGlftMWGGx29sieQeLf7cdYK7QIbKfg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -866,4 +888,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_d50a4c93-c120-4264-8ad5-3740d2de0856" Target="#_7a9aa410-6723-4de1-8cc4-49e3b07ed164"><Timestamp>2020-07-09 06:06:27</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_a6fb09d2-2e6e-43cd-bff0-c311be699d20" Target="#_8bdcc639-3436-448c-a596-88805ea98fa7"><Timestamp>2020-08-13 09:20:50</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
