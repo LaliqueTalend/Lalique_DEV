@@ -469,7 +469,6 @@
   </node>
   <node componentName="tFileList" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="320" posY="64">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileList_1"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="DIRECTORY" name="DIRECTORY" value="System.getProperty(&quot;Temporary_folder&quot;)"/>
     <elementParameter field="CLOSED_LIST" name="LIST_MODE" value="FILES"/>
     <elementParameter field="CHECK" name="INCLUDSUBDIR" value="false"/>
@@ -493,7 +492,6 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="448" posY="64">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_3"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="MEMO_JAVA" name="CODE" value="// Détermine le renommage du nom du fichier cible&#10;&#10;String fileName = ((String)globalMap.get(&quot;tFileList_1_CURRENT_FILE&quot;));&#10;String[] patternFN = fileName.split(&quot;\\.&quot;, 2);&#10;&#10;if ( context.rencbl.equals(&quot;N&quot;) ) {&#10;  // pas de renommage&#10;  System.setProperty(&quot;Newname&quot;, ((String)globalMap.get(&quot;tFileList_1_CURRENT_FILE&quot;))); &#10;}&#10;else if ( context.rencbl.equals(&quot;O&quot;) ) {&#10;  // renommage simple&#10;  if (context.nomcbl.equals(&quot;&quot;)) {&#10;    System.setProperty(&quot;Newname&quot;, patternFN[0] +&quot;.&quot;+context.ext); &#10;  } else {&#10;    System.setProperty(&quot;Newname&quot;, context.nomcbl +&quot;.&quot;+context.ext); &#10;  }&#10;}&#10;else if ( context.rencbl.equals(&quot;T&quot;) ) {&#10;  // ajouter un timestamp au nom du fichier cible&#10;  String timestamp = &quot;&quot;+System.currentTimeMillis();&#10;  if (context.nomcbl.equals(&quot;&quot;)) {&#10;    System.setProperty(&quot;Newname&quot;, patternFN[0] +&quot;_&quot;+timestamp+&quot;.&quot;+context.ext); &#10;  } else {&#10;    System.setProperty(&quot;Newname&quot;, context.nomcbl+&quot;_&quot;+timestamp+&quot;.&quot;+context.ext); &#10;  }&#10;}&#10;else if ( context.rencbl.equals(&quot;R&quot;) ) {&#10;  // utilise une expression réulière de date pour le déterminer le nom du fichier cible&#10;  String[] patternTS = context.nomcbl.split(&quot;%&quot;, 4);&#10;  Integer nbmorpheme = patternTS.length;&#10;  // nouveau nom fichier dans 1ère cellule&#10;  String newname = patternTS[0];&#10;  // format dans 2nd cellule&#10;  SimpleDateFormat simpleDateFormat = new SimpleDateFormat(patternTS[1]);&#10;&#9;java.util.Calendar calendar = java.util.Calendar.getInstance();&#10;&#9;String timestamp = simpleDateFormat.format(calendar.getTime());&#10;//&#9;  System.out.println(timestamp);&#10;  if ( newname.equals(&quot;&quot;)) {&#10;    System.setProperty(&quot;Newname&quot;, patternFN[0] +&quot;_&quot;+System.getProperty(&quot;Timestamp&quot;)+&quot;.&quot;+context.ext); &#10;  } else {&#10;    System.setProperty(&quot;Newname&quot;, newname+timestamp+&quot;.&quot;+context.ext); &#10;  }&#10;}&#10;else if ( context.rencbl.equals(&quot;C&quot;) || context.rencbl.equals(&quot;Q&quot;)) {&#10;  // utilise la concaténation de plusieurs fichiers&#10;  // TO BE DEVELOP IN FUTURE&#10;&#9;System.out.println(&quot;Stop process &quot;+jobName+ &quot;. Mode renommage (&quot;+context.rencbl+&quot;) non implémenté.&quot;);&#10;&#9;System.setProperty(&quot;Execution_OK&quot;, &quot;KO&quot;);&#10;}&#10;else {&#10;  // erreur de paramétrage du contaxte&#10;&#9;System.out.println(&quot;Stop process &quot;+jobName+ &quot;. Mode renommage (&quot;+context.rencbl+&quot;) non compatible.&quot;);&#10;&#9;System.setProperty(&quot;Execution_OK&quot;, &quot;KO&quot;);&#10;}&#10;&#10;System.out.println(&quot;Transfert fichier &quot;+patternFN[0]+&quot;.&quot;+context.ext+ &quot; vers &quot;+System.getProperty(&quot;Newname&quot;));&#10;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="LABEL" value="Init_Rename"/>
@@ -502,7 +500,6 @@
   </node>
   <node componentName="tFileExist" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="576" posY="64">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileExist_1"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="true"/>
     <elementParameter field="FILE" name="FILE_NAME" value="System.getProperty(&quot;Temporary_folder&quot;)+&quot;\\&quot;+((String)globalMap.get(&quot;tFileList_1_CURRENT_FILE&quot;))"/>
     <elementParameter field="TEXT" name="LABEL" value="Fichier_existe"/>
@@ -693,19 +690,16 @@
   </connection>
   <connection connectorName="RUN_IF" label="OK" lineStyle="6" metaname="tJava_5" offsetLabelX="0" offsetLabelY="0" source="tJava_5" target="tFileList_1">
     <elementParameter field="MEMO_JAVA" name="CONDITION" value="(System.getProperty(&quot;Execution_OK&quot;).equals(&quot;OK&quot;))"/>
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OK"/>
   </connection>
   <connection connectorName="ITERATE" label="Iterate" lineStyle="7" metaname="tFileList_1" offsetLabelX="0" offsetLabelY="0" source="tFileList_1" target="tJava_3">
     <elementParameter field="CHECK" name="ENABLE_PARALLEL" value="false"/>
     <elementParameter field="TEXT" name="NUMBER_PARALLEL" show="false" value="2"/>
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="iterate1"/>
   </connection>
   <connection connectorName="ITERATE" label="Iterate" lineStyle="7" metaname="tJava_3" offsetLabelX="0" offsetLabelY="0" source="tJava_3" target="tFileExist_1">
     <elementParameter field="CHECK" name="ENABLE_PARALLEL" value="false"/>
     <elementParameter field="TEXT" name="NUMBER_PARALLEL" show="false" value="2"/>
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="iterate3"/>
   </connection>
   <connection connectorName="RUN_IF" label="If" lineStyle="6" metaname="tFileExist_1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tFileExist_1" target="tJava_2">
@@ -831,13 +825,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_3cb25932-7994-48f0-ac52-a5feaf198005"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>nkyYJ4XmFwbrTGMyR/Xlo03tvuFAZZ78k94pzi/A7uMMZ3uAZcBLik3Yb0Zbt3Ezc/Xdh7NqIE1R
-GTnh9RHW0A==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_d06adb81-45b3-4589-8378-db478b796e52"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>6FZFhH03bEhO7VxgULH7nOrjWoBb5ubSu8HN3QHwjlLi2QqSrl4FxPO+t7YghoKO2hdO8Nz3KiU6
-E5URaOJgLQ==</DigestValue></Reference></SignedInfo><SignatureValue>Pnf7tH9Gl6x95PBNJ91neNvcETuQW4VtylUJLkuavOP/4qCF+qLpFfzqrEmJSNU0Cph4Hi3dKzs1
-TQ7Ja2l7ykOuTKSKhAH9HwdB5fai5pvoDE/D30z5tbZKpmAKaGMYNhwT1Z/tJQAyHeKxWFeP+hcc
-aeXNbXqA9yQD7x8RsfGfhoW2od+xrrChBdFp8Nsu+wzhi54U5fg4pq4T2OiArLOOEP/6DkmbcNHq
-DsXZG32c7qCDQA10D7j+iwX2ZuFNQq40draN+vtpfectl6Cgy5ZcHvC7B+QLkY/AQN2ZDo3R9fDK
-UWNfvDpr8JJMkoIabenPXmRa0WEIgptxiot++g==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_c252bbdc-35f3-4109-b422-6515c699e2b7"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>3ghVpVuj+RucyD4ikdfP0XiF6ARJCghNoDlyvH719QkVxwpOFP2vS2y9DD8lNy0aWo3HaQA4tJ9w
+Akw4nUPzVA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_125ab6aa-277d-4f0f-abb5-e5ea4b44fc21"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>/Wmyvi//5Yvlcvy0sMy6aW/3IUQpjh4jNrPxCKGvNZVPYZO2n9IPGTWC6dqoW9twqxdVbn2+g4rG
+BhSEm0CC/g==</DigestValue></Reference></SignedInfo><SignatureValue>MOGxExUx2SIWYHk5wfKedNKNBsTE0BLZJt9ErRqQ0Z5qAZ1hL6KuDNbwaqmXkb9a5E7zcD3hxNz7
+LPCwCW5q59km1rkibh1ZePrprv7+64QV9arsKV3IH2pqB+XWRpt/sQXTctVXfN9B4W11VMgfQmun
+CykUwg3kvGo/z6xSvZ/qZn3uckM6zH9Y3hMk+JWlCzHpH+kVqpX3Y6/9DQmzC6DbREuUb7efo0sb
+UsWy/GsBYGjmTSi3XvuIfcfOZxQoHIoIuJGbBdKOds3k+CgH2VhZuFYyUT+jTYa3/OaotZY75/a7
+akgB5tHBD/t2bWEbk1qpAPfiZeIbQEnvGipsLw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -859,4 +853,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_d06adb81-45b3-4589-8378-db478b796e52" Target="#_3cb25932-7994-48f0-ac52-a5feaf198005"><Timestamp>2020-09-08 09:05:24</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_125ab6aa-277d-4f0f-abb5-e5ea4b44fc21" Target="#_c252bbdc-35f3-4109-b422-6515c699e2b7"><Timestamp>2020-09-08 09:08:24</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
