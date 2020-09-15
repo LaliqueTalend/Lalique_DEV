@@ -197,7 +197,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="-160" posY="32">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_1"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="Date today = new Date();&#10;&#10;System.setProperty(&quot;Quartis_JDE_ERROR&quot;, &quot;0&quot;);&#10;System.setProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;, &quot;&quot;);&#10;globalMap.put(&quot;JobDate&quot;, Integer.parseInt(Integer.toString(today.getYear()) + new SimpleDateFormat(&quot;DDD&quot;).format(today)));&#10;globalMap.put(&quot;JobTime&quot;, Integer.parseInt(new SimpleDateFormat(&quot;HHmmss&quot;).format(today)));&#10;globalMap.put(&quot;JobTimeStamp&quot;, new SimpleDateFormat(&quot;yyMMddHHmmss&quot;).format(today));&#10;&#10;//System.out.println(&quot;JobDate = &quot; + (int)globalMap.get(&quot;JobDate&quot;));&#10;//System.out.println(&quot;JobTimeStamp = &quot; + (String)globalMap.get(&quot;JobTimeStamp&quot;));&#10;System.out.println(&quot;Environnement = &quot; + context.RootDirectory);&#10;&#10;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="Date today = new Date();&#10;&#10;System.setProperty(&quot;Quartis_JDE_ERROR&quot;, &quot;0&quot;);&#10;System.setProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;, &quot;&quot;);&#10;globalMap.put(&quot;JobDate&quot;, Integer.parseInt(Integer.toString(today.getYear()) + new SimpleDateFormat(&quot;DDD&quot;).format(today)));&#10;globalMap.put(&quot;JobTime&quot;, Integer.parseInt(new SimpleDateFormat(&quot;HHmmss&quot;).format(today)));&#10;globalMap.put(&quot;JobTimeStamp&quot;, new SimpleDateFormat(&quot;yyMMddHHmmss&quot;).format(today));&#10;&#10;//System.out.println(&quot;JobDate = &quot; + (int)globalMap.get(&quot;JobDate&quot;));&#10;//System.out.println(&quot;JobTimeStamp = &quot; + (String)globalMap.get(&quot;JobTimeStamp&quot;));&#10;//System.out.println(&quot;Environnement = &quot; + context.RootDirectory);&#10;&#10;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="LABEL" value="tJava_1"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -463,7 +463,7 @@
       <column comment="Code Activité" key="false" length="15" name="URRF" nullable="false" originalLength="15" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties shellMaximized="true"/>
+      <uiProperties/>
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Integer.parseInt(StringHandling.EREPLACE(row2.NumOF,&quot;WSM&quot;,&quot;0&quot;)) " name="DOCO" type="id_Integer"/>
         <mapperTableEntries expression="StringHandling.TRIM(StringHandling.EREPLACE(row2.Operateur,&quot;WSM&quot;,&quot; &quot;))" name="AN8" type="id_String"/>
@@ -585,7 +585,7 @@
       <column comment="Source des taux" key="false" length="1" name="SZSORE" nullable="true" originalLength="1" pattern="" precision="-1" sourceType="CHAR" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties shellMaximized="true"/>
+      <uiProperties/>
       <varTables name="Var" sizeState="INTERMEDIATE"/>
       <outputTables name="F31122Z1" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="&quot;TEST&quot;" name="SZEDUS" type="id_String"/>
@@ -1285,6 +1285,7 @@
       <column comment="" key="false" length="-1" name="Operateur" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Date" nullable="true" originalLength="-1" pattern="&quot;dd/MM/yyyy&quot;" precision="-1" sourceType="" type="id_Date" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="MessageErreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="CodeErreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
@@ -1299,6 +1300,7 @@
         <mapperTableEntries expression="Check.SZAN8 " name="Operateur" type="id_Integer"/>
         <mapperTableEntries expression="JDE.convertFromJulian(Check.SZDGL)" name="Date" nullable="true" type="id_Date"/>
         <mapperTableEntries expression="&quot;Taux horaire non défini pour l'opérateur &quot; + Check.SZAN8 + &quot;. Veuillez créer un taux pour cet opérateur (P00191 code 31 ER) et vérifier les messages d'intégration du batch JDE (R31122Z1I LALEDI01)&quot; " name="MessageErreur" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="10" name="CodeErreur" nullable="true" type="id_Integer"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Check" sizeState="INTERMEDIATE">
         <mapperTableEntries name="SZEDUS" type="id_String"/>
@@ -1477,24 +1479,10 @@
       <column comment="" key="false" length="-1" name="Operateur" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Date" nullable="true" originalLength="-1" pattern="&quot;dd/MM/yyyy&quot;" precision="-1" sourceType="" type="id_Date" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="MessageErreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="CodeErreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="704" posY="416">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_5"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="// Variables à partager avec le job père : message affiché dans le mail d'avertissement&#10;System.setProperty(&quot;Quartis_JDE_ERROR&quot;, &quot;10&quot;);&#10;System.setProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;,&quot;Des avertissements ont été émis lors du traitement du fichier &quot; + (String)globalMap.get(&quot;tWaitForFile_1_FILENAME&quot;));&#10;//System.setProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;, (String)globalMap.get(&quot;tWaitForFile_1_FILENAME&quot;) + &quot;: Code opérateur non défini dans la table des taux horaire (F00191)&quot;);"/>
-    <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" label="Rejet_Operateur" name="tJava_5">
-      <column comment="" key="false" length="-1" name="TimeStamp" nullable="true" originalLength="-1" pattern="&quot;dd/MM/yyyy HH:mm:ss&quot;" precision="-1" sourceType="" type="id_Date" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="NumLotEDI" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="NumOF" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Operation" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Operateur" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Date" nullable="true" originalLength="-1" pattern="&quot;dd/MM/yyyy&quot;" precision="-1" sourceType="" type="id_Date" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="MessageErreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-    </metadata>
-  </node>
-  <node componentName="tWarn" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="800" posY="416">
+  <node componentName="tWarn" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="704" posY="416">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tWarn_2"/>
     <elementParameter field="TEXT" name="MESSAGE" value="&quot;Taux horaire non défini pour l'opérateur &quot; + JDE.stringGet(&quot;AN8&quot;) + &quot;. Voir infos supplémentaires dans le fichier 'Rapport_&quot;  + (String)globalMap.get(&quot;tWaitForFile_1_FILENAME&quot;) + &quot;'&quot;"/>
     <elementParameter field="TEXT" name="CODE" value="10"/>
@@ -1508,6 +1496,23 @@
       <column comment="" key="false" length="-1" name="Operateur" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Date" nullable="true" originalLength="-1" pattern="&quot;dd/MM/yyyy&quot;" precision="-1" sourceType="" type="id_Date" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="MessageErreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="CodeErreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="800" posY="416">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_5"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="// Variables à partager avec le job père : message affiché dans le mail d'avertissement&#10;System.setProperty(&quot;Quartis_JDE_ERROR&quot;, (string)globalMap.get(&quot;tWarn_2_CODE&quot;));&#10;System.setProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;,&quot;Des avertissements ont été émis lors du traitement du fichier &quot; + (String)globalMap.get(&quot;tWaitForFile_1_FILENAME&quot;));&#10;//System.setProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;, (String)globalMap.get(&quot;tWaitForFile_1_FILENAME&quot;) + &quot;: Code opérateur non défini dans la table des taux horaire (F00191)&quot;);"/>
+    <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" label="Rejet_Operateur" name="tJava_5">
+      <column comment="" key="false" length="-1" name="TimeStamp" nullable="true" originalLength="-1" pattern="&quot;dd/MM/yyyy HH:mm:ss&quot;" precision="-1" sourceType="" type="id_Date" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="NumLotEDI" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="NumOF" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Operation" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Operateur" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Date" nullable="true" originalLength="-1" pattern="&quot;dd/MM/yyyy&quot;" precision="-1" sourceType="" type="id_Date" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="MessageErreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="CodeErreur" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tDie" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="-64" posY="800">
@@ -1768,6 +1773,9 @@
       <elementValue elementRef="TRACE_COLUMN" value="NumLigne"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="CodeErreur"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Alert_Operateur"/>
@@ -1776,13 +1784,13 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F00191"/>
   </connection>
-  <connection connectorName="FLOW" label="r4" lineStyle="0" metaname="tFileOutputDelimited_3" offsetLabelX="0" offsetLabelY="0" source="tFileOutputDelimited_3" target="tJava_5">
+  <connection connectorName="FLOW" label="r4" lineStyle="0" metaname="tFileOutputDelimited_3" offsetLabelX="0" offsetLabelY="0" source="tFileOutputDelimited_3" target="tWarn_2">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="r4"/>
   </connection>
-  <connection connectorName="FLOW" label="r5" lineStyle="0" metaname="tJava_5" offsetLabelX="0" offsetLabelY="0" source="tJava_5" target="tWarn_2">
+  <connection connectorName="FLOW" label="row3" lineStyle="0" metaname="tWarn_2" offsetLabelX="0" offsetLabelY="0" source="tWarn_2" target="tJava_5">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="r5"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row3"/>
   </connection>
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tPostjob_1" offsetLabelX="0" offsetLabelY="0" source="tPostjob_1" target="tDBClose_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk4"/>
@@ -1911,13 +1919,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_e7a1cf0d-6e9a-4f8e-a3d4-3b7780632ea3"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Y7MpQgAvxfO2RQjNzs5l0qjtG4H1vpsoVVAkyAfp+5kaONsZdFXRCau+agG7mgX34fw0/7zyf1TD
-YxWCsZH8LA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_cc0ff3a5-a011-4f81-8158-d83fcfad8143"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>cmapCx2nxDH4uS3iO9volgaRVKdJlC3K1SUrUBdapyGWZR263ZZWIjuuhwU/xF4+IoLt83Yzhl51
-u5meh/NzAw==</DigestValue></Reference></SignedInfo><SignatureValue>m4M1EKe2qn9QdnND2MlWfsEcSh93wFyGm9XqBzD8OjbZ7cmbzeLDYuJfrMP1fowjFq8RAxNevHsY
-gWX9NYSZKmq02G82++2ZVYmuWlcDAgKh90MjWxl4BE6Veznl4gLWuNj3J296DPn5ehTWcKjsmej5
-Xo0w3YeSvOCfd5CrGgu2U046Q+ogOkx8UTKA7/LjJ5sx7LIpGtBa+hrDLneCIAxAyg5tGo0SlYYS
-FWHg3zU/4YjULfcMq65xVdTAfdVh+UL1nhRjiIgJNKCFX1VjtAbPM0q1luDIMzYoH6CUz1qd8v8T
-nFftNrEGEEx5J8nC9Wp4S9lCyf4IHWOIjXbnlA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_49928185-c88d-4a7e-a481-de8e623368c3"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>1o3o47Q8ho3ljYY2TJoN9Cn84dVbbcd6itABfr0vWVJGpC1PygkeGUP/eZ4l7VzITMLXWi39Q0Jt
+uZB2wIzpIA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_876f27f7-3920-43f1-8c42-b1c6c3263d15"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>IAqsb1tCGSkP7z1h81LVNRnOmlCyKHb5p4a+2hVvUALha76UVdyla+xTvH4Hqfu0c1/4Oork9Env
+uZVd+XuA8Q==</DigestValue></Reference></SignedInfo><SignatureValue>KSNeE4nRNg+RHrGFWHiDISxEu/rF5GJS5eBb8mZHmC9e+0WRNeL6CZvR30T4n8rnJhNQEaMdEXrC
+Jkeiw1ju9IK6Y+a7kiVPWtACnH5ab02xGsSzl25DqYxBlXtFLVXiVQ5l4eadQXpucVg22aoVRfb9
+J2ylhy6BZRr8Qeufi4X9DOeB4o81M3jvbdrScLOlXs16tAV3QvUiwKKDTGl23TLCHzEY/O83M3UZ
+FvRTNF0/o91H4SNGrghhhQ6k4pX6a7Qzqai1DvZbt58+2+LdqvlOUoyNkRzpzU3R0Xx+InHWF/Hm
+eYFUP57x8bBqgVLN/39DTbWEgzTws42oqqLmEg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1939,4 +1947,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_cc0ff3a5-a011-4f81-8158-d83fcfad8143" Target="#_e7a1cf0d-6e9a-4f8e-a3d4-3b7780632ea3"><Timestamp>2020-09-11 10:07:33</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_876f27f7-3920-43f1-8c42-b1c6c3263d15" Target="#_49928185-c88d-4a7e-a481-de8e623368c3"><Timestamp>2020-09-15 06:10:55</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
