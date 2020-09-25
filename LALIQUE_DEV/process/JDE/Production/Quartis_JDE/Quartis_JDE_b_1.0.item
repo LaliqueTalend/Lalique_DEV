@@ -465,7 +465,8 @@
         <mapperTableEntries expression="Integer.parseInt(StringHandling.EREPLACE(row2.NumOF,&quot;WSM&quot;,&quot;0&quot;)) " name="DOCO" type="id_Integer"/>
         <mapperTableEntries expression="StringHandling.TRIM(StringHandling.EREPLACE(row2.Operateur,&quot;WSM&quot;,&quot; &quot;))" name="AN8" type="id_String"/>
         <mapperTableEntries expression="row2.pivot_key==&quot;TempsFormation&quot; ? &quot;6&quot; : row2.pivot_key==&quot;TempsBrut&quot; || row2.pivot_key==&quot;TempsPondere&quot; ? &quot;1&quot; : row2.pivot_key==&quot;QteBonne&quot; ? &quot;4&quot; : row2.pivot_key==&quot;QteRebut&quot; ? &quot;5&quot; : &quot;X&quot;" name="TYR" type="id_String"/>
-        <mapperTableEntries expression="row2.pivot_key==&quot;TempsBrut&quot; || row2.pivot_key==&quot;TempsFormation&quot; || row2.pivot_key==&quot;TempsPondere&quot; ? row2.pivot_value : &quot;0&quot; " name="HRW" type="id_String"/>
+        <mapperTableEntries expression="row2.pivot_key==&quot;TempsBrut&quot; ? Double.parseDouble(row2.pivot_value) : 0d " name="HRW" type="id_Double"/>
+        <mapperTableEntries expression="row2.pivot_key==&quot;TempsFormation&quot; || row2.pivot_key==&quot;TempsPondere&quot; ? Double.parseDouble(row2.pivot_value) : 0 " name="HRW1" type="id_Double"/>
         <mapperTableEntries expression="row2.pivot_key==&quot;QteBonne&quot; ? row2.pivot_value : &quot;0&quot; " name="SOQS" type="id_String"/>
         <mapperTableEntries expression="row2.pivot_key==&quot;QteRebut&quot; ? row2.pivot_value : &quot;0&quot;" name="SOCN" type="id_String"/>
       </varTables>
@@ -476,7 +477,7 @@
         <mapperTableEntries expression="Var.DOCO" name="DOCO" type="id_Integer"/>
         <mapperTableEntries expression="Math.round(row2.Operation * 100)" name="OPSQ" type="id_Integer"/>
         <mapperTableEntries expression="Var.TYR " name="TYR" type="id_String"/>
-        <mapperTableEntries expression="new BigDecimal(Math.round(Double.parseDouble(Var.HRW) / 36))" name="HRW" type="id_BigDecimal"/>
+        <mapperTableEntries expression="new BigDecimal(Math.round((Var.HRW!=0 ? Var.HRW : Var.HRW1) / 36))" name="HRW" type="id_BigDecimal"/>
         <mapperTableEntries expression="new BigDecimal(Math.round(Double.parseDouble(Var.SOQS)  * 10000))" name="SOQS" type="id_BigDecimal"/>
         <mapperTableEntries expression="new BigDecimal(Math.round(Double.parseDouble(Var.SOCN) * 10000)) " name="SOCN" type="id_BigDecimal"/>
         <mapperTableEntries expression="row2.CodeRebut " name="RCD" type="id_String"/>
@@ -1982,13 +1983,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_9711a9c1-430b-43cc-8bd1-0d2b30e17de8"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>GRncBjxVQWJT3cpgC3SWQkV6e578y1HMblKwW13PRPrSnnNcasX8UWns3AzmYcdvX8hgbUnKGFMi
-dWfky/LCKg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_ca58e093-d8d0-4ae5-9888-74cbb3b3d4e6"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>lUn7fVnwTBvKfGBGzxlctQA+Su7HQMnRtBJSn2VjFwFXcH1p0gKnmjSQfK8jLykfHjrQRmYjp10d
-obhKqfd0og==</DigestValue></Reference></SignedInfo><SignatureValue>RGQjHXjVazNsy9XG8AK0arn8yu71avTqumw2CmV7x7PBeYjIhiLcpcbIEN89mG+oj49BGOPS5Yv4
-jV/eTuc4iQUSdQWmzStCHQ/ZafLz093b5Z4aG1+FiJcHx1EDVQox4HsYoQS+DS7vJiIUUVHyqVI0
-Y721bVxqk4XXFcTc15PtYn3i848uxKcG89D36BpBrRZba4OlZK0Dpxmw6pAFbbMNy0BqygqmmZch
-3zinVEJ6GHI5FxL/yAkCT5gqUbS6NzfC+mi4aLJJMHud0Pf7BU9EqsWRsE1a16BNltaLYVs85C5g
-R5CtAfdKzau44qeHOyyAwmrTYTXcrmeIukXfPg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_ea82d31c-3141-41f3-9c21-1faf6e303ff2"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>bSTWhkkvJx6K7Abl4eNEwK5NNSOtrVBs0Nn8ZTszeszRm6KjX+IXky1ySlQQsxmILWo+u6xiC+YR
+a58kmTRL0w==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_82f70fad-f7f4-4e49-a706-42df92f77142"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>uJshLxNYW+wVXBoti2M2DnoCGfMHNC2+IlIZlgfxQ9XWCh+unPyUrKbRZR/WsFUaLE5hc+ijXSuO
+eC/4Ggcdkw==</DigestValue></Reference></SignedInfo><SignatureValue>a5ksbwdwJQTCs64jec34QjbcoKJtaZWkqT5NlAbewbOo+ADQBYHQYbGeeqZa2iiGIw4WyHK6oaBT
+q5PvL7xwj9J5clbwQf+dfmCYa0WUV97V8JxXeYukkXFRw0MFgpY2ojztTNxsKeDZ2Xua8Y+Nha+L
+EsVJjxd9Nq15yOGWD5AJMYkEdyntd22eV/k8umSX8p84jNIhrLnC5BL0/qwKtNVGzwmKc02GiDUp
+Q4u3yDvmI7zX6Du8+TxCyVav/CNUTvilw7sTrdbO+LxfSWyz4rPAMdVJ4Do/3/uDBcwe/hmx9l7z
+wyBwZ8S3h2pgIcKUFZyMWqI0dg935/VCB5a0OQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -2010,4 +2011,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_ca58e093-d8d0-4ae5-9888-74cbb3b3d4e6" Target="#_9711a9c1-430b-43cc-8bd1-0d2b30e17de8"><Timestamp>2020-09-25 06:17:05</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_82f70fad-f7f4-4e49-a706-42df92f77142" Target="#_ea82d31c-3141-41f3-9c21-1faf6e303ff2"><Timestamp>2020-09-25 06:37:04</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
