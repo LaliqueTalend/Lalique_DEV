@@ -219,7 +219,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="224" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_1"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="// myDiePriority :&#10;// &lt;=3 - pas de d'arrêt&#10;// = 4 - arrêt job sans mail&#10;// &gt; 4 - arrêt job avec mail&#10;int CurrentTime = Integer.parseInt(new SimpleDateFormat(&quot;HHmmss&quot;).format(new Date()));&#10;&#10;if ((int)globalMap.get(&quot;myDiePriority&quot;) &lt;= 4){&#10;&#9;if (CurrentTime &lt; context.StartTime){&#10;&#9;&#9;System.out.println(CurrentTime + &quot; : En attente de démarrage&quot;);&#10;&#9;}&#10;&#9;else{&#10;&#9;&#9;if (CurrentTime &gt; context.EndTime){&#10;&#9;&#9;&#9;if (context.StopAfterEnd == true){&#10;&#9;&#9;&#9;&#9;globalMap.put(&quot;myDieMessage&quot;, &quot;Arrêt normal du job&quot;);&#10;&#9;&#9;&#9;&#9;globalMap.put(&quot;myDieCode&quot;, 0);&#10;&#9;&#9;&#9;&#9;globalMap.put(&quot;myDiePriority&quot;, 4);&#10;&#9;&#9;&#9;}&#10;&#9;&#9;&#9;else{&#10;&#9;&#9;&#9;&#9;System.out.println(CurrentTime + &quot; : Suspendu&quot;);&#10;&#9;&#9;&#9;}&#10;&#9;&#9;}&#10;&#9;}&#10;}&#10; "/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="// myDiePriority :&#10;// = 0 - pas d'exécution&#10;// &lt; 4 - exécution&#10;// = 4 - arrêt job sans mail&#10;// &gt; 4 - arrêt job avec mail&#10;int CurrentTime = Integer.parseInt(new SimpleDateFormat(&quot;HHmmss&quot;).format(new Date()));&#10;&#10;if ((int)globalMap.get(&quot;myDiePriority&quot;) &lt;= 4){&#10;&#9;globalMap.put(&quot;myDiePriority&quot;, 1);&#10;&#9;if (CurrentTime &lt; context.StartTime){&#10;&#9;&#9;globalMap.put(&quot;myDiePriority&quot;, 0);&#10;&#9;&#9;System.out.println(CurrentTime + &quot; : En attente de démarrage&quot;);&#10;&#9;}&#10;&#9;else{&#10;&#9;&#9;if (CurrentTime &gt; context.EndTime){&#10;&#9;&#9;&#9;globalMap.put(&quot;myDiePriority&quot;, 0);&#10;&#9;&#9;&#9;if (context.StopAfterEnd == true){&#10;&#9;&#9;&#9;&#9;globalMap.put(&quot;myDieMessage&quot;, &quot;Arrêt normal du job&quot;);&#10;&#9;&#9;&#9;&#9;globalMap.put(&quot;myDieCode&quot;, 0);&#10;&#9;&#9;&#9;&#9;globalMap.put(&quot;myDiePriority&quot;, 4);&#10;&#9;&#9;&#9;}&#10;&#9;&#9;&#9;else{&#10;&#9;&#9;&#9;&#9;System.out.println(CurrentTime + &quot; : Suspendu&quot;);&#10;&#9;&#9;&#9;}&#10;&#9;&#9;}&#10;&#9;}&#10;}&#10;//System.out.println(&quot;Start = &quot; + context.StartTime);&#10;//System.out.println(&quot;End = &quot; + context.EndTime);&#10;//System.out.println(CurrentTime + &quot; : myDiePriority = &quot; + (int)globalMap.get(&quot;myDiePriority&quot;));&#10; "/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_1"/>
@@ -939,7 +939,7 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Error_90"/>
   </connection>
   <subjob>
-    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
+    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" show="false" value="true"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tPrejob_1"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="230;100;0"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="255;220;180"/>
@@ -959,7 +959,7 @@
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
   <subjob>
-    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
+    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" show="false" value="true"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tPostjob_1"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="230;100;0"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="255;220;180"/>
@@ -1095,13 +1095,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_b1a36753-8bee-4385-9645-ff90d10a6651"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>d2OjZCGJkXxT9WSO8DtlkCsNj/k2AFNLf2InnNjd0EsMoMN5pvlXNI1xqKxnNr6r2EvaEUvI0RQA
-pLCXW2ULQw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_519219ba-c0a3-43a2-baeb-10ec0118ccff"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Zy4+Cam7CGsmmdpye/qA2FNWBuXq4NrdPo0AlJdqP7kjv3GOf0bYWRcqqQ6l/pUHVumcTiHP98iI
-Lbudjpce1A==</DigestValue></Reference></SignedInfo><SignatureValue>CWkSazzbu90/r03/cikybKRHsdmbTyfk4A82S/FkLjg1xHFkhkVAVt3nLHCw3RW5nS5ct0IuRkik
-hcpuZSZKDh5PoZn2LOiRWNV23Mi+ofA7/vygG3JbpwBYMYoRjcWwY6J3pwGPqsxDQS9BrOfg8vJy
-R9xxddsE6aznmqIVSTXk/sSD43xZjft8zfc601xUPPn8OUiRKAAaV4bgP7vRLRZbFZVEgLylXpjc
-sPWKnrYVfpADCIHnCdtgSyAMPtl6PzlUdjznv5BmyhmGPtH+7UvXBZSEZ+21GClwX2zcXcaw1brm
-1y13kW3B4D8vnA5FU+7whsLklBZiaPgQfQbYcA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_7ea954ce-2a40-4dc3-b9e4-368777308973"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>KyNqpu2mNXQxCAVvmmK4gKEDsO0+ovXbC7HOnW59SVfF23SxveKZEHXQdeeFkcoxoVhtxYMbZ+y4
+UIzUyqMlSg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_29d5a661-60a9-49ab-a3c5-f69b57e917b2"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>cHAc0VqaBCY5s1/dph57mTmo8JyRh0peG2DURBk2W+U36Kw4p7CyDDqnEdfuNzX2oPi/umRqKuKW
+SAE6HWlygg==</DigestValue></Reference></SignedInfo><SignatureValue>LA0qtTT+l52vEO8jhDVQjj837qco5KWmn/rcPZSXnc205cmL3Tot9YAdN+0PhlhL243+KBQAQHQd
+BlFPZb8Lit23fq5psb6Y849Kso3MROz4405LgWvp6MZ+8qbeVylOl/fJSEVVg5w9MzX0EoqLMgIB
+C7cEEhEvJQWFRiONAqC0xtkXZBsBoqjHsWOrcjYs5LTt6irFFcFj4G0NaPPgm4/dvFB15nh/jdlN
+R+/Va7ikstT+CXiQ0GuIKDj9GnqUe05CRMLH1dn9ymv0Mn2SK2Mqjk30KrcaxhhyBo8NpuR3zBCU
+U7eULfFOkHJHSsxMA2voX7/GLGnGkXTxYubnHA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1123,4 +1123,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_519219ba-c0a3-43a2-baeb-10ec0118ccff" Target="#_b1a36753-8bee-4385-9645-ff90d10a6651"><Timestamp>2020-10-06 07:20:37</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_29d5a661-60a9-49ab-a3c5-f69b57e917b2" Target="#_7ea954ce-2a40-4dc3-b9e4-368777308973"><Timestamp>2020-10-08 06:43:41</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
