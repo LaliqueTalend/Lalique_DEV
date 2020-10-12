@@ -2,7 +2,7 @@
   <context confirmationNeeded="false" name="Default"/>
   <parameters>
     <elementParameter field="TEXT" name="SCREEN_OFFSET_X" show="false" value="0"/>
-    <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" show="false" value="64"/>
+    <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" show="false" value="96"/>
     <elementParameter field="TEXT" name="REPOSITORY_CONNECTION_ID" show="false" value=""/>
     <elementParameter field="TEXT" name="OOZIE_PROPERTY_TYPENAME" show="false" value=""/>
     <elementParameter field="TEXT" name="OOZIE_HADOOP_DISTRIBUTION" show="false" value=""/>
@@ -259,8 +259,10 @@
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tAggregateRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="448" posY="352">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tAggregateRow_1"/>
+  <node componentName="tAggregateSortedRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="384" posY="352">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tAggregateSortedRow_1"/>
+    <elementParameter field="LABEL" name="NOTE" value="( Enter the accurate number of input rows )"/>
+    <elementParameter field="TEXT" name="ROW_COUNT" value="__ROW_COUNT__"/>
     <elementParameter field="TABLE" name="GROUPBYS">
       <elementValue elementRef="OUTPUT_COLUMN" value="mois"/>
       <elementValue elementRef="INPUT_COLUMN" value="mois"/>
@@ -269,34 +271,30 @@
       <elementValue elementRef="OUTPUT_COLUMN" value="som_1"/>
       <elementValue elementRef="FUNCTION" value="sum"/>
       <elementValue elementRef="INPUT_COLUMN" value="art_dep_1"/>
-      <elementValue elementRef="IGNORE_NULL" value="true"/>
+      <elementValue elementRef="IGNORE_NULL" value="false"/>
       <elementValue elementRef="OUTPUT_COLUMN" value="som_2"/>
       <elementValue elementRef="FUNCTION" value="sum"/>
-      <elementValue elementRef="INPUT_COLUMN" value="art_dep_2"/>
-      <elementValue elementRef="IGNORE_NULL" value="true"/>
+      <elementValue elementRef="INPUT_COLUMN" value="art_dep_1"/>
+      <elementValue elementRef="IGNORE_NULL" value="false"/>
       <elementValue elementRef="OUTPUT_COLUMN" value="som_3"/>
       <elementValue elementRef="FUNCTION" value="sum"/>
       <elementValue elementRef="INPUT_COLUMN" value="art_dep_3"/>
-      <elementValue elementRef="IGNORE_NULL" value="true"/>
+      <elementValue elementRef="IGNORE_NULL" value="false"/>
       <elementValue elementRef="OUTPUT_COLUMN" value="som_4"/>
-      <elementValue elementRef="FUNCTION" value="sum"/>
+      <elementValue elementRef="FUNCTION" value="count"/>
       <elementValue elementRef="INPUT_COLUMN" value="art_dep_4"/>
-      <elementValue elementRef="IGNORE_NULL" value="true"/>
+      <elementValue elementRef="IGNORE_NULL" value="false"/>
       <elementValue elementRef="OUTPUT_COLUMN" value="som_5"/>
-      <elementValue elementRef="FUNCTION" value="sum"/>
+      <elementValue elementRef="FUNCTION" value="count"/>
       <elementValue elementRef="INPUT_COLUMN" value="art_dep_5"/>
-      <elementValue elementRef="IGNORE_NULL" value="true"/>
+      <elementValue elementRef="IGNORE_NULL" value="false"/>
       <elementValue elementRef="OUTPUT_COLUMN" value="som_6"/>
-      <elementValue elementRef="FUNCTION" value="sum"/>
+      <elementValue elementRef="FUNCTION" value="count"/>
       <elementValue elementRef="INPUT_COLUMN" value="art_dep_6"/>
-      <elementValue elementRef="IGNORE_NULL" value="true"/>
+      <elementValue elementRef="IGNORE_NULL" value="false"/>
     </elementParameter>
-    <elementParameter field="TEXT" name="LIST_DELIMITER" value="&quot;,&quot;"/>
-    <elementParameter field="CHECK" name="USE_FINANCIAL_PRECISION" value="true"/>
-    <elementParameter field="CHECK" name="CHECK_TYPE_OVERFLOW" value="false"/>
-    <elementParameter field="CHECK" name="CHECK_ULP" value="false"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tAggregateRow_1">
+    <metadata connector="FLOW" name="tAggregateSortedRow_1">
       <column comment="" key="false" length="-1" name="Lundi" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="nb_sem" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="mois" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
@@ -578,7 +576,7 @@
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
-  <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tFileInputDelimited_2" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_2" target="tAggregateRow_1">
+  <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tFileInputDelimited_2" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_2" target="tAggregateSortedRow_1">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="horizon"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
@@ -623,7 +621,7 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row1"/>
   </connection>
-  <connection connectorName="FLOW" label="row4" lineStyle="0" metaname="tAggregateRow_1" offsetLabelX="0" offsetLabelY="0" source="tAggregateRow_1" target="tLogRow_1">
+  <connection connectorName="FLOW" label="row4" lineStyle="0" metaname="tAggregateSortedRow_1" offsetLabelX="0" offsetLabelY="0" source="tAggregateSortedRow_1" target="tLogRow_1">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="S3"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
@@ -707,13 +705,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_940e3ab3-040b-48f9-bb8a-d0d39bb2c5ba"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>s8VH3edHQo6VHNEuAFoZ5coNU9njHNPAKFqU7vGYXK/PRxe4l7o+Y4irF53lvm5UQEnAphqkjrsD&#13;
-x+RHNij5hg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_2ebcf668-32ef-4ee9-8468-79bce8b805b7"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Iy7y2Uam2Pfu/ZOAlR7qiepZVzO2w8cFYp+n1zaGO8+tePwGfYMZMqURo9Sr/df4PyKVfmMKbiS5&#13;
-Saaq9Rj+AA==</DigestValue></Reference></SignedInfo><SignatureValue>B5oeTyW43A579I7ygDpoQMpyQFesIi9YatoQHtUx3gma22VaYjCQ68z7DfI7OuhuoE2xOYB0aeBh&#13;
-805o7ahaGDZ9UXSlIu+OUbwAfXxXJmVb8uykenfLG2WXoVkkseR5vNLdE9Of/9Mgf5s1QwsBQonw&#13;
-qOyggJsly8MLzTOHKPnZGgraiod3s9/ty0xVhZ1JVh9yg/PyKrdKGdu8F2VnjtbiSX9RQjqCldqU&#13;
-eE+kkcmoxbtPRKPO9EMiAZZQD4DCjLHGjfl3Y7YRwtV2TVDyY/DAQQSC0B0A1gilFrI61v8lwyKI&#13;
-dTsgUSwlnUbhp5jzEO5v+Gc2pP0Jup6BiM0iWA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_796a8361-04a3-4ba9-994b-0d0f7ac0f02a"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>O6+LhfijiekcGgR3VJ2HUuoMwujuWkDPnvIpLZM/E8bpyqOqlgoZBiAJmrhHjdHEG0MJDWhVDsaM&#13;
+DfB1xDp4DA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_f1796ccf-9b42-4a42-9a50-106af41738bc"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>XBZED9xQVC/INJ/iPSAc6nJZVMl7YYJWix0oeRZbfU85hSwZ8zNZI7et/7JXCudai06Eyr7d1qha&#13;
+st1wPAzaiQ==</DigestValue></Reference></SignedInfo><SignatureValue>d+h7Ttl1E1MuacrVQuslCwitkQrfPXRlLv4yWtY3pfgQFflraxNJVEMvaRHY5VdgtfGUHKbtt99N&#13;
+qabcYTPU67bJjV7kZnU1Dd8xMrZ0YFD4ImVf/Rs+W/t1z1CHMrwVN9JPjxhOab+Ao3YIptgwfB+9&#13;
+Gv+tWv+9KU737LS8c7Iu67No24ZixjblviAj1prOLJJ/9GB0awXtD2+FvZVTWZ+JMBxTFYoy5KcJ&#13;
++Li6PXBgR5/HUXfrmDI64geMqMf3LsAsxh6awKeFozJZf5SC4cYZ2qfMXjh6UqzvTMlumbZR+gmF&#13;
+DQ871dNtB0Gp29t9gVRZ3MS/ibSK0qamMurAWQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD&#13;
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5&#13;
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U&#13;
@@ -735,4 +733,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/&#13
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW&#13;
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+&#13;
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg&#13;
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_2ebcf668-32ef-4ee9-8468-79bce8b805b7" Target="#_940e3ab3-040b-48f9-bb8a-d0d39bb2c5ba"><Timestamp>2020-10-08 09:23:15</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_f1796ccf-9b42-4a42-9a50-106af41738bc" Target="#_796a8361-04a3-4ba9-994b-0d0f7ac0f02a"><Timestamp>2020-10-12 09:00:45</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
