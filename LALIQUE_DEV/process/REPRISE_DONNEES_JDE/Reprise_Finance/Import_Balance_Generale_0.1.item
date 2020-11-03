@@ -1527,7 +1527,7 @@
       <additionalProperties key="Comment" value=""/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="&quot;10&quot; .equals(BGenerale.Ste) &amp;&amp; &quot;EUR&quot; .equals(BGenerale.Code_Devise) ? &quot;D&quot; : &#13;&#10;&quot;20&quot; .equals(BGenerale.Ste) &amp;&amp; &quot;EUR&quot; .equals(BGenerale.Code_Devise) ? &quot;D&quot; : &#13;&#10;&quot;30&quot; .equals(BGenerale.Ste) &amp;&amp; &quot;EUR&quot; .equals(BGenerale.Code_Devise) ? &quot;D&quot; : &#13;&#10;&quot;40&quot; .equals(BGenerale.Ste) &amp;&amp; &quot;GBP&quot; .equals(BGenerale.Code_Devise) ? &quot;D&quot; : &#13;&#10;&quot;50&quot; .equals(BGenerale.Ste) &amp;&amp; &quot;EUR&quot; .equals(BGenerale.Code_Devise) ? &quot;D&quot; : &quot;F&quot; " name="D_F" type="id_String"/>
         <mapperTableEntries expression="(BGenerale.Debit .add (BGenerale.Credit)) .multiply(new BigDecimal(100)) " name="Montant" type="id_BigDecimal"/>
@@ -1535,6 +1535,7 @@
         <mapperTableEntries expression="BGenerale.Ste + ((String)globalMap.get(&quot;VNEDBT&quot;)) " name="Edbt" type="id_String"/>
         <mapperTableEntries expression="new BigDecimal(10.5) " name="var1" type="id_BigDecimal"/>
         <mapperTableEntries expression="new BigDecimal(10.6) .setScale(0,BigDecimal.ROUND_HALF_UP) " name="var2" type="id_BigDecimal"/>
+        <mapperTableEntries expression="StringHandling.RIGHT(BGenerale.DatePiece,2) + StringHandling.LEFT(StringHandling.RIGHT(BGenerale.DatePiece,4),2) + StringHandling.LEFT(BGenerale.DatePiece,4) " name="DatePiece" type="id_String"/>
       </varTables>
       <outputTables name="F0911Z1_AA" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="&quot;REPR._CLP&quot;" name="VNEDUS" type="id_String"/>
@@ -1633,7 +1634,7 @@
         <mapperTableEntries expression="&quot; &quot;" name="VNASM" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="VNBC" nullable="true" type="id_String"/>
         <mapperTableEntries expression="BGenerale.NumPiece " name="VNVINV" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="JDE.convertToJulian(BGenerale.DatePiece)   " name="VNIVD" nullable="true" type="id_Integer"/>
+        <mapperTableEntries expression="JDE.convertToJulian(Var.DatePiece)   " name="VNIVD" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="&quot; &quot;" name="VNWR01" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="VNPO" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="VNPSFX" nullable="true" type="id_String"/>
@@ -1649,7 +1650,7 @@
         <mapperTableEntries expression="0" name="VNDOI" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="&quot; &quot;" name="VNALID" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="VNALTY" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="JDE.convertToJulian(BGenerale.DatePiece) " name="VNDSVJ" nullable="true" type="id_Integer"/>
+        <mapperTableEntries expression="JDE.convertToJulian(Var.DatePiece) " name="VNDSVJ" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="&quot;REPRISE&quot;" name="VNTORG" nullable="true" type="id_String"/>
         <mapperTableEntries expression="0" name="VNREG_" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="0" name="VNPYID" nullable="true" type="id_Integer"/>
@@ -1828,7 +1829,7 @@
         <mapperTableEntries expression="&quot; &quot;" name="VNASM" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="VNBC" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Fan200P1.DPIECE " name="VNVINV" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="JDE.convertToJulian(BGenerale.DatePiece) " name="VNIVD" nullable="true" type="id_Integer"/>
+        <mapperTableEntries expression="JDE.convertToJulian(Var.DatePiece) " name="VNIVD" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="&quot; &quot;" name="VNWR01" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="VNPO" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="VNPSFX" nullable="true" type="id_String"/>
@@ -1844,7 +1845,7 @@
         <mapperTableEntries expression="0" name="VNDOI" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="&quot; &quot;" name="VNALID" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="VNALTY" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="JDE.convertToJulian(BGenerale.DatePiece) " name="VNDSVJ" nullable="true" type="id_Integer"/>
+        <mapperTableEntries expression="JDE.convertToJulian(Var.DatePiece) " name="VNDSVJ" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="&quot;REPRISE&quot;" name="VNTORG" nullable="true" type="id_String"/>
         <mapperTableEntries expression="0" name="VNREG_" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="0" name="VNPYID" nullable="true" type="id_Integer"/>
@@ -7351,13 +7352,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_bdfd71b2-1e1a-48a3-9eb0-2a875fbe943e"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>yhqnBvKujD4z94PLAUH4UucTdFkEEDAL/VvRoxJFSrkqO3Mqv5Lykcy6YrMJKMqfQxcn2U44td9v
-Rk/BNbv6qw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_8e0dad0b-795c-4f89-980d-314fe3ee4701"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>X/JHQn+7RaTjRwSTJHdQ9HXPMPP1Q7zBVmoiWUvaNIlwAM9nCq6l5FAw94caepQ6t29gsqDIwJMy
-nHh6jUwoGw==</DigestValue></Reference></SignedInfo><SignatureValue>P+N0ki8ETkeIDvOaAUXYSDr4S4s2EmoPA/C4w/gs+FGyX72qjnG1CE8lCYXM5InkdfZ0y7GtRVsK
-vNqOMTZHYDOAysUJvuhkglW1zzSOfd96Lx1C+I9aAik8zKLll5hvX1Mpemv8G5UVXELzw/nURxkW
-/DVNIe94dWjtE5j7BzZTPtkKOAppHIYBYoTEohQH0LwAZ/D45xBsJtzDQp054v1E7yclM+cWD4D0
-78jwJiY3DIGGCoakduCiKlJAvxg+zTcvXfE0TeFt8rfeiw18JxWXx0Y2CUWFkDW5s6l+0pD3sgSd
-D48mUr0ZMfgXczGe3qNOQfnYg8bLLy+2WyxUsg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_88c5b382-b070-45cc-933c-ca67e8fbd3dc"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>esv6XsQZFkGganVW03l7lk5O1u7PC8S5eJZchvhzzO39PioKpC3IYvHlnslhvDAiu62ocuQeqy4l
+AFO5DjR/CQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_f607c00a-a59c-47d3-9c7c-3c11c9f243ad"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>jxqX+PvqbiQFuTcUId0TClBqjiez51leO14SSwvBaTrH15unEiTk0gAL3FOIpOywNphpQ7kmbChv
+1Hk6aaJVzA==</DigestValue></Reference></SignedInfo><SignatureValue>jqtsLX6SDjgUtRSwaJxjmWb2yHmeU4MK6zBGYCMx4WzRIbXBxwKq1WqBKbdPv5p+CfpFRdNEedpy
+MLIvmENEo2SLuaGE8alnkZaNtwxZkmZ02D0XcLq4E229UhcV3c5ZC0L1qGihLxbdl4ouRLUO+JWP
+9v+rxV0s1Z8tWHi1uTyr8AK5Xc08+f51YDNaK1TvG74d6XtJW7tMLp0agGAcvgPv8JfwyexZN2XS
+KKhslbLuERmG2bzdLsytnLs6JT26CPuG2EO1rXphPZoEXowxWNeGddA+vTijHdOxQtwzwPppOYgi
+z1zhP8NPCNvPoow3TwX1nPF0XgqcLkLXMBOqeQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -7379,4 +7380,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_8e0dad0b-795c-4f89-980d-314fe3ee4701" Target="#_bdfd71b2-1e1a-48a3-9eb0-2a875fbe943e"><Timestamp>2020-11-03 14:58:59</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_f607c00a-a59c-47d3-9c7c-3c11c9f243ad" Target="#_88c5b382-b070-45cc-933c-ca67e8fbd3dc"><Timestamp>2020-11-03 15:04:58</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
