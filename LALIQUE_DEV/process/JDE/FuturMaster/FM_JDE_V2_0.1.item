@@ -158,7 +158,7 @@
   <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="192">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileInputDelimited_1"/>
     <elementParameter field="LABEL" name="FILENAMETEXT" value="&quot;When the input source is a stream or a zip file,footer and random shouldn't be bigger than 0.&quot;"/>
-    <elementParameter field="FILE" name="FILENAME" value="&quot;C:/Users/plemeunier/OneDrive - LALIQUE/Projet3F/SPECIFICATIONS/Interface_Prévisions/WEEKLY_FORECAST_FOR_DRP_20201028.csv&quot;"/>
+    <elementParameter field="FILE" name="FILENAME" value="&quot;C:/Users/plemeunier/OneDrive - LALIQUE/Projet3F/SPECIFICATIONS/Interface_Prévisions/WEEKLY_FORECAST_FOR_DRP_20201103.csv&quot;"/>
     <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
     <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
     <elementParameter field="OPENED_LIST" name="CSVROWSEPARATOR" show="false" value="&quot;\n&quot;"/>
@@ -510,6 +510,7 @@
       <column comment="" key="false" length="-1" name="numsem" nullable="true" originalLength="-1" pattern="&quot;YYYYww&quot;" precision="-1" sourceType="" type="id_Date" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="coeff" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Semaine" nullable="true" originalLength="-1" pattern="&quot;YYYYww&quot;" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Semaine1" nullable="true" originalLength="-1" pattern="&quot;YYYYww&quot;" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
@@ -565,6 +566,7 @@
         <mapperTableEntries expression="TalendDate.addDate(TalendDate.getCurrentDate(),(Integer.parseInt(StringHandling.RIGHT(row2.pivot_key,StringHandling.LEN(row2.pivot_key)-1)))*7-1,&quot;dd&quot;) " name="numsem" nullable="true" type="id_Date"/>
         <mapperTableEntries expression="" name="coeff" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="Integer.valueOf(TalendDate.formatDate(&quot;YYYYww&quot;, TalendDate.addDate(TalendDate.getCurrentDate(),(Integer.parseInt(StringHandling.RIGHT(row2.pivot_key,StringHandling.LEN(row2.pivot_key)-1)))*7-1,&quot;dd&quot;))) " name="Semaine" nullable="true" type="id_Integer"/>
+        <mapperTableEntries expression="TalendDate.addDate(TalendDate.getCurrentDate(),(Integer.parseInt(StringHandling.RIGHT(row2.pivot_key,StringHandling.LEN(row2.pivot_key)-1)))*7-1+7-getPartOfDate(&quot;DAY_OF_WEEK&quot;,TalendDate.getCurrentDate()),&quot;dd&quot;) " name="Semaine1" nullable="true" type="id_Integer"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="row2" sizeState="INTERMEDIATE">
         <mapperTableEntries name="codpro" nullable="true" type="id_String"/>
@@ -660,6 +662,7 @@
       <column comment="" key="false" length="-1" name="numsem" nullable="true" originalLength="-1" pattern="&quot;YYYYww&quot;" precision="-1" sourceType="" type="id_Date" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="coeff" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Semaine" nullable="true" originalLength="-1" pattern="&quot;YYYYww&quot;" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Semaine1" nullable="true" originalLength="-1" pattern="&quot;YYYYww&quot;" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="448" posY="416">
@@ -774,12 +777,12 @@
       <column comment="Nº production Système" key="false" length="-1" name="FTPNS" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="row4.Der_Sem?((float)Math.ceil(Float.parseFloat(row5.Value_sem)*row4.Nb_Sem*row4.Coeff)):((float)Math.floor(Float.parseFloat(row5.Value_sem)*row4.Nb_Sem*row4.Coeff)) " name="Qte_Prev" type="id_Float"/>
       </varTables>
       <outputTables activateExpressionFilter="true" columnNameFilter="new BigDecimal(Math.round(Var.Qte_Prev * 10000))!=0" expressionFilter="(Math.round(Var.Qte_Prev * 10000))!=0" name="FM2" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="&quot;PLE&quot;" name="FTEDUS" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot;PLE2&quot;" name="FTEDUS" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;.&quot;" name="FTEDBT" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;.&quot;" name="FTEDTN" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row5.FTEDLN" name="FTEDLN" nullable="true" type="id_Integer"/>
@@ -871,6 +874,7 @@
         <mapperTableEntries name="numsem" nullable="true" type="id_Date"/>
         <mapperTableEntries name="coeff" nullable="true" type="id_Float"/>
         <mapperTableEntries name="Semaine" nullable="true" type="id_Integer"/>
+        <mapperTableEntries name="Semaine1" nullable="true" type="id_Integer"/>
       </inputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="row4" sizeState="INTERMEDIATE">
         <mapperTableEntries name="Mois" nullable="true" type="id_String"/>
@@ -1790,6 +1794,9 @@
       <elementValue elementRef="TRACE_COLUMN" value="Semaine"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Semaine1"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="S1"/>
@@ -1890,13 +1897,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_50a8a891-c3c2-4438-ab98-cd9cb6464049"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Z15u9/nyzINadJ5isOb8YOBEunfMod4lZWfxfVd5L9Bnd0Xv9D4Vqyu3W/dwH1BXtjZEVssIH0Cr&#13;
-pszIpfJ0KQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_3d5ab9e9-973a-46be-a776-93d3b1f3baec"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>jJ3LAzONZk4PcJPgBQCi8awWXdHANtneZxSI0UXb3D/o9z7Pn6LFc9W8j8jDkRdDixXJspfPJqt5&#13;
-dD8JCmQ5xA==</DigestValue></Reference></SignedInfo><SignatureValue>B2XIaJuXiWAnGL69PWyaLUvekn8gy+0YMudoMEn6u+txJYiv8pM3Ha9Htx1FJyRZIb3q1l9O89nU&#13;
-c8td0NG86vbpOTyQRfiTSy8EgXXvkWf1gSoTad+pHhQE2XkEth8ztW6ipjgB33lnae2ijFUJWN0w&#13;
-ig3QpH1eqP4uOKGi4Wjm1pchI1+cDrsCHV+38lrtKkC/UBjmfJnDdj7Xz9aya1K/o2ZnSSDavlfC&#13;
-ZOa0p1Pp4dYqyE36Nul6gdzr6f4jCp89CA0eOBOYmN5rDcdrBWN3T+fex/KABOsu9nvooNkEJMEg&#13;
-RwzVtnwo2xUu4GyKYhToinwPFWu3UZnmROgpTA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_9ab8dccd-c3a2-49b1-8096-9b93d2d02418"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>xkKZebLX7PbxS7u0m/tu0cqSzPknWGw8zOSEm/fhNyHUjc7p1Bzo4AUWHN0ro4g9XxmOwbMspI/G&#13;
+AS4vvlGdaQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_975e4722-e395-426b-8013-8274fdd19b04"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>23kmw+iIY6pzpPO0a9SxoLb/z9+FQbWVVkhapuE8quWQsgOJqtYq2CxPLb2pHw4jsfRULiSpXIfp&#13;
+w1KqUmn5Ow==</DigestValue></Reference></SignedInfo><SignatureValue>fcxzQLPHH96uirnTta0OhybGzkUZlBNTlRCSgGLgolp8EGUUEkiUwMg9SQCJz8DJytx+Sl9jQuB0&#13;
+T7/YE/PipO3DMkaMT78tr7v4GeHmFP/+/zAQCmsL1i6qK5u5qlAkjKxSp/Z5xzRl1+qlZLIzmU3Y&#13;
+j9KYpyDaRETZv09LLgOoKj65/dSVoHwNpalv2tOV64ESFU9buO8FEbDn2rsFfHs/fRgAnvXIcgd6&#13;
+7zf6LXyC9Mj529FY98UlemtlivaN6vDbiaQtHcaor6H7943+MTJuMGw7vXwPEm/PRe5ZKcwKetUd&#13;
+YNi9+adu0jVt31TyJfWfJH67yldBDVhfVmtMTA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD&#13;
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5&#13;
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U&#13;
@@ -1918,4 +1925,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/&#13
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW&#13;
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+&#13;
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg&#13;
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_3d5ab9e9-973a-46be-a776-93d3b1f3baec" Target="#_50a8a891-c3c2-4438-ab98-cd9cb6464049"><Timestamp>2020-11-03 09:03:42</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_975e4722-e395-426b-8013-8274fdd19b04" Target="#_9ab8dccd-c3a2-49b1-8096-9b93d2d02418"><Timestamp>2020-11-03 09:29:22</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
