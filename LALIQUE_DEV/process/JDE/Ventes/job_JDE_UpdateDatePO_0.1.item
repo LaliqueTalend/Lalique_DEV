@@ -138,6 +138,7 @@
     <routinesParameter id="_GObKsD05Eeqa0usbncVxcA" name="TalendStringUtil"/>
     <routinesParameter id="_GOGakD05Eeqa0usbncVxcA" name="TalendString"/>
     <routinesParameter id="_7z6N8NBSEeizQI71bn4YfA" name="JDE"/>
+    <routinesParameter id="__w7TECb3Eemg-LwGa9l-Yw" name="eric"/>
   </parameters>
   <node componentName="tOracleConnection" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="160" posY="32">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBConnection_1"/>
@@ -293,6 +294,7 @@
       <column comment="" key="false" length="-1" name="SZEKCO" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="SZEDOC" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="SZEDCT" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="SZEDLN" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="SZEDST" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="SZEDER" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="SZCHGC" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
@@ -308,11 +310,12 @@
       <uiProperties/>
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Integer.toString(JDE.convertToJulian(TalendDate.addDate(TalendDate.getCurrentDate(), 2, &quot;dd&quot;))) " name="DemandeSouhaite" type="id_String"/>
+        <mapperTableEntries expression="TalendDate.formatDate(&quot;YYMMddHH&quot;,TalendDate.getCurrentDate()) " name="NumDoc" type="id_String"/>
       </varTables>
       <outputTables name="F47301" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="&quot;1&quot;" name="SYEDTY" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;00010&quot;" name="SYEKCO" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="TalendDate.formatDate(&quot;YYMMddHH&quot;,TalendDate.getCurrentDate()) " name="SYEDOC" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Var.NumDoc " name="SYEDOC" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;SO&quot;" name="SYEDCT" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;860&quot;" name="SYEDST" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;0&quot;" name="SYEDDT" nullable="true" type="id_String"/>
@@ -329,8 +332,9 @@
       <outputTables name="F47132" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="&quot;2&quot;" name="SZEDTY" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;00010&quot;" name="SZEKCO" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="TalendDate.formatDate(&quot;YYMMddHH&quot;,TalendDate.getCurrentDate()) " name="SZEDOC" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Var.NumDoc " name="SZEDOC" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;SO&quot;" name="SZEDCT" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Numeric.sequence(Var.NumDoc,1000,1000) " name="SZEDLN" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;860&quot;" name="SZEDST" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;R&quot;" name="SZEDER" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;C&quot;" name="SZCHGC" nullable="true" type="id_String"/>
@@ -505,6 +509,8 @@
       <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="SZEDCT"/>
       <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="SZEDLN"/>
+      <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="SZEDST"/>
       <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="SZEDER"/>
@@ -534,6 +540,7 @@
       <column comment="" key="false" length="-1" name="SZEKCO" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="SZEDOC" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="SZEDCT" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="SZEDLN" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="SZEDST" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="SZEDER" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="SZCHGC" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
@@ -910,6 +917,11 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F47301"/>
   </connection>
   <connection connectorName="FLOW" label="F47132" lineStyle="0" metaname="F47132" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_1" target="tLogRow_1">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="SZEDLN"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F47132"/>
   </connection>
@@ -937,13 +949,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_2b088ca7-6307-48b2-9ccb-22b6d51dc236"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>hKUyCpC7GJ6Y09lzkwe59zjBG8kVKcGaRQez+AVmGxy89G/TeUwpkNCkYsM+mDOagqLgEQuXvc5e
-Y5Yq6UsR3A==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_71f8cce7-f10f-443f-9434-dcc857c9443b"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>CR20xQahQDV74cpGOdCs03Z1O/YxF2/OILyjvaQHoDjYOhEvuxaSLDaDGzMhvxqArrUrVJL6zBP2
-gHx9IsstHg==</DigestValue></Reference></SignedInfo><SignatureValue>XexcGPrg9rDuLVAUTQZFoUMGOKrNKfrDaUv7hZGm7Yo/3kbTW+zDA+Iu3YYCjgOCZTkNug/MdwgA
-irO+kcuJWWpfxs+E/S0dkZVWq7k3atLnrtNp7Ks6cQkiP+SeT1gk3Yj8lhrnKzmZwJNhqKZ982Bc
-sZy8cp6ta5Ge9xlP0qFDdv2XDg6cg6Ley91X2X4dcgrkKW0iXvLX7AQNAqtw74Gl8dhiNGSomkEA
-dUNCYqRZxLmfq5ik0Iql67k90nmKJNS8MzYoCwzMulf6IWUNnA9n2OaZt+vp6Te2ZNRy6SRPfuNw
-kT3qBcI4knPB3SzgdX4uiMiBYP1QBlBd1IjAHg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_317d6d03-56c4-4298-99a9-801924b4e0f9"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>SpV2gUwJeWHdJB4gzeka7DJHRMoUCUGFx1XiW+Yx+oh91GldS0r98fQ00cgAIgONih4rnthHJoAq
+Jfog0QwhaA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_0fd13253-35b4-46f8-8220-9882db34244e"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>SrXAHMdW+q61UbNpMuVQpgTWO1YPoPdxrC91kOv57QIlTyS1Y9jMNGZRt8j1byA53pB9kV5RiD42
+PTssr7KT4g==</DigestValue></Reference></SignedInfo><SignatureValue>ctBkOEAFCJrwz+19y2cQznB+tMOfGpi7JfbMD6nt3hy3aINKaV88JQPqBMyaTvRn50+vmGgFlqJd
+rf4CNRdVfmJBIdj/AdHw8bYOBiu5GBS5+JgkM325NWbgQkNWnJKcIbUgpJYCzG7O+8aYe8VhFLWN
+Q+UhzTKdZG0VblIIncC0eT+SZnp/ZmrhxKAmTC1cVMybbyGYgpughW6arWS5mm0oIo3EqU9QeuBt
+Wc/xVUXxuXC2juQMgFQPkSoMB0dn9QKr0uffCQvHk0VFCqbQ7+RrnuE2Emh20v3IS8Jg8Rfy0ne5
+oJpLSGteVJKfOYirBHctzdy0IGWBvamfJqyOJw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -965,4 +977,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_71f8cce7-f10f-443f-9434-dcc857c9443b" Target="#_2b088ca7-6307-48b2-9ccb-22b6d51dc236"><Timestamp>2020-11-05 12:29:04</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_0fd13253-35b4-46f8-8220-9882db34244e" Target="#_317d6d03-56c4-4298-99a9-801924b4e0f9"><Timestamp>2020-11-05 12:58:37</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
