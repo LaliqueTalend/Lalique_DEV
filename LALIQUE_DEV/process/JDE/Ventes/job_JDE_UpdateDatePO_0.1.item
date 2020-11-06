@@ -204,7 +204,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#10;  &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDKCOO, &#10;  &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDDOCO, &#10;  &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDDCTO, &#10;  &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDLNID, &#10;  &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDSFXO, &#10;  &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDMCU, &#10;  &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDCO, &#13;&#10;  &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDAN8, &#10;  &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDSHAN, &#10;  &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDDRQJ, &#10;  &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDPDDJ, &#10;  &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDPPDJ, &#10;  &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDLITM, &#10;  &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDNXTR&#10;FROM &quot;+context.JDE920_Schema_DTA+&quot;.F4211&#13;&#10;WHERE &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDPDDJ &lt;= '120310'&#13;&#10; AND &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDDCTO IN (&quot;+context.TypePo+&quot;)&#13;&#10; AND &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDNXTR &lt;= '580'&#13;&#10; AND &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDMCU = '        10WL'&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#10;  &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDKCOO, &#10;  &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDDOCO, &#10;  &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDDCTO, &#10;  &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDLNID, &#10;  &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDSFXO, &#10;  &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDMCU, &#10;  &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDCO, &#13;&#10;  &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDAN8, &#10;  &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDSHAN, &#10;  &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDDRQJ, &#10;  &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDPDDJ, &#10;  &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDPPDJ, &#10;  &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDLITM, &#10;  &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDNXTR&#10;FROM &quot;+context.JDE920_Schema_DTA+&quot;.F4211&#13;&#10;WHERE &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDPDDJ &lt;= Integer.toString(JDE.convertToJulian(TalendDate.getCurrentDate()))&#13;&#10; AND &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDDCTO IN (&quot;+context.TypePo+&quot;)&#13;&#10; AND &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDNXTR &lt;= '580'&#13;&#10; AND &quot;+context.JDE920_Schema_DTA+&quot;.F4211.SDMCU IN ( '        10WL', '        60WL')&quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -327,6 +327,7 @@
         <mapperTableEntries expression="Integer.toString(JDE.convertToJulian(TalendDate.addDate(TalendDate.getCurrentDate(), context.DélaiLivraison, &quot;dd&quot;))) " name="DemandeSouhaite" type="id_String"/>
         <mapperTableEntries expression="TalendDate.formatDate(&quot;DD&quot;,TalendDate.getCurrentDate())+StringHandling.RIGHT(StringHandling.STR('0',4)+Integer.toString(Numeric.sequence(&quot;EDOC_COUNT&quot;,1,1)),5) " name="NumDoc" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="EDSP" type="id_String"/>
+        <mapperTableEntries expression="Integer.toString(JDE.convertToJulian(TalendDate.getCurrentDate())) " name="EDDT" type="id_String"/>
       </varTables>
       <outputTables name="F47301" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="&quot;1&quot;" name="SYEDTY" nullable="true" type="id_String"/>
@@ -334,7 +335,7 @@
         <mapperTableEntries expression="Var.NumDoc " name="SYEDOC" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;SO&quot;" name="SYEDCT" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;860&quot;" name="SYEDST" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="&quot;0&quot;" name="SYEDDT" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Var.EDDT " name="SYEDDT" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;R&quot;" name="SYEDER" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;04&quot;" name="SYTPUR" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Var.EDSP " name="SYEDSP" nullable="true" type="id_String"/>
@@ -1083,13 +1084,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_b37dfd26-664a-4efd-a5e5-f07f35254576"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>1yspUiBsuvNm1GQ3hT6sFB7mM0xGSVR1hvRLT54sF2HIJAd6TjUjAuyYKNrgyFSCw+ArNdlpgyM1
-GWDQFGBnGA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_0c0a154d-f796-43a4-810e-6d6baf962fe3"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>F4dEOtqe4uaMlLtzaqxDkPNob6GOLjifiddKGXvCnip5T7wyKKkgRTDyQIQUT2C/Dnm6Qx0XLJBO
-/rJUpGGiKw==</DigestValue></Reference></SignedInfo><SignatureValue>Byrt6xv6XKVbD2x+Vm14Pdvf7W7pwZnxxS//77Aryb8z3zG0s2PUnU4mYgUVN4XdWcCyWBSfEcys
-mTLKcQ0aSns7dKG0yYnuyAYWu+jEqPnOU1JMnRt8JnnzjDkfKl1WvdFQh5NMELbiJ12vHGNYRNoR
-US4DmR7g8C649ORoRHcvDKGb4OrxVHOLrbKpDEZe7+5/EGa2Qt9onFLk5G/1ry8+aUpa61BBYfbO
-+zssb+47MDBR6SCYexEg25M9kHQc5GXJl10LbK7lvfvGw6FMH6fT8w8PpVYl9bh2nHftzWOIpRmF
-TTw3cjMqELCf8qWaUZKMg2rsNfTTuZG9i9+osg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_0e151bdc-8404-497a-afa3-405ca1131ad6"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>g3uUi4/aVE+32hK0Mh6sdt6LvNLTgBy9XCbkCy33SMVroH/cioK578wlROEAHVDjxCXb2qmrjWg6
+7HDIcSNtgg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_5c67db8f-791d-45d2-9be2-cc3e2bef1d2f"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>6KmSsr5plaojOlKgLt89yfDlycBFQkF2GF7Z9CNqgQwaiAaXIsdEd6hRf9u3uy/WQXdbt6XzibMH
+wsuobE9Rqw==</DigestValue></Reference></SignedInfo><SignatureValue>brWaIsi8PCJ6df1FxaqNeqOoZ6Ophs6AoeiMMtULW7RcrCrOxoDwAEpcU6y2Qye3kLfZZPCNSOAF
+il5LrPfWRfveb/XPrO7DoWJ4R6rnCcnP0H2BQXXFV/xZp6MTJV/O31U8nikMfOS6YeN26cF/XNSs
+NE+qqrgiqETfYsCpzVgTTyreF6bsyFdc1RLHY7/UB6GTwctoD8DHB/btIFqjz9uX17b3t21CW+5e
+1c1O742RBl9HKMnVF/mqjCl4nNUblbKYjgwJik7yelZJQ+mWha49vrKytRJCwjQ6vBmi3GytsN9G
+OguitwptsRKTVECzYSgHgxezFsEgQOO8kiIg5g==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1111,4 +1112,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_0c0a154d-f796-43a4-810e-6d6baf962fe3" Target="#_b37dfd26-664a-4efd-a5e5-f07f35254576"><Timestamp>2020-11-06 08:22:02</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_5c67db8f-791d-45d2-9be2-cc3e2bef1d2f" Target="#_0e151bdc-8404-497a-afa3-405ca1131ad6"><Timestamp>2020-11-06 10:45:55</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
