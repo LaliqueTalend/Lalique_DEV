@@ -575,9 +575,8 @@ public class Lalique {
         return result.toString();
     }
 
-    private final String edoc_num = System.setProperty("EDOC_NUM"," ");
     /**
-     * UniqueSequence : return the unique identifier incremented only if of break in sequence.
+     * sequence : return the unique identifier incremented only if of break in sequence.
 	 *
      * {talendTypes} int | Integer
      *
@@ -594,13 +593,22 @@ public class Lalique {
      * {example} sequence("s1", "s2", 1, 1) # 1, 1, 1, ..., sequence("s1", "s3", 1, 1) # 2, 2, 2, ...
      *     *
      */
-    public static Integer sequence(String seqName, String seqBreak, int startValue, int step) {
-        if (seqBreak.equals(System.getProperty("EDOC_NUM"))) {
-            return Integer.valueOf(System.getProperty("EDOC_SEQ"));
+    private static final java.util.Map<String, Integer> seq_Hash = new java.util.HashMap<String, Integer>();
+    private static final java.util.Map<String, Integer> brk_Hash = new java.util.HashMap<String, Integer>();
+
+    public static Integer sequence(String seqName, String brkName, int startValue, int step) {
+        if (seq_Hash.containsKey(seqName)) {
+			if (brk_Hash.containsKey(brkName)) {
+				return brk_Hash.get(brkName);
+			} else {
+				seq_Hash.put(seqName, seq_Hash.get(seqName) + step);
+				brk_Hash.put(brkName, seq_Hash.get(seqName));
+				return brk_Hash.get(brkName);
+			}
         } else {
-			System.setProperty("EDOC_SEQ", Integer.toString(Numeric.sequence("EDOC_SEQ", startValue, step)));
-			System.setProperty("EDOC_NUM", seqBreak);
-            return Integer.valueOf(System.getProperty("EDOC_SEQ"));
+            seq_Hash.put(seqName, startValue);
+			brk_Hash.put(brkName, startValue);
+            return startValue;
         }
     }
  }
