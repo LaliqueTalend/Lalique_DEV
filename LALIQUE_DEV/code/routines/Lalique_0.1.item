@@ -575,5 +575,32 @@ public class Lalique {
         return result.toString();
     }
 
-  
+    private final String edoc_num = System.setProperty("EDOC_NUM"," ");
+    /**
+     * UniqueSequence : return the unique identifier incremented only if of break in sequence.
+	 *
+     * {talendTypes} int | Integer
+     *
+     * {Category} User Defined
+     *
+     * {param} string("s1") sequence identifier
+     *
+     * {param} string("s2") break identifier
+     *
+     * {param} int(1) start value
+     *
+     * {param} int(1) step
+     *
+     * {example} sequence("s1", "s2", 1, 1) # 1, 1, 1, ..., sequence("s1", "s3", 1, 1) # 2, 2, 2, ...
+     *     *
+     */
+    public static Integer sequence(String seqName, String seqBreak, int startValue, int step) {
+        if (System.getProperty("EDOC_NUM") == seqBreak) {
+            return Integer.valueOf(System.getProperty("EDOC_SEQ"));
+        } else {
+			System.setProperty("EDOC_SEQ", Integer.toString(Numeric.sequence("EDOC_SEQ", startValue, step)));
+			System.setProperty("EDOC_NUM", seqBreak);
+            return Integer.valueOf(System.getProperty("EDOC_SEQ"));
+        }
+    }
  }
