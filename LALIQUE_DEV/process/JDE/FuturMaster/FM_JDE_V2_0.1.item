@@ -175,7 +175,7 @@
     <elementParameter field="TEXT" name="TEXT_ENCLOSURE" show="false" value="&quot;&quot;&quot;"/>
     <elementParameter field="TEXT" name="HEADER" value="0"/>
     <elementParameter field="TEXT" name="FOOTER" value="0"/>
-    <elementParameter field="TEXT" name="LIMIT" value=""/>
+    <elementParameter field="TEXT" name="LIMIT" value="10"/>
     <elementParameter field="CHECK" name="REMOVE_EMPTY_ROW" value="true"/>
     <elementParameter field="CHECK" name="UNCOMPRESS" value="false"/>
     <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false"/>
@@ -521,7 +521,7 @@
       <column comment="" key="false" length="-1" name="Semaine" nullable="true" originalLength="-1" pattern="&quot;YYYYww&quot;" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE"/>
       <outputTables name="S1" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="row2.codpro " name="codpro" nullable="true" type="id_String"/>
@@ -532,7 +532,7 @@
         <mapperTableEntries expression="TalendDate.addDate(TalendDate.getCurrentDate(),(Integer.parseInt(StringHandling.RIGHT(row2.pivot_key,StringHandling.LEN(row2.pivot_key)-1)))*7-1-TalendDate.getPartOfDate(&quot;DAY_OF_WEEK&quot;,TalendDate.getCurrentDate())  ,&quot;dd&quot;) " name="Date_sem" nullable="true" type="id_Date"/>
         <mapperTableEntries expression="" name="Num_Ligne" nullable="true" type="id_String"/>
         <mapperTableEntries name="FTEDUS" nullable="true" type="id_String"/>
-        <mapperTableEntries name="FTEDBT" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="TalendDate.getDate(&quot;YYYYMMDDhhmm&quot;) " name="FTEDBT" nullable="true" type="id_String"/>
         <mapperTableEntries expression="" name="FTEDTN" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Numeric.sequence(&quot;s1&quot;,1,1) " name="FTEDLN" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="" name="FTEDCT" nullable="true" type="id_String"/>
@@ -540,8 +540,8 @@
         <mapperTableEntries name="FTEDFT" nullable="true" type="id_String"/>
         <mapperTableEntries expression="" name="FTEDDT" type="id_String"/>
         <mapperTableEntries expression="&quot;1&quot;" name="FTDRIN" nullable="true" type="id_String"/>
-        <mapperTableEntries name="FTEDDL" nullable="true" type="id_Integer"/>
-        <mapperTableEntries name="FTEDSP" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="" name="FTEDDL" nullable="true" type="id_Integer"/>
+        <mapperTableEntries expression="&quot; &quot;" name="FTEDSP" nullable="true" type="id_String"/>
         <mapperTableEntries name="FTPNID" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;02&quot;" name="FTTNAC" nullable="true" type="id_String"/>
         <mapperTableEntries expression="" name="FTITM" nullable="true" type="id_Integer"/>
@@ -783,13 +783,13 @@
       <column comment="Nº production Système" key="false" length="-1" name="FTPNS" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="row4.Der_Sem?((float)Math.ceil(Float.parseFloat(row5.Value_sem)*row4.Nb_Sem*row4.Coeff)):((float)Math.floor(Float.parseFloat(row5.Value_sem)*row4.Nb_Sem*row4.Coeff)) " name="Qte_Prev" type="id_Float"/>
       </varTables>
       <outputTables activateExpressionFilter="true" columnNameFilter="new BigDecimal(Math.round(Var.Qte_Prev * 10000))!=0" expressionFilter="(Math.round(Var.Qte_Prev * 10000))!=0" name="FM2" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="&quot;PLE&quot;" name="FTEDUS" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="&quot;.&quot;" name="FTEDBT" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="sysdte" name="FTEDBT" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;.&quot;" name="FTEDTN" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row5.FTEDLN" name="FTEDLN" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="row5.FTEDCT" name="FTEDCT" nullable="true" type="id_String"/>
@@ -1532,6 +1532,7 @@
     <elementParameter field="ENCODING_TYPE" name="ENCODING" show="false" value="&quot;ISO-8859-15&quot;"/>
     <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
     <elementParameter field="TEXT" name="COMMIT_EVERY" value="10000"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tDBRow_1"/>
     <metadata connector="REJECT" name="REJECT">
       <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
@@ -1951,13 +1952,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_2b937154-abef-4c3e-baed-671b0db2c74d"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>qpA1DHGTsTgpwFgJtEdUa8jjgZVRdJlbDuJeuxci9IU54sjHESvF3sSbOoWFyqZatoIC8jQh5Sc9&#13;
-Tdf2PtW7Pw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_c2a48e24-2471-4046-8ee4-95905d8e09cb"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>YyMXCauv2fYpOPY5KZ6m0hq3fCRDrE5Dzx14TLy4hd5BH4duuh+t8sQx+oUOxZbWcQYMAnN1EssR&#13;
-3v1CVVhUWg==</DigestValue></Reference></SignedInfo><SignatureValue>iQRYSHM9/3KJGgwBrUEQq0/x6LpjBC9Aa0hEH1Ryb/jfflnA0MeJR9l7Ukz6k61E+jrR1JPtPl6X&#13;
-9C4OH5jvBMmhFrhITMiyORqWEaIHHSUVgNmN+RzwQBXuH5Mo2SPti4iucTliexQxr0y279fpQdud&#13;
-4ARic2CoTPYbR6P93zXJ3aEhXKwAHKSG4e/w/29TJK0tjb9AfXMXg2Gl0v4Jw0CL4hmAwKEO9HNE&#13;
-iYOhuLARPAHuMh5GlZTQCJs7RMvpJjfU7F3Nfs2FQxMMDkQJrkTaaKkbVNDh/CRbnn+OY1rbblcA&#13;
-5O342Bfc6MaJATk8JoBrjyJadct4qdwrXZayrA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_67a0b8c3-2155-4d64-91cf-648f3c030a40"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>RxMCj4F2SQ7rd+bzQSAO7Cj+K65GgfvtY2NiC2hUXmfMdwRr2T/vl5cqbZnsbGWotF+Q/8GqiWe+&#13;
+GxJBbh8P0A==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_db166f9e-5ba4-43d0-adc2-6260dc36b473"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>0Z7WLfaHW7iKdqvL+P5grhBV8aeHR+UAJfw0RG3GrDxchVWA7KlWNzL8LPJNUI276IT7B1ywUumV&#13;
+oWaFAs093w==</DigestValue></Reference></SignedInfo><SignatureValue>Irrd1Masm81BUG3Uo6QyjoDec+wIdKuiFxnqNiG+wLVXNiogng9RDnjqZAmTT/hPFdPORmF0Ug3W&#13;
+A60v3WdadaAS/yQ4vAckTtwZYLBwCM+SfYBHKgb/Ec1mtMKgGy9gDwBAkpsXxu9vhT08F7uiKV1q&#13;
+xPiyTbN/z7AMi7cCuL5LIxH82Vn0a0nTOfw6SAsuWzerLb4vPovuNjYhyWT61103UmKN6QPDEJkK&#13;
+KTfm979CG5yHQI/xFhN30OgFGAf8QX4CaYZj3R532vpw+oXCS3pJ6Ajg9KuoHOY4amG3Xik9X6wy&#13;
+kd+ETqSbXmaZBGKGPs7S7STfbFNGtHaK/kw1hw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD&#13;
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5&#13;
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U&#13;
@@ -1979,4 +1980,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/&#13
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW&#13;
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+&#13;
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg&#13;
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_c2a48e24-2471-4046-8ee4-95905d8e09cb" Target="#_2b937154-abef-4c3e-baed-671b0db2c74d"><Timestamp>2020-11-06 16:28:39</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_db166f9e-5ba4-43d0-adc2-6260dc36b473" Target="#_67a0b8c3-2155-4d64-91cf-648f3c030a40"><Timestamp>2020-11-17 14:35:04</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
