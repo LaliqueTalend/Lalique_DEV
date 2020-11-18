@@ -2385,6 +2385,9 @@
     </metadata>
     <metadata connector="FLOW" name="EMPLACE_A_CREER">
       <column comment="" key="false" length="-1" name="CLIEGX" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="COD_CLI" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="TYP_ADR" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="NUM_ADR" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties/>
@@ -2404,6 +2407,9 @@
       </outputTables>
       <outputTables columnNameFilter="" name="EMPLACE_A_CREER" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="CONSIG_A_CREER.CLIEGX" name="CLIEGX" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="StringHandling.LEFT(CONSIG_A_CREER.CLIEGX,StringHandling.LEN(CONSIG_A_CREER.CLIEGX)-6) " name="COD_CLI" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="StringHandling.StringHandling.LEFT(StringHandling.RIGHT(CONSIG_A_CREER.CLIEGX,6),3) " name="TYP_ADR" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="StringHandling.RIGHT(CONSIG_A_CREER.CLIEGX,3) " name="NUM_ADR" nullable="true" type="id_String"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="CONSIG_A_CREER" sizeState="INTERMEDIATE">
         <mapperTableEntries name="CLIEGX" nullable="true" type="id_String"/>
@@ -2425,6 +2431,12 @@
     <elementParameter field="TABLE" name="GROUPBYS">
       <elementValue elementRef="OUTPUT_COLUMN" value="CLIEGX"/>
       <elementValue elementRef="INPUT_COLUMN" value="CLIEGX"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="COD_CLI"/>
+      <elementValue elementRef="INPUT_COLUMN" value="COD_CLI"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="TYP_ADR"/>
+      <elementValue elementRef="INPUT_COLUMN" value="TYP_ADR"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="NUM_ADR"/>
+      <elementValue elementRef="INPUT_COLUMN" value="NUM_ADR"/>
     </elementParameter>
     <elementParameter field="TABLE" name="OPERATIONS"/>
     <elementParameter field="TEXT" name="LIST_DELIMITER" value="&quot;,&quot;"/>
@@ -2434,6 +2446,9 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tAggregateRow_1">
       <column comment="" key="false" length="-1" name="CLIEGX" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="COD_CLI" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="TYP_ADR" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="NUM_ADR" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="640" posY="256">
@@ -2648,6 +2663,9 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tFileOutputDelimited_2">
       <column comment="" key="false" length="-1" name="CLIEGX" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="COD_CLI" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="TYP_ADR" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="NUM_ADR" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="1024" posY="192">
@@ -3233,6 +3251,17 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="CONSIG_ACREER"/>
   </connection>
   <connection connectorName="FLOW" label="EMPLACE_A_CREER" lineStyle="0" metaname="EMPLACE_A_CREER" offsetLabelX="1" offsetLabelY="0" outputId="2" source="tMap_4" target="tAggregateRow_1">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="COD_CLI"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="TYP_ADR"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="NUM_ADR"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="EMPLACE_A_CREER"/>
   </connection>
@@ -3336,13 +3365,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_70da2e93-081a-49e7-809b-db4323a09314"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>emB8tWRrZZxDTInRlcYnHK7rCOD2bFecZyI/Li4QoqSPO6ywvKfMWsJbT1Xx7BQPXFhJWJNFWnoc
-dBI2P6IoYw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_9f8b5979-fe2f-431a-a43f-131232073229"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>XMUHFkkzPB/8ibkvreFbcYX3KQIgmB3amTyBhj4v3T9Zq9h/mKrsbaC2t0MY+taQGYHdImEcZ5wi
-3ZfOWUIYCA==</DigestValue></Reference></SignedInfo><SignatureValue>admO6VpVuthvaN7nxZcQW9p7Qipj/pMsHaYIhDWvAfQZksTjx+WThmADrAFt/uhPL6JHStwepukF
-6o4h1eG7n/uxQbFZcoE+ycdw2MNSUxzkNKQw0NHVLzAC2OSFxE+bg/VFKHe5FnFcnWJk/Dkc8s76
-oBEDP4dkrsPZaefM34kXmzIJm1deA/7vPMoAYWx9DlI3ruISaoiYYfCjiiOIBSx4kvuk/tyh5Fhh
-Q+4sj9FSiv5ZoO7oKX5iqq/7qET0MLDn0BCElfVl9/Yz1ru2UoKfjFghAU+9zB8/Tm7s8cuBBGcX
-yHD22wwwk9yFZ9UqA0zU0TWKhOjSOFiXjSkj1g==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_6eb3ab83-cb7c-4f22-b2a1-ab0fb9d57465"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>xnMCHjoPwmw3iQApNe5EEV1kw/jzkguZy7aXt4++Idv4ArkFcxRJSYzV873VriFm10Zc0UBOqKnC
+jdjNHWnDkw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_351421f2-1166-43d6-9162-1ee7865663dd"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Png3qq/IG/ZulgVLp9Evf+G7oIcxgW3vuKbdh3viP5EJAV725QhSVMqA6mTea20eApnTGmaZtIZl
+DcKtINXu9Q==</DigestValue></Reference></SignedInfo><SignatureValue>oucomQ/YYjqby7I9e1MHC1HzgfvBAElJ7scCemLx2+7K74kS7zld3t6uLbaLw1F2tuzzynPbj4Ox
+sORxqHKQDAMdSYfO47GBqRijlcLwtu3DS8lt1P7vGzXImwtjgsCwwWL383caPQZjDBEfHon+qF28
+Prl4TNQrqbWYQkN/ZF/b4MnNRp0Ob9GPdFZCFQ01PaeqBPeTWkowDDY+VL3tIYlGsuFnHJEktuzq
+u6Z6E1kc+G7IMr3hTSJ0oJpAOX7vCc7t9yI/dTSFHKOJW8pWkGGRKCkHVGLjqQHi0l0v1j04/SlJ
+84aL87xwXq5enxH9rwMJnJ+hhWqO9HFmqmCcvw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -3364,4 +3393,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_9f8b5979-fe2f-431a-a43f-131232073229" Target="#_70da2e93-081a-49e7-809b-db4323a09314"><Timestamp>2020-11-18 14:36:45</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_351421f2-1166-43d6-9162-1ee7865663dd" Target="#_6eb3ab83-cb7c-4f22-b2a1-ab0fb9d57465"><Timestamp>2020-11-18 14:49:00</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
