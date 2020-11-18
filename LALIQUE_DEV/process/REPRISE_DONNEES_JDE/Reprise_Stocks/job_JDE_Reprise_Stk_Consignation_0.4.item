@@ -2479,7 +2479,10 @@
       <column comment="" key="false" length="-1" name="MAG" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <metadata connector="FLOW" name="EMPL_A_CREER_1">
+      <column comment="" key="false" length="-1" name="DATE" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="EMPLACEMENT" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="NIVEAU" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="TRANSIT" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties/>
@@ -2497,7 +2500,10 @@
         <mapperTableEntries expression="CONSIG_DIRECT.MAG" name="MAG" nullable="true" type="id_String"/>
       </outputTables>
       <outputTables columnNameFilter="" name="EMPL_A_CREER_1" sizeState="INTERMEDIATE">
+        <mapperTableEntries name="DATE" nullable="true" type="id_String"/>
         <mapperTableEntries expression="CONSIG_DIRECT.EMPLACEMENT" name="EMPLACEMENT" nullable="true" type="id_String"/>
+        <mapperTableEntries name="NIVEAU" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot;Y&quot;" name="TRANSIT" nullable="true" type="id_String"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="CONSIG_DIRECT" sizeState="INTERMEDIATE">
         <mapperTableEntries name="CODPRO" nullable="true" type="id_String"/>
@@ -2636,8 +2642,14 @@
   <node componentName="tAggregateRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="768" posY="320">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tAggregateRow_2"/>
     <elementParameter field="TABLE" name="GROUPBYS">
+      <elementValue elementRef="OUTPUT_COLUMN" value="DATE"/>
+      <elementValue elementRef="INPUT_COLUMN" value="DATE"/>
       <elementValue elementRef="OUTPUT_COLUMN" value="EMPLACEMENT"/>
       <elementValue elementRef="INPUT_COLUMN" value="EMPLACEMENT"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="NIVEAU"/>
+      <elementValue elementRef="INPUT_COLUMN" value="NIVEAU"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="TRANSIT"/>
+      <elementValue elementRef="INPUT_COLUMN" value="TRANSIT"/>
     </elementParameter>
     <elementParameter field="TABLE" name="OPERATIONS"/>
     <elementParameter field="TEXT" name="LIST_DELIMITER" value="&quot;,&quot;"/>
@@ -2646,7 +2658,10 @@
     <elementParameter field="CHECK" name="CHECK_ULP" value="false"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tAggregateRow_2">
+      <column comment="" key="false" length="-1" name="DATE" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="EMPLACEMENT" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="NIVEAU" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="TRANSIT" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="896" posY="320">
@@ -2681,7 +2696,10 @@
     <elementParameter field="TEXT" name="LABEL" value="EMPL_A_CREER"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tFileOutputDelimited_1">
+      <column comment="" key="false" length="-1" name="DATE" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="EMPLACEMENT" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="NIVEAU" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="TRANSIT" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="1024" posY="192">
@@ -3317,6 +3335,17 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="CONSIG_ACREER_1"/>
   </connection>
   <connection connectorName="FLOW" label="EMPL_A_CREER_1" lineStyle="0" metaname="EMPL_A_CREER_1" offsetLabelX="44" offsetLabelY="1" outputId="2" source="tMap_5" target="tAggregateRow_2">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="DATE"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="TRANSIT"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="NIVEAU"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="EMPL_A_CREER_1"/>
   </connection>
@@ -3423,13 +3452,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_21d26776-316a-42fb-91a6-9f0f1a6d0399"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>71R1HJiPD+SixCPR0hJwSEZU81R8qIyjLV876r4y3x10kb5+b4JSUc4NaMWtMtdUT49rtK5YreqW
-jIZ6SsQLew==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_449f5aa3-55c8-4e41-9aa7-093b123355df"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>KcemosiMyPM30lLTgK3zkzR5xUzVp1oRCRN9xoKw7Pv7Q+AkTn98uJqA1f2/53Oq5Ev3re16QKXu
-Rimb6deQpg==</DigestValue></Reference></SignedInfo><SignatureValue>LEtxTpEuK7HUwJA4ZU7WaRwsws7dwCzQ+ZPqlGtRVo9tJ/1pw34Nq83DKvTyL1C0/YfZPhxKfYrS
-TtMYrNC7uvRMMHJ9fxKSz0/kf16pjwIsgoIGKMLMEi/Wmfrl85DoNP7an4PRWNsLInrE4MUhlO5d
-lRtumBjwcoF/NXbr/dy1CfZzJjHiBkIbf2kWJtGTqrH/3WY1O/Y1GeCNyTxBa2yT8lRl/zcWanRU
-jTqXvU4piydU/NSAEGwwns2WlTC4Lx2cKIrN+DKWfN0fn/cONBLI3lgIsoBjzvYSkFtrzC9ga3Vh
-haKIgn6ujAy5xFsG78U4kI6kNPQcMnS40d+0qw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_b9f9c65a-19e9-4173-8e74-e0188374d6d0"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>andEyl9yzJiGi6hX6Ig24CXcdgACccfMOUnVnCg/5tEAauU+HuhSfWNhV3xQ8vQly2v/NrqNkanb
+L37tjWnKlg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_49e49301-1910-4e5a-8871-7bc16d5b7f30"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>zziG4mgaT0v2swQE5buUF5/d93/b1NxSFihCgEfL2XyAddfMRMbBGUCvXsq4cIwLkLB9nwe+PK86
+C77OPBlXSA==</DigestValue></Reference></SignedInfo><SignatureValue>M0bdVbz6vhpmluCjBFNHcL2OEkiHTgv6Gd/7vV5V4XzzSvPFU475YcSHPpFS2IP9w+UniwM2tvVo
+fETPWNfJa+5WdkM8HOjtCv5nU8fSMgZ/kB/6arqVIZPFEB/XOnAMXuy0ED1fTRtTMXXlPSe9n7Qf
+vWnxBjRvezKZ8vMn/wIxDvTnJf8rf9BM0AFtQnsaUCmevjenENWDXizyyiP8sTDDwFtV98DO+7pg
+Vic5fS0aNO0yokXciTp0HlrxkEfUtBryokTaUwEh8x7iQoRrqHk0/PFMpyP02h1DF/EsPidJdAuW
+hRTcaOwvtfgY33zT2LCQkafQygXkh8DBl6QXMQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -3451,4 +3480,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_449f5aa3-55c8-4e41-9aa7-093b123355df" Target="#_21d26776-316a-42fb-91a6-9f0f1a6d0399"><Timestamp>2020-11-18 14:56:46</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_49e49301-1910-4e5a-8871-7bc16d5b7f30" Target="#_b9f9c65a-19e9-4173-8e74-e0188374d6d0"><Timestamp>2020-11-18 16:32:22</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
