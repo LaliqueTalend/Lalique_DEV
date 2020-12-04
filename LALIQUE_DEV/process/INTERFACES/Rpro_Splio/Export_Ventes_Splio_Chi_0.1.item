@@ -328,12 +328,12 @@
       </column>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
       <outputTables name="Vtes_Splio_0" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Int_Inv_Ent.SBS_NO " name="SBS_NO" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="Store.STORE_CODE " name="store_id" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="StringHandling.LEFT(Int_Inv_Ent.CREATED_DATE,10) " name="order_date" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Int_Inv_Ent.CREATED_DATE,10 " name="order_date" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Int_Inv_Ent.INVC_SID " name="order_id" nullable="true" type="id_Long"/>
         <mapperTableEntries expression="Int_Inv_Ent.INVC_TYPE " name="INVC_TYPE" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Int_Inv_Ent.CUST_SID " name="customer_key" nullable="true" type="id_Long"/>
@@ -1576,9 +1576,6 @@
       <column comment="" key="false" length="19" name="order_date" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="16" name="amt_ht" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
       <column comment="" key="false" length="16" name="amt_ttc" nullable="true" pattern="" precision="2" sourceType="NUMBER" type="id_Float" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
@@ -1601,15 +1598,14 @@
       </column>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
       <outputTables name="Tickets" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Vtes_Splio.order_id " name="order_id" nullable="true" type="id_Long"/>
         <mapperTableEntries expression="Vtes_Splio.customer_key " name="customer_key" nullable="true" type="id_Long"/>
         <mapperTableEntries expression="Vtes_Splio.email " name="email" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Vtes_Splio.store_id " name="store_id" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="StringHandling.EREPLACE(StringHandling.LEFT(Vtes_Splio.order_date,10),&quot;/&quot;,&quot;-&quot;) " name="order_date" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="Vtes_Splio.AMT_HT" name="amt_ht" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="StringHandling.EREPLACE(Vtes_Splio.order_date,10,&quot;T&quot;,&quot; &quot;) " name="order_date" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Vtes_Splio.AMT_TTC" name="amt_ttc" nullable="true" type="id_Float"/>
       </outputTables>
       <outputTables name="Tickets_Items" sizeState="INTERMEDIATE">
@@ -2070,6 +2066,7 @@
   </node>
   <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="-64" posY="640">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBInput_3"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="REPOSITORY"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" show="false" value="_YjVyYP-5EeSreZ8yPvtoag"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
@@ -2138,6 +2135,7 @@
   </node>
   <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="192" posY="576">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileInputDelimited_1"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="LABEL" name="FILENAMETEXT" value="&quot;When the input source is a stream or a zip file,footer and random shouldn't be bigger than 0.&quot;"/>
     <elementParameter field="FILE" name="FILENAME" value="context.Table_Tickets_Chi"/>
     <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
@@ -2242,6 +2240,7 @@
   </node>
   <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="192" posY="640">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tMap_1"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
     <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
     <elementParameter field="DIRECTORY" name="TEMPORARY_DATA_DIRECTORY" value=""/>
@@ -2292,6 +2291,7 @@
   </node>
   <node componentName="tOracleOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="384" posY="640">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBOutput_1"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="REPOSITORY"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" show="false" value="_YjVyYP-5EeSreZ8yPvtoag"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
@@ -2457,6 +2457,7 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Vtes_Splio"/>
   </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputDelimited_4" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_4" target="tDBInput_3">
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk2"/>
   </connection>
   <connection connectorName="FLOW" label="row10" lineStyle="8" metaname="tOracleInput_16" offsetLabelX="0" offsetLabelY="0" source="tOracleInput_16" target="tMap_6">
@@ -2535,10 +2536,12 @@
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row14"/>
   </connection>
   <connection connectorName="FLOW" label="row1" lineStyle="8" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tMap_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row1"/>
   </connection>
   <connection connectorName="FLOW" label="Int_Inv_Top_Maj" lineStyle="0" metaname="Int_Inv_Top_Maj" offsetLabelX="0" offsetLabelY="0" source="tMap_1" target="tDBOutput_1">
@@ -2587,6 +2590,7 @@
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Int_Inv_Top_Maj"/>
   </connection>
   <subjob>
@@ -2621,13 +2625,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="160;190;240"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_c2987ca4-356e-478d-b32c-6db1bf9da4e0"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>EMwwPocX6aAQu3/FcLfg49UiNRRG5HC9BeVkmX7FvPdW5WFJJhYCWxa/TYxk+PtURGDN84dc7X2i
-zqLnLS86mg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_65c4e808-8465-4646-8f91-94a20ab51ded"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>odRWG8RmP/zRkjbtSidVFfQYMo+gbAMHUEGDB38XgwKvcAt5K62XdSp7GDLWGtCvR7OXtMSpoxMq
-jzC2h82siQ==</DigestValue></Reference></SignedInfo><SignatureValue>JgpI77AVKeAXNeFwl6NP5CpUU3k7MNYSi1HPKb4Ia/YTf5T86aLilY9ExGY2+eBWFPBDINuA1vtX
-OpHNCrWgPPbs7uStiSR8fOdHyAO/xfo8gfOEAb4K1QR3NNaWa7unLSyQNsZIa6uChK8EVT+2wVN4
-4xSd+3qdpRBWckw3t+VkpGQwvkF3tfb78AvQhyCUvByQWdYMwnlY05Ng9R9KgUx5CiiiDq5IGrp1
-CLHKZUR75caXyHEoW++U1L+iMoNDygVIKNxqTbt7BrVPunR0Y3piBI2J4Z5RXddrKO1GnxgDsQ/2
-mJYwoHtzF9cdBTn/OuOf01t3mQqw7Ys56pHREQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_d3e0a789-47cc-4caf-a281-d04124a01cf3"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>AQnRvvKfwmuIIgA9XRFovOxpZHSdadkiMpNwZ2c8HNsHVynuIB8O3on98IGdjVF6zuP5jJ4CHnkt
+byBsctVH6Q==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_53d5aac1-e3b6-484f-80e2-b6ad3b512ed9"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>oFV68B7rvXgaYO8l8W7B5WVkLZL8x0PgqQb1gvvuZgEVwUf/ECnK3ELI8W2uz0v4pHKFGhenDnJZ
+XR55HrKhFA==</DigestValue></Reference></SignedInfo><SignatureValue>Xs6KlB51nXuPqrx8eMsfZZF73JGmNDccOqQMGQGesdJ2UmU18RO0iJpfj8AyqsahnCK458iQky3q
+1m4J6yNAUQpvDe0DToygqj+pfxD7lmy2q+C9vlpzKx+WhgPvNWK+n0ks8MyLathbazmzwfSdTmBV
+K7SSCcj1o1c+LxmIM2jrrJxi0OsdRDEktNKPHsir3KTCjQrruYqFt+DVXQgUbHhfEtc1xW3huUCH
+FGCiZbbDk+CXrRov7HPw0SsB2BUbuk/9rgqSBUnpVecNAZIC1hLSq1hIF3I1rE4OaWDSK36L1HKS
+pyryZANS74DAmkDN9kMAkR+Ve5whjOlW+pr+3Q==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -2649,4 +2653,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_65c4e808-8465-4646-8f91-94a20ab51ded" Target="#_c2987ca4-356e-478d-b32c-6db1bf9da4e0"><Timestamp>2020-07-22 12:40:18</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_53d5aac1-e3b6-484f-80e2-b6ad3b512ed9" Target="#_d3e0a789-47cc-4caf-a281-d04124a01cf3"><Timestamp>2020-12-04 10:35:28</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
