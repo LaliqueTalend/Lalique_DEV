@@ -32,7 +32,6 @@
     <contextParameter comment="" name="EGX_Sid" prompt="EGX_Sid?" promptNeeded="false" repositoryContextId="_mVqRAAtlEeW0saFt_gCqpQ" type="id_String" value="GCE162"/>
   </context>
   <parameters>
-    <elementParameter field="CHECK" name="LOG4J_RUN_ACTIVATE" show="false" value="true"/>
     <elementParameter field="CLOSED_LIST" name="LOG4J_RUN_LEVEL" show="false" value="Debug"/>
     <elementParameter field="TEXT" name="SCREEN_OFFSET_X" show="false" value="0"/>
     <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" show="false" value="0"/>
@@ -2276,6 +2275,7 @@
       <column comment="" key="false" length="4" name="ETAT_LIG_ORDRE" nullable="false" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
+      <column comment="" key="false" length="-1" name="REF_ORDRE" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
@@ -2295,6 +2295,7 @@
         <mapperTableEntries expression="row1.REEL_FIN" name="REEL_FIN" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries expression="row1.DAT_MAJ" name="DAT_MAJ" nullable="true" type="id_Date"/>
         <mapperTableEntries expression="row1.ETAT_LIG_ORDRE" name="ETAT_LIG_ORDRE" type="id_String"/>
+        <mapperTableEntries expression="row2.REF_ORDRE " name="REF_ORDRE" nullable="true" type="id_String"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="ALL_ROWS" name="row1" sizeState="INTERMEDIATE">
         <mapperTableEntries name="NUM_LIG_ORDRE" type="id_String"/>
@@ -2368,6 +2369,8 @@
       <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="ETAT_LIG_ORDRE"/>
       <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="REF_ORDRE"/>
+      <elementValue elementRef="LENGTH" value="10"/>
     </elementParameter>
     <elementParameter field="CHECK" name="PRINT_CONTENT_WITH_LOG4J" value="true"/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
@@ -2415,6 +2418,7 @@
       <column comment="" key="false" length="4" name="ETAT_LIG_ORDRE" nullable="false" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
+      <column comment="" key="false" length="-1" name="REF_ORDRE" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="224" posY="96">
@@ -2438,7 +2442,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#10;   &quot;+context.LOGYS_Schema+&quot;.ORDRE.NUM_ORDRE, &#10;   &quot;+context.LOGYS_Schema+&quot;.ORDRE.TYP_MVT_ORDRE, &#10;   &quot;+context.LOGYS_Schema+&quot;.ORDRE.STYP_MVT_ORDRE, &#10;   &quot;+context.LOGYS_Schema+&quot;.ORDRE.TYP_ORDRE, &#10;   &quot;+context.LOGYS_Schema+&quot;.ORDRE.COD_FOURN, &#10;   &quot;+context.LOGYS_Schema+&quot;.ORDRE.REF_ORDRE&#10;FROM  &quot;+context.LOGYS_Schema+&quot;.ORDRE&#13;&#10;AND    &quot;+context.LOGYS_Schema+&quot;.ORDRE.NUM_ORDRE = '&quot; + globalMap.get(&quot;NUM_ORDRE&quot;) + &quot;'&#13;&#10;AND    &quot;+context.LOGYS_Schema+&quot;.ORDRE.TYP_MVT_ORDRE = '&quot; + globalMap.get(&quot;TYP_MVT_ORDRE&quot;) + &quot;'&#13;&#10;AND  &quot;+context.LOGYS_Schema+&quot;.ORDRE.COD_FOURN = '&quot; + globalMap.get(&quot;COD_FOURN&quot;) + &quot;' &quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#10;   &quot;+context.LOGYS_Schema+&quot;.ORDRE.NUM_ORDRE, &#10;   &quot;+context.LOGYS_Schema+&quot;.ORDRE.TYP_MVT_ORDRE, &#10;   &quot;+context.LOGYS_Schema+&quot;.ORDRE.STYP_MVT_ORDRE, &#10;   &quot;+context.LOGYS_Schema+&quot;.ORDRE.TYP_ORDRE, &#10;   &quot;+context.LOGYS_Schema+&quot;.ORDRE.COD_FOURN, &#10;   &quot;+context.LOGYS_Schema+&quot;.ORDRE.REF_ORDRE&#10;FROM  &quot;+context.LOGYS_Schema+&quot;.ORDRE&#13;&#10;WHERE &quot;+context.LOGYS_Schema+&quot;.ORDRE.NUM_ORDRE = '&quot; + globalMap.get(&quot;NUM_ORDRE&quot;) + &quot;'&#13;&#10;AND  &quot;+context.LOGYS_Schema+&quot;.ORDRE.TYP_MVT_ORDRE = '&quot; + globalMap.get(&quot;TYP_MVT_ORDRE&quot;) + &quot;'&#13;&#10;AND  &quot;+context.LOGYS_Schema+&quot;.ORDRE.COD_FOURN = '&quot; + globalMap.get(&quot;COD_FOURN&quot;) + &quot;' &quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -2690,6 +2694,11 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row1"/>
   </connection>
   <connection connectorName="FLOW" label="ORDRE_LOGYS" lineStyle="0" metaname="ORDRE_LOGYS" offsetLabelX="0" offsetLabelY="0" source="tMap_2" target="tLogRow_1">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="REF_ORDRE"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="ORDRE_LOGYS"/>
   </connection>
@@ -2730,13 +2739,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_da8caa0f-79f9-4125-9dec-dd618160ff01"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>SaO7TpNAPeE85pzcRE7kEauqoI6e7LU7377NkfI+CK6cTnV1EXAPQ+aeVjeGIq8xfTWsvi67H0Cv
-zib+HhGT1g==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_bc0a8f74-301c-40ee-891d-4e4b2c00a796"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>3wL1BBV8b3MsTbW9P1CDXz72YSmEGJoufhq229fKXHMV82UHMlGvGxTu7bzCGZZhhQgRpmUPyfid
-uboOSDFZGg==</DigestValue></Reference></SignedInfo><SignatureValue>L8IgfgnwvoKLCC0pOy27Q/tEP7Y6AVV+mbr6wZcAqKPGwBeK1FRJKpYCVxHsStJgzuZA4QmoVrfG
-AhIPyioL1OqbLfQwn2iTJqax+RYK8Vei78pkWS22MMS8p2c5wXXubu01CAL+uaVRsZoBurH9Vha9
-0HdBAi5yl2kzoURpuXIW4lGXJ88swXzEotP5/jUKaodvHHdCO08gBKNWblGViX4h/5C0VTk39d78
-8h//+15FgwwK4A+oRJQ+R5CFAFAeQ3Auuz54GCmynVWNn1yy5DRtbnsjq/a7Z3CrhSsbsJQIcZ80
-UzW/TDRHmH192lskd3myVThIiVEAo4iESzsEhA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_4407a2f1-3a19-4e9d-99de-4730162ceef1"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>nn438vskCWpCt/SYGgdxEeJFNrGK3xpVhoIVRfPB0O7mFjuLSzXUA4aRtSy9zQ2SG/JM7kW9VvbR
+rm0UTjD6PA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_c364ef35-05e4-4b7e-b414-6d99a3a6a5bf"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>3q1+QFYp3mvweqPGqq7ZrRoZ2t4DBbbm+e9z4JAAXaz9hmLZSariWkDHoQt2A7AzPdzfGoQNnrV7
+uMxCr8vo+w==</DigestValue></Reference></SignedInfo><SignatureValue>BGK7i3uqTJBomWm4gsc+aD7RaXpGBLjRCe3UxIWwGoU0D9CbKSFrtouO1KEagYryTEyy50ORzz9x
+2MSoOSi87WWARx3LCa8B5oqnaY2ARNEdu6jVfelYrLUMCdFykWP9uhp1tS/AX2nf/S4uPeIrCEXw
+cejA8NqH0KNfOOnsRYCIUYpnoodUExq4c6iWLa2Uhoy2bmBe0lBlZTxBYVkWxC+l3q8aaxZ/6SlA
+f92mVSnW/NHU2vgKMlu2DLqVd1cIkzDb9ERFfSBdrRsx/YqM0yjXF2YNOhzlBTTJyvIodJ7ILUD/
+sXR/P6GmFGZD8/c3yrPdOZ+n1+4nu48ZDnnOqA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -2758,4 +2767,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_bc0a8f74-301c-40ee-891d-4e4b2c00a796" Target="#_da8caa0f-79f9-4125-9dec-dd618160ff01"><Timestamp>2020-12-15 11:13:05</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_c364ef35-05e4-4b7e-b414-6d99a3a6a5bf" Target="#_4407a2f1-3a19-4e9d-99de-4730162ceef1"><Timestamp>2020-12-15 11:17:27</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
