@@ -34,7 +34,7 @@
   <parameters>
     <elementParameter field="CHECK" name="LOG4J_RUN_ACTIVATE" show="false" value="true"/>
     <elementParameter field="CLOSED_LIST" name="LOG4J_RUN_LEVEL" show="false" value="Debug"/>
-    <elementParameter field="TEXT" name="SCREEN_OFFSET_X" show="false" value="0"/>
+    <elementParameter field="TEXT" name="SCREEN_OFFSET_X" show="false" value="30"/>
     <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" show="false" value="0"/>
     <elementParameter field="TEXT" name="REPOSITORY_CONNECTION_ID" show="false" value=""/>
     <elementParameter field="TEXT" name="OOZIE_PROPERTY_TYPENAME" show="false" value=""/>
@@ -2234,8 +2234,8 @@
     <elementParameter field="TEXT" name="LABEL" value="FILTRE_LOGYS"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" label="LIG_ORDRE" name="ORDRE_LOGYS">
-      <column comment="" key="false" length="-1" name="NUM_RETOUR" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="NUM_RAC" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="NUM_RETOUR" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="NUM_RAC" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="TYP_RETOUR" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="true" length="20" name="NUM_LIG_ORDRE" nullable="false" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
@@ -2285,8 +2285,8 @@
       <uiProperties shellMaximized="true"/>
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
       <outputTables name="ORDRE_LOGYS" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="StringHandling.RIGHT(row2.REF_ORDRE,5) " name="NUM_RETOUR" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="StringHandling.RIGHT(StringHandling.LEFT(row2.REF_ORDRE,10), 6) " name="NUM_RAC" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Integer.parseInt(StringHandling.RIGHT(row2.REF_ORDRE,5)= " name="NUM_RETOUR" nullable="true" type="id_Integer"/>
+        <mapperTableEntries expression="Integer.parseInt(StringHandling.RIGHT(StringHandling.LEFT(row2.REF_ORDRE,10), 6)) " name="NUM_RAC" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="StringHandling.LEFT(row2.REF_ORDRE,1) " name="TYP_RETOUR" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row1.NUM_LIG_ORDRE" name="NUM_LIG_ORDRE" type="id_String"/>
         <mapperTableEntries expression="row1.NUM_ORDRE" name="NUM_ORDRE" type="id_String"/>
@@ -2428,8 +2428,8 @@
     <elementParameter field="TEXT" name="LABEL" value="MAP_EGX"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" label="RAC_EGX" name="RAC_EGX">
-      <column comment="" key="false" length="-1" name="NUM_RETOUR" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="NUM_RAC" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="NUM_RETOUR" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="NUM_RAC" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="TYP_RETOUR" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="COD_BOUTIQ" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="NOM_BOUTIQ" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
@@ -2482,8 +2482,8 @@
       <uiProperties shellMaximized="true"/>
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
       <outputTables name="RAC_EGX" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="ORDRE_LOGYS.NUM_RETOUR" name="NUM_RETOUR" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="ORDRE_LOGYS.NUM_RAC" name="NUM_RAC" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="ORDRE_LOGYS.NUM_RETOUR" name="NUM_RETOUR" nullable="true" type="id_Integer"/>
+        <mapperTableEntries expression="ORDRE_LOGYS.NUM_RAC" name="NUM_RAC" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="ORDRE_LOGYS.TYP_RETOUR" name="TYP_RETOUR" nullable="true" type="id_String"/>
         <mapperTableEntries expression="RAC.SIGTIE " name="COD_BOUTIQ" nullable="true" type="id_String"/>
         <mapperTableEntries expression="CLI.NOMTIE " name="NOM_BOUTIQ" nullable="true" type="id_String"/>
@@ -2505,8 +2505,8 @@
         <mapperTableEntries expression="ORDRE_LOGYS.REF_ORDRE" name="REF_ORDRE" nullable="true" type="id_String"/>
       </outputTables>
       <inputTables activateExpressionFilter="true" columnNameFilter="" expressionFilter="ORDRE_LOGYS.TYP_RETOUR.equals( &quot;C&quot;)" lookupMode="LOAD_ONCE" matchingMode="ALL_ROWS" name="ORDRE_LOGYS" sizeState="INTERMEDIATE">
-        <mapperTableEntries name="NUM_RETOUR" nullable="true" type="id_String"/>
-        <mapperTableEntries name="NUM_RAC" nullable="true" type="id_String"/>
+        <mapperTableEntries name="NUM_RETOUR" nullable="true" type="id_Integer"/>
+        <mapperTableEntries name="NUM_RAC" nullable="true" type="id_Integer"/>
         <mapperTableEntries name="TYP_RETOUR" nullable="true" type="id_String"/>
         <mapperTableEntries name="NUM_LIG_ORDRE" type="id_String"/>
         <mapperTableEntries name="NUM_ORDRE" type="id_String"/>
@@ -2524,7 +2524,7 @@
         <mapperTableEntries name="ETAT_LIG_ORDRE" type="id_String"/>
         <mapperTableEntries name="REF_ORDRE" nullable="true" type="id_String"/>
       </inputTables>
-      <inputTables lookupMode="CACHE_OR_RELOAD" matchingMode="UNIQUE_MATCH" minimized="true" name="RAC" sizeState="INTERMEDIATE">
+      <inputTables activateCondensedTool="true" lookupMode="CACHE_OR_RELOAD" matchingMode="UNIQUE_MATCH" minimized="true" name="RAC" sizeState="INTERMEDIATE">
         <mapperTableEntries name="ACHVTE" type="id_String"/>
         <mapperTableEntries name="TYPEVE" type="id_String"/>
         <mapperTableEntries expression="ORDRE_LOGYS.NUM_RAC " name="NUMEVE" operator="=" type="id_Integer"/>
@@ -2931,8 +2931,8 @@
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" label="RAC_EGX" name="tLogRow_1">
-      <column comment="" key="false" length="-1" name="NUM_RETOUR" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="NUM_RAC" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="NUM_RETOUR" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="NUM_RAC" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="TYP_RETOUR" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="COD_BOUTIQ" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="NOM_BOUTIQ" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
@@ -5036,13 +5036,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_89a030fc-0b66-4394-be51-db34bb26aec6"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>D7ehEla+3sjKrsc54sewh9t/yzd4m3LFplw4DJ54xAyVbvrsg1muOPYyeCOGsBLJhJbqbRw3FvSP
-n7/CmeJH/A==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_c40a5dce-4cc5-45cc-8c8b-656e6fcef014"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>v8GjPqrjAscX4sB74k1lVZKBYDDU5ZE2fXdL6uZYXwP9M2K050IERvPkyxpkA6dSBO5TTcqxIf71
-REmSL0/2aQ==</DigestValue></Reference></SignedInfo><SignatureValue>nuUOPCJ/8USn/RI3ld6eSHErkhj1SkSGJOPvt9F5ZYPOLZREJweSgs+KeSUoEtFIXyZOEzqMb/VL
-medFqaizaZYWWeVo3jnQm/EpEC34zSEuq0KmCXEcPzDlXvc6WXslOlmvLceAB3k74xpoE3TM1ksw
-B5/iK2MjjmUHDaVRoOjOSt+lJxwiNCY9F4GuldyjKZqpmFzhD9NuEIR6xoiLW4uM9424iJzuRqPo
-HKvZtD+n0kz1qwyQkMU2Z31g5QvDmQF1W6VtFM8Qb+Zsj0HXIdOmOuVsdOJOtZ48dt3LFuX5jKcb
-Gpsb0equPbjfe16oEBAiWbZU3dCJ4BRFiqEx8A==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_ba524982-0776-458c-b603-856583c3abc7"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>CeODZ67/p+bor9jTp85Qc3jjRm/E90tYb932+xWybE7RyqcCmhGwghCo//76Y/2RJ8A/E+L5w6cO
+NOIRf5JG8A==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_7eab1f6c-4403-4366-9193-3e70c03f43b6"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Jarooy9UkYt3oAEg7ulgCc0q09ma6VVtLavxevkqjltUiuC4WNNGcC9hDTsx2kYg9IQjrx3CfWy/
+e7Ml5ptAOg==</DigestValue></Reference></SignedInfo><SignatureValue>AwxfpPCfeHyaI2Lrfov5lsrmxAwgwkHLzaJsZRNMV1zE+CXVLESAnzpumVZq4ckJBsxyiwECXz/B
+GNxHfelgZg4vREsAiNIxTHGgvDS2H/eEf+GBHnwmfa/bCRylpTIY2Ra+0GKhdRjmcM8axyWVmJs/
+ElOlRDPoolliQEdAPP75+r3JJx3DOM0VA936LNmJwjYPQzcJ3B54ZJGAXFaHSIBMbh+2q6u/0FdZ
+1F3oEgxytyo05HYo9Rce8o0eZNG8XP9rlGC3JKob5G+wKnACc/HaWWB0bxH7rcmyLOoqss/nzyLY
+84wBAj4z3jBwy/3YGGhHtuYCwSphagR1UjNlNg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -5064,4 +5064,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_c40a5dce-4cc5-45cc-8c8b-656e6fcef014" Target="#_89a030fc-0b66-4394-be51-db34bb26aec6"><Timestamp>2020-12-15 15:17:20</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_7eab1f6c-4403-4366-9193-3e70c03f43b6" Target="#_ba524982-0776-458c-b603-856583c3abc7"><Timestamp>2020-12-15 15:48:24</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
