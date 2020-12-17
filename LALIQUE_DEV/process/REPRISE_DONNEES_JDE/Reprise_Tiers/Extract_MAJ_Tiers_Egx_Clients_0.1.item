@@ -63,7 +63,7 @@
     <contextParameter comment="" name="LOGYS_ServiceName" prompt="LOGYS_ServiceName?" promptNeeded="false" repositoryContextId="_mLqGEEu3EemDErY9Bsb9Ow" type="id_String" value="lalp.lalique"/>
   </context>
   <parameters>
-    <elementParameter field="TEXT" name="SCREEN_OFFSET_X" show="false" value="122"/>
+    <elementParameter field="TEXT" name="SCREEN_OFFSET_X" show="false" value="96"/>
     <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" show="false" value="0"/>
     <elementParameter field="TEXT" name="REPOSITORY_CONNECTION_ID" show="false" value=""/>
     <elementParameter field="TEXT" name="OOZIE_PROPERTY_TYPENAME" show="false" value=""/>
@@ -2345,6 +2345,8 @@
       <column comment="" key="false" length="0" name="Type_Lien_Edi" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="Critere_Rech" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="Cli_Compable" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Bareme" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Compensation" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
@@ -2367,7 +2369,7 @@
         <mapperTableEntries expression="Adr.LIBADR " name="Adresse_1" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Adr.ADRESS " name="Adresse_2" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Adr.ADRSUI " name="Adresse_3" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="Adr.CODPOS " name="CPostal" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Adr.CODPOS_10" name="CPostal" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Adr.LOCALI " name="Ville" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Var.Code_Pays " name="Pays" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Adr.TEL  " name="Telephone1" nullable="true" type="id_String"/>
@@ -2422,6 +2424,8 @@
         <mapperTableEntries expression="&quot; &quot;" name="Type_Lien_Edi" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;C&quot;" name="Critere_Rech" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Filiere_Fac_Compta.Fac_Cle " name="Cli_Compable" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot;&quot;" name="Bareme" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot;&quot;" name="Compensation" nullable="true" type="id_String"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Clients_Egx" sizeState="INTERMEDIATE">
         <mapperTableEntries name="SigAdr" nullable="true" type="id_String"/>
@@ -2430,7 +2434,7 @@
         <mapperTableEntries name="NumAdr" nullable="true" type="id_String"/>
         <mapperTableEntries name="Cle" nullable="true" type="id_String"/>
       </inputTables>
-      <inputTables innerJoin="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="Adr" sizeState="INTERMEDIATE">
+      <inputTables innerJoin="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Adr" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Clients_Egx.SigAdr " name="SIGADR" type="id_String"/>
         <mapperTableEntries expression="Clients_Egx.Typtie " name="TYPTIE" type="id_String"/>
         <mapperTableEntries expression="Clients_Egx.TypAdr " name="TYPADR" type="id_String"/>
@@ -8741,9 +8745,11 @@
       <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="Cli_Compable"/>
       <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Bareme"/>
+      <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Compensation"/>
+      <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
     </elementParameter>
-    <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" show="false" value="REPOSITORY"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" show="false" value="_DaZ-EBTXEemORY5mD_8VLA - metadata"/>
     <elementParameter field="CHECK" name="CREATE" value="true"/>
     <elementParameter field="CHECK" name="FLUSHONROW" value="false"/>
     <elementParameter field="TEXT" name="FLUSHONROW_NUM" show="false" value="100"/>
@@ -8826,6 +8832,8 @@
       <column comment="" key="false" length="0" name="Type_Lien_Edi" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="Critere_Rech" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="Cli_Compable" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Bareme" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Compensation" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tAS400Input" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="-32" posY="1152">
@@ -9680,6 +9688,12 @@
       <elementValue elementRef="TRACE_COLUMN" value="Critere_Rech"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Bareme"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Compensation"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Tiers_Jde_Cli"/>
@@ -9825,13 +9839,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_c3a6c299-69e4-47c0-a6b0-13f5e593c5ed"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>H0SVecTDE+jx5BVUhdDxL4UmoNNLeZRREgANitecFbOD0Q6eObvGiW+KSeVtredZxihTNLMwperk
-PQpWjWytpA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_09bd5d07-a0c5-4836-a060-6aec75e96497"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>pWwMan7pY87BGxTlVTzBQScsb/649hzsvbRaEgbUS9+a5akLrIU4+tjhCl6aDcvo359OEH0XezI+
-AxnjBA0RPg==</DigestValue></Reference></SignedInfo><SignatureValue>n+UJLPViIJOCPyX8kJ0ta+t4d8bBDF0plhh1uVEjNTrt7hIJjUp+gkT0ueYT+bULgY8NmiTLn+sU
-tSLv4ygFa63LUXgL/oNKIL6Qiy3BIW87aKfrGAfnbNGJwKk4Au4d+2QrqEu8SQjVl0DhqpljXkke
-MxsZu7Kj4mZPTl0597E+QIwbHD/BWP7FANOp2y4GNL6OnAFn2Jn+YtD0phsoY8PMp8HqqAruOWp5
-ubzmSEqxk79l92+cNalik493Cig3pD68e32XF4R0UDhb4BRC6WX6ZmwXP5BMtR1Jm3jU5MUtGz4G
-hgPI1cm9RySepTGEJaCw4GXbANhJO6W0J7cw9g==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_d1f37de3-373c-4f8e-a3a9-e8a053cf9f58"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>AFLRXoSZzgshK9IiLtqlImUjRRbt1DrrFvntrYU0ZqSt9N13LUjraIueuWFqbqEnKfbeBI+rIhSc
+0OLUSU/DRg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_06c847c1-c9bc-4ac0-be39-099413b58b0a"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>rV/qSQ34wlDs0fp/aBu5xnoalCkJOmvgjuw07IbtY2tS5STnXfd272W6kwXvXuHWtR7avqkoveQq
+upq2S2e6KQ==</DigestValue></Reference></SignedInfo><SignatureValue>SP/R8lDeFOIOGaeeVi8RXRa7DDoaX1UPQGMIoqD5weWjCXMEw012HzVXY2eCinsoTXp+NJ3XM1Kv
+X6qxliyIqnyD2tHKNP8Itp8f1/7Nm85i9L4Pd0t5bVTqbrQBD1ULVsjQXIy12JWaMaSd+cLvQl5Y
+XIqjtLyOWwHAanH8Fjhl+lr4IWOmvrKzeQlUPQzXVNbhe+jIPpipJcdE7ZNPuCcqP8XJwsBINLpe
+dOgF9rqO9simctd8U2Jb925B6j3GBVcGT+T8mCU4MTll9aWHoybG3y+XLWjwwS0KLk9f1kDEIArA
+EJVw1/VlNOhCygn8upxAzlPTpEegoWwmT27GPw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -9853,4 +9867,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_09bd5d07-a0c5-4836-a060-6aec75e96497" Target="#_c3a6c299-69e4-47c0-a6b0-13f5e593c5ed"><Timestamp>2020-11-06 16:44:55</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_06c847c1-c9bc-4ac0-be39-099413b58b0a" Target="#_d1f37de3-373c-4f8e-a3a9-e8a053cf9f58"><Timestamp>2020-12-02 07:52:05</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
