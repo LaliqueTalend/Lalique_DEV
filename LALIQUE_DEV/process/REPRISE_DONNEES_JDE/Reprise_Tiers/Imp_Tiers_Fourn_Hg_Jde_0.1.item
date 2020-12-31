@@ -306,6 +306,8 @@
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="Ss_Compte"/>
       <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Compensation"/>
+      <elementValue elementRef="TRIM" value="false"/>
     </elementParameter>
     <elementParameter field="CHECK" name="CONVERTDATETOSTRING" value="false"/>
     <elementParameter field="TABLE" name="DATESELECT" show="false">
@@ -438,6 +440,9 @@
       <elementValue elementRef="SCHEMA_COLUMN" value="Ss_Compte"/>
       <elementValue elementRef="CONVERTDATE" value="false"/>
       <elementValue elementRef="PATTERN" value="&quot;MM-dd-yyyy&quot;"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Compensation"/>
+      <elementValue elementRef="CONVERTDATE" value="false"/>
+      <elementValue elementRef="PATTERN" value="&quot;MM-dd-yyyy&quot;"/>
     </elementParameter>
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;UTF-8&quot;"/>
     <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="UTF-8"/>
@@ -493,6 +498,7 @@
       <column comment="" key="false" length="0" name="CCout" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="Objet" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="Ss_Compte" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="Compensation" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
     </metadata>
     <metadata connector="REJECT" label="metadata" name="REJECT">
       <column comment="" key="false" length="5" name="Ste_Anael" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Integer" usefulColumn="true"/>
@@ -538,6 +544,7 @@
       <column comment="" key="false" length="0" name="CCout" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="Objet" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="Ss_Compte" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="Compensation" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
@@ -1223,14 +1230,14 @@
       <additionalProperties key="Comment" value=""/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="StringHandling.BTRIM(Tiers_Jde_Fourn.Nom_Court ) " name="ALPH1" type="id_String"/>
         <mapperTableEntries expression="StringHandling.BTRIM(Tiers_Jde_Fourn.Nom_Tiers) " name="ALPH2" type="id_String"/>
         <mapperTableEntries expression="&quot;A&quot;" name="ADD" type="id_String"/>
         <mapperTableEntries expression="&quot;C&quot;" name="CHANGE" type="id_String"/>
       </varTables>
-      <outputTables name="F0101z2" sizeState="INTERMEDIATE">
+      <outputTables minimized="true" name="F0101z2" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="&quot;REPR._CLP&quot;" name="SZEDUS" type="id_String"/>
         <mapperTableEntries expression="((String)globalMap.get(&quot;EDBT&quot;)) " name="SZEDBT" type="id_String"/>
         <mapperTableEntries expression="Numeric.sequence(((String)globalMap.get(&quot;EDBT&quot;)) ,1,1) .toString() " name="SZEDTN" type="id_String"/>
@@ -1243,7 +1250,7 @@
         <mapperTableEntries expression="(float) 0 " name="SZEDDL" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="&quot;N&quot;" name="SZEDSP" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="SZPNID" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="Var.CHANGE" name="SZTNAC" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Var.ADD" name="SZTNAC" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Relational.ISNULL(Tiers_Jde_Fourn.Tiers_Jde) ? 0 : Tiers_Jde_Fourn.Tiers_Jde " name="SZAN8" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="Tiers_Jde_Fourn.Tiers_Anael " name="SZALKY" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Relational.ISNULL(Tiers_Jde_Fourn.Tva_Intracom) ? &quot; &quot; : StringHandling.BTRIM(Tiers_Jde_Fourn.Tva_Intracom) " name="SZTAX" nullable="true" type="id_String"/>
@@ -1255,10 +1262,10 @@
         <mapperTableEntries expression="Tiers_Jde_Fourn.CRecherche " name="SZAT1" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="SZCM" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot; .equals  (Relational.ISNULL(Tiers_Jde_Fourn.Tva_Intracom) ? &quot; &quot; : StringHandling.BTRIM(Tiers_Jde_Fourn.Tva_Intracom)) ? &quot;0&quot; : &quot; &quot; " name="SZTAXC" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="&quot;N&quot; " name="SZAT2" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Tiers_Jde_Fourn.Compensation " name="SZAT2" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="SZAT3" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="SZAT4" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="&quot;N&quot; " name="SZATR" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot;Y&quot; .equals(Tiers_Jde_Fourn.Compensation) , &quot;Y&quot; : &quot;N&quot; " name="SZATR" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="SZAT5" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;Y&quot;" name="SZATP" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="SZATPR" nullable="true" type="id_String"/>
@@ -1370,7 +1377,7 @@
         <mapperTableEntries expression="(float) 0 " name="VOEDDL" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="&quot;N&quot;" name="VOEDSP" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="VOPNID" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="Var.CHANGE" name="VOTNAC" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Var.ADD" name="VOTNAC" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Relational.ISNULL(Tiers_Jde_Fourn.Tiers_Jde) ? 0 : Tiers_Jde_Fourn.Tiers_Jde " name="VOAN8" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="Tiers_Jde_Fourn.Cle_Gl " name="VOAPC" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Relational.NOT(Relational.ISNULL(Tiers_Jde_Fourn.CCout)) ? JDE.stringRAB(Tiers_Jde_Fourn.CCout,12) : &quot; &quot; " name="VOMCUP" nullable="true" type="id_String"/>
@@ -1498,6 +1505,7 @@
         <mapperTableEntries name="CCout" nullable="true" type="id_String"/>
         <mapperTableEntries name="Objet" nullable="true" type="id_String"/>
         <mapperTableEntries name="Ss_Compte" nullable="true" type="id_String"/>
+        <mapperTableEntries name="Compensation" nullable="true" type="id_String"/>
       </inputTables>
     </nodeData>
   </node>
@@ -4147,6 +4155,8 @@
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="Ss_Compte"/>
       <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Compensation"/>
+      <elementValue elementRef="TRIM" value="false"/>
     </elementParameter>
     <elementParameter field="CHECK" name="CONVERTDATETOSTRING" value="false"/>
     <elementParameter field="TABLE" name="DATESELECT" show="false">
@@ -4279,6 +4289,9 @@
       <elementValue elementRef="SCHEMA_COLUMN" value="Ss_Compte"/>
       <elementValue elementRef="CONVERTDATE" value="false"/>
       <elementValue elementRef="PATTERN" value="&quot;MM-dd-yyyy&quot;"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Compensation"/>
+      <elementValue elementRef="CONVERTDATE" value="false"/>
+      <elementValue elementRef="PATTERN" value="&quot;MM-dd-yyyy&quot;"/>
     </elementParameter>
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;UTF-8&quot;"/>
     <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="UTF-8"/>
@@ -4334,6 +4347,7 @@
       <column comment="" key="false" length="0" name="CCout" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="Objet" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="Ss_Compte" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="Compensation" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
     </metadata>
     <metadata connector="REJECT" label="metadata" name="REJECT">
       <column comment="" key="false" length="5" name="Ste_Anael" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Integer" usefulColumn="true"/>
@@ -4379,6 +4393,7 @@
       <column comment="" key="false" length="0" name="CCout" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="Objet" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="Ss_Compte" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="Compensation" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
@@ -4499,6 +4514,7 @@
         <mapperTableEntries name="CCout" nullable="true" type="id_String"/>
         <mapperTableEntries name="Objet" nullable="true" type="id_String"/>
         <mapperTableEntries name="Ss_Compte" nullable="true" type="id_String"/>
+        <mapperTableEntries name="Compensation" nullable="true" type="id_String"/>
       </inputTables>
     </nodeData>
   </node>
@@ -7085,29 +7101,29 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F0401z1"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputExcel_2" offsetLabelX="0" offsetLabelY="0" source="tFileInputExcel_2" target="tFileInputDelimited_1">
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk2"/>
-  </connection>
   <connection connectorName="FLOW" label="Contacts" lineStyle="0" metaname="tFileInputExcel_2" offsetLabelX="0" offsetLabelY="0" source="tFileInputExcel_2" target="tMap_2">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Contacts"/>
   </connection>
-  <connection connectorName="FLOW" label="Contact_Compta" lineStyle="0" metaname="Contact_Compta" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_2" target="tFileOutputDelimited_3">
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputExcel_2" offsetLabelX="0" offsetLabelY="0" source="tFileInputExcel_2" target="tFileInputDelimited_1">
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk2"/>
+  </connection>
+  <connection connectorName="FLOW" label="Contact_Comm" lineStyle="0" metaname="Contact_Comm" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_2" target="tFileOutputDelimited_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Contact_Compta"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Contact_Comm"/>
   </connection>
   <connection connectorName="FLOW" label="Contact_Cdes" lineStyle="0" metaname="Contact_Cdes" offsetLabelX="-34" offsetLabelY="4" outputId="2" source="tMap_2" target="tFileOutputDelimited_2">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Contact_Cdes"/>
   </connection>
-  <connection connectorName="FLOW" label="Contact_Comm" lineStyle="0" metaname="Contact_Comm" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tMap_2" target="tFileOutputDelimited_1">
+  <connection connectorName="FLOW" label="Contact_Compta" lineStyle="0" metaname="Contact_Compta" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tMap_2" target="tFileOutputDelimited_3">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Contact_Comm"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Contact_Compta"/>
   </connection>
   <connection connectorName="FLOW" label="row1" lineStyle="10" mergeOrder="1" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tUnite_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
@@ -7119,20 +7135,20 @@
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row4"/>
   </connection>
-  <connection connectorName="FLOW" label="F01151Z1" lineStyle="0" metaname="F01151Z1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_3" target="tOracleOutput_5">
+  <connection connectorName="FLOW" label="F0111Z1" lineStyle="0" metaname="F0111Z1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_3" target="tOracleOutput_3">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F01151Z1"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F0111Z1"/>
   </connection>
   <connection connectorName="FLOW" label="F0115Z1" lineStyle="0" metaname="F0115Z1" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_3" target="tOracleOutput_4">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F0115Z1"/>
   </connection>
-  <connection connectorName="FLOW" label="F0111Z1" lineStyle="0" metaname="F0111Z1" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tMap_3" target="tOracleOutput_3">
+  <connection connectorName="FLOW" label="F01151Z1" lineStyle="0" metaname="F01151Z1" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tMap_3" target="tOracleOutput_5">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F0111Z1"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F01151Z1"/>
   </connection>
   <connection connectorName="FLOW" label="row2" lineStyle="10" mergeOrder="2" metaname="tFileInputDelimited_2" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_2" target="tUnite_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
@@ -7179,13 +7195,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_395a14da-a541-4cc5-b372-8e0927b6ce96"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>5Xukr/HZ1rKtfUcojebfIruzu0gsOJSx3d3/3MZ9gyjLVGD//7xgKZGWsZ8dqEScv7zpaEdWK+Vs
-6StskwPHtQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_ea39c52d-587f-4503-950a-1ede0ac69f93"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>9ZqQQCLHVROt9aHpVWJ+BwZ50DmDnw+HLqJr6bLY4nKkUNVUqrMUw9ufOXNFJ81Ft/ywKPhuuq6u
-RSSpWHUKEQ==</DigestValue></Reference></SignedInfo><SignatureValue>Cp7tqwi3Uyol05FrcTzum1DhGdU9MMahVWJx3P9XBFw3g02/OPRjab+IZJBNgIFBqdPOjgZVagLe
-1l25C0VIwSW2/RJE1I1EitULo+ht2kCls4RdWSO7cqGWZnDOMl+/E++D1rUrTedfmrSFQdOTMQqv
-E/h6sd++Wahdi0ERRURPNpUbmk6dOByjIrldyhR2y3cfpkls22MsFBtCRup0daZO++gUpG38URjZ
-fZyn7dyuBdKuPZTIde3QLwSsfaFtejdrsBvGeyPueY+2M6Bj8oDg2qewFzeAVDrUdnHX04eyA570
-A4t8pv8h3KYdA3KbraEAlVVrbC1s66ye4xwJPg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_76b1c060-4614-45c6-9b9d-caaf0c682e1c"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>NEZC7lIlLC0uZ1OB9EIsdY9fLPJ6karhP6+kni8uYhooDiEmd+R6OKhXlXkYZF6ukxNuva3aNxrd
+NgdSk6DHSw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_3ef6ff03-89e4-4d0f-b167-d78d2038c36b"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>fj/0mAeGa1SS4J7fNbequzDVFJEm5YktQ6aolxM+FqRNKO/7FlmkOs+jU2Tf4YkYxJiIqtXEfFjt
+7FhM+apMdQ==</DigestValue></Reference></SignedInfo><SignatureValue>HjGUHLxUQGDdNdEpirLWntqwsrt6EPVHjStTBdVVcAOgBodLvAp01HQjQ8VNayWMV6kI/DXyoMD6
+abPdGn91QuKy0Y9Ga9sjHT2YdxtK25tmLrT6sl+/nER579NHq0rAyrBVjAVT+ozq1zwgXzlYXA7/
+uCTAUKhrEpOCXEnanWkEqcJalkvFjJf/yXl3nHkXC1wHRjQmIa19MT7N1oezxr+iuDEPqhnL5oay
+bOYV4dli+zjPL0TU5xWIS3jztug0CfuvSxd4DajonGfMopTnnyT5uRmIoGkHG6dyT41Qj/1bQO7b
+3Iu7W4YqrTIU6PF5bt00+7Chl+8lH/fQVVnj5w==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -7207,4 +7223,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_ea39c52d-587f-4503-950a-1ede0ac69f93" Target="#_395a14da-a541-4cc5-b372-8e0927b6ce96"><Timestamp>2020-11-17 18:26:31</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_3ef6ff03-89e4-4d0f-b167-d78d2038c36b" Target="#_76b1c060-4614-45c6-9b9d-caaf0c682e1c"><Timestamp>2020-12-31 16:24:43</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
