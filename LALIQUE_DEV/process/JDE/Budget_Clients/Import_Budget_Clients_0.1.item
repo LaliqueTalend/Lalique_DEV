@@ -3325,14 +3325,16 @@
       <column comment="" key="false" length="-1" name="Mois" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="FamFin" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Montant_Annuel" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="MontantMensuel" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="MontantMensuel" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="Squence" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Taux" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="Numeric.sequence(Budget_Annuel_.Code_Client_Jde.toString(),0,Budget_Annuel_.Mtt_Budget) " name="Squence" nullable="true" type="id_Integer"/>
+        <mapperTableEntries expression="Budget_Annuel_.Code_Client_Jde.toString() + Budget_Annuel_.FamFin " name="Sequence" type="id_String"/>
+        <mapperTableEntries expression="Math.round(Budget_Annuel_.Mtt_Budget * ((Float)globalMap.get(&quot;Taux&quot;)) / 100) " name="Mtt_Mensuel" type="id_Integer"/>
+        <mapperTableEntries expression="Numeric.sequence(Var.Sequence,0,Var.Mtt_Mensuel) " name="Mtt_Cumule" nullable="true" type="id_Integer"/>
       </varTables>
       <outputTables activateExpressionFilter="true" columnNameFilter="" expressionFilter="Relational.NOT(Relational.ISNULL(((Integer)globalMap.get(&quot;Mois&quot;))))" name="Budget_Mensuel" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Budget_Annuel_.Code_Client_Jde " name="Code_Client_Jde" nullable="true" type="id_Integer"/>
@@ -3340,8 +3342,8 @@
         <mapperTableEntries expression="((Integer)globalMap.get(&quot;Mois&quot;))" name="Mois" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="Budget_Annuel_.FamFin " name="FamFin" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Budget_Annuel_.Mtt_Budget " name="Montant_Annuel" nullable="true" type="id_Integer"/>
-        <mapperTableEntries expression="Budget_Annuel_.Mtt_Budget * ((Float)globalMap.get(&quot;Taux&quot;)) / 100" name="MontantMensuel" nullable="true" type="id_Float"/>
-        <mapperTableEntries expression="Var.Squence " name="Squence" nullable="true" type="id_Integer"/>
+        <mapperTableEntries expression="Budget_Annuel_.Mtt_Budget * ((Float)globalMap.get(&quot;Taux&quot;)) / 100" name="MontantMensuel" nullable="true" type="id_Integer"/>
+        <mapperTableEntries expression="Var.Mtt_Cumule " name="Squence" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="((Float)globalMap.get(&quot;Taux&quot;))" name="Taux" nullable="true" type="id_Float"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Budget_Annuel_" sizeState="INTERMEDIATE">
@@ -4012,7 +4014,7 @@
       <column comment="" key="false" length="-1" name="Mois" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="FamFin" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Montant_Annuel" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="MontantMensuel" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="MontantMensuel" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="Squence" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Taux" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
     </metadata>
@@ -4130,6 +4132,7 @@
   </node>
   <node componentName="tUnpivotRow" componentVersion="1.1" offsetLabelX="0" offsetLabelY="0" posX="128" posY="160">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tUnpivotRow_1"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="LABEL" name="WARNING" value="Columns outside the row keys will be unpivoted"/>
     <elementParameter field="TABLE" name="ROW_KEYS">
       <elementValue elementRef="COLUMN" value="Code_Client_Jde"/>
@@ -4146,6 +4149,7 @@
   </node>
   <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="256" posY="160">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tMap_3"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
     <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
     <elementParameter field="DIRECTORY" name="TEMPORARY_DATA_DIRECTORY" value=""/>
@@ -4183,6 +4187,7 @@
   </node>
   <node componentName="tAggregateRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="384" posY="160">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tAggregateRow_1"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="TABLE" name="GROUPBYS">
       <elementValue elementRef="OUTPUT_COLUMN" value="Code_Client_Jde"/>
       <elementValue elementRef="INPUT_COLUMN" value="Code_Client_Jde"/>
@@ -4211,6 +4216,7 @@
   </node>
   <node componentName="tFilterRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="512" posY="160">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFilterRow_10"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="CLOSED_LIST" name="LOGICAL_OP" value="&amp;&amp;"/>
     <elementParameter field="TABLE" name="CONDITIONS">
       <elementValue elementRef="INPUT_COLUMN" value="FamFin"/>
@@ -4247,6 +4253,7 @@
   </node>
   <node componentName="tFilterRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="640" posY="160">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFilterRow_12"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="CLOSED_LIST" name="LOGICAL_OP" value="&amp;&amp;"/>
     <elementParameter field="TABLE" name="CONDITIONS">
       <elementValue elementRef="INPUT_COLUMN" value="Mtt_Budget"/>
@@ -4279,6 +4286,7 @@
   </node>
   <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="800" posY="160">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileOutputDelimited_1"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="CHECK" name="USESTREAM" value="false"/>
     <elementParameter field="TEXT" name="STREAMNAME" show="false" value="outputStream"/>
     <elementParameter field="FILE" name="FILENAME" value="&quot;C:/Interfaces/Workspace/InputFiles/Budget_Clients/Budget_Annuel.csv&quot;"/>
@@ -4374,6 +4382,7 @@
   </connection>
   <connection connectorName="FLOW" label="row2" lineStyle="0" metaname="tFileInputExcel_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputExcel_1" target="tUnpivotRow_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row2"/>
   </connection>
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tFileInputExcel_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputExcel_1" target="tFileInputExcel_3">
@@ -4381,6 +4390,7 @@
   </connection>
   <connection connectorName="FLOW" label="row3" lineStyle="0" metaname="tUnpivotRow_1" offsetLabelX="0" offsetLabelY="0" source="tUnpivotRow_1" target="tMap_3">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row3"/>
   </connection>
   <connection connectorName="FLOW" label="row7" lineStyle="0" metaname="row7" offsetLabelX="0" offsetLabelY="0" source="tMap_3" target="tAggregateRow_1">
@@ -4390,6 +4400,7 @@
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row7"/>
   </connection>
   <connection connectorName="FLOW" label="row4" lineStyle="0" metaname="tAggregateRow_1" offsetLabelX="0" offsetLabelY="0" source="tAggregateRow_1" target="tFilterRow_10">
@@ -4402,14 +4413,17 @@
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row4"/>
   </connection>
   <connection connectorName="FILTER" label="row5" lineStyle="0" metaname="tFilterRow_10" offsetLabelX="0" offsetLabelY="0" source="tFilterRow_10" target="tFilterRow_12">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row5"/>
   </connection>
   <connection connectorName="FILTER" label="Budget_Annuel" lineStyle="0" metaname="tFilterRow_12" offsetLabelX="0" offsetLabelY="0" source="tFilterRow_12" target="tFileOutputDelimited_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Budget_Annuel"/>
   </connection>
   <subjob>
@@ -4432,13 +4446,18 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_4a10b0d9-78c3-4637-a674-b186593b1f9f"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>khVEC9ZiKc1cVBwE/tQUj4dmejqScrinM+gbmTjLTXqCx7lz/EVRtYqmf32drsOMCxAwCpQNE1y1
-v6AlQ5ng6w==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_5ce1e492-436d-4be4-84fb-499a8cef9bc1"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>rRRjQ3Om1LNtsC2xXoZ/rEnZ55y+pUdMiERzV8fQUz1l48eBzAfb3WjQ4dHcxEPS4nrQqVnMJ/KR
-oA14ISHwhA==</DigestValue></Reference></SignedInfo><SignatureValue>G2N1bmJi9E6zHUO30nMWUY9Z8xP3uIFNfy78ij/M7HTho2CDqso6ERdEwQCYqUxwjX4MGGz4C+/e
-awknUJkMohmfCcnuyVamDVXdBs8JWpdCE/tJFLJFs5XLqZFdY+aeDkHcaCMUcUJYoHQl4rkY+xDn
-WrGvjnSZa/58UgsJgpGnJlwGwCi6JzWCOfwDQS1KZ/dw39bS9oufb+NFtxopEivC6FKtGxmT8whm
-LgNEjxnlO3fvNetFy8GUd1i8qk/oUyMtJqwihXqZ3zrsViTWN5m2xUGGeoF9ZBgFWKrsNnEVm4cr
-0KtBqE9WT2M1v7oYsTqCdrnWJhM+Si3jNZhnZA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+  <subjob>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tUnpivotRow_1"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+  </subjob>
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_3d0a1162-bfd9-45f4-aa37-cd55217329d0"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>j5ZR6mLb8C8TC33hTHK4W+yL+A5dEexgeMVFsWxr8x8MnXgy8yg+RDr2iEYEqDCSaz2QGFdgan6T
+xuCAIxidrQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_d0bee3a6-f9c3-46e6-83a3-375d17222d9b"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>paXW4MjN6wcqLOnO0I+UedxKE1/flI/wIbDx+Vsa0J2SPWEh2UaV2l7ll0nS++QCmugFmvvSD6Cj
+bdDkSe1biQ==</DigestValue></Reference></SignedInfo><SignatureValue>ZQcLteLPHTpzI9bIgBRpLHMDiJBsFc5m+lelyeRIby0jg0DXmU82dACoADI+JTyaCz9RgyUAmwNG
+e22guJwe97dvvM5p76DYiwH/D2S21HsWj+jPn6u73k+h+2XTZ1FThQcTbwzIKEfXyHq3lM2bOOCc
+hzrvxuuLm/utNw6RDxoeTSDogeiSbfCwr+NmSc4neDnCTDDGbqG6Gn/YiDpp38vPtwNN8GFiV6yv
+YbRFB9sYmxlBa/+2r90K1+XGtDS5RjrNhGvzFwjI1cORGy2cKnrH3WDyw4NvnWFXBs9SOhpmwrJv
+KijBXK7hKS8MvXaFEMGH/0ySaTir6VI3vj0nQQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -4460,4 +4479,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_5ce1e492-436d-4be4-84fb-499a8cef9bc1" Target="#_4a10b0d9-78c3-4637-a674-b186593b1f9f"><Timestamp>2021-01-08 14:29:34</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_d0bee3a6-f9c3-46e6-83a3-375d17222d9b" Target="#_3d0a1162-bfd9-45f4-aa37-cd55217329d0"><Timestamp>2021-01-08 14:37:14</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
