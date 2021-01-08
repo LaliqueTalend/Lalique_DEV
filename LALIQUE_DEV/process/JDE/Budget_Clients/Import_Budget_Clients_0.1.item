@@ -3326,12 +3326,13 @@
       <column comment="" key="false" length="-1" name="FamFin" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Montant_Annuel" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="MontantMensuel" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="-1" name="Squence" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Taux" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="Numeric.sequence(Budget_Annuel_.Code_Client_Jde.toString(),0,1) " name="Squence" nullable="true" type="id_Integer"/>
+        <mapperTableEntries expression="Numeric.sequence(Budget_Annuel_.Code_Client_Jde.toString(),0,Budget_Annuel_.Mtt_Budget) " name="Squence" nullable="true" type="id_Integer"/>
       </varTables>
       <outputTables activateExpressionFilter="true" columnNameFilter="" expressionFilter="Relational.NOT(Relational.ISNULL(((Integer)globalMap.get(&quot;Mois&quot;))))" name="Budget_Mensuel" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Budget_Annuel_.Code_Client_Jde " name="Code_Client_Jde" nullable="true" type="id_Integer"/>
@@ -3340,6 +3341,7 @@
         <mapperTableEntries expression="Budget_Annuel_.FamFin " name="FamFin" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Budget_Annuel_.Mtt_Budget " name="Montant_Annuel" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="Budget_Annuel_.Mtt_Budget * ((Float)globalMap.get(&quot;Taux&quot;)) / 100" name="MontantMensuel" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="Var.Squence " name="Squence" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="((Float)globalMap.get(&quot;Taux&quot;))" name="Taux" nullable="true" type="id_Float"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Budget_Annuel_" sizeState="INTERMEDIATE">
@@ -3996,6 +3998,8 @@
       <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="MontantMensuel"/>
       <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Squence"/>
+      <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="Taux"/>
       <elementValue elementRef="LENGTH" value="10"/>
     </elementParameter>
@@ -4009,6 +4013,7 @@
       <column comment="" key="false" length="-1" name="FamFin" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Montant_Annuel" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="MontantMensuel" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="-1" name="Squence" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Taux" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
     </metadata>
   </node>
@@ -4356,6 +4361,9 @@
       <elementValue elementRef="TRACE_COLUMN" value="MontantMensuel"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Squence"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Budget_Mensuel"/>
@@ -4424,13 +4432,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_9f40233a-a7b9-4142-94b1-aeef2e3ad59d"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>SFb2HiaLiNG5TX4DsMsXvJN/a5c+LNVMcVMbwfXZaiFdctG4VR6ErpTsA1LdDykakDCRGCjyRVdE
-yX42HXwGPQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_2c46dd60-51be-4ff0-962e-dfba16edbf52"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>xdIRWtnoAtbNbSCz0Z7J+9TQ2Qy0A4aIT6913FKcRomfRfhHxWoevzO5/TDG2JIdNO2s7EqrNxzc
-unYydIopyg==</DigestValue></Reference></SignedInfo><SignatureValue>EF0Qn9CLMs40q2ayjqc9CTc/CTzOGEEOq9ncXDylZx99Mn5T7uVxH6/min5natrarqv4Vs5qNjJg
-LqbxUQd8JVaMsn2KYaEB8ifoZCEKY/tQmqn7+UKrrXwX0KD6SgmrVt3LJ1bLatmOyALeKP42H2gU
-N+6WQ4itXfuhPUr8gOEd+CM22TGiL1H6GT1tLBpHb/3M7rZWcZQ7ZXmAzjyUmHI9uHZM/oaVbp8H
-Ik6yaLEJWV7JnrhCj8nfY5H78k+39/MUWpGfskP+MlVfEZ07SlTh5dkK3K2kKs5AJXVFI4iHARbn
-vcUPWbUzwHNDPn7GjmtaKQciBUZxwFcR0iLUGg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_4a10b0d9-78c3-4637-a674-b186593b1f9f"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>khVEC9ZiKc1cVBwE/tQUj4dmejqScrinM+gbmTjLTXqCx7lz/EVRtYqmf32drsOMCxAwCpQNE1y1
+v6AlQ5ng6w==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_5ce1e492-436d-4be4-84fb-499a8cef9bc1"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>rRRjQ3Om1LNtsC2xXoZ/rEnZ55y+pUdMiERzV8fQUz1l48eBzAfb3WjQ4dHcxEPS4nrQqVnMJ/KR
+oA14ISHwhA==</DigestValue></Reference></SignedInfo><SignatureValue>G2N1bmJi9E6zHUO30nMWUY9Z8xP3uIFNfy78ij/M7HTho2CDqso6ERdEwQCYqUxwjX4MGGz4C+/e
+awknUJkMohmfCcnuyVamDVXdBs8JWpdCE/tJFLJFs5XLqZFdY+aeDkHcaCMUcUJYoHQl4rkY+xDn
+WrGvjnSZa/58UgsJgpGnJlwGwCi6JzWCOfwDQS1KZ/dw39bS9oufb+NFtxopEivC6FKtGxmT8whm
+LgNEjxnlO3fvNetFy8GUd1i8qk/oUyMtJqwihXqZ3zrsViTWN5m2xUGGeoF9ZBgFWKrsNnEVm4cr
+0KtBqE9WT2M1v7oYsTqCdrnWJhM+Si3jNZhnZA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -4452,4 +4460,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_2c46dd60-51be-4ff0-962e-dfba16edbf52" Target="#_9f40233a-a7b9-4142-94b1-aeef2e3ad59d"><Timestamp>2021-01-08 14:23:49</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_5ce1e492-436d-4be4-84fb-499a8cef9bc1" Target="#_4a10b0d9-78c3-4637-a674-b186593b1f9f"><Timestamp>2021-01-08 14:29:34</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
