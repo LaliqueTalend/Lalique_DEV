@@ -2890,7 +2890,7 @@
     <elementParameter field="TEXT" name="XML_PREFIX" show="false" value="&quot;&quot;"/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
     <elementParameter field="CHECK" name="IGNORE_NS" value="false"/>
-    <elementParameter field="TEXT" name="LABEL" value="SO_ITEMS"/>
+    <elementParameter field="TEXT" name="LABEL" value="SO_ITEMS_IN"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tExtractXMLField_3">
       <column comment="" key="false" length="-1" name="item_pos" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
@@ -3043,9 +3043,44 @@
       <connections source="//@node.19/@nodeData/@inputTrees.0/@nodes.23" target="//@node.19/@nodeData/@outputTrees.0/@nodes.0/@children.0/@children.0/@children.23" xsi:type="TalendXMLMap:Connection"/>
     </nodeData>
   </node>
-  <node componentName="tJavaRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="608" posY="-160">
+  <node componentName="tExtractXMLField" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="544" posY="-160">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tExtractXMLField_4"/>
+    <elementParameter field="PREV_COLUMN_LIST" name="XMLFIELD" value="so_item"/>
+    <elementParameter field="CHECK" name="USE_ITEMS" show="false" value="false"/>
+    <elementParameter field="TEXT" name="LOOP_QUERY_BASE" show="false" value="&quot;&quot;"/>
+    <elementParameter field="TEXT" name="LOOP_QUERY" value="&quot;/&quot;"/>
+    <elementParameter field="TABLE" name="MAPPING">
+      <elementValue elementRef="SCHEMA_COLUMN" value="doc"/>
+      <elementValue elementRef="QUERY" value=""/>
+      <elementValue elementRef="NODECHECK" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="so_item"/>
+      <elementValue elementRef="QUERY" value="&quot;.&quot;"/>
+      <elementValue elementRef="NODECHECK" value="false"/>
+    </elementParameter>
+    <elementParameter field="TEXT" name="LIMIT" value=""/>
+    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false"/>
+    <elementParameter field="CHECK" name="USE_XML_FIELD" show="false" value="false"/>
+    <elementParameter field="TEXT" name="XML_TEXT" show="false" value="&quot;&quot;"/>
+    <elementParameter field="TEXT" name="XML_PREFIX" show="false" value="&quot;&quot;"/>
+    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
+    <elementParameter field="CHECK" name="IGNORE_NS" value="false"/>
+    <elementParameter field="TEXT" name="LABEL" value="SO_ITEMS_OUT"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tExtractXMLField_4">
+      <column comment="" key="false" length="-1" name="doc" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="so_item" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Document" usefulColumn="true"/>
+    </metadata>
+    <metadata connector="REJECT" name="REJECT">
+      <column comment="" key="false" length="-1" name="doc" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="so_item" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Document" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="255" name="errorXMLField" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tJavaRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="704" posY="-160">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJavaRow_1"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="output_row.doc = row9.SO_FEES;&#10;output_row.so_item = so_item_modified.so_item;&#13;&#10;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="output_row.doc = row9.SO_FEES;&#10;'output_row.so_item = so_item_modified.so_item;&#13;&#10;output_row.so_item = row13.so_item;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="LABEL" value="CONCAT"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -3054,7 +3089,7 @@
       <column comment="" key="false" length="-1" name="so_item" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Document" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="768" posY="-160">
+  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="864" posY="-160">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tLogRow_7"/>
     <elementParameter field="RADIO" name="BASIC_MODE" value="false"/>
     <elementParameter field="RADIO" name="TABLE_PRINT" value="false"/>
@@ -3498,9 +3533,13 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row10"/>
   </connection>
-  <connection connectorName="FLOW" label="so_item_modified" lineStyle="0" metaname="so_item_modified" offsetLabelX="32" offsetLabelY="-2" source="tXMLMap_4" target="tJavaRow_1">
+  <connection connectorName="FLOW" label="so_item_modified" lineStyle="0" metaname="so_item_modified" offsetLabelX="32" offsetLabelY="-2" source="tXMLMap_4" target="tExtractXMLField_4">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="so_item_modified"/>
+  </connection>
+  <connection connectorName="FLOW" label="row13" lineStyle="0" metaname="tExtractXMLField_4" offsetLabelX="0" offsetLabelY="0" source="tExtractXMLField_4" target="tJavaRow_1">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row13"/>
   </connection>
   <connection connectorName="FLOW" label="row12" lineStyle="0" metaname="tJavaRow_1" offsetLabelX="0" offsetLabelY="0" source="tJavaRow_1" target="tLogRow_7">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
@@ -3566,13 +3605,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_f9b63bb5-8edd-4b4c-930a-1dde124e41d7"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>xNGQYlpSMO6iyn2AU0BMVQ1Z+XuHAbps8m5ZSwmOo5+06MRDqL1EiEwbmonp4FVKxwt2APbJdQy2
-nNJVl8/bLQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_3526eaf2-9077-4437-900a-566752800a04"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Tjte6XIQQtJKgynliCNrGTF8k9Rxtba/SxxI0Fye0Tc5FXs7xu6WrTY1S+GBqqZ2o+U70moqjNGm
-hR/eG5TtZg==</DigestValue></Reference></SignedInfo><SignatureValue>WHGXehqzJh9mSRqJ9Cvx9oftMV3Th8kMF+0mKe5YKkEd0vuQj2CvROT3k5/LNe8d36p2HdawDw1D
-3QrN9uIo6nORxUCKBG9VoRBN3Xnigx6hqsj5G2VrZMwIzFnTfnrPYuVrihyOYPX2jCfsSOwISLF6
-fTmOvDb8onEf4UV2jUol21vAsnlmuddJJKdAd+GpIhq2S4Ewn41n+/FaF01pPoNZcolfY4022kJa
-kwt2xgcsHqv+a2HqHpxtt8uILfECe9z7ltvZK1hu7NFhOOhdTGfTcy/kEtlyIMQhlRYA2PWaiylk
-F1OG8rzt9++QCRnAC4LCjLfoLGjDP8KpS1LsmQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_198fc1e2-8b61-4c33-9bbc-a905c541e20f"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>rTDoRIAadAP7pJtS+3RkcSsf+ZVA9XVWTQi74YS3o0ao4y2PCFp/XIL82RPGaFpIkMc3yKyLFzBi
+KYgdW3V43Q==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_4106f06b-d6e8-4099-b59b-bcf51c1a89fc"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>K5fQsQyh4U9t+8U2BxQqW6pqp2kIqf4nk7v9Hz1aTVVtSSkUidaNCw/i0p0LO5itNU1v87uMfkIU
+ST0iseXQsg==</DigestValue></Reference></SignedInfo><SignatureValue>Gd3TnhVD4JzKriSW7aMusOSSmlkFTPLUJuJg6rHBU0ziu05nvaO/eM1+w474FFDclMESot6yGlz6
+JwbJo70iGXSAYATvPwVjI383eePKlWPS92Zp9RCIENSUiEtMYiAI7psP/r1u/qvy4v/BTpomycBL
+UWq6QX+Wa3sx4KvfEpY/VD4whmaSP8i8iNoeXQRcrxCarEaWjIN0AGD5ibsFQYzKsW2NcTNFlhBh
+Ot4y+dgcegtNMFL2BnVVZA0Q6mJsgPTog/egypZd0mGN+Wtcs6EZpC6eRU6GhlgGMLGZdnOoI3Ri
++4Wna+6TLy5GgKrtpA3cYxnk9GPMPn7TLoJ7Jg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -3594,4 +3633,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_3526eaf2-9077-4437-900a-566752800a04" Target="#_f9b63bb5-8edd-4b4c-930a-1dde124e41d7"><Timestamp>2021-01-09 21:05:53</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_4106f06b-d6e8-4099-b59b-bcf51c1a89fc" Target="#_198fc1e2-8b61-4c33-9bbc-a905c541e20f"><Timestamp>2021-01-09 21:09:05</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
