@@ -1790,7 +1790,7 @@
       <column comment="" key="false" length="-1" name="VNCTAM" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="-1" name="VNAG" nullable="true" pattern="" precision="-1" sourceType="INT" type="id_Integer" usefulColumn="true">
+      <column comment="" key="false" length="-1" name="VNAG" nullable="true" pattern="" precision="-1" sourceType="INT" type="id_Float" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="-1" name="VNAGF" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
@@ -1850,8 +1850,8 @@
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="StringHandling.LEFT(Param_BG.Compte_Jde,2) " name="Societe" type="id_String"/>
         <mapperTableEntries expression="&quot;10&quot; .equals(Var.Societe) &amp;&amp; &quot;EUR&quot; .equals(Fan200P1.DCDEV) ? &quot;D&quot; : &#13;&#10;&quot;20&quot; .equals(Var.Societe) &amp;&amp; &quot;EUR&quot; .equals(Fan200P1.DCDEV) ? &quot;D&quot; : &#13;&#10;&quot;30&quot; .equals(Var.Societe) &amp;&amp; &quot;EUR&quot; .equals(Fan200P1.DCDEV) ? &quot;D&quot; : &#13;&#10;&quot;40&quot; .equals(Var.Societe) &amp;&amp; &quot;GBP&quot; .equals(Fan200P1.DCDEV) ? &quot;D&quot; : &#13;&#10;&quot;50&quot; .equals(Var.Societe) &amp;&amp; &quot;EUR&quot; .equals(Fan200P1.DCDEV) ? &quot;D&quot; : &quot;F&quot; " name="D_F" type="id_String"/>
-        <mapperTableEntries expression="Fan200P1.DMONT .multiply(new BigDecimal(Fan200P1.DCOEF)) .multiply(new BigDecimal(100)) " name="Montant" type="id_BigDecimal"/>
-        <mapperTableEntries expression="&quot;JPY&quot; .equals (Fan200P1.DCDEV) ?&#13;&#10;Fan200P1.DMDEV .multiply(new BigDecimal(Fan200P1.DCOEF)) :&#13;&#10;Fan200P1.DMDEV .multiply(new BigDecimal(Fan200P1.DCOEF)) .multiply(new BigDecimal(100)) " name="Montant_Dev" type="id_BigDecimal"/>
+        <mapperTableEntries expression="(JDE.cnvFloat(Fan200P1.DMONT) * Fan200P1.DCOEF) * 100 " name="Montant" type="id_Float"/>
+        <mapperTableEntries expression="&quot;JPY&quot; .equals (Fan200P1.DCDEV) ? (JDE.cnvFloat(Fan200P1.DMDEV) * Fan200P1.DCOEF) : (JDE.cnvFloat(Fan200P1.DMDEV) * Fan200P1.DCOEF)  * 100 " name="Montant_Dev" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="Var.Societe + ((String)globalMap.get(&quot;VNEDBT&quot;)) " name="Edbt" type="id_String"/>
         <mapperTableEntries expression="Lalique.Pad0(Fan200P1.DDATOJ.toString(),2) + Lalique.Pad0(Fan200P1.DDATOM.toString(),2) + Fan200P1.DDATOA.toString() " name="DatePiece" type="id_String"/>
         <mapperTableEntries expression="&quot;01072020&quot;" name="Date_Reprise" type="id_String"/>
@@ -1925,7 +1925,7 @@
         <mapperTableEntries expression="&quot;D&quot; .equals (Var.D_F) ? new BigDecimal(0) : &quot;JPY&quot; .equals (Fan200P1.DCDEV ) ? (Fan200P1.DTX .multiply (new BigDecimal(10))) : Fan200P1.DTX " name="VNCRR" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries expression="0" name="VNHCRR" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="0" name="VNHDGJ" nullable="true" type="id_Integer"/>
-        <mapperTableEntries expression="Var.Montant " name="VNAA" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries expression="0" name="VNAA" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries expression="0" name="VNU" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="&quot; &quot;" name="VNUM" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Fan200P1.RGEN == 404100 ? &quot;IMMO&quot; : &quot; &quot; " name="VNGLC" nullable="true" type="id_String"/>
@@ -2059,7 +2059,7 @@
         <mapperTableEntries expression="&quot; &quot;" name="VNACTB" nullable="true" type="id_String"/>
         <mapperTableEntries expression="0" name="VNSTAM" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="0" name="VNCTAM" nullable="true" type="id_Integer"/>
-        <mapperTableEntries expression="0" name="VNAG" nullable="true" type="id_Integer"/>
+        <mapperTableEntries expression="Var.Montant " name="VNAG" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="0" name="VNAGF" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="&quot;1&quot;" name="VNTKTX" nullable="true" type="id_String"/>
         <mapperTableEntries expression="0" name="VNDLNID" nullable="true" type="id_Integer"/>
@@ -2449,8 +2449,6 @@
     <elementParameter field="CLOSED_LIST" name="TABLE_ACTION" value="NONE"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="Warning : this component configuration will automatically generate a commit before data insert/update/delete"/>
     <elementParameter field="CLOSED_LIST" name="DATA_ACTION" value="INSERT"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA_FLOW:SCHEMA_TYPE" show="false" value="REPOSITORY"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA_FLOW:REPOSITORY_SCHEMA_TYPE" show="false" value="_YQjCMM0oEei0gMO4ZNgp9g - F0911Z1"/>
     <elementParameter field="LABEL" name="NOTE" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -3987,7 +3985,7 @@
       <column comment="" key="false" length="-1" name="VNCTAM" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="-1" name="VNAG" nullable="true" pattern="" precision="-1" sourceType="INT" type="id_Integer" usefulColumn="true">
+      <column comment="" key="false" length="-1" name="VNAG" nullable="true" pattern="" precision="-1" sourceType="FLOAT" type="id_Float" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="-1" name="VNAGF" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
@@ -4569,7 +4567,7 @@
       <column comment="" key="false" length="-1" name="VNCTAM" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="-1" name="VNAG" nullable="true" pattern="" precision="-1" sourceType="INT" type="id_Integer" usefulColumn="true">
+      <column comment="" key="false" length="-1" name="VNAG" nullable="true" pattern="" precision="-1" sourceType="FLOAT" type="id_Float" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="-1" name="VNAGF" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
@@ -4909,13 +4907,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_378ae5c5-2d9b-4509-a9fe-38b861f312cd"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>6i7UPirjYnf9kV4OFfor9nXoi0Ywech5x0YgucI4ZiOmKr4sgpnPHdXVYrkKtlMYbwuRspDgB3l4
-yQY61frVdQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_4877d973-d6d9-4410-bf66-2b3493a89331"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Pb1y8Nm6Sw5TSvIqMFHs8tk3bq7cFmA+Ol3K35gU2dYTENsmT8x8zqw+pemgtRndKDj6GeqbG5hL
-1PJnTYNYcA==</DigestValue></Reference></SignedInfo><SignatureValue>Oge1pmNTpUHGDPmsUipbwHwS553g3X5KM0cFEwns16EU+l6HLwghJ224Gi54uzPPfvFJwi/MHu5Q
-NcnRE1mdUFGc2Hi/bkPkaZp0HLh/QzUTwW/7c5VBq2BwbM+ftnOxUTwoSa03KoBy4XkNciTcX8XD
-cqksl71IvjdQB5cztHjBMClmrGBEu1avuG6iCM6zKBknGbY5hjKyV0PHmHjmd64LJFh4uDCYm3Hs
-8estG99RS3Ek1B4clbqwJlOofxGOhSy3C/iiPii2Qa9HrcJew/ikwtMFc9SHle6Si9E+0z4/pcY1
-ioL/5D1U6FKiofRJDCxNHZlzej2tEmtSoRZNFw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_89c3eb98-7c7a-49cb-89df-032966a39f55"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>hCdSUrUa3gAzRioL4xp2mdxoKtvJCPa3GxvNeAp9iZQ13BQSIYIqHStvmMk7LXuNW/fiDu9wAZAr
+LwO7yxO/mQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_72fb1ba6-ee90-4184-a035-0cbae3b01c55"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Oeu9QA+FcX6+oezaUhdO77erJ8xSk04UU63fo4TROfEBvjf5dk8qyNGeyNG6gcTJ8reezfYKsAqA
+Wn6gTawAxA==</DigestValue></Reference></SignedInfo><SignatureValue>HWeNd8xcIg/kno3ilXglXu/5KIVCwzg/0W5sOwLBQ7oQ08vZyrEzgDsXBEFxpsuVg9PODBMjrjyw
+E4zMlrDDWVtXB4KoUjzRACcwXgZJM0t8uG8/NERkIsZwZyk7woFj5qDyKlJIAvF3U9KXX6pjDq5P
+oRMPZ5E/tSRZnXJRjv3YxMBICNtbyIYgBRvl+qN3SG2lMhmEZ6SoNFXcE7fiz4cI3tvArhnn9Jay
+/g6rvEXGF57pidoRgCHf8G0yRhPKlM7J87WyifdT8Wo61BrW93PEDkBELpTdaQiK9BBOO17KOTWd
+j7K6yCOOkX01JwMUN0O88twBeqiLK5QhEn24ag==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -4937,4 +4935,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_4877d973-d6d9-4410-bf66-2b3493a89331" Target="#_378ae5c5-2d9b-4509-a9fe-38b861f312cd"><Timestamp>2021-01-18 10:09:17</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_72fb1ba6-ee90-4184-a035-0cbae3b01c55" Target="#_89c3eb98-7c7a-49cb-89df-032966a39f55"><Timestamp>2021-01-18 10:24:54</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
