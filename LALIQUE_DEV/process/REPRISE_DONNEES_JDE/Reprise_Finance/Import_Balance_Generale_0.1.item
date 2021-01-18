@@ -231,6 +231,10 @@
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="Compte_Anael"/>
       <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Debit_Dev"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Credit_Dev"/>
+      <elementValue elementRef="TRIM" value="false"/>
     </elementParameter>
     <elementParameter field="CHECK" name="CONVERTDATETOSTRING" value="false"/>
     <elementParameter field="TABLE" name="DATESELECT" show="false">
@@ -279,6 +283,12 @@
       <elementValue elementRef="SCHEMA_COLUMN" value="Compte_Anael"/>
       <elementValue elementRef="CONVERTDATE" value="false"/>
       <elementValue elementRef="PATTERN" value="&quot;MM-dd-yyyy&quot;"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Debit_Dev"/>
+      <elementValue elementRef="CONVERTDATE" value="false"/>
+      <elementValue elementRef="PATTERN" value="&quot;MM-dd-yyyy&quot;"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Credit_Dev"/>
+      <elementValue elementRef="CONVERTDATE" value="false"/>
+      <elementValue elementRef="PATTERN" value="&quot;MM-dd-yyyy&quot;"/>
     </elementParameter>
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;UTF-8&quot;"/>
     <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="UTF-8"/>
@@ -312,6 +322,8 @@
       <column comment="" key="false" length="-1" name="Compte_Anael" nullable="false" pattern="" precision="-1" sourceType="NUMERIC" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
+      <column comment="" key="false" length="-1" name="Debit_Dev" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Credit_Dev" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
     </metadata>
     <metadata connector="REJECT" name="REJECT">
       <column comment="" key="false" length="-1" name="Ste" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
@@ -1522,7 +1534,7 @@
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="&quot;10&quot; .equals(BGenerale.Ste) &amp;&amp; &quot;EUR&quot; .equals(BGenerale.Code_Devise) ? &quot;D&quot; : &#13;&#10;&quot;20&quot; .equals(BGenerale.Ste) &amp;&amp; &quot;EUR&quot; .equals(BGenerale.Code_Devise) ? &quot;D&quot; : &#13;&#10;&quot;30&quot; .equals(BGenerale.Ste) &amp;&amp; &quot;EUR&quot; .equals(BGenerale.Code_Devise) ? &quot;D&quot; : &#13;&#10;&quot;40&quot; .equals(BGenerale.Ste) &amp;&amp; &quot;GBP&quot; .equals(BGenerale.Code_Devise) ? &quot;D&quot; : &#13;&#10;&quot;50&quot; .equals(BGenerale.Ste) &amp;&amp; &quot;EUR&quot; .equals(BGenerale.Code_Devise) ? &quot;D&quot; : &quot;F&quot; " name="D_F" type="id_String"/>
         <mapperTableEntries expression="(BGenerale.Debit .add (BGenerale.Credit)) .multiply(new BigDecimal(100)) " name="Montant" type="id_BigDecimal"/>
-        <mapperTableEntries expression="(BGenerale.Debit .add (BGenerale.Credit)) .multiply(new BigDecimal(100)) " name="Montant_Dev" type="id_BigDecimal"/>
+        <mapperTableEntries expression="(BGenerale.Debit_Dev .add (BGenerale.Credit_Dev)) .multiply(new BigDecimal(100)) " name="Montant_Dev" type="id_BigDecimal"/>
         <mapperTableEntries expression="BGenerale.Ste + ((String)globalMap.get(&quot;VNEDBT&quot;)) " name="Edbt" type="id_String"/>
         <mapperTableEntries expression="new BigDecimal(10.5) " name="var1" type="id_BigDecimal"/>
         <mapperTableEntries expression="new BigDecimal(10.6) .setScale(0,BigDecimal.ROUND_HALF_UP) " name="var2" type="id_BigDecimal"/>
@@ -1534,7 +1546,7 @@
         <mapperTableEntries expression="20" name="Exercice" type="id_Integer"/>
         <mapperTableEntries expression="&quot;10&quot; .equals(BGenerale.Ste)  ? &quot;REP-10-20203006&quot; : &#13;&#10;&quot;20&quot; .equals(BGenerale.Ste)  ? &quot;REP-20-20203006&quot; : &#13;&#10;&quot;30&quot; .equals(BGenerale.Ste)  ? &quot;REP-30-20203006&quot; : &#13;&#10;&quot;40&quot; .equals(BGenerale.Ste)  ? &quot;REP-40-20203006&quot; : &#13;&#10;&quot;50&quot; .equals(BGenerale.Ste)  ? &quot;REP-50-20203006&quot; : &quot;&quot; " name="EDTN" type="id_String"/>
       </varTables>
-      <outputTables activateExpressionFilter="true" columnNameFilter="" expressionFilter="&quot;D&quot; .equals (Var.D_F)" name="F0911Z1_AA" sizeState="INTERMEDIATE">
+      <outputTables activateExpressionFilter="true" columnNameFilter="" expressionFilter="&quot;D&quot; .equals (Var.D_F)" minimized="true" name="F0911Z1_AA" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="&quot;REPR._CLP&quot;" name="VNEDUS" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="VNEDTY" nullable="true" type="id_String"/>
         <mapperTableEntries expression="0" name="VNEDSQ" nullable="true" type="id_Integer"/>
@@ -1774,7 +1786,7 @@
         <mapperTableEntries expression="Var.Exercice " name="VNFY" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="&quot; &quot;" name="VNFQ" nullable="true" type="id_String"/>
         <mapperTableEntries expression="BGenerale.Code_Devise " name="VNCRCD" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="BGenerale.Tx_Devise " name="VNCRR" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries expression="&quot;JPY&quot; .equals (BGenerale.Code_Devise1) ? (FBGenerale.Tx_Devise .multiply (new BigDecimal(10))) : BGenerale.Tx_Devise " name="VNCRR" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries expression="0" name="VNHCRR" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="0" name="VNHDGJ" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="0" name="VNAA" nullable="true" type="id_Integer"/>
@@ -1940,6 +1952,8 @@
         <mapperTableEntries name="Code_Devise" type="id_String"/>
         <mapperTableEntries name="Tx_Devise" type="id_BigDecimal"/>
         <mapperTableEntries name="Compte_Anael" type="id_String"/>
+        <mapperTableEntries name="Debit_Dev" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries name="Credit_Dev" nullable="true" type="id_BigDecimal"/>
       </inputTables>
     </nodeData>
   </node>
@@ -4123,8 +4137,19 @@
       <additionalProperties key="Comment" value=""/>
     </metadata>
   </node>
+  <node componentName="tSetGlobalVar" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="0" posY="160">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSetGlobalVar_1"/>
+    <elementParameter field="TABLE" name="VARIABLES">
+      <elementValue elementRef="KEY" value="&quot;VNEDBT&quot;"/>
+      <elementValue elementRef="VALUE" value="TalendDate.getDate(&quot;CCYYMMDDhhmm&quot;)"/>
+    </elementParameter>
+    <elementParameter field="TEXT" name="LABEL" value="VNEDBT"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tSetGlobalVar_1"/>
+  </node>
   <node componentName="tOracleOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="352" posY="256">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tOracleOutput_3"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" show="false" value="tOracleConnection_1"/>
     <elementParameter field="CLOSED_LIST" name="CONNECTION_TYPE" value="ORACLE_SERVICE_NAME"/>
@@ -6301,16 +6326,6 @@
       <additionalProperties key="Comment" value=""/>
     </metadata>
   </node>
-  <node componentName="tSetGlobalVar" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="0" posY="160">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSetGlobalVar_1"/>
-    <elementParameter field="TABLE" name="VARIABLES">
-      <elementValue elementRef="KEY" value="&quot;VNEDBT&quot;"/>
-      <elementValue elementRef="VALUE" value="TalendDate.getDate(&quot;CCYYMMDDhhmm&quot;)"/>
-    </elementParameter>
-    <elementParameter field="TEXT" name="LABEL" value="VNEDBT"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tSetGlobalVar_1"/>
-  </node>
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tOracleConnection_1" offsetLabelX="0" offsetLabelY="0" source="tOracleConnection_1" target="tSetGlobalVar_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk1"/>
   </connection>
@@ -6331,17 +6346,24 @@
       <elementValue elementRef="TRACE_COLUMN" value="Check"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Debit_Dev"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Credit_Dev"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="BGenerale"/>
   </connection>
-  <connection connectorName="FLOW" label="F0911Z1_AA" lineStyle="0" metaname="F0911Z1_AA" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_2" target="tOracleOutput_3">
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F0911Z1_AA"/>
-  </connection>
-  <connection connectorName="FLOW" label="F0911Z1_CA" lineStyle="0" metaname="F0911Z1_CA" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_2" target="tOracleOutput_4">
+  <connection connectorName="FLOW" label="F0911Z1_CA" lineStyle="0" metaname="F0911Z1_CA" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_2" target="tOracleOutput_4">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F0911Z1_CA"/>
+  </connection>
+  <connection connectorName="FLOW" label="F0911Z1_AA" lineStyle="0" metaname="F0911Z1_AA" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_2" target="tOracleOutput_3">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F0911Z1_AA"/>
   </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tSetGlobalVar_1" offsetLabelX="0" offsetLabelY="0" source="tSetGlobalVar_1" target="tFileInputExcel_2">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk1"/>
@@ -6361,13 +6383,18 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_82b7dcca-9fee-4ba6-b8cb-bee1a371dc5c"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>q0+sQVoDKyiWkwgv9Cv+D8chP5J3giyYPGUrjX4fKUD7WI3W1KHVmDyInFa4AUog3T4By2+DER8X
-nZ0vZH1ZzQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_4e2cef4a-7d4d-4f68-b593-76e5fb6422e9"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>QTOS1uPv5opQNi1GV/UIqXnf0mdx6nsz2OujyYjeH1uNq7+dFB+yqAefGtXQW6hNM9h7ASyf6TVA
-alhUfNXTSw==</DigestValue></Reference></SignedInfo><SignatureValue>NRd4qGWf+YrXElrNTxq9AlrxL5jF2hZklFZkP/lwZWbB7A/Wtz69AkabuiMbPby/SD8pu+0xiJY8
-EqFDeRIo6IbSqoM+7bjhBI0nVf1GtJ3OZY6c5+IcloaO1/NUKN1KyTJTpLFjp3/FvEYBvmyXqBKW
-pOlekuBh7y7627K+xk1zJg4lv97O4pmIkHl/mOHhCq5Tqkkh+KDJCCUoxc6HDtU9rsYpPmYJVcC7
-49baKdXnb3guRSQFQ0y9LlXUyPusOH+PFbykHI5fgCqTCcuWZ3rTVM035JOg3TJCE374C8IPgLVf
-0W9TXvRWxVHp2fXsSFSsm7rr1QKp4eCrNw9eKw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+  <subjob>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tOracleOutput_3"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+  </subjob>
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_35075e86-4457-4723-8eb9-4edad34fc4c6"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>c/MpqqxvNxJ+RIwaZ1ZrAumSrge29dhnvqzW88cPBQaNRE+amywraAlcV5JFXhTNafK0SoEi/AOB
+odrrtcrPRg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_a4fe3824-7fa3-4872-a219-19f24cc09d04"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>z/5snMje2lT/u1huOsjMJgWlsTlO8ydJSRf2A2g19vIWfKeGeWLxNQvgwAnvbZFJcr9Wk2SYsQb0
+ZPDgbtES3Q==</DigestValue></Reference></SignedInfo><SignatureValue>lEz1FjuU27rFH3greIv72jyUjzTprdCBdWEYp/ByMXmFOsNwJ8tmpCsnyGNkkTMV1wmzs2xMxnUt
+r45cc+Ro9yGMf4e8997zz1ARI89pX14jPkf7r03/EtQ7AxwMRqjjmNhy2hTdJtzqPMGZawdCuAQ3
+lW72G6Dsdgv5V5bPjBNacz9vJ2w8kovvEbIZD2gtIz6xOmzsb9Is2BgwJr0K3fSyh/YnJOJ65mVz
+G/xeTXIerq4ZM5RqjYyjymNjhCG6ry0c8dpdgrAXhTSDnqZtZJWZgOlASrArCATsmZW/0PNKZpvH
+jTSZdhjKzGAiAYP9YF6X/me+MvwJlm9+KNSpXg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -6389,4 +6416,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_4e2cef4a-7d4d-4f68-b593-76e5fb6422e9" Target="#_82b7dcca-9fee-4ba6-b8cb-bee1a371dc5c"><Timestamp>2021-01-18 16:40:51</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_a4fe3824-7fa3-4872-a219-19f24cc09d04" Target="#_35075e86-4457-4723-8eb9-4edad34fc4c6"><Timestamp>2021-01-18 17:49:33</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
