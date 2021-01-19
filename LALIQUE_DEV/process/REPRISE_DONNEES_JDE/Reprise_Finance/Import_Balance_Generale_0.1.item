@@ -1529,6 +1529,12 @@
       </column>
       <additionalProperties key="Comment" value=""/>
     </metadata>
+    <metadata connector="FLOW" name="Controle">
+      <column comment="" key="false" length="-1" name="Debit" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Credit" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="-1" name="Montant" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="-1" name="Montant_Dev" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+    </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE">
@@ -1544,7 +1550,7 @@
         <mapperTableEntries expression="20" name="Exercice" type="id_Integer"/>
         <mapperTableEntries expression="Numeric.sequence(BGenerale.Ste,1,1) " name="Edtn" type="id_Integer"/>
       </varTables>
-      <outputTables columnNameFilter="" name="F0911Z1_Rep" sizeState="INTERMEDIATE">
+      <outputTables columnNameFilter="" minimized="true" name="F0911Z1_Rep" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="&quot;REPR._CLP&quot;" name="VNEDUS" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="VNEDTY" nullable="true" type="id_String"/>
         <mapperTableEntries expression="0" name="VNEDSQ" nullable="true" type="id_Integer"/>
@@ -1739,7 +1745,7 @@
         <mapperTableEntries expression="0" name="VNSFXE" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="&quot; &quot;" name="VNOFM" nullable="true" type="id_String"/>
       </outputTables>
-      <outputTables name="F0911Z1_Ctrp" sizeState="INTERMEDIATE">
+      <outputTables minimized="true" name="F0911Z1_Ctrp" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="&quot;REPR._CLP&quot;" name="VNEDUS" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="VNEDTY" nullable="true" type="id_String"/>
         <mapperTableEntries expression="0" name="VNEDSQ" nullable="true" type="id_Integer"/>
@@ -1934,7 +1940,13 @@
         <mapperTableEntries expression="0" name="VNSFXE" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="&quot; &quot;" name="VNOFM" nullable="true" type="id_String"/>
       </outputTables>
-      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="BGenerale" sizeState="INTERMEDIATE">
+      <outputTables name="Controle" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="BGenerale.Debit " name="Debit" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries expression="BGenerale.Credit " name="Credit" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries expression="Var.Montant " name="Montant" type="id_BigDecimal"/>
+        <mapperTableEntries expression="Var.Montant_Dev " name="Montant_Dev" type="id_BigDecimal"/>
+      </outputTables>
+      <inputTables activateExpressionFilter="true" columnNameFilter="" expressionFilter="BGenerale.Compte_Jde .equals (&quot;40.213500&quot;) " lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="BGenerale" sizeState="INTERMEDIATE">
         <mapperTableEntries name="Ste" nullable="true" type="id_String"/>
         <mapperTableEntries name="CCout" nullable="true" type="id_String"/>
         <mapperTableEntries name="Objet" nullable="true" type="id_String"/>
@@ -1955,8 +1967,52 @@
       </inputTables>
     </nodeData>
   </node>
+  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="256" posY="448">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tLogRow_2"/>
+    <elementParameter field="RADIO" name="BASIC_MODE" value="true"/>
+    <elementParameter field="RADIO" name="TABLE_PRINT" value="false"/>
+    <elementParameter field="RADIO" name="VERTICAL" value="false"/>
+    <elementParameter field="RADIO" name="PRINT_UNIQUE" show="false" value="true"/>
+    <elementParameter field="RADIO" name="PRINT_LABEL" show="false" value="false"/>
+    <elementParameter field="RADIO" name="PRINT_UNIQUE_LABEL" show="false" value="false"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;|&quot;"/>
+    <elementParameter field="CHECK" name="PRINT_HEADER" value="false"/>
+    <elementParameter field="CHECK" name="PRINT_UNIQUE_NAME" value="false"/>
+    <elementParameter field="CHECK" name="PRINT_COLNAMES" value="false"/>
+    <elementParameter field="CHECK" name="USE_FIXED_LENGTH" value="false"/>
+    <elementParameter field="TABLE" name="LENGTHS" show="false">
+      <elementValue elementRef="SCHEMA_COLUMN" value="Debit"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Credit"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Montant"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Montant_Dev"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="PRINT_CONTENT_WITH_LOG4J" value="true"/>
+    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tLogRow_2">
+      <column comment="" key="false" length="-1" name="Debit" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Credit" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="-1" name="Montant" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="-1" name="Montant_Dev" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tSetGlobalVar" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="0" posY="160">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSetGlobalVar_1"/>
+    <elementParameter field="TABLE" name="VARIABLES">
+      <elementValue elementRef="KEY" value="&quot;VNEDBT&quot;"/>
+      <elementValue elementRef="VALUE" value="TalendDate.getDate(&quot;CCYYMMDDhhmm&quot;)"/>
+    </elementParameter>
+    <elementParameter field="TEXT" name="LABEL" value="VNEDBT"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tSetGlobalVar_1"/>
+  </node>
   <node componentName="tOracleOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="352" posY="384">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tOracleOutput_4"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="REPOSITORY"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" show="false" value="_YQjCMM0oEei0gMO4ZNgp9g"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
@@ -4137,6 +4193,7 @@
   </node>
   <node componentName="tOracleOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="352" posY="256">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tOracleOutput_3"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" show="false" value="tOracleConnection_1"/>
     <elementParameter field="CLOSED_LIST" name="CONNECTION_TYPE" value="ORACLE_SERVICE_NAME"/>
@@ -6313,16 +6370,6 @@
       <additionalProperties key="Comment" value=""/>
     </metadata>
   </node>
-  <node componentName="tSetGlobalVar" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="0" posY="160">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSetGlobalVar_1"/>
-    <elementParameter field="TABLE" name="VARIABLES">
-      <elementValue elementRef="KEY" value="&quot;VNEDBT&quot;"/>
-      <elementValue elementRef="VALUE" value="TalendDate.getDate(&quot;CCYYMMDDhhmm&quot;)"/>
-    </elementParameter>
-    <elementParameter field="TEXT" name="LABEL" value="VNEDBT"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tSetGlobalVar_1"/>
-  </node>
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tOracleConnection_1" offsetLabelX="0" offsetLabelY="0" source="tOracleConnection_1" target="tSetGlobalVar_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk1"/>
   </connection>
@@ -6355,11 +6402,17 @@
   </connection>
   <connection connectorName="FLOW" label="F0911Z1_Rep" lineStyle="0" metaname="F0911Z1_Rep" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_2" target="tOracleOutput_3">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F0911Z1_Rep"/>
   </connection>
   <connection connectorName="FLOW" label="F0911Z1_Ctrp" lineStyle="0" metaname="F0911Z1_Ctrp" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_2" target="tOracleOutput_4">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F0911Z1_Ctrp"/>
+  </connection>
+  <connection connectorName="FLOW" label="Controle" lineStyle="0" metaname="Controle" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tMap_2" target="tLogRow_2">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Controle"/>
   </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tSetGlobalVar_1" offsetLabelX="0" offsetLabelY="0" source="tSetGlobalVar_1" target="tFileInputExcel_2">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk1"/>
@@ -6379,13 +6432,23 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_89a30b37-90c1-4964-a8e7-c13bf9c4ec7d"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>SdMD0KXViDUurytqNl/ZoRVxIrzwY4q0Kb1L3b6+dQ1qi54nnAnRhF1VjlZHsQeyoQzzDNOjlep9
-lWaABYSWcQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_f41fe1eb-0da6-41a3-8298-a4f2a5b9c7e0"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>8b5sBm0ZkkgX7RcpHcWiXIzY990g8d+zReeCt64z15CiobZ0RzW5h2pcMNP2y670qDOwpOxQEPGw
-EAdH3Vpo9A==</DigestValue></Reference></SignedInfo><SignatureValue>EnRVPJvihFEsOnXhYjqNjb2UEq4jHN8sXgu6MMu/OqTA815PCTB+q8ojlht7oHWEdxsSX0rGtdDr
-fDq89TSVaiAJdgOdGhb507r9sOfADGu1vmzs8PO0ns7NeKRXp8164Cyc6iLTQq3bQiev0fiXP7Q9
-hjZnvfnJ7WY/wN2nlrkArMEJM1q+vJ7x6OsZ65lyxwkzMinEwl4QI49Lg1UMAy89Vv6MrbSp/jog
-kkNb2q7ISURA6g8oB3ZqtnbFB4hWKdOKz9M9MTg4qWHt6PX3pt2yleBB3voL2yTLbLSILq/whDFa
-hC1eH7Jxez8Fj0cahes0BZhSHg7mX/tz6ZIP0Q==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+  <subjob>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tOracleOutput_4"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+  </subjob>
+  <subjob>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tOracleOutput_3"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+  </subjob>
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_a37f3c95-2850-4667-a596-0f208b164836"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>0wNLD3nwvXxwpktlpv005tR6uLigkrgMeXSKX4KXVO0njh8pWaEJTo93TxJS0DVu3GFR9ITtQB15
+f6bkF4Gv8g==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_c5a4ea56-2fcb-4936-b0b9-fab6ea70b493"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>OuKMF5SgJuJv7IJhu9Gks1eDYKX8nawLjByn07tDZTLAhBx6fK5CGcT/epNSEI2J2jQsfevJmF2K
+r2l1ppYQww==</DigestValue></Reference></SignedInfo><SignatureValue>jSQJEYaF2bppcbez2AJWnS2WBxFk3zXOSCHTWMNIeCkdPJUvj3N6GOUT3CFB9XZYYyCazKm8+bf+
+utEUPkD2AM1BNtHOxKvTKPv/wGEHa7LE8oEOVsOPhVyQaKCl0hKSCvdZX4VC/N0d4tvmosd3txvg
+9+wgyR4MMgn+YV7WxMSZTnavs2Car4+U66uyJ3d1fG9RmurhWzu0FTbBiGDmjqYhwrOlICVkOOyU
+wiy7x74oqky206V8GSPVwjLJwlm+CmDfQ5tnU6NjXZRW0Dn+B3Soxiv/QVlaw7ri8g7uR2YDaisB
+WgvLqTZbWh1Vmsh+CRDt77A1zk8q4hml7ilSMQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -6407,4 +6470,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_f41fe1eb-0da6-41a3-8298-a4f2a5b9c7e0" Target="#_89a30b37-90c1-4964-a8e7-c13bf9c4ec7d"><Timestamp>2021-01-19 11:15:13</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_c5a4ea56-2fcb-4936-b0b9-fab6ea70b493" Target="#_a37f3c95-2850-4667-a596-0f208b164836"><Timestamp>2021-01-19 12:49:15</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
