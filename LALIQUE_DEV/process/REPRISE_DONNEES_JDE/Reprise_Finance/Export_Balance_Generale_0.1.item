@@ -973,9 +973,10 @@
       </column>
       <column comment="" key="false" length="-1" name="Debit_Dev" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Credit_Dev" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="Actions" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Fan200P1_1.DCOEF &gt; 0 ? Fan200P1_1.DMONT .divide(new BigDecimal(100)) : new BigDecimal(0) " name="Debit" type="id_BigDecimal"/>
         <mapperTableEntries expression="Fan200P1_1.DCOEF &gt; 0 ? (&quot;JPY&quot; .equals (Fan200P1_1.DCDEV) ?&#13;&#10;Fan200P1_1.DMDEV .multiply(new BigDecimal(Fan200P1_1.DCOEF)) :&#13;&#10;Fan200P1_1.DMDEV .multiply(new BigDecimal(Fan200P1_1.DCOEF)) .multiply(new BigDecimal(100))) : new BigDecimal(0) " name="Debit_Dev" type="id_BigDecimal"/>
@@ -1001,6 +1002,7 @@
         <mapperTableEntries expression="Param_BG_1.Compte_Anael.toString() " name="Compte_Anael" type="id_String"/>
         <mapperTableEntries expression="Var.Debit_Dev " name="Debit_Dev" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries expression="Var.Credit_Dev " name="Credit_Dev" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries expression="Param_BG_1.Actions " name="Actions" nullable="true" type="id_String"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="Fan200P1_1" sizeState="INTERMEDIATE">
         <mapperTableEntries name="RSTE" type="id_Integer"/>
@@ -1206,6 +1208,8 @@
         <mapperTableEntries name="Type_SL" nullable="true" type="id_String"/>
         <mapperTableEntries name="Ss_Livre" nullable="true" type="id_String"/>
         <mapperTableEntries name="Synth_Det" nullable="true" type="id_String"/>
+        <mapperTableEntries name="Solde" nullable="true" type="id_String"/>
+        <mapperTableEntries name="Actions" nullable="true" type="id_String"/>
       </inputTables>
     </nodeData>
   </node>
@@ -1257,6 +1261,10 @@
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="Synth_Det"/>
       <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Solde"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Actions"/>
+      <elementValue elementRef="TRIM" value="false"/>
     </elementParameter>
     <elementParameter field="CHECK" name="CONVERTDATETOSTRING" value="false"/>
     <elementParameter field="TABLE" name="DATESELECT" show="false">
@@ -1293,6 +1301,12 @@
       <elementValue elementRef="SCHEMA_COLUMN" value="Synth_Det"/>
       <elementValue elementRef="CONVERTDATE" value="false"/>
       <elementValue elementRef="PATTERN" value="&quot;MM-dd-yyyy&quot;"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Solde"/>
+      <elementValue elementRef="CONVERTDATE" value="false"/>
+      <elementValue elementRef="PATTERN" value="&quot;MM-dd-yyyy&quot;"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Actions"/>
+      <elementValue elementRef="CONVERTDATE" value="false"/>
+      <elementValue elementRef="PATTERN" value="&quot;MM-dd-yyyy&quot;"/>
     </elementParameter>
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;UTF-8&quot;"/>
     <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="UTF-8"/>
@@ -1316,6 +1330,8 @@
       <column comment="" key="false" length="0" name="Type_SL" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="Ss_Livre" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Synth_Det" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="Solde" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="Actions" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
     </metadata>
     <metadata connector="REJECT" label="metadata" name="REJECT">
       <column comment="" key="false" length="6" name="Compte_Anael" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Integer" usefulColumn="true"/>
@@ -1329,6 +1345,8 @@
       <column comment="" key="false" length="0" name="Type_SL" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="Ss_Livre" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Synth_Det" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="Solde" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="Actions" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
@@ -2982,6 +3000,10 @@
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="Synth_Det"/>
       <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Solde"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Actions"/>
+      <elementValue elementRef="TRIM" value="false"/>
     </elementParameter>
     <elementParameter field="CHECK" name="CONVERTDATETOSTRING" value="false"/>
     <elementParameter field="TABLE" name="DATESELECT" show="false">
@@ -3018,6 +3040,12 @@
       <elementValue elementRef="SCHEMA_COLUMN" value="Synth_Det"/>
       <elementValue elementRef="CONVERTDATE" value="false"/>
       <elementValue elementRef="PATTERN" value="&quot;MM-dd-yyyy&quot;"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Solde"/>
+      <elementValue elementRef="CONVERTDATE" value="false"/>
+      <elementValue elementRef="PATTERN" value="&quot;MM-dd-yyyy&quot;"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Actions"/>
+      <elementValue elementRef="CONVERTDATE" value="false"/>
+      <elementValue elementRef="PATTERN" value="&quot;MM-dd-yyyy&quot;"/>
     </elementParameter>
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;UTF-8&quot;"/>
     <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="UTF-8"/>
@@ -3041,6 +3069,8 @@
       <column comment="" key="false" length="0" name="Type_SL" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="Ss_Livre" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Synth_Det" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="Solde" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="Actions" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
     </metadata>
     <metadata connector="REJECT" label="metadata" name="REJECT">
       <column comment="" key="false" length="6" name="Compte_Anael" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Integer" usefulColumn="true"/>
@@ -3054,6 +3084,8 @@
       <column comment="" key="false" length="0" name="Type_SL" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="Ss_Livre" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Synth_Det" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="Solde" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="Actions" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
@@ -3097,9 +3129,10 @@
       </column>
       <column comment="" defaultValue="" key="false" length="-1" name="Debit_Dev" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="Credit_Dev" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="Actions" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Fan200P1_2.DCOEF &gt; 0 ? Fan200P1_2.DMONT .divide(new BigDecimal(100)) : new BigDecimal(0) " name="Debit" type="id_BigDecimal"/>
         <mapperTableEntries expression="Fan200P1_2.DCOEF &gt; 0 ? (&quot;JPY&quot; .equals (Fan200P1_2.DCDEV) ?&#13;&#10;Fan200P1_2.DMDEV .multiply(new BigDecimal(Fan200P1_2.DCOEF)) :&#13;&#10;Fan200P1_2.DMDEV .multiply(new BigDecimal(Fan200P1_2.DCOEF)) .multiply(new BigDecimal(100))) : new BigDecimal(0) " name="Debit_Dev" type="id_BigDecimal"/>
@@ -3125,6 +3158,7 @@
         <mapperTableEntries expression="Param_BG_2.Compte_Anael.toString() " name="Compte_Anael" type="id_String"/>
         <mapperTableEntries expression="Var.Debit_Dev " name="Debit_Dev" type="id_BigDecimal"/>
         <mapperTableEntries expression="Var.Credit_Dev " name="Credit_Dev" type="id_BigDecimal"/>
+        <mapperTableEntries expression="Param_BG_2.Actions " name="Actions" nullable="true" type="id_String"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="Fan200P1_2" sizeState="INTERMEDIATE">
         <mapperTableEntries name="RSTE" type="id_Integer"/>
@@ -3330,6 +3364,8 @@
         <mapperTableEntries name="Type_SL" nullable="true" type="id_String"/>
         <mapperTableEntries name="Ss_Livre" nullable="true" type="id_String"/>
         <mapperTableEntries name="Synth_Det" nullable="true" type="id_String"/>
+        <mapperTableEntries name="Solde" nullable="true" type="id_String"/>
+        <mapperTableEntries name="Actions" nullable="true" type="id_String"/>
       </inputTables>
       <inputTables activateCondensedTool="true" innerJoin="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Param_Code_Indid" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Fan200P1_2.RSTE+&quot;&quot; + &quot;-&quot; + Fan020P1_2.RGEN+&quot;&quot; + &quot;-&quot; + StringHandling.FTRIM(StringHandling.BTRIM(Fan200P1_2.RAUX)) " name="Cle_Anael" nullable="true" type="id_String"/>
@@ -4819,6 +4855,10 @@
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="Synth_Det"/>
       <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Solde"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Actions"/>
+      <elementValue elementRef="TRIM" value="false"/>
     </elementParameter>
     <elementParameter field="CHECK" name="CONVERTDATETOSTRING" value="false"/>
     <elementParameter field="TABLE" name="DATESELECT" show="false">
@@ -4855,6 +4895,12 @@
       <elementValue elementRef="SCHEMA_COLUMN" value="Synth_Det"/>
       <elementValue elementRef="CONVERTDATE" value="false"/>
       <elementValue elementRef="PATTERN" value="&quot;MM-dd-yyyy&quot;"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Solde"/>
+      <elementValue elementRef="CONVERTDATE" value="false"/>
+      <elementValue elementRef="PATTERN" value="&quot;MM-dd-yyyy&quot;"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Actions"/>
+      <elementValue elementRef="CONVERTDATE" value="false"/>
+      <elementValue elementRef="PATTERN" value="&quot;MM-dd-yyyy&quot;"/>
     </elementParameter>
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;UTF-8&quot;"/>
     <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="UTF-8"/>
@@ -4878,6 +4924,8 @@
       <column comment="" key="false" length="0" name="Type_SL" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="Ss_Livre" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Synth_Det" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="Solde" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="Actions" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
     </metadata>
     <metadata connector="REJECT" label="metadata" name="REJECT">
       <column comment="" key="false" length="6" name="Compte_Anael" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Integer" usefulColumn="true"/>
@@ -4891,6 +4939,8 @@
       <column comment="" key="false" length="0" name="Type_SL" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="Ss_Livre" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Synth_Det" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="Solde" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="Actions" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
@@ -4933,6 +4983,7 @@
       </column>
       <column comment="" defaultValue="" key="false" length="-1" name="Debit_Dev" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="Credit_Dev" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="Actions" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
@@ -4961,6 +5012,7 @@
         <mapperTableEntries expression="Param_BG_3.Compte_Anael.toString() " name="Compte_Anael" type="id_String"/>
         <mapperTableEntries expression="Var.Debit_Dev " name="Debit_Dev" type="id_BigDecimal"/>
         <mapperTableEntries expression="Var.Credit_Dev " name="Credit_Dev" type="id_BigDecimal"/>
+        <mapperTableEntries expression="Param_BG_3.Actions " name="Actions" nullable="true" type="id_String"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="Fan200P1_3" sizeState="INTERMEDIATE">
         <mapperTableEntries name="RSTE" type="id_Integer"/>
@@ -5166,6 +5218,8 @@
         <mapperTableEntries name="Type_SL" nullable="true" type="id_String"/>
         <mapperTableEntries name="Ss_Livre" nullable="true" type="id_String"/>
         <mapperTableEntries name="Synth_Det" nullable="true" type="id_String"/>
+        <mapperTableEntries name="Solde" nullable="true" type="id_String"/>
+        <mapperTableEntries name="Actions" nullable="true" type="id_String"/>
       </inputTables>
       <inputTables activateCondensedTool="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Secteur" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Fan200P1_3.DINT " name="DINT" type="id_BigDecimal"/>
@@ -6827,6 +6881,9 @@
       <elementValue elementRef="TRACE_COLUMN" value="Credit_Dev"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Actions"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
@@ -7018,6 +7075,9 @@
       <elementValue elementRef="TRACE_COLUMN" value="Credit_Dev"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Actions"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
@@ -7183,6 +7243,9 @@
       <elementValue elementRef="TRACE_COLUMN" value="Credit_Dev"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Actions"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="BGenerale_30"/>
@@ -7325,13 +7388,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_accf2573-e182-4b80-9971-1366c5b43f48"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>dUrHp+MstClXq7Y9/0i1QBYp2AgzVnnATRthwMLxTbXdqesO9dGI2XQVsHhGuzpnSwntFxXySeUv
-Rd261nwLwg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_cbc8cf21-858d-45e4-8953-f3e6f7373f8f"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Q4+r8eM9E6qIyI2ucSfe7APrD883ECM8vC7kv0vv3g7sbExZjDBv+CGFogKecpX30ASnKNUQIKmp
-WCelvjvm6g==</DigestValue></Reference></SignedInfo><SignatureValue>LI4j6IcuN8QXSeOQiSq5T5A4F0KLtaLZSPxmGDQfEl8+WkzWY5IB6Y9q1msQa61dwIjCgX/fRWN+
-h5LohtODwV8YQpepBsJvhP7Cy7/PorF3t0R2LrxIgr6RnNBzoTyni3uNdOZ6hbIvwczBnFqFcTwn
-U0ya+8QJbr/G6jJ3PnB2lNkZaCS2jWoZCI6mJ9CgUJ1OyrlFDTdLn5p0kJBy1zDpIOIUV0VlLQ/E
-Ql740gvkkZMyqajbK3XbQSo7B1EZTJYlivrsaahTQvQBZ/4VDgl5ZooEakUfdthv4xhpBV/hBPfZ
-JK/c4oi0ml62cpzYN97YE74jBzpjtDerfuocnw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_c1e20332-b9ae-4112-b365-3a0e23939336"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>NhyYTAEaePQ/J4lXUn8C8z42QDlF/Z1aL461wZh3b4G10vYIKHh85SMOKxjgox/LosTKz/WVoJ13
+207iuXAY7Q==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_98950e1f-0ba9-4ebb-b7b3-925f3b1ae2e0"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>aTJCRCCKUv98J/pOQjpS63Qgjtvjn/nN3BdUUhA2/TPdb/H7ocQUkRu7Ij8bIwoynI+We0XHFQKz
+l5mF+wowPw==</DigestValue></Reference></SignedInfo><SignatureValue>BU9saz2BfCieOqtY5opBaz+85agOmCDw04e1OQYMooWKoBuVjus3Zz8Lak+WIkvThtaz3JEed+mZ
+KjWvuL0Ox4/Vcg/gmNXXr/TkVVFB/VIIp580DRTRDDxB/64CKYtUp1dk+b4lzktXyTdHSGLjcKZg
+n3h4dVZx/J+e5Vc+q6x86ccIqQsqBfjlyL+v6jnCpfKeeoOZw+GfDsNkmS8ZDVrQepNo+3Mwu4Su
+g4Vj2mlbjxcVz/l3tPG1RSnDvY7Ly9LxT4V89CqT0tKcmdtqDA9UO7MMJT/oyytTCjPkMJ7wujC3
+tMycqa0ct3DF5PnrPvYH0/r0qyYMoeMpyvSdJw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -7353,4 +7416,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_cbc8cf21-858d-45e4-8953-f3e6f7373f8f" Target="#_accf2573-e182-4b80-9971-1366c5b43f48"><Timestamp>2021-01-25 17:19:19</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_98950e1f-0ba9-4ebb-b7b3-925f3b1ae2e0" Target="#_c1e20332-b9ae-4112-b365-3a0e23939336"><Timestamp>2021-01-25 17:37:41</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
