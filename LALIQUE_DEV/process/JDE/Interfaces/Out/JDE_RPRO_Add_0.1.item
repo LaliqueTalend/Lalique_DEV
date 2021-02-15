@@ -277,7 +277,7 @@
       <column key="false" length="255" name="message" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties shellMaximized="true"/>
+      <uiProperties/>
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
       <outputTables name="Log_ERROR" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="row1.moment " name="date" nullable="true" type="id_Date"/>
@@ -486,6 +486,7 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="row3">
       <column comment="" defaultValue="" key="false" length="0" name="num_article" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="3" name="new_item" nullable="true" originalLength="3" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="50" name="item_sid" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="13" name="upc" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="25" name="alu" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
@@ -495,8 +496,8 @@
       <column comment="" key="false" length="30" name="description2" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="attr" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="3" name="udf2_value" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="19" name="created_date" nullable="true" originalLength="19" pattern="&quot;yyyy-MM-dd'T'HH:mm:ss&quot;" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="19" name="modified_date" nullable="true" originalLength="19" pattern="&quot;yyyy-MM-dd'T'HH:mm:ss&quot;" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="19" name="created_date" nullable="true" originalLength="-1" pattern="&quot;yyyy-MM-dd'T'HH:mm:ss&quot;" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="19" name="modified_date" nullable="true" originalLength="-1" pattern="&quot;yyyy-MM-dd'T'HH:mm:ss&quot;" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="1" name="tax_code" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="1" name="ext_flag" nullable="true" originalLength="1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="3" name="max_disc_perc1" nullable="true" originalLength="3" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
@@ -525,7 +526,8 @@
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
       <outputTables name="row3" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="row2.num_article " name="num_article" type="id_BigDecimal"/>
-        <mapperTableEntries expression="row2.item_sid " name="item_sid" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="row2.item_sid.equals(&quot; &quot;) ? &quot;NEW&quot; : &quot;UPD&quot;" name="new_item" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="row2.item_sid.equals(&quot; &quot;) ? Lalique.GetSid(row2.code_upc) : row2.item_sid" name="item_sid" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row2.code_upc " name="upc" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row2.code_article " name="alu" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row2.code_DCS " name="dcs_code" nullable="true" type="id_String"/>
@@ -592,6 +594,7 @@
   <node componentName="tSplitRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="-32" posY="224">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSplitRow_1"/>
     <elementParameter field="TABLE" name="COL_MAPPING">
+      <elementValue elementRef="new_item" value="row3.new_item"/>
       <elementValue elementRef="item_sid" value="row3.item_sid"/>
       <elementValue elementRef="upc" value="row3.upc"/>
       <elementValue elementRef="alu" value="row3.alu"/>
@@ -614,6 +617,7 @@
       <elementValue elementRef="price" value="row3.price"/>
       <elementValue elementRef="udf_no" value="&quot;7&quot;"/>
       <elementValue elementRef="udf_value" value="row3.theme"/>
+      <elementValue elementRef="new_item" value="row3.new_item"/>
       <elementValue elementRef="item_sid" value="row3.item_sid"/>
       <elementValue elementRef="upc" value="row3.upc"/>
       <elementValue elementRef="alu" value="row3.alu"/>
@@ -636,6 +640,7 @@
       <elementValue elementRef="price" value="row3.price"/>
       <elementValue elementRef="udf_no" value="&quot;8&quot;"/>
       <elementValue elementRef="udf_value" value="row3.collection"/>
+      <elementValue elementRef="new_item" value="row3.new_item"/>
       <elementValue elementRef="item_sid" value="row3.item_sid"/>
       <elementValue elementRef="upc" value="row3.upc"/>
       <elementValue elementRef="alu" value="row3.alu"/>
@@ -658,6 +663,7 @@
       <elementValue elementRef="price" value="row3.price"/>
       <elementValue elementRef="udf_no" value="&quot;9&quot;"/>
       <elementValue elementRef="udf_value" value="row3.saison"/>
+      <elementValue elementRef="new_item" value="row3.new_item"/>
       <elementValue elementRef="item_sid" value="row3.item_sid"/>
       <elementValue elementRef="upc" value="row3.upc"/>
       <elementValue elementRef="alu" value="row3.alu"/>
@@ -680,6 +686,7 @@
       <elementValue elementRef="price" value="row3.price"/>
       <elementValue elementRef="udf_no" value="&quot;10&quot;"/>
       <elementValue elementRef="udf_value" value="row3.ligne_collection"/>
+      <elementValue elementRef="new_item" value="row3.new_item"/>
       <elementValue elementRef="item_sid" value="row3.item_sid"/>
       <elementValue elementRef="upc" value="row3.upc"/>
       <elementValue elementRef="alu" value="row3.alu"/>
@@ -702,6 +709,7 @@
       <elementValue elementRef="price" value="row3.price"/>
       <elementValue elementRef="udf_no" value="&quot;11&quot;"/>
       <elementValue elementRef="udf_value" value="row3.classe_abc"/>
+      <elementValue elementRef="new_item" value="row3.new_item"/>
       <elementValue elementRef="item_sid" value="row3.item_sid"/>
       <elementValue elementRef="upc" value="row3.upc"/>
       <elementValue elementRef="alu" value="row3.alu"/>
@@ -724,6 +732,7 @@
       <elementValue elementRef="price" value="row3.price"/>
       <elementValue elementRef="udf_no" value="&quot;12&quot;"/>
       <elementValue elementRef="udf_value" value="row3.serie_numero"/>
+      <elementValue elementRef="new_item" value="row3.new_item"/>
       <elementValue elementRef="item_sid" value="row3.item_sid"/>
       <elementValue elementRef="upc" value="row3.upc"/>
       <elementValue elementRef="alu" value="row3.alu"/>
@@ -746,6 +755,7 @@
       <elementValue elementRef="price" value="row3.price"/>
       <elementValue elementRef="udf_no" value="&quot;14&quot;"/>
       <elementValue elementRef="udf_value" value="row3.couleur"/>
+      <elementValue elementRef="new_item" value="row3.new_item"/>
       <elementValue elementRef="item_sid" value="row3.item_sid"/>
       <elementValue elementRef="upc" value="row3.upc"/>
       <elementValue elementRef="alu" value="row3.alu"/>
@@ -768,6 +778,7 @@
       <elementValue elementRef="price" value="row3.price"/>
       <elementValue elementRef="udf_no" value="&quot;15&quot;"/>
       <elementValue elementRef="udf_value" value="row3.top_web"/>
+      <elementValue elementRef="new_item" value="row3.new_item"/>
       <elementValue elementRef="item_sid" value="row3.item_sid"/>
       <elementValue elementRef="upc" value="row3.upc"/>
       <elementValue elementRef="alu" value="row3.alu"/>
@@ -790,6 +801,7 @@
       <elementValue elementRef="price" value="row3.price"/>
       <elementValue elementRef="udf_no" value="&quot;16&quot;"/>
       <elementValue elementRef="udf_value" value="row3.ecomFR"/>
+      <elementValue elementRef="new_item" value="row3.new_item"/>
       <elementValue elementRef="item_sid" value="row3.item_sid"/>
       <elementValue elementRef="upc" value="row3.upc"/>
       <elementValue elementRef="alu" value="row3.alu"/>
@@ -812,6 +824,7 @@
       <elementValue elementRef="price" value="row3.price"/>
       <elementValue elementRef="udf_no" value="&quot;17&quot;"/>
       <elementValue elementRef="udf_value" value="row3.ecomUS"/>
+      <elementValue elementRef="new_item" value="row3.new_item"/>
       <elementValue elementRef="item_sid" value="row3.item_sid"/>
       <elementValue elementRef="upc" value="row3.upc"/>
       <elementValue elementRef="alu" value="row3.alu"/>
@@ -834,6 +847,7 @@
       <elementValue elementRef="price" value="row3.price"/>
       <elementValue elementRef="udf_no" value="&quot;18&quot;"/>
       <elementValue elementRef="udf_value" value="row3.ecomUK"/>
+      <elementValue elementRef="new_item" value="row3.new_item"/>
       <elementValue elementRef="item_sid" value="row3.item_sid"/>
       <elementValue elementRef="upc" value="row3.upc"/>
       <elementValue elementRef="alu" value="row3.alu"/>
@@ -859,6 +873,7 @@
     </elementParameter>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tSplitRow_1">
+      <column comment="" key="false" length="-1" name="new_item" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="50" name="item_sid" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="13" name="upc" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="25" name="alu" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
@@ -915,6 +930,7 @@
     <elementParameter field="TEXT" name="LABEL" value="ArtNew.csv"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tFileOutputDelimited_2">
+      <column comment="" key="false" length="-1" name="new_item" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="50" name="item_sid" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="13" name="upc" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="25" name="alu" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
@@ -1303,7 +1319,7 @@
       <column comment="" key="false" length="30" name="udf_value" nullable="true" originalLength="30" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties shellMaximized="true"/>
+      <uiProperties/>
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
       <outputTables activateExpressionFilter="true" columnNameFilter="" expressionFilter="row6.vend_code.equals(&quot;GLQ&quot;)" name="New_GLQ" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Lalique.GetSidAlu(row6.upc)" name="style_sid" nullable="true" type="id_String"/>
@@ -1979,6 +1995,9 @@
       <elementValue elementRef="TRACE_COLUMN" value="style_sid"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="new_item"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row3"/>
@@ -2040,6 +2059,9 @@
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
       <elementValue elementRef="TRACE_COLUMN" value="dcs_code"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="new_item"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
@@ -2218,13 +2240,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_e9cf3cd1-0e11-42eb-b017-5d00e80ce348"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>lKQBnxuj1qPTjzyw32VTkspAHsL2ziPi5BmlYsomQdf7SsIVh9UompqtvxXwyzqi+VImrVsR8W5a&#13;
-T2S92RgWSA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_60cdbc39-355c-49ef-a620-450840103561"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>5kkxODVseahGSj+9FMDmkMWcbGrtg0rv1TztWHtmqzJAh+Mlu/vrJcfc/HaS7E8UDkYm0u9H25e5&#13;
-b2OHsb4x6g==</DigestValue></Reference></SignedInfo><SignatureValue>Zl7jIojK/Ns8kUQEnOWrVeITNO8jXtL8tIBqhWtbBBDP6lWOF5x1FEE/87THFsrepA8uiYayoMPx&#13;
-i64+gh5EOoEwc4EyrWzFV0yFEvDUIfQGhH0rPcF2nJ3n7bbaIFgCggbpgetuhtcaGO78lY6s08m2&#13;
-bcpL3hHcaN/g6Hcr0fCROTkBcGUrsqurRjp8Z/3mtprz75iwd39SLa2wqfQvvxTCXCjTL0DM2Ww1&#13;
-q//5jyH5Buiqs9ABydajH60RPM625hPLtCFObAn4sl4sio2hYACSngtW6Xg4CTtDuWGcampDQhPb&#13;
-EJLK2Lr4IVKOQnwT/BnBHbhq1ZURqLfwPBbVtA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_5aae7806-ff72-4aa8-8293-29a7f40b07dc"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Ghm7lm+0Xc0TS801phzxfK0mILB/V9R+XBorjNfe8ptmBQUc4WjHK+oMIv8YoJW7kiLm+RkC5+kB&#13;
+2Pf1KezQpQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_7b71f720-b9a4-4814-9f78-55ab40271df9"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>APKYM23ZosYL/36PekdEwaoz1OfVSuVZECUOVKOW7hzYJ9CHmf/vmVASU/G05Mg1tvDETB6qVL6i&#13;
+Mqwq/Q+swg==</DigestValue></Reference></SignedInfo><SignatureValue>DvdZ7vkIdDP8XJyaoaaEtF+YvLhTMnPWz7RXLdPRwKWJSMr1IDLQZs8Chd3HqRiPR0NHJ8ZR3tax&#13;
+UVQFmNLuXh5Nu97htZ1htuTYUztgKugpU0JWg6VE26iLzJbXFZCPKEvxytcEwCjg/qTl4E+fMKSw&#13;
+9PMNbL9jtorZryYrywBW75ZFRV5siUlrdB5SNlAUCX4xIX3kUfEFbWx/H5dfnmCo6sRwAD82tKT7&#13;
+9poO3pavOcVuOZTIjdRJ+htfSo4ioBiX4B1gl92aw/x2wjxv58K3dEIBRPiQ4CGuQ2sHU5ITa+Tg&#13;
+8lAkB87sVrwXpenI+ysz4NqGL26yrPLHPtY8VA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD&#13;
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5&#13;
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U&#13;
@@ -2246,4 +2268,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/&#13
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW&#13;
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+&#13;
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg&#13;
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_60cdbc39-355c-49ef-a620-450840103561" Target="#_e9cf3cd1-0e11-42eb-b017-5d00e80ce348"><Timestamp>2021-02-15 13:10:44</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_7b71f720-b9a4-4814-9f78-55ab40271df9" Target="#_5aae7806-ff72-4aa8-8293-29a7f40b07dc"><Timestamp>2021-02-15 13:37:23</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
