@@ -63,7 +63,7 @@
     <contextParameter comment="" name="LOGYS_ServiceName" prompt="LOGYS_ServiceName?" promptNeeded="false" repositoryContextId="_mLqGEEu3EemDErY9Bsb9Ow" type="id_String" value="lalp.lalique"/>
   </context>
   <parameters>
-    <elementParameter field="TEXT" name="SCREEN_OFFSET_X" show="false" value="96"/>
+    <elementParameter field="TEXT" name="SCREEN_OFFSET_X" show="false" value="122"/>
     <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" show="false" value="0"/>
     <elementParameter field="TEXT" name="REPOSITORY_CONNECTION_ID" show="false" value=""/>
     <elementParameter field="TEXT" name="OOZIE_PROPERTY_TYPENAME" show="false" value=""/>
@@ -2345,9 +2345,11 @@
       <column comment="" key="false" length="0" name="Type_Lien_Edi" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="Critere_Rech" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="Cli_Compable" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Bareme" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Compensation" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Relational.ISNULL(Adr.CODPAY) ? &quot;&quot; :&#13;&#10;Adr.CODPAY .equals(&quot;A&quot;) ? &quot;*&quot; :&#13;&#10;Adr.CODPAY .equals(&quot;HL&quot;) ? &quot;LY&quot; :&#13;&#10;Adr.CODPAY .equals(&quot;JE&quot;) ? &quot;GB&quot; :&#13;&#10;Adr.CODPAY .equals(&quot;RS&quot;) ? &quot;CS&quot; : Adr.CODPAY " name="Code_Pays" type="id_String"/>
         <mapperTableEntries expression="Var.Code_Pays .equals(&quot;FR&quot;) ? &quot;FL&quot; : &#13;&#10;(Var.Code_Pays .equals(&quot;AT&quot;) || Var.Code_Pays .equals(&quot;BE&quot;) || Var.Code_Pays .equals(&quot;CY&quot;) || Var.Code_Pays .equals(&quot;CZ&quot;) || Var.Code_Pays .equals(&quot;DE&quot;) || Var.Code_Pays .equals(&quot;DK&quot;) || Var.Code_Pays .equals(&quot;EE&quot;) || Var.Code_Pays .equals(&quot;ES&quot;) || Var.Code_Pays .equals(&quot;FI&quot;) || Var.Code_Pays .equals(&quot;GB&quot;) || Var.Code_Pays .equals(&quot;GR&quot;) || Var.Code_Pays .equals(&quot;HU&quot;) || Var.Code_Pays .equals(&quot;IE&quot;) || Var.Code_Pays .equals(&quot;IT&quot;) || Var.Code_Pays .equals(&quot;LT&quot;) || Var.Code_Pays .equals(&quot;LU&quot;) || Var.Code_Pays .equals(&quot;LV&quot;) || Var.Code_Pays .equals(&quot;MT&quot;) || Var.Code_Pays .equals(&quot;NL&quot;) || Var.Code_Pays .equals(&quot;PL&quot;) || Var.Code_Pays .equals(&quot;PT&quot;) | Var.Code_Pays .equals(&quot;SE&quot;) || Var.Code_Pays .equals(&quot;SI&quot;) || Var.Code_Pays .equals(&quot;SK&quot;) || Var.Code_Pays .equals(&quot;BG&quot;) || Var.Code_Pays .equals(&quot;HR&quot;) || Var.Code_Pays .equals(&quot;RO&quot;)) ? &quot;FE&quot; : &#13;&#10;&quot;FX&quot; " name="Zone_Geo" type="id_String"/>
@@ -2367,7 +2369,7 @@
         <mapperTableEntries expression="Adr.LIBADR " name="Adresse_1" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Adr.ADRESS " name="Adresse_2" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Adr.ADRSUI " name="Adresse_3" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="Adr.CODPOS " name="CPostal" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Adr.CODPOS_10" name="CPostal" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Adr.LOCALI " name="Ville" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Var.Code_Pays " name="Pays" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Adr.TEL  " name="Telephone1" nullable="true" type="id_String"/>
@@ -2422,6 +2424,8 @@
         <mapperTableEntries expression="&quot; &quot;" name="Type_Lien_Edi" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;C&quot;" name="Critere_Rech" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Filiere_Fac_Compta.Fac_Cle " name="Cli_Compable" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot; &quot;" name="Bareme" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot; &quot;" name="Compensation" nullable="true" type="id_String"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Clients_Egx" sizeState="INTERMEDIATE">
         <mapperTableEntries name="SigAdr" nullable="true" type="id_String"/>
@@ -3211,13 +3215,13 @@
         <mapperTableEntries name="CODTYFICG_IN" nullable="true" type="id_String"/>
         <mapperTableEntries name="CODTYFICG_OUT" nullable="true" type="id_String"/>
       </inputTables>
-      <inputTables activateCondensedTool="true" activateExpressionFilter="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="An_Compta" sizeState="INTERMEDIATE">
+      <inputTables activateCondensedTool="true" activateExpressionFilter="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="An_Compta" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="10000 " name="RSTE" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="Clients_Egx.SigAdr " name="RAUX" nullable="true" operator="=" type="id_String"/>
         <mapperTableEntries expression="&quot;CLIHG &quot;" name="DSEQ" nullable="true" type="id_String"/>
         <mapperTableEntries expression="" name="REX" nullable="true" type="id_Integer"/>
       </inputTables>
-      <inputTables activateCondensedTool="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Filiere_Liv" sizeState="INTERMEDIATE">
+      <inputTables activateCondensedTool="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="Filiere_Liv" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="" name="Liv_Sigtie" nullable="true" type="id_String"/>
         <mapperTableEntries expression="" name="Liv_Numadr" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Clients_Egx.Cle " name="Liv_Cle" nullable="true" operator="=" type="id_String"/>
@@ -3369,8 +3373,6 @@
     <elementParameter field="TEXT" name="USER" value="context.EGX_Login"/>
     <elementParameter field="PASSWORD" name="PASS" value="8pW6Nmy2kud0oKKgG5DmApkfM/R5LHCA"/>
     <elementParameter field="TEXT" name="JDBC_URL" show="false" value="&quot;jdbc:oracle:oci:/@talend&quot;"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" show="false" value="REPOSITORY"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" show="false" value="_TDzwoArHEeWx1dV_9Bg5iA - ADR"/>
     <elementParameter field="DBTABLE" name="TABLE" value="&quot;ADR&quot;"/>
     <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="&quot;&quot;"/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
@@ -4152,8 +4154,6 @@
     <elementParameter field="TEXT" name="USER" value="context.EGX_Login"/>
     <elementParameter field="PASSWORD" name="PASS" value="8pW6Nmy2kud0oKKgG5DmApkfM/R5LHCA"/>
     <elementParameter field="TEXT" name="JDBC_URL" show="false" value="&quot;jdbc:oracle:oci:/@talend&quot;"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" show="false" value="REPOSITORY"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" show="false" value="_TDzwoArHEeWx1dV_9Bg5iA - TIE"/>
     <elementParameter field="DBTABLE" name="TABLE" value="&quot;TIE&quot;"/>
     <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="&quot;&quot;"/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
@@ -5054,8 +5054,6 @@
     <elementParameter field="TEXT" name="USER" value="context.EGX_Login"/>
     <elementParameter field="PASSWORD" name="PASS" value="8pW6Nmy2kud0oKKgG5DmApkfM/R5LHCA"/>
     <elementParameter field="TEXT" name="JDBC_URL" show="false" value="&quot;jdbc:oracle:oci:/@talend&quot;"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" show="false" value="REPOSITORY"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" show="false" value="_TDzwoArHEeWx1dV_9Bg5iA - TIE"/>
     <elementParameter field="DBTABLE" name="TABLE" value="&quot;TIE&quot;"/>
     <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="&quot;&quot;"/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
@@ -6230,8 +6228,6 @@
     <elementParameter field="TEXT" name="USER" value="context.EGX_Login"/>
     <elementParameter field="PASSWORD" name="PASS" value="8pW6Nmy2kud0oKKgG5DmApkfM/R5LHCA"/>
     <elementParameter field="TEXT" name="JDBC_URL" show="false" value="&quot;jdbc:oracle:oci:/@talend&quot;"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" show="false" value="REPOSITORY"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" show="false" value="_TDzwoArHEeWx1dV_9Bg5iA - TIE"/>
     <elementParameter field="DBTABLE" name="TABLE" value="&quot;TIE&quot;"/>
     <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="&quot;&quot;"/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
@@ -7162,8 +7158,6 @@
     <elementParameter field="TEXT" name="USER" value="context.EGX_Login"/>
     <elementParameter field="PASSWORD" name="PASS" value="8pW6Nmy2kud0oKKgG5DmApkfM/R5LHCA"/>
     <elementParameter field="TEXT" name="JDBC_URL" show="false" value="&quot;jdbc:oracle:oci:/@talend&quot;"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" show="false" value="REPOSITORY"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" show="false" value="_TDzwoArHEeWx1dV_9Bg5iA - TIE"/>
     <elementParameter field="DBTABLE" name="TABLE" value="&quot;TIE&quot;"/>
     <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="&quot;&quot;"/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
@@ -8823,9 +8817,11 @@
       <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="Cli_Compable"/>
       <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Bareme"/>
+      <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Compensation"/>
+      <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
     </elementParameter>
-    <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" show="false" value="REPOSITORY"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" show="false" value="_DaZ-EBTXEemORY5mD_8VLA - metadata"/>
     <elementParameter field="CHECK" name="CREATE" value="true"/>
     <elementParameter field="CHECK" name="FLUSHONROW" value="false"/>
     <elementParameter field="TEXT" name="FLUSHONROW_NUM" show="false" value="100"/>
@@ -8908,6 +8904,8 @@
       <column comment="" key="false" length="0" name="Type_Lien_Edi" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="Critere_Rech" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="Cli_Compable" nullable="true" pattern="" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Bareme" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Compensation" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tAS400Input" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="-32" posY="1152">
@@ -9762,6 +9760,12 @@
       <elementValue elementRef="TRACE_COLUMN" value="Critere_Rech"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Bareme"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Compensation"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Tiers_Jde_Cli"/>
@@ -9911,13 +9915,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_3f4033f8-39fb-47da-b72b-a56acb3fbc3b"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>JVWmQqaUZXU4sDP++LZMTNVeYuGVVZ/K9xMr00AVAvfF6my3eHuCKigz0huGgp/HbgAcxifiPuRL
-QzEXGR+HZw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_82e83c5f-c1e7-449e-bb18-35ba5c76118c"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>u70pYeRZEHetZdo3papGWtS0SnJuJUsemStmhxfUhAh7Fx7iA5qfGK4Rp3F4QeEZ5BTcnvFj59BL
-ZZquXuhlhg==</DigestValue></Reference></SignedInfo><SignatureValue>h3Upifv4Z+Qt3eWbYBogUjlp4fTmOq7jFWNAWRJuQndnaeHaQAMBoWOy0N1+N9yfFiTmd579Usim
-hMExTJ0OnRleTrxa1PICO0Jox4LTC3uVsDnNd3DBOooEuZbkpMdLfaD5geF0LI3RYt7pdNBm/gmd
-vbLj4izfLyEtl3EH0mh9fhPAnfRFa0E0kx2S5Cf4QuRtuiY/WfCEvfrsNZNiaSGusdgD69JUrXB0
-H9Y3hPo0Z3JwmKMYHivUG4CsKNS05tq3Kbs9l/0Ti0j4VgGn+QZZPCV3M/jsZcKHsuj1evuvlHHA
-wJMlRfaYipeU3zHnK97PSEl3cctXRvrMJ0e7/w==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_e82b146d-71d7-43b3-bb78-902947189866"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>d/NtTYa49yKq2HJaibzL+bCzKq7fzZKzn0ZWfvNUA9Yz+Ox2zyIHu3rOxLkyswzEkytgL+juC8p9
+6L4QvtH53w==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_aae5d3ff-110c-476a-8ade-ae21fb97b952"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>yzq+N0Hsim7c8/SYfsdLTB0nqI9VRxhvREyLTr3Q8CNGlcU79sfy5DsmgOYMOmWyFok4DbRzb+MH
+dVh0UzT/XA==</DigestValue></Reference></SignedInfo><SignatureValue>BPNey7w3na3/Puwn3v9ztMAbqww627C/RYFBsxY5CnzJz9zetPLJq2QyfCGLlJQ6AuFKNRdFbQDB
+vgvHiXCRRkLR9fLeze5s+mbDt/88uuHM7zm/gMekkuHw5X8TmDjt+jcjhXkqkrXFPcg8OpHD8GjX
+35Xw8+UML4vxBUSK54CktsQOBbaEe9P6YaxAMavV4j66udE3s7/OkpFKjp0f72S2QqdRerkBMn0Y
+Mt1yT+CLP8FJDf5LOaDFDd1K1n0LmTTFTpaCL9kz5MSac0v//l42L0teZYzU96MrVqezS4Cp+zcj
+uRZkeBpxpjlLhrg1A7jxAnG/f13YdaH6337TAw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -9939,4 +9943,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_82e83c5f-c1e7-449e-bb18-35ba5c76118c" Target="#_3f4033f8-39fb-47da-b72b-a56acb3fbc3b"><Timestamp>2020-10-07 15:44:26</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_aae5d3ff-110c-476a-8ade-ae21fb97b952" Target="#_e82b146d-71d7-43b3-bb78-902947189866"><Timestamp>2021-01-07 17:15:33</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>

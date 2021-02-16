@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><talendfile:ProcessType xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmlns:TalendMapper="http://www.talend.org/mapper" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" defaultContext="Test" jobType="Standard" xmi:version="2.0">
   <context confirmationNeeded="false" name="FOR">
     <contextParameter comment="Nombre max. d'itérations" name="Max_Iterations" prompt="Max_Iterations?" promptNeeded="false" type="id_Integer" value="6"/>
-    <contextParameter comment="Temporisation d'attente (en secondes) *" name="Wait_Timer" prompt="Wait_Timer?" promptNeeded="false" type="id_Integer" value="10"/>
+    <contextParameter comment="Temporisation d'attente (en secondes) *" name="Wait_Timer" prompt="Wait_Timer?" promptNeeded="false" type="id_Integer" value="180"/>
     <contextParameter comment="Nom du fichier compte-rendu par défaut" name="Log_File" prompt="Log_File?" promptNeeded="false" type="id_String" value="Log_Quartis_JDE.csv"/>
     <contextParameter comment="" name="JDE920_Environnement" prompt="JDE920_Environnement?" promptNeeded="false" repositoryContextId="_7_vSEIRmEeq1lPpnM_KXRQ" type="id_String" value="JFOR920"/>
     <contextParameter comment="" name="JDE920_Login" prompt="JDE920_Login?" promptNeeded="false" repositoryContextId="_7_vSEIRmEeq1lPpnM_KXRQ" type="id_String" value="JDE_NP"/>
@@ -27,7 +27,7 @@
   </context>
   <context confirmationNeeded="false" name="PY">
     <contextParameter comment="Nombre max. d'itérations" name="Max_Iterations" prompt="Max_Iterations?" promptNeeded="false" type="id_Integer" value="6"/>
-    <contextParameter comment="Temporisation d'attente (en secondes) *" name="Wait_Timer" prompt="Wait_Timer?" promptNeeded="false" type="id_Integer" value="10"/>
+    <contextParameter comment="Temporisation d'attente (en secondes) *" name="Wait_Timer" prompt="Wait_Timer?" promptNeeded="false" type="id_Integer" value="180"/>
     <contextParameter comment="Nom du fichier compte-rendu par défaut" name="Log_File" prompt="Log_File?" promptNeeded="false" type="id_String" value="Log_Quartis_JDE.csv"/>
     <contextParameter comment="" name="JDE920_Environnement" prompt="JDE920_Environnement?" promptNeeded="false" repositoryContextId="_7_vSEIRmEeq1lPpnM_KXRQ" type="id_String" value="JPY920"/>
     <contextParameter comment="" name="JDE920_Login" prompt="JDE920_Login?" promptNeeded="false" repositoryContextId="_7_vSEIRmEeq1lPpnM_KXRQ" type="id_String" value="JDE_NP"/>
@@ -53,7 +53,7 @@
   </context>
   <context confirmationNeeded="false" name="Test">
     <contextParameter comment="Nombre max. d'itérations" name="Max_Iterations" prompt="Max_Iterations?" promptNeeded="false" type="id_Integer" value="4"/>
-    <contextParameter comment="Temporisation d'attente (en secondes) *" name="Wait_Timer" prompt="Wait_Timer?" promptNeeded="false" type="id_Integer" value="15"/>
+    <contextParameter comment="Temporisation d'attente (en secondes) *" name="Wait_Timer" prompt="Wait_Timer?" promptNeeded="false" type="id_Integer" value="60"/>
     <contextParameter comment="Nom du fichier compte-rendu par défaut" name="Log_File" prompt="Log_File?" promptNeeded="false" type="id_String" value="Log_Quartis_JDE.csv"/>
     <contextParameter comment="" name="JDE920_Environnement" prompt="JDE920_Environnement?" promptNeeded="false" repositoryContextId="_7_vSEIRmEeq1lPpnM_KXRQ" type="id_String" value="JPY920"/>
     <contextParameter comment="" name="JDE920_Login" prompt="JDE920_Login?" promptNeeded="false" repositoryContextId="_7_vSEIRmEeq1lPpnM_KXRQ" type="id_String" value="JDE_NP"/>
@@ -191,7 +191,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="-160" posY="32">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_1"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="Date today = new Date();&#10;&#10;System.setProperty(&quot;Quartis_JDE_ERROR&quot;, &quot;0&quot;);&#10;System.setProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;, &quot;&quot;);&#10;globalMap.put(&quot;JobDate&quot;, Integer.parseInt(Integer.toString(today.getYear()) + new SimpleDateFormat(&quot;DDD&quot;).format(today)));&#10;globalMap.put(&quot;JobTime&quot;, Integer.parseInt(new SimpleDateFormat(&quot;HHmmss&quot;).format(today)));&#10;globalMap.put(&quot;JobTimeStamp&quot;, new SimpleDateFormat(&quot;yyMMddHHmmss&quot;).format(today));&#10;&#10;//System.out.println(&quot;JobDate = &quot; + (int)globalMap.get(&quot;JobDate&quot;));&#10;//System.out.println(&quot;JobTimeStamp = &quot; + (String)globalMap.get(&quot;JobTimeStamp&quot;));&#10;//System.out.println(&quot;Environnement = &quot; + context.RootDirectory + &quot;(&quot; + context.JDE920_Environnement + &quot;)&quot;);&#10;&#10;&#10;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="Date today = new Date();&#10;&#10;System.setProperty(&quot;Quartis_JDE_ERROR&quot;, &quot;0&quot;);&#10;System.setProperty(&quot;Quartis_JDE_ERROR_MESSAGE&quot;, &quot;&quot;);&#10;globalMap.put(&quot;JobDate&quot;, Integer.parseInt(Integer.toString(today.getYear()) + new SimpleDateFormat(&quot;DDD&quot;).format(today)));&#10;globalMap.put(&quot;JobTime&quot;, Integer.parseInt(new SimpleDateFormat(&quot;HHmmss&quot;).format(today)));&#10;globalMap.put(&quot;JobTimeStamp&quot;, new SimpleDateFormat(&quot;yyMMddHHmmss&quot;).format(today));&#10;&#10;//System.out.println(&quot;JobDate = &quot; + (int)globalMap.get(&quot;JobDate&quot;));&#10;//System.out.println((String)globalMap.get(&quot;JobTimeStamp&quot;) + &quot; - Nb max d'itérations = &quot; + context.Wait_Timer / 15 + &quot; (&quot; + context.Wait_Timer + &quot; sec.)&quot;);&#10;//System.out.println(&quot;Environnement = &quot; + context.RootDirectory + &quot;(&quot; + context.JDE920_Environnement + &quot;)&quot;);&#10;&#10;&#10;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="LABEL" value="tJava_1"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -247,8 +247,8 @@
   </node>
   <node componentName="tWaitForFile" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="-352" posY="192">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tWaitForFile_1"/>
-    <elementParameter field="TEXT" name="WAIT" value="context.Wait_Timer"/>
-    <elementParameter field="TEXT" name="MAX_ITERATIONS" value="context.Max_Iterations"/>
+    <elementParameter field="TEXT" name="WAIT" value="15"/>
+    <elementParameter field="TEXT" name="MAX_ITERATIONS" value="context.Wait_Timer / 15"/>
     <elementParameter field="DIRECTORY" name="DIRECTORY" value="context.RootDirectory + context.Main_Folder"/>
     <elementParameter field="TEXT" name="FILEMASK" value="context.File_Mask"/>
     <elementParameter field="CHECK" name="INCLUDE_SUBDIR" value="false"/>
@@ -1772,7 +1772,7 @@
     <elementParameter field="FILE" name="FILENAME" value="(String)globalMap.get(&quot;myFileIn&quot;)"/>
     <elementParameter field="DIRECTORY" name="DIRECTORY" show="false" value="&quot;C:/Talend-Studio-20190620_1446-V7.2.1/workspace/delete_folder&quot;"/>
     <elementParameter field="TEXT" name="PATH" show="false" value="&quot;C:/Talend-Studio-20190620_1446-V7.2.1/workspace/delete_folder or delete_file&quot;"/>
-    <elementParameter field="CHECK" name="FAILON" value="true"/>
+    <elementParameter field="CHECK" name="FAILON" value="false"/>
     <elementParameter field="CHECK" name="FOLDER" value="false"/>
     <elementParameter field="CHECK" name="FOLDER_FILE" value="false"/>
     <elementParameter field="LABEL" name="NOTE" value="*Note &quot;CURRENT_STATUS&quot; including:&#10;&quot;File (or path) deleted.&quot;&#10;&quot;No file (or path) deleted.&quot;&#10;&quot;File (or path) does not exist or is invalid.&quot;"/>
@@ -1920,7 +1920,7 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk6"/>
   </connection>
   <subjob>
-    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
+    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" show="false" value="true"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tPrejob_1"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="230;100;0"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="255;220;180"/>
@@ -1967,7 +1967,7 @@
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
   <subjob>
-    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
+    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" show="false" value="true"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tPostjob_1"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="230;100;0"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="255;220;180"/>
@@ -2021,13 +2021,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_e465f3b2-d065-4203-b2f9-2d592212bf08"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>BCE82ffW0LAEPLp0VUixRcFo9YeKuGLpDFyW3JOjDHev2ntMFbI82m5nrXdA2oGJrCd9kVsEcs31&#13;
-DG64TpTQNg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_def5e88a-5fc9-4e8a-8774-2dda9c1f2779"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>GrHXbE7egX0upsgkGmFZUOksET4APjhbSoZvxpI2ZwRYDtxovTd8AC+a0MN71zalmEyE+iBbAGXG&#13;
-iPFDFVUfTw==</DigestValue></Reference></SignedInfo><SignatureValue>U/jZ/4tzJd+Q2Klu+07a1nrpS5EagrN3dil76dRiTqy5Ap8LJSJOBQohCURNiLJV5NFf3ttfN3Vs&#13;
-e1ykI1xcYq+GZWixrXNnSrxYTiguXtEiiqktJB3yb6J3eGu2wHDj+sU2VaTCZ0tj5QH+Io5cLuFs&#13;
-iDqYMl7xPO4Bj+DFFXsOd35zr9niDFMV5YrGw2h/x8mBL5UVxg99zaZ53qrDXezZX4MSzxp+k2X3&#13;
-HuNPkr7HOtRJ48Zy4aLdIJzsfWbhLakU55cMx4/hfvbiJ3xM69GAV5fDmNnThLkgZSKAnqWHjyfg&#13;
-u7c2GxkdUaxvszbHmy9PgJAZnz4OR107oY35FA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_27020cd0-86be-4d89-b38c-9ce9f955d383"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>u48hJBnv1cAVsoFIBFu6zYi1S642P+NucmbzkZMwdFc9XmeCExDulntyBEizi69qC53Y38y4b1qm&#13;
+nfJ1aXWWXg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_235bbda3-da2e-41b1-af9c-f61cd9862eac"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>eYJyOmvILXMCgp0lOopox0cDIBn6za+NZan9xCITjVzPDEPha8pZzemnv+nu9f9hrN+yXVv/Kig2&#13;
+57ef1u9IhQ==</DigestValue></Reference></SignedInfo><SignatureValue>DXSSQgIMdrrIYAJrMTDY5ix0nf+wz9aucjjFxTLoDizktyyfbiBrETSv35m4SKN4SSWj51V+z+Lh&#13;
+A8sfcjw/R6mHa8bz3A59WR6/0fH4zLgB8E4jbfE8n+SgXsomG8Wa3rcQ6iZ7IS7Gc/wVhJgGtSaj&#13;
+NtwpdxZgocIMpa1VLhgKwr7v+7Lbk/pc++cdyeWJg0PoKtrPCdeadFwMisrXpd0ftcIs3S7kFlKy&#13;
+s+ZAumeUlCCK6rSqqGxNQJ4l4pkQMMgjC7MGfuERzWB2x9xAcEXsBzkl2m9DUTwph2ccbfkLhzSN&#13;
+wWFDkPaFkvneHnVCUbPBccjtF1l2O//YRcp8ZQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD&#13;
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5&#13;
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U&#13;
@@ -2049,4 +2049,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/&#13
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW&#13;
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+&#13;
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg&#13;
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_def5e88a-5fc9-4e8a-8774-2dda9c1f2779" Target="#_e465f3b2-d065-4203-b2f9-2d592212bf08"><Timestamp>2020-11-16 14:47:19</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_235bbda3-da2e-41b1-af9c-f61cd9862eac" Target="#_27020cd0-86be-4d89-b38c-9ce9f955d383"><Timestamp>2020-12-03 12:43:36</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
