@@ -533,7 +533,7 @@
       <column comment="" key="false" length="6" name="T3UPTM" nullable="true" originalLength="6" pattern="" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties shellMaximized="true"/>
+      <uiProperties/>
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Relational.ISNULL(Inv_Sbs.ALU) ? row2.code_marque.equals(&quot;GLQ&quot;) ? &quot;NEW&quot; : &quot;NON&quot; : &quot;UPD&quot; " name="new_item" type="id_String"/>
         <mapperTableEntries expression="Relational.ISNULL(Inv_Sbs.ALU) ? Lalique.GetSidAlu(row2.code_upc) : Long.toString(Inv_Sbs.ITEM_SID) " name="item_sid" type="id_String"/>
@@ -1444,10 +1444,11 @@
         <mapperTableEntries expression="Filiales.devise1 " name="CXCRDC" operator="=" type="id_String"/>
         <mapperTableEntries name="CXCRR" nullable="true" type="id_Double"/>
       </inputTables>
-      <inputTables activateCondensedTool="true" lookupMode="LOAD_ONCE" matchingMode="ALL_MATCHES" name="grp_client" sizeState="INTERMEDIATE">
+      <inputTables activateCondensedTool="true" lookupMode="RELOAD" matchingMode="ALL_MATCHES" name="grp_client" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Filiales.tarif_detail " name="ABAC16" nullable="true" operator="=" type="id_String"/>
         <mapperTableEntries expression="" name="CKCGID" nullable="true" type="id_Long"/>
         <mapperTableEntries name="AICPGP" nullable="true" type="id_String"/>
+        <globalMapKeysValues expression="Filiales.tarif_detail " name="&quot;myKey1&quot;"/>
       </inputTables>
     </nodeData>
   </node>
@@ -1574,7 +1575,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT ABAC16,CKCGID, AICPGP&#13;&#10;FROM &quot; +context.JDE920_Schema_DTA + &quot;.F0101&#13;&#10;&#9;JOIN &quot; +context.JDE920_Schema_DTA + &quot;.F03012 ON AIAN8=ABAN8&#13;&#10;&#9;JOIN &quot; +context.JDE920_Schema_DTA + &quot;.F40942 ON CKCPGP=AICPGP&#13;&#10;WHERE ABMCU='          10'&#13;&#10;&quot;&#13;&#10;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT ABAC16,CKCGID, AICPGP&#13;&#10;FROM &quot; +context.JDE920_Schema_DTA + &quot;.F0101&#13;&#10;&#9;JOIN &quot; +context.JDE920_Schema_DTA + &quot;.F03012 ON AIAN8=ABAN8&#13;&#10;&#9;JOIN &quot; +context.JDE920_Schema_DTA + &quot;.F40942 ON CKCPGP=AICPGP&#13;&#10;WHERE ABMCU='          10' AND ABAC16='&quot; + (String).globalMap.get(&quot;myKey1&quot;) + &quot;'&#13;&#10;&quot;&#13;&#10;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -2025,7 +2026,7 @@
       <column comment="" key="false" length="30" name="udf_value" nullable="true" originalLength="30" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties shellMaximized="true"/>
+      <uiProperties/>
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
       <outputTables columnNameFilter="" name="Inv_New" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="row6.style_sid " name="style_sid" nullable="true" type="id_String"/>
@@ -2352,6 +2353,10 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Log_ERROR"/>
   </connection>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tDBInput_1" offsetLabelX="0" offsetLabelY="0" source="tDBInput_1" target="tFileInputDelimited_2">
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk2"/>
+  </connection>
   <connection connectorName="FLOW" label="row2" lineStyle="0" metaname="tDBInput_1" offsetLabelX="0" offsetLabelY="0" source="tDBInput_1" target="tMap_2">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="pri_std"/>
@@ -2368,11 +2373,12 @@
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row2"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tDBInput_1" offsetLabelX="0" offsetLabelY="0" source="tDBInput_1" target="tFileInputDelimited_2">
+  <connection connectorName="FLOW" label="F00092" lineStyle="0" metaname="F00092" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_2" target="tDBOutput_1">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk2"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F00092"/>
   </connection>
-  <connection connectorName="FLOW" label="row3" lineStyle="0" metaname="row3" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_2" target="tSplitRow_1">
+  <connection connectorName="FLOW" label="row3" lineStyle="0" metaname="row3" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_2" target="tSplitRow_1">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="ecomCH"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
@@ -2471,11 +2477,6 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row3"/>
-  </connection>
-  <connection connectorName="FLOW" label="F00092" lineStyle="0" metaname="F00092" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_2" target="tDBOutput_1">
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F00092"/>
   </connection>
   <connection connectorName="FLOW" label="row4" lineStyle="0" metaname="tSplitRow_1" offsetLabelX="0" offsetLabelY="0" source="tSplitRow_1" target="tFileOutputDelimited_2">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
@@ -2816,13 +2817,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_4da45bca-bab8-44c1-8ab3-4f60f62c7658"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>p6V9fVjyb2aT2DQkqWnYTNRpGkdQXqv/TisA22Df8dFh9jk8nOcTrCk5VgsnKYFYAfsAwtFvCo3d&#13;
-UHiP7F6R0g==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_d5103de0-cea4-4100-aeb6-69d555468954"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>nXnKcRpfPNTVgu90vK0/OK+0QYDODnUZzGtx85cB29YDRUDbV+ZhgX8ZSMIQZKqkpvk78WmM9nLQ&#13;
-oxMB7k26rA==</DigestValue></Reference></SignedInfo><SignatureValue>C4e5oeunzmWrKynHjASYNshHpgsSHpI3p468yVe01ip2Lndac8+rL5nent4aFzv7J7iTptoix/pC&#13;
-nk4bodPqW/glsZEMxv+pyFXrP19IAbOEJWK6BNuW7UI3FyCwFKl1a4DqaenLRVtU+cFooAXCpUnY&#13;
-xk1BRd/fX+0EV07or2JPe94BaWF0OrfqpQLc7ZlZfy/OY4nWqCtpfsu3/87Bfwx19VGB1kEDXWPw&#13;
-xKBjcCRNo+5KjgGeGDnEfVW9ZWS+bn8qND+8WC5I5LeXy+rKn6EKovgIZuzjcBrvvOqiVaw8SEd9&#13;
-M37UCPAq85Wd3dTYGNNLRvXVSuIGk0bzgXfvsA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_c298779a-d1f7-44f8-aa5d-5dce4f8d2c4b"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>yVLmm+2uKITb+kpJkpJyp9qYuAgJ2hVvDJQ96LC18zaVoLHq3btrIyPKNz1dMGktdtaQLcxvSzuO&#13;
+ij8bR1OEFA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_c10376b3-f588-4667-bda4-de2b24755263"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>R/5xHFfG0oNQATWoqoG4jpBa//G7A2Jw5/omNf/qhIgrj631F/f/PdLAFDOBABDjJqpr3cQQUD7H&#13;
+4/HsKM6BXA==</DigestValue></Reference></SignedInfo><SignatureValue>kwCsoXDl9+Bsk1ALOrNL2+Mx8/uNBFCxwtNmI6ImBmL83vMRLuVF/+9guzPuglDezSjHCpOT3wbh&#13;
+Oy9ft8kDigvnxYnmRdOBRfElzXUxJD1YMHiOFPBVrpBfGrLYSAH70FmBkwVyLAY+0xGJd8wNJQxw&#13;
+PtmmS8apMn2sA/iJefrqeWW1NNK3cZIhEH0Yjk6L+KWhvYgc0BIbt/qORbsnUA2G/m5drJJGSHJ6&#13;
+QzG1OkdzRiTqbXfU4+hXfHFiCe9OHlDH10UJjMxDd1F8eYeHY7cIrN6UiDR30jO3eax58ZJOe6nQ&#13;
+P3Cyg3nxIPNTI9Ak/iOg0/EsXyjs12O6MBiR6w==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD&#13;
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5&#13;
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U&#13;
@@ -2844,4 +2845,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/&#13
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW&#13;
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+&#13;
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg&#13;
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_d5103de0-cea4-4100-aeb6-69d555468954" Target="#_4da45bca-bab8-44c1-8ab3-4f60f62c7658"><Timestamp>2021-02-18 15:53:21</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_c10376b3-f588-4667-bda4-de2b24755263" Target="#_c298779a-d1f7-44f8-aa5d-5dce4f8d2c4b"><Timestamp>2021-02-18 16:01:37</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
