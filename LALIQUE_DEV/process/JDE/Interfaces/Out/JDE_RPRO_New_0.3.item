@@ -1400,8 +1400,8 @@
       <column comment="" key="false" length="3" name="tarif_detail" nullable="true" originalLength="3" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="3" name="tarif_cession" nullable="true" originalLength="3" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="0" name="taux_change" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_Double" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="grp_client" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="taux_remise" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="grp_client" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="taux_remise" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Double" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
@@ -1420,8 +1420,8 @@
         <mapperTableEntries expression="Filiales.tarif_detail " name="tarif_detail" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Filiales.tarif_cession " name="tarif_cession" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Relational.ISNULL(Devises.CXCRDC) ? 1 : Devises.CXCRR " name="taux_change" nullable="true" type="id_Double"/>
-        <mapperTableEntries expression="grp_client.CKCGID" name="grp_client" nullable="true" type="id_Integer"/>
-        <mapperTableEntries expression="&quot;1&quot;" name="taux_remise" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="grp_client.CKCGID" name="grp_client" nullable="true" type="id_Long"/>
+        <mapperTableEntries expression=".75" name="taux_remise" nullable="true" type="id_Double"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Filiales" sizeState="INTERMEDIATE">
         <mapperTableEntries name="sbs_no" nullable="true" type="id_Integer"/>
@@ -1443,8 +1443,8 @@
         <mapperTableEntries name="CXCRR" nullable="true" type="id_Double"/>
       </inputTables>
       <inputTables activateCondensedTool="true" lookupMode="RELOAD" matchingMode="ALL_ROWS" name="grp_client" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="" name="CKCGID" nullable="true" type="id_Integer"/>
-        <globalMapKeysValues expression="Filiales.tarif_detail" name="&quot;Filiales.tarif_detail&quot;"/>
+        <mapperTableEntries expression="" name="CKCGID" nullable="true" type="id_Long"/>
+        <globalMapKeysValues expression="Filiales.tarif_detail" name="&quot;tarif_detail&quot;"/>
       </inputTables>
     </nodeData>
   </node>
@@ -1545,8 +1545,8 @@
       <column comment="" key="false" length="3" name="tarif_detail" nullable="true" originalLength="3" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="3" name="tarif_cession" nullable="true" originalLength="3" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="0" name="taux_change" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_Double" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="grp_client" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="taux_remise" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="grp_client" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="taux_remise" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Double" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="-320" posY="288">
@@ -1570,7 +1570,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT CKCGID &#13;&#10;FROM &quot; +context.JDE920_Schema_DTA + &quot;.F0101&#13;&#10;&#9;JOIN &quot; +context.JDE920_Schema_DTA + &quot;.F03012 ON AIAN8=ABAN8&#13;&#10;&#9;JOIN &quot; +context.JDE920_Schema_DTA + &quot;.F40942 ON CKCPGP=AICPGP&#13;&#10;WHERE ABAC16='&quot; + (String)globalMap.get(&quot;Filiales.tarif_detail&quot;) + &quot;'&#13;&#10;&#9;AND ABMCU='          10' &quot;&#13;&#10;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT CKCGID &#13;&#10;FROM &quot; +context.JDE920_Schema_DTA + &quot;.F0101&#13;&#10;&#9;JOIN &quot; +context.JDE920_Schema_DTA + &quot;.F03012 ON AIAN8=ABAN8&#13;&#10;&#9;JOIN &quot; +context.JDE920_Schema_DTA + &quot;.F40942 ON CKCPGP=AICPGP&#13;&#10;WHERE ABAC16='&quot; + (String)globalMap.get(&quot;tarif_detail&quot;) + &quot;'&#13;&#10;&#9;AND ABMCU='          10' &quot;&#13;&#10;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -1592,7 +1592,7 @@
     <elementParameter field="TEXT" name="LABEL" value="Tarifs"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tDBInput_3">
-      <column comment="" defaultValue="" key="false" length="-1" name="CKCGID" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="-1" name="CKCGID" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_Long" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tOracleConnection" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="64" posY="32">
@@ -2800,13 +2800,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_f6cec9a1-c93d-42ba-a90c-46b020261197"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>OOIi0MkZn3dVFkVj6UDVwNNrd/XuydIrkYwMDsHGEzlrkv3JmXmMi6Nham04mSjee2YfEU7i+ICi&#13;
-cfaceWXeNA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_7db96112-510e-4fd6-8ea3-5dafa9f948e8"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>GMQI0f9sM7EnI5CvPu2tvMGqcHFWDRDBkEpMMPUqVZJa0RGut+P8FMxDdql9/ff1sO5jM8Ie/AAw&#13;
-jsCKBjvrRw==</DigestValue></Reference></SignedInfo><SignatureValue>OKCH+WV+R9nOKHCKTS0st9DT4KBjA4OFQbm8pa0ekbuBqQLBUt+e6DNhfdxCobXO9xeWjtR6Rokp&#13;
-j39wdDq0ZlcsiaC77xE3pz9o4eR6d5/hnw/jY3lTmCbvFw21DfG9u2C8MFX/89I5PcThiVGf0wxV&#13;
-m2f/917d7Y4Hvh1dVTz3aminvcFqkJwSt85nNww7EaYB94fkNQDKf19L0FHCl9eAbO/WYuPxrgCK&#13;
-VlBUSiBt7XoxCCFdVg/WXsm+UcLJJQ04djWg00QGfQtOLiW3TAh+edsmfrf9VYVTGSv5xIZAjG/L&#13;
-eBJ13WvwPVp7ALOuuNnOLZ4UKhqV8jkqzgEGgg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_2c67c8f0-83a3-45f4-940d-0232227ad279"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>8PhJ6D9gUa8BTXwcaIM9X9hZxn1K2XxfUqo6q9ItgPv5ALyxe/oejirYLt656wTss+zAGrCr4n1k&#13;
+tBCz8lAYKQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_9a4f9a8e-2e1c-44c4-9dc7-2877d3d7d213"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>x3cDUwreVfDlu+SplIPZnNOMpVSou3bIB4rz0VW38S8kscWrvH1Bs/jeetD1LTF3O9NoPf7SB/ZQ&#13;
+f0DB8YXU1w==</DigestValue></Reference></SignedInfo><SignatureValue>HnUAIeCzm0IbKllqFsQB1EADIGT/76Sv89vcH0ZN66l/14ZWyOfuwPhVcnfrPamxpf/O1abHuCYj&#13;
+sGGU1FHQQD4n7vtxer+dV0iPV2+6zCqWz8Xy7YHOwxAwhn+MtAkyCBAwkDDeYdn0wAwLRcQ91Mo6&#13;
+ssl22+jPISjwt2772gjdErYrg5S70udpRqZhwYsyq/NSGXd+VmrfP0BYkVWVVMzCs1afxwyVEZdT&#13;
+6mf4pFANifnjgNf5PQuNI3QL4SPWlk16p5rMRkb/WFjW9DpXZ8G8iVDQ7aqE7tg8rLnLMey/fVhY&#13;
+Ua+zaIG31HxDjd0+LNnNKvfWFi5MTYLXDCyx1w==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD&#13;
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5&#13;
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U&#13;
@@ -2828,4 +2828,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/&#13
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW&#13;
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+&#13;
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg&#13;
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_7db96112-510e-4fd6-8ea3-5dafa9f948e8" Target="#_f6cec9a1-c93d-42ba-a90c-46b020261197"><Timestamp>2021-02-18 14:28:01</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_9a4f9a8e-2e1c-44c4-9dc7-2877d3d7d213" Target="#_2c67c8f0-83a3-45f4-940d-0232227ad279"><Timestamp>2021-02-18 14:31:39</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
