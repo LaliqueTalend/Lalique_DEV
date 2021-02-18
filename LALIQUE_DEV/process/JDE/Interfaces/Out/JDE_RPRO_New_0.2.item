@@ -185,7 +185,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="-320" posY="32">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_1"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="Date today = new Date();&#10;long myTimeStamp = Long.parseLong(new SimpleDateFormat(&quot;yyMMddHHmmss&quot;).format(today));&#10;&#10;context.Log_File = jobName + &quot;_&quot; + myTimeStamp + &quot;.csv&quot;;&#10;&#10;globalMap.put(&quot;JobTimeStamp&quot;, myTimeStamp);&#10;globalMap.put(&quot;JobDate&quot;, Integer.parseInt(Integer.toString(today.getYear()) + new SimpleDateFormat(&quot;DDD&quot;).format(today)));&#10;globalMap.put(&quot;JobTime&quot;, Integer.parseInt(new SimpleDateFormat(&quot;HHmmss&quot;).format(today)));&#10;globalMap.put(&quot;date_devise&quot;, JDE.convertToJulian(TalendDate.getFirstDayOfMonth(today)));&#10;&#10;//System.out.println((int)globalMap.get(&quot;date_devise&quot;));&#10;&#10;&#10;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="Date today = new Date();&#10;long myTimeStamp = Long.parseLong(new SimpleDateFormat(&quot;yyMMddHHmmss&quot;).format(today));&#10;&#10;context.Log_File = jobName + &quot;_&quot; + myTimeStamp + &quot;.csv&quot;;&#10;&#10;globalMap.put(&quot;JobTimeStamp&quot;, myTimeStamp);&#10;globalMap.put(&quot;JobDate&quot;, Integer.parseInt(Integer.toString(today.getYear()) + new SimpleDateFormat(&quot;DDD&quot;).format(today)));&#10;globalMap.put(&quot;JobTime&quot;, Integer.parseInt(new SimpleDateFormat(&quot;HHmmss&quot;).format(today)));&#10;globalMap.put(&quot;date_devise&quot;, JDE.convertToJulian(TalendDate.getFirstDayOfMonth(today)));&#10;&#10;System.out.println(&quot;Date devise = &quot; + (int)globalMap.get(&quot;date_devise&quot;));&#10;&#10;&#10;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="LABEL" value="tJava_1"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -1621,10 +1621,11 @@
         <mapperTableEntries name="udf_no" nullable="true" type="id_String"/>
         <mapperTableEntries name="udf_value" nullable="true" type="id_String"/>
       </inputTables>
-      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="row7" sizeState="INTERMEDIATE">
+      <inputTables activateCondensedTool="true" lookupMode="RELOAD" matchingMode="UNIQUE_MATCH" name="row7" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="row6.devise " name="CXCRCD" nullable="true" operator="=" type="id_String"/>
         <mapperTableEntries name="CXCRDC" nullable="true" type="id_String"/>
         <mapperTableEntries name="CXCRR" nullable="true" type="id_Double"/>
+        <globalMapKeysValues expression="row6.devise " name="&quot;row6.devise&quot;"/>
       </inputTables>
     </nodeData>
   </node>
@@ -1872,7 +1873,7 @@
       <column comment="" defaultValue="" key="false" length="15" name="price" nullable="true" originalLength="15" pattern="" precision="4" sourceType="DOUBLE PRECISION" type="id_Double" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="-128" posY="704">
+  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="-160" posY="704">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBInput_3"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="true"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="tDBConnection_1"/>
@@ -1893,7 +1894,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT CXCRCD,CXCRDC,CXCRR &#13;&#10;FROM &quot; +context.JDE920_Schema_DTA + &quot;.F0015&#13;&#10;WHERE CXCRCD='EUR' &#13;&#10;&#9;AND CXCRDC='&quot; + (String)globalMap.get(&quot;devise1&quot;) + &quot;' &#13;&#10;&#9;AND CXEFT=&quot; + (int)globalMap.get(&quot;date_devise&quot;) + &quot; &#13;&#10;&quot;&#13;&#10;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT CXCRCD,CXCRDC,CXCRR &#13;&#10;FROM &quot; +context.JDE920_Schema_DTA + &quot;.F0015&#13;&#10;WHERE CXCRCD='&quot; + (String)globalMap.get(&quot;row6.devise&quot;) + &quot;' &#13;&#10;&#9;AND CXCRDC='&quot; + (String)globalMap.get(&quot;devise1&quot;) + &quot;' &#13;&#10;&#9;AND CXEFT=&quot; + (int)globalMap.get(&quot;date_devise&quot;) + &quot; &#13;&#10;&quot;&#13;&#10;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -2627,13 +2628,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_24d8b93d-1437-4428-a999-c2ad8c475252"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>KxoUFx/Ay+1V7W1wr15OKFvCY70anHWncFx14ypysfgxKmP2L4IQX7z4YFR/cLQxLlleKrfnQji2&#13;
-j3BfVz23kg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_c65ef915-7fbd-4892-9dcf-55b5b6a92fe7"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>wsas98i4VND6o6yd2OxGZKqYiDVLCkydhf0mrR8cRp/+m3ml+yQ2y7cGmN2tWtGXPlJ68B71gQxF&#13;
-xqdHwsZPsQ==</DigestValue></Reference></SignedInfo><SignatureValue>bGdPngV75F5h7TxKU7QdMyEtNaxwNNXLtQbnZBkV4wq3lA3aCPPW0/FM/57IJ/PjaEKMG1KBSBUL&#13;
-etjRr+ozUn3HbBqChQDXzp4y+C4jqlnQO+4B88heq7yKFYButrHCZNunykLiFaez5De9bEKejXYH&#13;
-MQYkpxnggVmHvCBnufXR/fmvssof+BSBcE09MXC5yTpdXLqB1e47ojkioBbd/XyDdhQ7Y3LKeuoY&#13;
-GFPQzy4RHFji/yT3Gc/5YdCOHyfEW1DV09aDP+RQBYD0LJHmQ0cK5cN/1xigl6juKphmGFnK860w&#13;
-YwskmgaZ/HFrJym8gXhHitLsRSqkAZ6Oc7jXug==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_695360b9-24e9-430c-a42b-5010e29e11b4"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>M0ZnYINhJR/FblRrpqvwh9GIE9nfItfvfUVgh16LAUPZGop9oWiq5vN7W0NIjGbyfzGaMZYLI4Xs&#13;
+A2234YiwvQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_54fc19c2-b127-4bfb-878b-c6b10790f1ce"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>83dwuD4WJ5LuxAt/1a5UXUCVJyh4DJLMlAq2Holt6wIcAidvtVhn+oYkI+aWWvj/NLQ7Tud7/Ico&#13;
+lKIPARQFcw==</DigestValue></Reference></SignedInfo><SignatureValue>TuVHYaDnbtPwVk111mYMxPEOPguwmoNn424+WAgQCPrs/35af7a0IWmSWleqQhL+XyTGw3ZyTUY1&#13;
+LUN3E5+8qdTa67lNOJupawsIrYbGVjCo5INRML6gM1vs5I0PycyztDpdKztC2wJD8lPekOX66JAC&#13;
+a3JelLg9/yuVW9NTzFRp3MAwYqAw614nNfOEDqM7YPO47JL6srIpWpfTEDiFH42sqUY8T+2xcIiB&#13;
+Z1AF3opEBuukSUgpk9FCsrI1xPVGaWhJx1vFwX0LG7XEZROg8QNr8+D5OT6KAAEvcTYEOpOvZdCn&#13;
+IudsKuRmDVX1IhjBRR+Ysa81o59DptmG862OaA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD&#13;
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5&#13;
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U&#13;
@@ -2655,4 +2656,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/&#13
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW&#13;
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+&#13;
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg&#13;
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_c65ef915-7fbd-4892-9dcf-55b5b6a92fe7" Target="#_24d8b93d-1437-4428-a999-c2ad8c475252"><Timestamp>2021-02-18 06:45:09</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_54fc19c2-b127-4bfb-878b-c6b10790f1ce" Target="#_695360b9-24e9-430c-a42b-5010e29e11b4"><Timestamp>2021-02-18 07:03:35</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
