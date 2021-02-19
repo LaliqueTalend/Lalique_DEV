@@ -2461,17 +2461,17 @@
     <elementParameter field="TABLE" name="MAP">
       <elementValue elementRef="KEY" value="&quot;sbs_no&quot;"/>
       <elementValue elementRef="VALUE" value="sbs_no"/>
-      <elementValue elementRef="KEY" value="&quot;newLine&quot;"/>
+      <elementValue elementRef="KEY" value="&quot;Tar_New&quot;"/>
       <elementValue elementRef="VALUE" value="Tar_New"/>
-      <elementValue elementRef="KEY" value="&quot;newLine&quot;"/>
+      <elementValue elementRef="KEY" value="&quot;devise1&quot;"/>
       <elementValue elementRef="VALUE" value="devise1"/>
-      <elementValue elementRef="KEY" value="&quot;newLine&quot;"/>
+      <elementValue elementRef="KEY" value="&quot;tarif_detail&quot;"/>
       <elementValue elementRef="VALUE" value="tarif_detail"/>
-      <elementValue elementRef="KEY" value="&quot;newLine&quot;"/>
+      <elementValue elementRef="KEY" value="&quot;tarif_cession&quot;"/>
       <elementValue elementRef="VALUE" value="tarif_cession"/>
-      <elementValue elementRef="KEY" value="&quot;newLine&quot;"/>
+      <elementValue elementRef="KEY" value="&quot;taux_change&quot;"/>
       <elementValue elementRef="VALUE" value="taux_change"/>
-      <elementValue elementRef="KEY" value="&quot;newLine&quot;"/>
+      <elementValue elementRef="KEY" value="&quot;grp_client&quot;"/>
       <elementValue elementRef="VALUE" value="grp_client"/>
     </elementParameter>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -2694,7 +2694,9 @@
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
-      <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
+      <varTables name="Var" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="JDE.cnvDouble(tarif.BPUPRC) / 10000 " name="prix_base" type="id_Double"/>
+      </varTables>
       <outputTables name="TarNew" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="new2.style_sid " name="style_sid" nullable="true" type="id_String"/>
         <mapperTableEntries expression="new2.item_sid " name="item_sid" nullable="true" type="id_String"/>
@@ -2704,9 +2706,9 @@
         <mapperTableEntries expression="new2.dcs_code " name="dcs_code" nullable="true" type="id_String"/>
         <mapperTableEntries expression="new2.created_date " name="created_date" nullable="true" type="id_String"/>
         <mapperTableEntries expression="new2.modified_date " name="modified_date" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="" name="lst_rcvd_cost" nullable="true" type="id_Double"/>
+        <mapperTableEntries expression="Var.prix_base * 1-.75) " name="lst_rcvd_cost" nullable="true" type="id_Double"/>
         <mapperTableEntries expression="&quot;1&quot;" name="price_lvl" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="" name="price" nullable="true" type="id_Double"/>
+        <mapperTableEntries expression="Var.prix_base " name="price" nullable="true" type="id_Double"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="new2" sizeState="INTERMEDIATE">
         <mapperTableEntries name="new_item" nullable="true" type="id_String"/>
@@ -2735,8 +2737,9 @@
         <mapperTableEntries name="udf_value" nullable="true" type="id_String"/>
       </inputTables>
       <inputTables activateCondensedTool="true" lookupMode="RELOAD" matchingMode="UNIQUE_MATCH" name="tarif" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="new2.alu " name="alu" nullable="true" type="id_String"/>
-        <globalMapKeysValues expression="new2.alu " name="&quot;myKey1&quot;"/>
+        <mapperTableEntries expression="new2.alu " name="BPLITM" nullable="true" type="id_String"/>
+        <mapperTableEntries name="BPUPRC" nullable="true" type="id_BigDecimal"/>
+        <globalMapKeysValues expression="new2.alu " name="&quot;new2.alu&quot;"/>
       </inputTables>
     </nodeData>
   </node>
@@ -2874,6 +2877,7 @@
     <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="false"/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
     <elementParameter field="TEXT" name="XMLNODE_OPT_NUM" show="false" value="100"/>
+    <elementParameter field="TEXT" name="LABEL" value="Tatxxx_New.xml"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" label="TarNew" name="tAdvancedFileOutputXML_2">
       <column comment="" key="false" length="30" name="style_sid" nullable="true" originalLength="20" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
@@ -2910,7 +2914,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT BPUPRC/10000&#13;&#10;FROM &quot; + context.JDE920_Schema_DTA + &quot;.F4106&#13;&#10;WHERE BPLITM='' AND BPCGID=1 AND BPCRCD='' AND date_effet BETWEEN BPEXDJ AND BPEXDJ&#13;&#10;&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT BPLITM,BPUPRC&#13;&#10;FROM &quot; + context.JDE920_Schema_DTA + &quot;.F4106&#13;&#10;WHERE BPLITM='&quot; + (String)globalMap.get(&quot;new2.alu&quot;) + &quot;' &#13;&#10;AND BPCGID=(Integer)globalMap.get(&quot;grp_client&quot;) &#13;&#10;AND BPCRCD='&quot; + (String)globalMap.get(&quot;devise1&quot;) + &quot;' &#13;&#10;AND &quot; + (Integer)globalMap.get(&quot;date_tarifs&quot;) + &quot; BETWEEN BPEXDJ AND BPEXDJ&#13;&#10;&quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -2925,13 +2929,16 @@
     <elementParameter field="TEXT" name="CURSOR_SIZE" show="false" value="1000"/>
     <elementParameter field="CHECK" name="TRIM_ALL_COLUMN" value="false"/>
     <elementParameter field="TABLE" name="TRIM_COLUMN">
-      <elementValue elementRef="SCHEMA_COLUMN" value="alu"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="BPLITM"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="BPUPRC"/>
       <elementValue elementRef="TRIM" value="false"/>
     </elementParameter>
     <elementParameter field="CHECK" name="NO_NULL_VALUES" value="false"/>
     <elementParameter field="TEXT" name="LABEL" value="F4106"/>
     <metadata connector="FLOW" name="tDBInput_5">
-      <column comment="" key="true" length="25" name="alu" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="BPLITM" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="-1" name="BPUPRC" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="544" posY="960">
@@ -3525,13 +3532,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_19465e67-fad0-40a6-97fe-42ed57781ede"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>+CS2kne10pENEzYmO67kBwxb5KIin2AP2mWb3XstgkxWd/o907eSFnxZWk6I9fyfprX+iTp8JEUi&#13;
-MnHH+bUGEg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_29032199-f511-4a3c-966a-caa07ec767bd"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>3hB2Ys7FzSCAGUkS5sVRvru0DrSGkrKVNqMe1zRN+ooHK8xfa64pZBoWaFW3/dgz+yZbTSHVVVtG&#13;
-i7MviCZL9w==</DigestValue></Reference></SignedInfo><SignatureValue>dNHZ1s857duSrJ8KYPO5f/z7Dh/uuPF5LCW46W4bBuB1BR0JS+coJs06f0VIjiIpiVhWbYp8c38H&#13;
-F9/YeM+S7GTolPq6+XDia/vkW7oD3ZcPm6V2bvZj/k5pHkGI/EiEr7DHN6Uk5WzZuDMNIr4sDY7Q&#13;
-I6UvDoIUYheXf6uu4vPeLOLdNADsNPtUTVSOUhPe/9/mdUWw8jX21ontwt7xXL567je3w9Ptyz4q&#13;
-4I2ZRBy2ZEpefPFE1iUYBg6dDN9xWQoyPfaJTv4+BLvxN8uTcb2o7nQ35mmLc5LtWSZfPcewGsa2&#13;
-hQi+S4wCNBITqJDTwBDiuROz04SQnfDjW88cgg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_35e4267e-4470-47d2-8ecf-c5549f58ada2"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>j1X7uItObl0SjzX1EJwDApSVklpoQRJ1+yQYTYtk4o3HkyAgq/rY6++U5ya96E+gCQqn3QLP/50f&#13;
+bsNvSow+5A==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_d88c113d-9784-4a15-abe6-149352525a1b"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>gT5JrPye5UygBZ1uwctKBhzPEQqoFVA2jQqxNMpkVPIltTRMuaVXeJ/z7VTCLs8cC+9u1UrImQ33&#13;
++uJbYkkUMw==</DigestValue></Reference></SignedInfo><SignatureValue>gwdslLqaRTAGvE5Mr/EsmqwaQgRCoY1LnxZ61bZPmWrlJ/poLo3u+va+i2WcKe1d5D5bv0zvwKpc&#13;
+YWHcdY3grE4eNbjQxGn67C0yl53oQP2JycyO8FFdLLbHLYTfwWHDYXVXmOKHUTSQJzIOUh38SvNB&#13;
+mPdA5hYtL4R010p85emey46TwOXja1cKsbXGjsBSPMX3PLG6X31yR104iIliLntLOHHJlNXFUI6m&#13;
+O5xPa1QUs0lJraDCZd8WxRdE7UOjTeEVMbUw4iZVivqGDP6ACT+6k4ZKaZZWIVVu7QCOeuH8b6Jv&#13;
+nAbOd54bpZEJyetYJmEWWL51tNOoH2HzBW2lfQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD&#13;
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5&#13;
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U&#13;
@@ -3553,4 +3560,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/&#13
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW&#13;
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+&#13;
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg&#13;
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_29032199-f511-4a3c-966a-caa07ec767bd" Target="#_19465e67-fad0-40a6-97fe-42ed57781ede"><Timestamp>2021-02-19 13:14:15</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_d88c113d-9784-4a15-abe6-149352525a1b" Target="#_35e4267e-4470-47d2-8ecf-c5549f58ada2"><Timestamp>2021-02-19 13:25:30</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
