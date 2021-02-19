@@ -1407,6 +1407,8 @@
     <metadata connector="FLOW" name="out1">
       <column comment="" key="true" length="3" name="ABAC16" nullable="false" originalLength="3" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="0" name="ABAN8" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="-1" name="AIAN8" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="AICPGP" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
@@ -1432,6 +1434,8 @@
       <outputTables name="out1" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="grp_client.ABAC16 " name="ABAC16" type="id_String"/>
         <mapperTableEntries expression="JDE.cnvInt(grp_client.ABAN8)" name="ABAN8" type="id_Integer"/>
+        <mapperTableEntries expression="JDE.cnvInt(grp_client.AIAN8)" name="AIAN8" type="id_Integer"/>
+        <mapperTableEntries expression="grp_client.AICPGP " name="AICPGP" nullable="true" type="id_String"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Filiales" sizeState="INTERMEDIATE">
         <mapperTableEntries name="sbs_no" nullable="true" type="id_Integer"/>
@@ -1455,6 +1459,8 @@
       <inputTables activateCondensedTool="true" columnNameFilter="" innerJoin="true" lookupMode="RELOAD" matchingMode="UNIQUE_MATCH" name="grp_client" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Filiales.tarif_detail " name="ABAC16" nullable="true" operator="=" type="id_String"/>
         <mapperTableEntries name="ABAN8" type="id_BigDecimal"/>
+        <mapperTableEntries name="AIAN8" type="id_BigDecimal"/>
+        <mapperTableEntries name="AICPGP" nullable="true" type="id_String"/>
         <globalMapKeysValues expression="Filiales.tarif_detail " name="&quot;Filiales.tarif_detail&quot;"/>
       </inputTables>
     </nodeData>
@@ -1582,7 +1588,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT ABAC16, ABAN8&#13;&#10;FROM &quot; +context.JDE920_Schema_DTA + &quot;.F0101&#13;&#10;WHERE ABMCU='          10' AND ABAC16='&quot; + (String)globalMap.get(&quot;Filiales.tarif_detail&quot;) + &quot;' &#13;&#10;&quot;&#13;&#10;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT ABAC16, ABAN8,AIAN8,AICPGP&#13;&#10;FROM &quot; +context.JDE920_Schema_DTA + &quot;.F0101&#13;&#10;&#9;INNER JOIN &quot; +context.JDE920_Schema_DTA + &quot;.F03012 ON AIAN8=ABAN8&#13;&#10;WHERE ABMCU='          10' AND ABAC16='&quot; + (String)globalMap.get(&quot;Filiales.tarif_detail&quot;) + &quot;' &#13;&#10;&quot;&#13;&#10;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -1601,13 +1607,19 @@
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="ABAN8"/>
       <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="AIAN8"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="AICPGP"/>
+      <elementValue elementRef="TRIM" value="false"/>
     </elementParameter>
     <elementParameter field="CHECK" name="NO_NULL_VALUES" value="false"/>
     <elementParameter field="TEXT" name="LABEL" value="Tarifs"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tDBInput_3">
-      <column comment="" key="true" length="3" name="ABAC16" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="0" name="ABAN8" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="ABAC16" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="-1" name="ABAN8" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="-1" name="AIAN8" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="AICPGP" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="-64" posY="320">
@@ -1639,10 +1651,13 @@
     <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="false"/>
     <elementParameter field="CHECK" name="FILE_EXIST_EXCEPTION" value="false"/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="90"/>
+    <elementParameter field="TEXT" name="LABEL" value="TEST01"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tFileOutputDelimited_4">
       <column comment="" key="true" length="3" name="ABAC16" nullable="false" originalLength="3" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="0" name="ABAN8" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="-1" name="AIAN8" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="AICPGP" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tOracleConnection" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="64" posY="32">
@@ -2909,6 +2924,12 @@
       <elementValue elementRef="TRACE_COLUMN" value="ABAN8"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="AICPGP"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="AIAN8"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="out1"/>
@@ -3148,13 +3169,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_fc6b2b6e-c627-4bf4-93e7-5d3b49aabe58"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>c4X2geuMr3FnVedgZ21tatDsqBuG+v3y90jFgzj9YWlR5MbqiLP7gvxbFABtGfy+28U3B4n4ypbb&#13;
-Ek7ZV9Hu1g==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_dd36213a-04e0-4c58-9988-bdf63267dae7"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>RuJURXVTejer4VtVhS0TSP39rX1RC6JreuTjNTI7IHLqduvmxcDINdvMno9uBTVOV5kujwzYs9Pf&#13;
-7vj2LtzINg==</DigestValue></Reference></SignedInfo><SignatureValue>P5JGJVlBiZj/Fd+NBH5IdbXMB3NTnRNfYeK0tGe29QSNaaZaiRHa+JNWqpBO01+KKJaB8tK5wcDv&#13;
-ul9NxqQMptD1MjR/cdv+BDwYHy6Et6Ct9RzducDXPuqI13y7FxNPfrbOcjm+4Cu1Zgi/Y5tcHh+a&#13;
-Vo7EP+bzHUNwBq9j1qFpP9MM/lch9a6E4b1S2cmwGDTWFRMiBSBZCMrknhTdqcer8k2HsQp6UUl/&#13;
-WPeTU6i1rBuhN9YxX6u2KWe6moP1UdzYwg7aryjSihvfR17LUZXk+K5OkHnnUDyPhtvR3eLHNtk4&#13;
-Hc7QmRxx9NAiIPSc22nCjJax6iu7kxMXQzwfVg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_7dbbfc6b-2333-4acf-8395-9669ffdeda86"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>jkLCm+3AvjFkfL+mP8Y0BCvGQwRcbs+ovVYTop/CL+lqahOrfH1YZK9m+QbTAKG0ZYAAL7ATFolu&#13;
+hk7xbL+yeQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_0d7908ec-d4cb-4fc3-860e-8344e6faa551"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>xq+FuGJryDw4vQDTVWOZaPpjTZUdnUoObFCh8gKSpUXX4yMhDy7J+2xQ+UIaEuFTeNaA3JznGaR4&#13;
+QJaAYIYZDw==</DigestValue></Reference></SignedInfo><SignatureValue>IYKlG0h4PRIQQhgDqKevNwCM3AZAF6w8fEOg1qnZPQhUYAatxJJ3k4lZezK2yWRZJMuTAVdPqPyk&#13;
+iWfzGTFbhHgkJrwYgVAD2h4Rgb5a7ShVwW2xhv+I7caETKehs1t5AmD3SJiJB8Zl0CcJ1594USEr&#13;
+d12tmYwwPWWYkUgnG1H4JIEeaWBlV5/H9Q4QWG3T4p1u8YqleKGHQ4UFWdEINHBcdVf4SDOpX9ME&#13;
+/nbDTO0jFzGekjpoiH5DMXF0cqHCk6nBQl2nku7+PPwAjMDP+Tbj1d/ZCl0SyDUWBTa1e5RoZtnb&#13;
+0SHMAYTDSqnsUrBGoXcFQfD8yZbiF56+TWLj/w==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD&#13;
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5&#13;
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U&#13;
@@ -3176,4 +3197,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/&#13
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW&#13;
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+&#13;
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg&#13;
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_dd36213a-04e0-4c58-9988-bdf63267dae7" Target="#_fc6b2b6e-c627-4bf4-93e7-5d3b49aabe58"><Timestamp>2021-02-19 07:26:17</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_0d7908ec-d4cb-4fc3-860e-8344e6faa551" Target="#_7dbbfc6b-2333-4acf-8395-9669ffdeda86"><Timestamp>2021-02-19 07:29:44</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
