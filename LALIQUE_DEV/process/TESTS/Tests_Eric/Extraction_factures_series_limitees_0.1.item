@@ -185,7 +185,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#13;&#10;  SOC1.EVL.CODSOC, &#13;&#10;  SOC1.EVL.ACHVTE, &#13;&#10;  SOC1.EVL.TYPEVE, &#13;&#10;  SOC1.EVL.NUMEVE, &#13;&#10;  SOC1.EVL.DATVAL, &#13;&#10;  SOC1.EVL.CODPRO,&#13;&#10;  SOC1.EVL.NUMLOT,&#13;&#10;  SOC1.OST.REFLOT, &#13;&#10;  SOC1.EVL.QTELIV,&#13;&#10;  SOC1.EVE.SIGTIE  &#13;&#10;FROM SOC1.EVL&#13;&#10;JOIN SOC1.EVE&#13;&#10;ON SOC1.EVE.CODSOC = SOC1.EVL.CODSOC &#13;&#10;AND SOC1.EVE.ACHVTE = SOC1.EVL.ACHVTE&#13;&#10;AND SOC1.EVE.NUMEVE = SOC1.EVL.NUMEVE&#13;&#10;AND SOC1.EVE.TYPEVE = SOC1.EVL.TYPEVE&#13;&#10;JOIN SOC1.OST&#13;&#10;ON SOC1.OST.CODSOC = 1&#13;&#10;AND SOC1.OST.CODPRO = SOC1.EVL.CODPRO&#13;&#10;AND SOC1.OST.NUMLOT = SOC1.EVL.NUMLOT&#13;&#10;WHERE SOC1.EVL.CODSOC=11&#13;&#10;AND SOC1.EVL.ACHVTE = 'V'&#13;&#10;AND SOC1.EVL.TYPEVE IN ('FAV', 'AVV', 'AVE')&#13;&#10;AND SOC1.EVL.NUMLOT != ' '&#13;&#10;AND SOC1.EVE.SIGDEP in ('COM')&#13;&#10;AND SOC1.EVE.CODETA!='A'&#13;&#10;AND SOC1.EVL.CODPRO = '1114000'&#13;&#10;ORDER BY SOC1.EVL.CODPRO, SOC1.OST.REFLOT &quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#13;&#10;  SOC1.EVE.SIGTIE,  &#13;&#10;  SOC1.TIE.NOMTIE,&#13;&#10;  SOC1.EVL.TYPEVE, &#13;&#10;  SOC1.EVL.NUMEVE, &#13;&#10;  SOC1.EVL.DATVAL, &#13;&#10;  SOC1.EVL.CODPRO,&#13;&#10;  SOC1.OST.REFLOT, &#13;&#10;  SOC1.EVL.QTELIV&#13;&#10;FROM SOC1.EVL&#13;&#10;JOIN SOC1.EVE&#13;&#10;ON SOC1.EVE.CODSOC = SOC1.EVL.CODSOC &#13;&#10;AND SOC1.EVE.ACHVTE = SOC1.EVL.ACHVTE&#13;&#10;AND SOC1.EVE.NUMEVE = SOC1.EVL.NUMEVE&#13;&#10;AND SOC1.EVE.TYPEVE = SOC1.EVL.TYPEVE&#13;&#10;JOIN SOC1.TIE&#13;&#10;ON SOC1.TIE.SIGTIE = SOC1.EVE.SIGTIE&#13;&#10;JOIN SOC1.OST&#13;&#10;ON SOC1.OST.CODSOC = 1&#13;&#10;AND SOC1.OST.CODPRO = SOC1.EVL.CODPRO&#13;&#10;AND SOC1.OST.NUMLOT = SOC1.EVL.NUMLOT&#13;&#10;WHERE SOC1.EVL.CODSOC=11&#13;&#10;AND SOC1.EVL.ACHVTE = 'V'&#13;&#10;AND SOC1.EVL.TYPEVE IN ('FAV', 'AVV', 'AVE')&#13;&#10;AND SOC1.EVL.NUMLOT != ' '&#13;&#10;AND SOC1.TIE.TYPTIE = 'CLI'&#13;&#10;AND SOC1.EVE.SIGDEP in ('COM')&#13;&#10;AND SOC1.EVE.CODETA!='A'&#13;&#10;AND SOC1.EVL.CODPRO = '1114000'&#13;&#10;ORDER BY SOC1.EVL.CODPRO, SOC1.OST.REFLOT &quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -200,9 +200,9 @@
     <elementParameter field="TEXT" name="CURSOR_SIZE" show="false" value="1000"/>
     <elementParameter field="CHECK" name="TRIM_ALL_COLUMN" value="false"/>
     <elementParameter field="TABLE" name="TRIM_COLUMN">
-      <elementValue elementRef="SCHEMA_COLUMN" value="CODSOC"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="SIGTIE"/>
       <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ACHVTE"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="NOMTIE"/>
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="TYPEVE"/>
       <elementValue elementRef="TRIM" value="false"/>
@@ -212,29 +212,23 @@
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="CODPRO"/>
       <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="NUMLOT"/>
-      <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="REFLOT"/>
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="QTELIV"/>
-      <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="SIGTIE"/>
       <elementValue elementRef="TRIM" value="false"/>
     </elementParameter>
     <elementParameter field="CHECK" name="NO_NULL_VALUES" value="false"/>
     <elementParameter field="TEXT" name="LABEL" value="__TABLE__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tDBInput_1">
-      <column comment="" defaultValue="" key="false" length="38" name="CODSOC" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" key="false" length="1" name="ACHVTE" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="12" name="SIGTIE" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="30" name="NOMTIE" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="3" name="TYPEVE" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="38" name="NUMEVE" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="" key="false" length="8" name="DATVAL" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="16" name="CODPRO" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="7" name="NUMLOT" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="REFLOT" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="0" name="QTELIV" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" key="false" length="12" name="SIGTIE" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <additionalProperties key="Comment" value=""/>
     </metadata>
   </node>
@@ -252,9 +246,9 @@
     <elementParameter field="CHECK" name="PRINT_COLNAMES" value="false"/>
     <elementParameter field="CHECK" name="USE_FIXED_LENGTH" value="false"/>
     <elementParameter field="TABLE" name="LENGTHS" show="false">
-      <elementValue elementRef="SCHEMA_COLUMN" value="CODSOC"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="SIGTIE"/>
       <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ACHVTE"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="NOMTIE"/>
       <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="TYPEVE"/>
       <elementValue elementRef="LENGTH" value="10"/>
@@ -264,29 +258,23 @@
       <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="CODPRO"/>
       <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="NUMLOT"/>
-      <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="REFLOT"/>
       <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="QTELIV"/>
-      <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="SIGTIE"/>
       <elementValue elementRef="LENGTH" value="10"/>
     </elementParameter>
     <elementParameter field="CHECK" name="PRINT_CONTENT_WITH_LOG4J" value="true"/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tLogRow_1">
-      <column comment="" defaultValue="" key="false" length="38" name="CODSOC" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" key="false" length="1" name="ACHVTE" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="12" name="SIGTIE" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="30" name="NOMTIE" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="3" name="TYPEVE" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="38" name="NUMEVE" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="" key="false" length="8" name="DATVAL" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="16" name="CODPRO" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="7" name="NUMLOT" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="REFLOT" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="0" name="QTELIV" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" key="false" length="12" name="SIGTIE" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <additionalProperties key="Comment" value=""/>
     </metadata>
   </node>
@@ -307,13 +295,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_7d187da1-d1d0-441c-9ca8-7c8106a2f5dc"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>5cR8jI5YXlJK1ScZmT9jfT6ETREKWQi0nulWIygaJ5R7xMpVJIYA36hKwYRa6wxEIGRw4aJRHnyY
-kQe7OBK0yQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_12ffd368-ccab-41d7-96e6-bcbc2658fbd1"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>+bjEDFl9iJUm1hPLA/+Cx5hcYNM0+TX1dI3SdlM0bSHty2nXpRfQm3b3i2xYh0Db+HXprERfnfJt
-YYztWCmlRQ==</DigestValue></Reference></SignedInfo><SignatureValue>EQQi1Na1VhCuxl1B2RkfbWDzP1BRMBnHBzhDggs8GbKA9LC++B1io6gXSHUiq0cZM25xuDAd3HAB
-fg/a+Uk6wI7lQKOXfhRdRFhtTLmA+4LpNyzcDTS2p3YTxbUjbXHry7MJ6p+xy9Rx6vtJJ8NADPu0
-XVwwwxbtnhpLtQ9Zve8SW27PI/ULXpTQoaJJT7xsoLbNd7FCOZSINAuK9kOk8jdYjLmR+De8H+5s
-HiB6LisMf6T4Pncn2glC6ilTjmhs+6mX+zdvOX+U6qCuSS3UD3RH18QQA/gJI3M7e0EJw5iksbjM
-c1LTJwUhe722cVlTC1QAoP4XNQRNEeI0Ua0L4A==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_861db89a-8b6f-4c73-a7f2-adc25a58ac57"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>kqLh1do8S8F5St0zwhxNLG5HctAv9wiSJ1HfIZje0uLoDoCFsp6/VpRWeIj9cidGmgF54yW4Bi99
+0kNKH+Ms0A==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_8055f552-30c4-4ac3-9277-6413ba9c5b4d"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>pbYyrkfkWx6SWiVr5B4i5DRGWfkCOvLOFukFIfyRjj5+eg3kydTyoisI7GW+jTEQaNkUkzF5ECno
+5wOPk9u2nQ==</DigestValue></Reference></SignedInfo><SignatureValue>Du6ndkOMiGZVtmFCTnpTbuBJ/ZpvDiMWGbrKJogqrxFqa2BcETSd8uX6Yq3bP0jfVnO7nzrnaAii
+gHV4Rx1G0UT6vHLIrhuRFs86JMNPynNyeh5TxEj9JAejni7YceYnU48XaiDZgFNbMsCInVK9jnbk
+dVRoTv2fWQMXiOc3If4FA0b/VOjzEau22MKhCrRiiLqesb4YUfUMc6UTo8KxHE9kJJfyfANz9bC/
+zMNIWxMLvBh2j2ijKWJvFvWQoGdpnkWsX2KScFh71QC1fYX7a6Bzuap7NBvbGfMR5heJotRu4tUD
+Epk0U52uBYtSAXmhYKOb5fAwhNEikWu8rgeVWg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -335,4 +323,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_12ffd368-ccab-41d7-96e6-bcbc2658fbd1" Target="#_7d187da1-d1d0-441c-9ca8-7c8106a2f5dc"><Timestamp>2021-02-15 18:09:00</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_8055f552-30c4-4ac3-9277-6413ba9c5b4d" Target="#_861db89a-8b6f-4c73-a7f2-adc25a58ac57"><Timestamp>2021-02-21 16:44:08</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
