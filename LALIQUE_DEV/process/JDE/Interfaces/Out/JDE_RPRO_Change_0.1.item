@@ -498,7 +498,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT DISTINCT IMITM,IMLITM,IMDSC1,T3RMK2&#13;&#10;FROM FORDTA.F4101&#13;&#10;&#9;LEFT JOIN FORDTA.F00092 ON T3SBN1=IMITM AND T3SDB='LIG' AND T3TYDT='IN' AND T3KY='RP' AND T3RMK='Y' AND T3RMK2='Y' AND T3EFTE=140366&#13;&#10;WHERE IMITM IN (&#13;&#10;&#9;SELECT IMITM FROM FORDTA.F4101 WHERE IMUPMJ*1000000+IMTDAY&gt;&quot; + (Long)globalMap.get(&quot;Last_Extraction&quot;) + &quot;&#13;&#10;)&#13;&#10;&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT DISTINCT IMITM,IMLITM,IMDSC1,T3RMK2&#13;&#10;FROM &quot; + context.JDE920_Schema_DTA + &quot;.F4101&#13;&#10;&#9;LEFT JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 ON T3SBN1=IMITM AND T3SDB='LIG' AND T3TYDT='IN' AND T3KY='RP' AND T3RMK='Y' AND T3RMK2='Y' AND T3EFTE=140366&#13;&#10;WHERE IMITM IN (&#13;&#10;&#9;SELECT IMITM FROM &quot; + context.JDE920_Schema_DTA + &quot;.F4101 WHERE IMUPMJ*1000000+IMTDAY&gt;&quot; + (Long)globalMap.get(&quot;Last_Extraction&quot;) + &quot;&#13;&#10;)&#13;&#10;&quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -547,7 +547,7 @@
     <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="true"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="liste1">
-      <column comment="" defaultValue="" key="false" length="0" name="IMITM" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="0" name="IMITM" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_Long" usefulColumn="true"/>
       <column comment="" key="false" length="25" name="IMLITM" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="IMDSC1" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Last_Extraction" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
@@ -556,7 +556,7 @@
       <uiProperties shellMaximized="true"/>
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
       <outputTables name="liste1" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="changes.IMITM " name="IMITM" type="id_BigDecimal"/>
+        <mapperTableEntries expression="JDE.cnvLong(changes.IMITM )" name="IMITM" type="id_Long"/>
         <mapperTableEntries expression="changes.IMLITM " name="IMLITM" nullable="true" type="id_String"/>
         <mapperTableEntries expression="changes.IMDSC1 " name="IMDSC1" nullable="true" type="id_String"/>
         <mapperTableEntries expression="(Long)globalMap.get(&quot;Last_Extraction&quot;)" name="Last_Extraction" nullable="true" type="id_Long"/>
@@ -601,7 +601,7 @@
     <elementParameter field="TEXT" name="LABEL" value="maListe.csv"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tFileOutputDelimited_3">
-      <column comment="" defaultValue="" key="false" length="0" name="IMITM" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="0" name="IMITM" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_Long" usefulColumn="true"/>
       <column comment="" key="false" length="25" name="IMLITM" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="IMDSC1" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Last_Extraction" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
@@ -730,13 +730,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_cf2b42f8-dafc-4507-b5bf-2656fd88b8a7"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>J1ESPs4QeJV96dDjb5V+ObyyHmKIH/wng+ZRgbG52yvXJ/pllMGikAIqsBPKUulM67id2ey+jG6M&#13;
-wc008ZpNtQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_201b36b5-fbd9-4d9e-8a7a-76870c9a025e"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>1yGZqFqSi8tdzSRnF5UnaHFgZj687ooCGyq2g6PRjnhdnfFUQ8mpT1GMy1VLG4ouDsF/VwYcI/WL&#13;
-9UTBUgnYzw==</DigestValue></Reference></SignedInfo><SignatureValue>FdT1FWJPh4mCmkqL5gHrMO+Gog8zvETxc1AiAQg8c0YAwuPwjsV1bWaH0fnnI2pp/a+wBQGIIR7W&#13;
-c+CQg6SznxwWnhD/VYTNibw9QAeP1tVKC7cz0AOMEBBlTys/PgPFFwoq396cEm4KvNa/6a3kzK+r&#13;
-wZpumx9U9gY/dB8GOKQdW5KHwiedvUsUH83xrohKpp8np5Os602COq0YMxQ3sNIkMzQurJBsklng&#13;
-SHBdAoSlToTB9BbvSH+zAkAPIso/E5UWq30EOF0j0uNSt9kM2mlrLRCJpIo96+VBay8W0yZFlxoJ&#13;
-RP361KIUmw8mq/UmmllTopWQptC94PhtEPZZsQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_e8800aea-b21a-4150-96a5-0e6955ffabcc"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>/cBksZuJoVdCGYnGbpHXgJWF630KmvqqIN9ML6J1OEwQMMpTOjy/Obeeuj2zR/7aRfbcf0jNQ+sn&#13;
+CahZZF1QdQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_e03d365f-c8c4-432c-b7f2-5119a7f51f91"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>qEj5pkkK6HlPoWz8JOwez/4UfpXmpCWKQ00yBXB06HTS5VQuXdgIxybhjnVseIZiTYt6rmIPDeiF&#13;
+79Njj8QWoA==</DigestValue></Reference></SignedInfo><SignatureValue>JZXC3OgHcT6fnXIfWvttZXT0RLey07js49YFlGyqt05gLzx2PpmaBxWtZD2Dwhih/Aerq04n46YZ&#13;
+ztYmBPjMLwbZJGQWPikJSuVxWAm+5z6c1K01m05+ErcL8idPCqGqGX/RdsMf8b9dZ6MfbFoBr6qz&#13;
+Uea7kSDf9WwypUqY6k+cZe8+0QTc0rfSZTohwcx8YNNNyexC2bZj/jDVCXMu8YhcX3OQ99Id5HdW&#13;
+jo10URDzYxzuhvaR6NzjPh5qpBbxcsbVf2wSYTFyzKZ9oXQFEdHmtWe2izQzwZZRyhYo7S9zQnFk&#13;
+2/Vw4m9zwCf0zmpYBtRjUcUfvRRG4V3GY/IlwQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD&#13;
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5&#13;
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U&#13;
@@ -758,4 +758,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/&#13
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW&#13;
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+&#13;
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg&#13;
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_201b36b5-fbd9-4d9e-8a7a-76870c9a025e" Target="#_cf2b42f8-dafc-4507-b5bf-2656fd88b8a7"><Timestamp>2021-02-24 14:06:36</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_e03d365f-c8c4-432c-b7f2-5119a7f51f91" Target="#_e8800aea-b21a-4150-96a5-0e6955ffabcc"><Timestamp>2021-02-24 14:09:51</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
