@@ -498,7 +498,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT IMITM FROM FORDTA.F4101 WHERE IMUPMJ*1000000+IMTDAY&gt;&quot; + (Long)globalMap.get(&quot;Last_Extraction&quot;) + &quot;&#13;&#10;&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT DISTINCT IMITM,IMLITM,IMDSC1,T3RMK2&#13;&#10;FROM FORDTA.F4101&#13;&#10;&#9;LEFT JOIN FORDTA.F00092 ON T3SBN1=IMITM AND T3SDB='LIG' AND T3TYDT='IN' AND T3KY='RP' AND T3RMK='Y' AND T3RMK2='Y' AND T3EFTE=140366&#13;&#10;WHERE IMITM IN (&#13;&#10;&#9;SELECT IMITM FROM FORDTA.F4101 WHERE IMUPMJ*1000000+IMTDAY&gt;&quot; + (Long)globalMap.get(&quot;Last_Extraction&quot;) + &quot;&#13;&#10;)&#13;&#10;&quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -515,12 +515,21 @@
     <elementParameter field="TABLE" name="TRIM_COLUMN">
       <elementValue elementRef="SCHEMA_COLUMN" value="IMITM"/>
       <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="IMLITM"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="IMDSC1"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="T3RMK2"/>
+      <elementValue elementRef="TRIM" value="false"/>
     </elementParameter>
     <elementParameter field="CHECK" name="NO_NULL_VALUES" value="false"/>
     <elementParameter field="TEXT" name="LABEL" value="JDE_Changes"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tDBInput_1">
       <column comment="" defaultValue="" key="false" length="-1" name="IMITM" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="IMLITM" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="IMDSC1" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="T3RMK2" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="-416" posY="288">
@@ -548,12 +557,15 @@
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
       <outputTables name="liste1" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="changes.IMITM " name="IMITM" type="id_BigDecimal"/>
-        <mapperTableEntries expression="" name="IMLITM" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="" name="IMDSC1" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="changes.IMLITM " name="IMLITM" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="changes.IMDSC1 " name="IMDSC1" nullable="true" type="id_String"/>
         <mapperTableEntries expression="(Long)globalMap.get(&quot;Last_Extraction&quot;)" name="Last_Extraction" nullable="true" type="id_Long"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="changes" sizeState="INTERMEDIATE">
         <mapperTableEntries name="IMITM" type="id_BigDecimal"/>
+        <mapperTableEntries name="IMLITM" nullable="true" type="id_String"/>
+        <mapperTableEntries name="IMDSC1" nullable="true" type="id_String"/>
+        <mapperTableEntries name="T3RMK2" nullable="true" type="id_String"/>
       </inputTables>
     </nodeData>
   </node>
@@ -718,13 +730,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_3c67cb33-16f7-403a-8656-8dc26f86eb07"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>ZtLoMVA5JDv0E/5MkltUaBg5twwJxmDVC0Z2vmLNs/K/WiFOYvhiLkaygg6Y3uIUV71d/BhJ+nwV&#13;
-pS1tSpWtUA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_27734a96-5fe0-41bd-9e01-fdfca74c15dc"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>+PTbUzvv2AprObAqJkQr9b1e3vRzS8PkQXWk5xYZjIx+y3xegjN3fvxRkz708k9xNY9il3eHIlsc&#13;
-c8uMI61Stw==</DigestValue></Reference></SignedInfo><SignatureValue>k17XkwICztsfd9Xzwh9HQY63/BIe5iCpZkQHn/JIHD4jgrZE63XFXattSbLM4JNxGNwFBOvFjW+8&#13;
-8CLVs/DOEI3a5R6nV+RouOaD9j17iLJ9LdM+LbyqCfe9AeKZumSlcNs6mZowVmhKH4/OCeIpDxxX&#13;
-vPQ3vNGhCBh2lxpgBRjg/vVJs81AVx899oz89FLcE+qe6dbJnHgZHUO2tAthfzzVsTtwhXOeAdbW&#13;
-zret6TljHIZ6wAVVqsyPikVB9Zga1nuD6j6V7S/HTrf8EFAx7IkO3ql0wTW8mOGOGEGfAjSLwYif&#13;
-FOnxkmjKi8rx41lVP+8Z3NXsqjDUj2Al0aPnPA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_cf2b42f8-dafc-4507-b5bf-2656fd88b8a7"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>J1ESPs4QeJV96dDjb5V+ObyyHmKIH/wng+ZRgbG52yvXJ/pllMGikAIqsBPKUulM67id2ey+jG6M&#13;
+wc008ZpNtQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_201b36b5-fbd9-4d9e-8a7a-76870c9a025e"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>1yGZqFqSi8tdzSRnF5UnaHFgZj687ooCGyq2g6PRjnhdnfFUQ8mpT1GMy1VLG4ouDsF/VwYcI/WL&#13;
+9UTBUgnYzw==</DigestValue></Reference></SignedInfo><SignatureValue>FdT1FWJPh4mCmkqL5gHrMO+Gog8zvETxc1AiAQg8c0YAwuPwjsV1bWaH0fnnI2pp/a+wBQGIIR7W&#13;
+c+CQg6SznxwWnhD/VYTNibw9QAeP1tVKC7cz0AOMEBBlTys/PgPFFwoq396cEm4KvNa/6a3kzK+r&#13;
+wZpumx9U9gY/dB8GOKQdW5KHwiedvUsUH83xrohKpp8np5Os602COq0YMxQ3sNIkMzQurJBsklng&#13;
+SHBdAoSlToTB9BbvSH+zAkAPIso/E5UWq30EOF0j0uNSt9kM2mlrLRCJpIo96+VBay8W0yZFlxoJ&#13;
+RP361KIUmw8mq/UmmllTopWQptC94PhtEPZZsQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD&#13;
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5&#13;
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U&#13;
@@ -746,4 +758,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/&#13
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW&#13;
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+&#13;
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg&#13;
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_27734a96-5fe0-41bd-9e01-fdfca74c15dc" Target="#_3c67cb33-16f7-403a-8656-8dc26f86eb07"><Timestamp>2021-02-24 14:03:57</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_201b36b5-fbd9-4d9e-8a7a-76870c9a025e" Target="#_cf2b42f8-dafc-4507-b5bf-2656fd88b8a7"><Timestamp>2021-02-24 14:06:36</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
