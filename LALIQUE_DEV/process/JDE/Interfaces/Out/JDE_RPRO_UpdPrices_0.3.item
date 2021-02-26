@@ -2040,6 +2040,7 @@
     <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="true"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="TarUpd">
+      <column comment="" key="false" length="-1" name="sbs_no" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="50" name="style_sid" nullable="true" originalLength="50" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="50" name="item_sid" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="13" name="upc" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
@@ -2053,6 +2054,7 @@
       <uiProperties shellMaximized="true"/>
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
       <outputTables activateExpressionFilter="true" expressionFilter="!Relational.ISNULL(Inv_Sbs.ALU)" name="TarUpd" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="Inv_Sbs.SBS_NO" name="sbs_no" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="Long.toString(Inv_Sbs.STYLE_SID) " name="style_sid" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Long.toString(Inv_Sbs.ITEM_SID )" name="item_sid" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Long.toString(Inv_Sbs.LOCAL_UPC)" name="upc" nullable="true" type="id_String"/>
@@ -2073,7 +2075,7 @@
         <mapperTableEntries name="BPUPRC" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries name="grp_article" nullable="true" type="id_String"/>
       </inputTables>
-      <inputTables lookupMode="RELOAD" matchingMode="UNIQUE_MATCH" minimized="true" name="Inv_Sbs" sizeState="INTERMEDIATE">
+      <inputTables lookupMode="RELOAD" matchingMode="UNIQUE_MATCH" name="Inv_Sbs" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="" name="ITEM_SID" type="id_Long"/>
         <mapperTableEntries expression="" name="SBS_NO" type="id_Integer"/>
         <mapperTableEntries expression="row2.BPLITM " name="ALU" nullable="true" operator="=" type="id_String"/>
@@ -2093,7 +2095,7 @@
         <mapperTableEntries name="UNORDERABLE" nullable="true" type="id_String"/>
         <mapperTableEntries name="EXT_FLAG" nullable="true" type="id_Integer"/>
         <mapperTableEntries name="SUBLOC_FLAG" nullable="true" type="id_Integer"/>
-        <globalMapKeysValues expression="row2.BPLITM " name="&quot;code_article&quot;"/>
+        <globalMapKeysValues expression="row2.BPLITM " name="&quot;inv_sbs.alu&quot;"/>
       </inputTables>
     </nodeData>
   </node>
@@ -2120,7 +2122,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#10;  a.ITEM_SID, &#10;  a.SBS_NO, &#10;  a.ALU, &#10;  a.ITEM_NO, &#10;  a.DCS_CODE, &#10;  a.VEND_CODE, &#10;  a.DESCRIPTION1, &#10;  a.ATTR, &#10;  a.COST, &#10;  a.LST_RCVD_COST, &#10;  a.STYLE_SID, &#10;  a.LOCAL_UPC, &#10;  a.CREATED_DATE, &#10;  a.MODIFIED_DATE, &#10;  a.TAX_CODE, &#10;  a.ACTIVE, &#10;  a.UNORDERABLE, &#10;  a.EXT_FLAG, &#10;  a.SUBLOC_FLAG&#10;FROM &quot; + context.RP9_CMS_Schema + &quot;.INVN_SBS_V a&#13;&#10;WHERE   a.SBS_NO=1&#9;AND a.ACTIVE=1&#13;&#10;&#9;AND a.ALU='&quot; + (String)globalMap.get(&quot;code_article&quot;) + &quot;' &quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#10;  ITEM_SID, &#10;  SBS_NO, &#10;  ALU, &#10;  ITEM_NO, &#10;  DCS_CODE, &#10;  VEND_CODE, &#10;  DESCRIPTION1, &#10;  ATTR, &#10;  COST, &#10;  LST_RCVD_COST, &#10;  STYLE_SID, &#10;  LOCAL_UPC, &#10;  CREATED_DATE, &#10;  MODIFIED_DATE, &#10;  TAX_CODE, &#10;  ACTIVE, &#10;  UNORDERABLE, &#10;  EXT_FLAG, &#10;  SUBLOC_FLAG&#10;FROM &quot; + context.RP9_CMS_Schema + &quot;.INVN_SBS_V &#13;&#10;WHERE   ACTIVE=1&#13;&#10;&#9;AND SBS_NO=&quot; + (Long)globalMap.get(&quot;sbs_no&quot;) + &quot;&#13;&#10;&#9;AND ALU='&quot; + (String)globalMap.get(&quot;inv_sbs.alu&quot;) + &quot;' &quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -2250,6 +2252,7 @@
     <elementParameter field="TEXT" name="LABEL" value="PriceUpd.csv"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tFileOutputDelimited_5">
+      <column comment="" key="false" length="-1" name="sbs_no" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="50" name="style_sid" nullable="true" originalLength="50" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="50" name="item_sid" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="13" name="upc" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
@@ -2528,6 +2531,9 @@
       <elementValue elementRef="TRACE_COLUMN" value="grp_article"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="sbs_no"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="TarUpd"/>
@@ -2653,13 +2659,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_1e72cb8c-3e02-4310-a76e-4c44019c99da"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>0upiHkU3Gh3DqnZWpBBrXOmdE/O2IU/j8n+aOlx6Q0pxpWjQ00Vm51KTVYEdp1PungUMQLMP5TJk&#13;
-GgdAW86kPg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_88564561-b74a-48e4-887c-db6088edb907"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>9DK6vP7V7SAGoOahKkHacdmtEm2kfasW/JMZCZ2SEroY3NLm+rAq13uOzEaHe0KwsOE4AGDfkYQg&#13;
-mC38a5cqFw==</DigestValue></Reference></SignedInfo><SignatureValue>hJkGoAhwly2x+w61O2cD4ZqA90l+zCWOfsLDpcuYPMLWkGiWJX1xjm2DbiHksI/rrEfrv3fvhY/B&#13;
-yK0r+dL63CDZhNevbJcJFmFV59w16aJyIb9spjJl343udMyykA2NdDCLF5Dkuhu4K3YhRZ924xrf&#13;
-sm3QWyT52RbKIJfFXjlJLOl6KlDys6a9jErPErhVseBKoJ+p2rW+NNOAwWufFYJ29pevTSRl/78B&#13;
-owCCmZpX3yPBPr3mACiLEDYNK58kGduPGNe6TrjgH6Ihyde5k+Qdy7ekDbDIR1Y0y09h2VsmuOAL&#13;
-UZbiJqxiIEd3OXILoa3Xq6dKWVFnWlPv6D9mdQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_57e08d9f-d424-4ffc-9a2c-ef55bfcca350"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Pe73eAuYkHeWSUWmHxdVR8CDYmcVkj/X+gC8R9ZIs41lP1+Yb1oQrEsuWLB90NL1NPk6rg1fh/TP&#13;
+JroN31OjQw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_ea4f90cf-9044-4485-b9c2-0f31727d8760"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>CBPRUtiupAqGQsI3io37WnwCynidxPVQsAsULj3kUbyVSUJ2quJmGqNsJ2GGldIjwbUBvzhkXmaD&#13;
+151CcQH+BA==</DigestValue></Reference></SignedInfo><SignatureValue>lOzxYbFJctsrW2KPU1kz3w7P+l7PyD29MGDFCyoWo6I0XVeC3r/1mK7yp5tmvbEquKKQMCfOtUzp&#13;
+sWOeodiZez8533BOO4FWf9XiicVu1tTiF/ipmlGRyKMSpZQ6fY17EasMqmXaY8G6MMrPmKMAUOwY&#13;
+L9w7Fe6Vr/X8lpKQUgs15y2nJdtzm0BScJkjudtHESAjZ+Y7qtqpwVExiX3MRj36AVLWGW0/xHPK&#13;
+6Y0tsU6aZiEcL+yekbxUKmLPjdTrTsIbyzw53IXecWKZyh9jx1Zb410JJrQ+ORZikJSlp/139OE5&#13;
+Tc1eLf/Oy0dncLsLYxCOU1lUWVgDLjGF2iPkMw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD&#13;
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5&#13;
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U&#13;
@@ -2681,4 +2687,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/&#13
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW&#13;
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+&#13;
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg&#13;
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_88564561-b74a-48e4-887c-db6088edb907" Target="#_1e72cb8c-3e02-4310-a76e-4c44019c99da"><Timestamp>2021-02-26 12:08:37</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_ea4f90cf-9044-4485-b9c2-0f31727d8760" Target="#_57e08d9f-d424-4ffc-9a2c-ef55bfcca350"><Timestamp>2021-02-26 12:41:11</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
