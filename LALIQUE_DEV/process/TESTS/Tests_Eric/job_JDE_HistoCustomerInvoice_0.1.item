@@ -498,14 +498,14 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" label="HISTO" name="MONTHLY">
       <column comment="" key="false" length="-1" name="SDLITM" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="ABAC04" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="DRSPHD" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="POINT_STOCK" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="PERIODE" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="SDSOQS" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
     <metadata connector="FLOW" name="WEEKLY">
       <column comment="" key="false" length="-1" name="SDLITM" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="ABAC04" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="DRSPHD" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="POINT_STOCK" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="PERIODE" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="SDSOQS" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
@@ -514,21 +514,21 @@
       <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="(row1.SDDCTO.equals(&quot;SD&quot;) ? &quot;CONSIGNATIONWS&quot; : &quot;WINGEN&quot; ) " name="POF" type="id_String"/>
-        <mapperTableEntries expression="JDE.convertFromJulian(row1.SDIVD)" name="DateOfOrder" type="id_Date"/>
-        <mapperTableEntries expression="TalendDate.formatDate(&quot;yyyy&quot;,Var.DateOfOrder)  + StringHandling.RIGHT(&quot;00&quot;+TalendDate.getPartOfDate(&quot;WEEK_OF_YEAR&quot;,Var.DateOfOrder),2)  " name="SemOfOrder" type="id_String"/>
+        <mapperTableEntries expression="JDE.convertFromJulian(row1.SDIVD)" name="DateOfDoc" type="id_Date"/>
+        <mapperTableEntries expression="TalendDate.formatDate(&quot;yyyy&quot;,Var.DateOfDoc)  + StringHandling.RIGHT(&quot;00&quot;+TalendDate.getPartOfDate(&quot;WEEK_OF_YEAR&quot;,Var.DateOfDoc),2) " name="SemOfDoc" type="id_String"/>
       </varTables>
       <outputTables name="MONTHLY" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="row1.SDLITM" name="SDLITM" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="row1.DRSPHD" name="ABAC04" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="row1.DRSPHD" name="DRSPHD" nullable="true" type="id_String"/>
         <mapperTableEntries expression=" Var.POF " name="POINT_STOCK" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="TalendDate.formatDate(&quot;yyyyMM&quot;,Var.DateOfOrder) " name="PERIODE" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="TalendDate.formatDate(&quot;yyyyMM&quot;,Var.DateOfDoc) " name="PERIODE" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row1.SDSOQS/10000" name="SDSOQS" nullable="true" type="id_Integer"/>
       </outputTables>
-      <outputTables activateExpressionFilter="true" columnNameFilter="" expressionFilter="Var.SemOfOrder.equals(   System.getProperty(&quot;SEMAINE&quot;))" name="WEEKLY" sizeState="INTERMEDIATE">
+      <outputTables activateExpressionFilter="true" columnNameFilter="" expressionFilter="Var.SemOfDoc.equals(   System.getProperty(&quot;SEMAINE&quot;))" name="WEEKLY" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="row1.SDLITM" name="SDLITM" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="row1.DRSPHD" name="ABAC04" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="row1.DRSPHD" name="DRSPHD" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Var.POF " name="POINT_STOCK" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="Var.SemOfOrder " name="PERIODE" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Var.SemOfDoc " name="PERIODE" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row1.SDSOQS/10000" name="SDSOQS" nullable="true" type="id_Integer"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="row1" sizeState="INTERMEDIATE">
@@ -574,7 +574,7 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tFileOutputDelimited_2">
       <column comment="" key="false" length="-1" name="SDLITM" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="ABAC04" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="DRSPHD" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="POINT_STOCK" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="PERIODE" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="SDSOQS" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
@@ -596,7 +596,7 @@
     <elementParameter field="TABLE" name="LENGTHS" show="false">
       <elementValue elementRef="SCHEMA_COLUMN" value="SDLITM"/>
       <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ABAC04"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="DRSPHD"/>
       <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="POINT_STOCK"/>
       <elementValue elementRef="LENGTH" value="10"/>
@@ -610,7 +610,7 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tLogRow_3">
       <column comment="" key="false" length="-1" name="SDLITM" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="ABAC04" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="DRSPHD" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="POINT_STOCK" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="PERIODE" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="SDSOQS" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
@@ -649,7 +649,7 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" label="HISTO" name="tFileOutputDelimited_1">
       <column comment="" key="false" length="-1" name="SDLITM" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="ABAC04" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="DRSPHD" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="POINT_STOCK" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="PERIODE" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="SDSOQS" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
@@ -671,7 +671,7 @@
     <elementParameter field="TABLE" name="LENGTHS" show="false">
       <elementValue elementRef="SCHEMA_COLUMN" value="SDLITM"/>
       <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ABAC04"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="DRSPHD"/>
       <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="POINT_STOCK"/>
       <elementValue elementRef="LENGTH" value="10"/>
@@ -685,7 +685,7 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" label="HISTO" name="tLogRow_2">
       <column comment="" key="false" length="-1" name="SDLITM" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="ABAC04" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="DRSPHD" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="POINT_STOCK" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="PERIODE" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="SDSOQS" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
@@ -770,13 +770,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_cf49b061-85e5-4a05-9d9a-aa97a26030e2"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>moc0HgFqdDGR8R74a+7UUKs+fBTWxo6gSBli7Tv40AUH+mmOZXJUBZvyAUUcnCy65AIo20M5Ftwm
-E/wUWAp7pA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_6bb0f8bc-83c8-46f7-8f6d-ec7484761c57"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Ov/MsO2Eh9wYUZzmeGJl33ZqtB9DXVvUmM09BnU6EO38Jk5yTJdCB3GZw1UwWy1SREkbbjeXpUam
-3u9u5yTjHw==</DigestValue></Reference></SignedInfo><SignatureValue>LeUeBKQbTKrheBxwFk83pmgFl0BvR6z9MLvJYI+Bj1Ro5aG2KfSHiJamKx4L/Y+mhZpM/VuWg9wR
-quhfCWbSUzx+W0g+d7SOC8rsdw3gJqCHA+P+M9aTXjjspvUhonokzBUKSn807z4GxbRyNfk3TMZw
-ZRH1w+FSqEbDGi887qaZ1hZiUbsTLXUS9RMEKfiqB2Cv52c6GDzUkPEy+xBTG1OQJ/dEwsLIxYY9
-Qcw3YBjCRlRT7BHj+sZZhjcBJ0DClhLJ2q8DEkqIjDcf+w+F1JHaeazS6dA63HXnSI5r+6eW6IA2
-LsEDt7Y25hdsTsPXliYSzE+a9KzDAJutXfbGog==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_183253c3-50c8-44fd-82ef-370f5bdec824"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>+ii+RyH2TQKJkUXFVK0n4WzdwJY/EJvH3pYNhNx/o7lnIBjlsOEOSMmFY/8HCGpK9VzwM9DdZ1XW
+h7cyg8GuGg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_701d0a56-0ca8-4341-883d-f9fcd89b807e"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>qCWj2RoyKByvR5yZuyWhNk0d7yi+05sy/eFcIvpwfMkXUttfWfodvWl3RlYl673Ymo0AmJXEPKAk
+kXTYnKbUCA==</DigestValue></Reference></SignedInfo><SignatureValue>dd0bcqcP9UeCgJ3bhB0DvEvr+M1BO944uoUj1xGFDssVLEEcSCwb8BuMuogwt/98lCtmVKpQiBqW
+T8n/jeipHWnmH7yRcyFOj8Fyew39t8X+dLHnvDKKtB0FBAU4iBQ9JgGuHIvL5Q4y2UvmFVjJlQCj
+RYdf+IZkT9CPsGtTDAWhUUoQzUoKC9pcgvqor1ATipGIdjC2EYjb4LuwxKwg8XWLZWtG95i++k13
+oJRNAqCa9+HjMcw9bvJMWaJ6Ji9VdqW3CAnzIMFYDD+8I1Wf94zW9ZuTGO79Kkw9KF/O9/9YgJtS
+1V6YG2z4dEsteJaTqd61QUDfMeH5YSjTzqkeag==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -798,4 +798,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_6bb0f8bc-83c8-46f7-8f6d-ec7484761c57" Target="#_cf49b061-85e5-4a05-9d9a-aa97a26030e2"><Timestamp>2021-02-28 21:11:18</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_701d0a56-0ca8-4341-883d-f9fcd89b807e" Target="#_183253c3-50c8-44fd-82ef-370f5bdec824"><Timestamp>2021-02-28 21:28:22</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
