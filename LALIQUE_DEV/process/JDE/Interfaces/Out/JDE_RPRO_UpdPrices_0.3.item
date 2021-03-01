@@ -466,9 +466,10 @@
       <column comment="" key="false" length="-1" name="grp_client" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="address" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="grp_client_cession" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
+      <column comment="" key="false" length="3" name="devise_cession" nullable="true" originalLength="3" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
       <outputTables name="param" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="filiales.sbs_no " name="sbs_no" nullable="true" type="id_Integer"/>
@@ -488,6 +489,7 @@
         <mapperTableEntries expression="JDE.cnvLong(grp_client.CKCGID)" name="grp_client" nullable="true" type="id_Long"/>
         <mapperTableEntries expression="JDE.cnvLong(grp_client.ABAN8)" name="address" nullable="true" type="id_Long"/>
         <mapperTableEntries expression="JDE.cnvLong(grp_client_cession.CKCGID)" name="grp_client_cession" nullable="true" type="id_Long"/>
+        <mapperTableEntries expression="grp_client_cession.AICRCD " name="devise_cession" nullable="true" type="id_String"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="filiales" sizeState="INTERMEDIATE">
         <mapperTableEntries name="sbs_no" nullable="true" type="id_Integer"/>
@@ -524,6 +526,7 @@
         <mapperTableEntries name="AIASN" nullable="true" type="id_String"/>
         <mapperTableEntries name="CKCGID" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries name="ABAN8" type="id_BigDecimal"/>
+        <mapperTableEntries name="AICRCD" nullable="true" type="id_String"/>
       </inputTables>
     </nodeData>
   </node>
@@ -628,6 +631,7 @@
       <column comment="" key="false" length="-1" name="grp_client" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="address" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="grp_client_cession" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
+      <column comment="" key="false" length="3" name="devise_cession" nullable="true" originalLength="3" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="-512" posY="448">
@@ -709,7 +713,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT ABAC16,AICPGP,AIASN,CKCGID,ABAN8&#13;&#10;FROM &quot; +context.JDE920_Schema_DTA + &quot;.F0101&#13;&#10;&#9;LEFT JOIN &quot; +context.JDE920_Schema_DTA + &quot;.F03012 ON AIAN8=ABAN8&#13;&#10;&#9;LEFT JOIN &quot; +context.JDE920_Schema_DTA + &quot;.F40942 ON CKCPGP=AICPGP&#13;&#10;WHERE ABMCU='          10' AND ABAC16='D01' &#13;&#10;&quot;&#13;&#10;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT ABAC16,AICPGP,AIASN,CKCGID,ABAN8,AICRCD&#13;&#10;FROM &quot; +context.JDE920_Schema_DTA + &quot;.F0101&#13;&#10;&#9;LEFT JOIN &quot; +context.JDE920_Schema_DTA + &quot;.F03012 ON AIAN8=ABAN8&#13;&#10;&#9;LEFT JOIN &quot; +context.JDE920_Schema_DTA + &quot;.F40942 ON CKCPGP=AICPGP&#13;&#10;WHERE ABMCU='          10' AND ABAC16='D01' &#13;&#10;&quot;&#13;&#10;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -734,6 +738,8 @@
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="ABAN8"/>
       <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="AICRCD"/>
+      <elementValue elementRef="TRIM" value="false"/>
     </elementParameter>
     <elementParameter field="CHECK" name="NO_NULL_VALUES" value="false"/>
     <elementParameter field="TEXT" name="LABEL" value="Tarifs"/>
@@ -744,6 +750,7 @@
       <column comment="" key="false" length="-1" name="AIASN" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="CKCGID" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="ABAN8" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="AICRCD" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="480" posY="832">
@@ -1731,6 +1738,8 @@
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="grp_client_cession"/>
       <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="devise_cession"/>
+      <elementValue elementRef="TRIM" value="false"/>
     </elementParameter>
     <elementParameter field="CHECK" name="CHECK_FIELDS_NUM" value="false"/>
     <elementParameter field="CHECK" name="CHECK_DATE" value="false"/>
@@ -1773,13 +1782,15 @@
       <elementValue elementRef="DECODE" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="grp_client_cession"/>
       <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="devise_cession"/>
+      <elementValue elementRef="DECODE" value="false"/>
     </elementParameter>
     <elementParameter field="TEXT" name="DESTINATION" show="false" value=""/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
     <elementParameter field="TEXT" name="LABEL" value="Filiales.csv"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tFileInputDelimited_1">
-      <column comment="" key="false" length="2" name="sbs_no" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="2" name="sbs_no" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="Fic_Tar" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="Art_New" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="Art_Upd" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
@@ -1796,9 +1807,10 @@
       <column comment="" defaultValue="" key="false" length="-1" name="grp_client" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="address" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="grp_client_cession" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
+      <column comment="" key="false" length="3" name="devise_cession" nullable="true" originalLength="3" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
     </metadata>
     <metadata connector="REJECT" name="REJECT">
-      <column comment="" key="false" length="2" name="sbs_no" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="2" name="sbs_no" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="Fic_Tar" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="Art_New" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="Art_Upd" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
@@ -1815,6 +1827,7 @@
       <column comment="" defaultValue="" key="false" length="-1" name="grp_client" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="address" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="grp_client_cession" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
+      <column comment="" key="false" length="3" name="devise_cession" nullable="true" originalLength="3" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
@@ -1841,6 +1854,8 @@
       <elementValue elementRef="VALUE" value="address"/>
       <elementValue elementRef="KEY" value="&quot;grp_client_cession&quot;"/>
       <elementValue elementRef="VALUE" value="grp_client_cession"/>
+      <elementValue elementRef="KEY" value="&quot;devise_cession&quot;"/>
+      <elementValue elementRef="VALUE" value="devise_cession"/>
     </elementParameter>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tFlowToIterate_1"/>
@@ -1997,13 +2012,13 @@
         <mapperTableEntries name="SUBLOC_FLAG" nullable="true" type="id_Integer"/>
         <globalMapKeysValues expression="row2.BPLITM " name="&quot;inv_sbs.alu&quot;"/>
       </inputTables>
-      <inputTables activateCondensedTool="true" lookupMode="RELOAD" matchingMode="ALL_ROWS" minimized="true" name="rate" sizeState="INTERMEDIATE">
+      <inputTables activateCondensedTool="true" lookupMode="RELOAD" matchingMode="ALL_ROWS" name="rate" sizeState="INTERMEDIATE">
         <mapperTableEntries name="IKPRGR" type="id_String"/>
         <mapperTableEntries name="ADFVTR" nullable="true" type="id_BigDecimal"/>
         <globalMapKeysValues expression="row2.grp_article " name="&quot;rate_grp_article&quot;"/>
       </inputTables>
-      <inputTables activateCondensedTool="true" lookupMode="RELOAD" matchingMode="ALL_ROWS" name="cession" sizeState="INTERMEDIATE">
-        <mapperTableEntries name="BPLITM" nullable="true" type="id_String"/>
+      <inputTables activateCondensedTool="true" lookupMode="RELOAD" matchingMode="UNIQUE_MATCH" name="cession" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="row2.BPLITM " name="BPLITM" nullable="true" operator="=" type="id_String"/>
         <mapperTableEntries name="BPUPRC" nullable="true" type="id_BigDecimal"/>
         <globalMapKeysValues expression="row2.BPLITM " name="&quot;cession.alu&quot;"/>
       </inputTables>
@@ -2246,7 +2261,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT BPLITM,BPUPRC&#13;&#10;FROM &quot; + context.JDE920_Schema_DTA + &quot;.F4106&#13;&#10;WHERE BPLITM='&quot; + (String)globalMap.get(&quot;cession_alu&quot;) + &quot;' &#13;&#10;AND BPCGID=&quot; + (Long)globalMap.get(&quot;grp_client_cession&quot;) + &quot; &#13;&#10;AND BPCRCD='EUR' &#13;&#10;AND &quot; + (int)globalMap.get(&quot;date_tarifs&quot;) + &quot; BETWEEN BPEFTJ AND BPEXDJ&#13;&#10;&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT BPLITM,BPUPRC&#13;&#10;FROM &quot; + context.JDE920_Schema_DTA + &quot;.F4106&#13;&#10;WHERE BPLITM='&quot; + (String)globalMap.get(&quot;cession_alu&quot;) + &quot;' &#13;&#10;AND BPCGID=&quot; + (Long)globalMap.get(&quot;grp_client_cession&quot;) + &quot; &#13;&#10;AND BPCRCD='&quot; + (String)globalMap.get(&quot;devise_cession&quot;) + &quot;' &#13;&#10;AND &quot; + (int)globalMap.get(&quot;date_tarifs&quot;) + &quot; BETWEEN BPEFTJ AND BPEXDJ&#13;&#10;&quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -2377,6 +2392,11 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="grp_client"/>
   </connection>
   <connection connectorName="FLOW" label="grp_client_cession" lineStyle="8" metaname="tDBInput_9" offsetLabelX="0" offsetLabelY="0" source="tDBInput_9" target="tMap_4">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="AICRCD"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="grp_client_cession"/>
   </connection>
@@ -2493,6 +2513,11 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk7"/>
   </connection>
   <connection connectorName="FLOW" label="filiales1" lineStyle="0" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tFlowToIterate_1">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="devise_cession"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="filiales1"/>
   </connection>
@@ -2681,13 +2706,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_d5aa50ee-5b54-449a-b819-a6b8f77d2f3b"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>TOokCk04xqKjqeDG68WMoZDHkaW0ibRIG0MxhnCNa3ws87UGv7/inDhleHqRdijfhnLV8QxOvJHn&#13;
-RCqa4JjLBg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_8bbc9993-b717-4347-b6af-859c4c5116d7"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>/XAHzmfx790upeEEvxNwRSv05aaV05Vis6G3Jq+9P/TP9mYsoJM9WeIsisa+GYBI1rvcJMDxU1ah&#13;
-I2OsUUJA5Q==</DigestValue></Reference></SignedInfo><SignatureValue>oDGGQTG75QMhdIheoGpYw4ZcJ1GWMepsPJzhATT2d+M3rhiyT99qodLPg4ouTenQ5xkXzK9/pyvJ&#13;
-yv0Qtd6dWWLAH9/W7dbIJD/UMpURcRxyo5aVnNa2DG9ORppctQe6hWYMTKEtz7m8LWiJ8Oh19LxH&#13;
-gzO17fuNjpYTQQilIc/fF7/wacUVzPUTAunOTb2hlBs+i7Bxi7N2fe1UA+hEag7j7Dy7K+dAdq5D&#13;
-1Hl0yvFgIV+P+/KFW+iplRk1z1LrcOebJsWGa3n87P9Q1Vv13TRpFrJHLEOLp0ASrs47u2io9ctT&#13;
-Mne91Xkubfb3FhThc7sviLEQKkbpcJr61IYnzg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_7a431270-b350-4a62-9fff-b4b61ae5b2ff"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>UEdZ/Nr+D27nwH32B/M3dHb4KHZwwWMetFbBky9Bcb668M6Yw8gIsmUYke894Vt4gcw6AK9cxnBV&#13;
+3Fz6Z//ixQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_17336097-63b1-46c5-a18e-84f91130fab4"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>gpUaw6UqufuHUoAw1s/li2la3M7SNrJZ/uUdgUKGHK4CjT7pFCCh8Wz5yVihLrmI/yKGSlP/Vwkn&#13;
+3HK5F7Z2bg==</DigestValue></Reference></SignedInfo><SignatureValue>QaWTmazM8eGgW5U3oRe5PhKGlHKjbXcB8jwdGSx8x9JU+7VXA2IkBwxdnLy/pIDFiN4+FE9F5ni/&#13;
+tHiSZE+TJN3CfJu1N0obDtfBfWaUhaloJ6laRs7+1dZqXdUGEnlHkkV0ZTkpaBaqMI2R2qY3RJta&#13;
+w+lt6jx0EyRslJ9Ejs+R+L+P2/mNx8qUf+HstZgQm01tUYnsKfCoIBSAqODg8oHJvWrPF7S6nYmi&#13;
+/a7SrnXJHyMtCpf5RrJjMyCtOuTS3iexRHgEJXQ049MJYyEX6ThRP9n9QefdbjyYBQxwbOo0aH2N&#13;
+slsDl5FtpAihEJKcU3aySFg1pzuv32261AGleg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD&#13;
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5&#13;
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U&#13;
@@ -2709,4 +2734,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/&#13
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW&#13;
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+&#13;
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg&#13;
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_8bbc9993-b717-4347-b6af-859c4c5116d7" Target="#_d5aa50ee-5b54-449a-b819-a6b8f77d2f3b"><Timestamp>2021-03-01 12:35:24</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_17336097-63b1-46c5-a18e-84f91130fab4" Target="#_7a431270-b350-4a62-9fff-b4b61ae5b2ff"><Timestamp>2021-03-01 12:57:19</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
