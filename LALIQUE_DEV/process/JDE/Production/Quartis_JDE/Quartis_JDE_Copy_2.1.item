@@ -832,7 +832,7 @@
         <mapperTableEntries expression="&quot;Taux horaire non défini pour l'opérateur &quot; + F31122Z1.SZAN8 + &quot;. Veuillez créer un taux pour cet opérateur (P00191 code 31 ER) et vérifier les messages d'intégration du batch JDE (R31122Z1I LALEDI01)&quot; " name="MessageErreur" nullable="true" type="id_String"/>
         <mapperTableEntries expression="10" name="CodeErreur" nullable="true" type="id_Integer"/>
       </outputTables>
-      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="F31122Z1" sizeState="INTERMEDIATE">
+      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="F31122Z1" sizeState="INTERMEDIATE">
         <mapperTableEntries name="SZEDUS" type="id_String"/>
         <mapperTableEntries name="SZEDBT" type="id_String"/>
         <mapperTableEntries name="SZEDTN" type="id_String"/>
@@ -905,7 +905,7 @@
         <mapperTableEntries expression="" name="CEDL01" nullable="true" type="id_String"/>
         <mapperTableEntries name="CEDL02" nullable="true" type="id_String"/>
         <mapperTableEntries expression="" name="CERATE" nullable="true" type="id_BigDecimal"/>
-        <globalMapKeysValues expression="&quot;  &quot; + StringHandling.RIGHT(&quot;00000000&quot;+Integer.toString(Check.SZAN8),8) " name="&quot;F00191.AN8&quot;"/>
+        <globalMapKeysValues expression="&quot;  &quot; + StringHandling.RIGHT(&quot;00000000&quot;+Integer.toString(F31122Z1.SZAN8),8)  " name="&quot;F00191.AN8&quot;"/>
       </inputTables>
     </nodeData>
   </node>
@@ -1794,13 +1794,13 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="r1"/>
   </connection>
-  <connection connectorName="SUBJOB_ERROR" label="OnSubjobError" lineStyle="4" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tDBRollback_1">
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobError2"/>
-  </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tDBCommit_1">
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk2"/>
+  </connection>
+  <connection connectorName="SUBJOB_ERROR" label="OnSubjobError" lineStyle="4" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tDBRollback_1">
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobError2"/>
   </connection>
   <connection connectorName="FLOW" label="r2" lineStyle="0" metaname="r2" offsetLabelX="0" offsetLabelY="0" source="tMap_5" target="tUnpivotRow_1">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
@@ -1895,15 +1895,15 @@
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk5"/>
   </connection>
-  <connection connectorName="RUN_IF" label="If" lineStyle="6" metaname="tDBCommit_1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tDBCommit_1" target="tFileDelete_1">
-    <elementParameter field="MEMO_JAVA" name="CONDITION" value="context.Archives_Folder.equals(&quot;&quot;)"/>
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="If1"/>
-  </connection>
-  <connection connectorName="RUN_IF" label="Archivage" lineStyle="6" metaname="tDBCommit_1" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tDBCommit_1" target="tFileCopy_1">
+  <connection connectorName="RUN_IF" label="Archivage" lineStyle="6" metaname="tDBCommit_1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tDBCommit_1" target="tFileCopy_1">
     <elementParameter field="MEMO_JAVA" name="CONDITION" value="!context.Archives_Folder.equals(&quot;&quot;)"/>
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Archivage"/>
+  </connection>
+  <connection connectorName="RUN_IF" label="If" lineStyle="6" metaname="tDBCommit_1" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tDBCommit_1" target="tFileDelete_1">
+    <elementParameter field="MEMO_JAVA" name="CONDITION" value="context.Archives_Folder.equals(&quot;&quot;)"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="If1"/>
   </connection>
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tFileCopy_2" offsetLabelX="0" offsetLabelY="0" source="tFileCopy_2" target="tDie_2">
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
@@ -2026,13 +2026,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_ef36ec6b-782e-483c-b619-0ce715136b0d"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>ElY7Qqp9A9IqqGx+2QlwMAOGTh7SyF9Rp39jF+XNVMu566c8BITR6dnRrVFGbWOqGBxbhnsE61Ak&#13;
-U7iy72SUyA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_69d388ba-c4b3-4b4a-b2c7-ecd59a972ca6"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Ihew2Ev0PT7zrIdyLTwQsi/zvG0/aeI1xXgH/jJZ7gDjigZDnfnqlFVj5F+dsMEWdzsLA/yl95Gx&#13;
-Jqh0r741bg==</DigestValue></Reference></SignedInfo><SignatureValue>Pif2TsssZYYtas7MlEG4paTjfO3tG778alr2u5FAE9rMBP/8AWK3IeKhu7RpylP3pRw/xEeAWhcD&#13;
-mavuOg+k3z4lwBdgIrwqeZUsRJuDddnBz/VwDimsdAw0n48hgQypcvG0jBIIO/FT85ffsWsgRAxF&#13;
-hDHGau9edkNdpfXfX7QqM8PR3VrrAm727g8SACKojudJbVLSGi75CbQpevky+p5GwUSPGWHmaRn+&#13;
-ZMgR5ELIi8DUhXxMU9p8uHU/12rFZgnJgLkxARkWB4QEBUBJs6If8Aluv4mmrteYOR3+TADGPto4&#13;
-XuLC2KnGPVBfFjfXZ+DvNO526wxQi2rB+EeN+g==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_2ea0e8e0-4602-4c1d-95d0-5cb117790a40"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>S1BqyLt8w3O67ZdLurw9t3pAB8ZTsZl9NkPYPd/cp3XIZbTZFGLdQngIYQJcq0kCXjoeFYTHQgnQ&#13;
+f4byzSuQEQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_9851c979-de6d-4373-8426-81b0b244a0c2"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>lJ34L3hZq5EFM1uATKnq9r17elIDkcQItlInll1YP7Y9i4WdCVxAa6kNQ37fGJB+miKcmRdds/Nv&#13;
+TOFAVUqIfQ==</DigestValue></Reference></SignedInfo><SignatureValue>SySNOnG2/tv/2Wsnopdl1RBh4JYp77UtGZw14JZiVyHgICTZUPMDBj2WR+8Y/ognQRyV9r4nbvNl&#13;
+T+N+VUiC8NGuWa990kIhJ4ewIXXbDYIXngPMOIRKSzt40a90gSX5pT86tezbKBP/7e/e/34M01RV&#13;
+TNEM2/m7IrMc5FzVpUvRXNaFYpobbi7P6o5r89Mt8KRU7a4yAmu/LQBcHPoSO3tVCA2RUOhrHtIo&#13;
+PSNt3F4xhgSoWX5gXNin65MCPgii0xXG1+CcN78NKNeb8VLG3M6mwNCfkJIXzsNbHO36N/lQNe7w&#13;
+ZXOc7QmRmne304HwcMrIEyzsyZGp/4vpejTOUQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD&#13;
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5&#13;
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U&#13;
@@ -2054,4 +2054,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/&#13
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW&#13;
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+&#13;
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg&#13;
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_69d388ba-c4b3-4b4a-b2c7-ecd59a972ca6" Target="#_ef36ec6b-782e-483c-b619-0ce715136b0d"><Timestamp>2021-03-03 13:01:52</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_9851c979-de6d-4373-8426-81b0b244a0c2" Target="#_2ea0e8e0-4602-4c1d-95d0-5cb117790a40"><Timestamp>2021-03-03 13:05:38</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
