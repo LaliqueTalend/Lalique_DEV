@@ -1583,7 +1583,6 @@
   </node>
   <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="-576" posY="736">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileInputDelimited_1"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="LABEL" name="FILENAMETEXT" value="&quot;When the input source is a stream or a zip file,footer and random shouldn't be bigger than 0.&quot;"/>
     <elementParameter field="FILE" name="FILENAME" value="context.Root_Directory+context.Temp_Folder+&quot;Filiales.csv&quot;"/>
     <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
@@ -1736,16 +1735,10 @@
   </node>
   <node componentName="tFilterRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="-448" posY="736">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFilterRow_19"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="CLOSED_LIST" name="LOGICAL_OP" value="&amp;&amp;"/>
-    <elementParameter field="TABLE" name="CONDITIONS">
-      <elementValue elementRef="INPUT_COLUMN" value="sbs_no"/>
-      <elementValue elementRef="FUNCTION" value=""/>
-      <elementValue elementRef="OPERATOR" value="=="/>
-      <elementValue elementRef="RVALUE" value="row3.devise1"/>
-    </elementParameter>
-    <elementParameter field="CHECK" name="USE_ADVANCED" value="false"/>
-    <elementParameter field="MEMO_JAVA" name="ADVANCED_COND" show="false" value="// code sample : use input_row to define the condition.&#10;// input_row.columnName1.equals(&quot;foo&quot;) ||!(input_row.columnName2.equals(&quot;bar&quot;))&#10;// replace the following expression by your own filter condition &#10;input_row.columnName1.equals(input_row.columnName2)&#10;&#9;&#9;&#9;"/>
+    <elementParameter field="TABLE" name="CONDITIONS"/>
+    <elementParameter field="CHECK" name="USE_ADVANCED" value="true"/>
+    <elementParameter field="MEMO_JAVA" name="ADVANCED_COND" value="// code sample : use input_row to define the condition.&#10;// input_row.columnName1.equals(&quot;foo&quot;) ||!(input_row.columnName2.equals(&quot;bar&quot;))&#10;// replace the following expression by your own filter condition &#10;input_row.devise1 != (String)globalMap.get(&quot;devise_ste&quot;)&#10;&#9;&#9;&#9;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tFilterRow_19">
       <column comment="" defaultValue="" key="false" length="2" name="sbs_no" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
@@ -1811,7 +1804,6 @@
   </node>
   <node componentName="tFlowToIterate" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="-320" posY="736">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFlowToIterate_1"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="CHECK" name="DEFAULT_MAP" value="false"/>
     <elementParameter field="TABLE" name="MAP">
       <elementValue elementRef="KEY" value="&quot;sbs_no&quot;"/>
@@ -1840,7 +1832,6 @@
   </node>
   <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="-192" posY="736">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBInput_1"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="true"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="tDBConnection_1"/>
     <elementParameter field="CLOSED_LIST" name="CONNECTION_TYPE" show="false" value="ORACLE_SID"/>
@@ -1860,7 +1851,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#13;&#10;&#9;a1.IMITM \&quot;num_article\&quot;,&#13;&#10;&#9;d2.T3RMK3 \&quot;item_sid\&quot;,&#13;&#10;&#9;a1.IMUPCN \&quot;code_upc\&quot;,&#13;&#10;&#9;a1.IMLITM \&quot;code_article\&quot;,&#13;&#10;&#9;SUBSTR(a1.IMSRP6,1,3)||a1.IMSRP7 \&quot;code_DCS\&quot;,&#13;&#10;&#9;d3.T3KY \&quot;code_marque\&quot;,&#13;&#10;&#9;a1.IMDSC1 \&quot;desc_france\&quot;,&#13;&#10;&#9;a2.IMDSC1 \&quot;desc_anglais\&quot;,&#13;&#10;&#9;NVL(f3.DRDL02,' ') \&quot;pilier_commercial\&quot;,&#13;&#10;&#9;a1.IMSRP1 \&quot;fam_finance\&quot;,&#13;&#10;&#9;CASE WHEN b1.IBTAX1 IN('3','4','5','6') THEN '0' ELSE '1' END \&quot;code_taxe\&quot;,&#13;&#10;&#9;CASE WHEN a1.IMSRP3 IN('NAV','SUS','DEF') THEN '1' ELSE '0' END \&quot;code_blocage\&quot;,&#13;&#10;&#9;NVL(c1.COUNCS/10000,0) \&quot;pri_std\&quot;,&#13;&#10;&#9;NVL(UPPER(CONVERT(f1.DRDL01, 'US7ASCII', 'WE8ISO8859P1')),' ') \&quot;theme\&quot;,&#13;&#10;&#9;NVL(UPPER(CONVERT(e2.DRDL01, 'US7ASCII', 'WE8ISO8859P1')), TO_CHAR(dc.T3DYUD)) \&quot;collection\&quot;,&#13;&#10;&#9;a1.IMPRP3 \&quot;saison\&quot;,&#13;&#10;&#9;NVL(UPPER(CONVERT(f4.DRDL01, 'US7ASCII', 'WE8ISO8859P1')),' ') \&quot;ligne_collection\&quot;,&#13;&#10;&#9;a1.IMSRP5 \&quot;classe_abc\&quot;,&#13;&#10;&#9;CASE WHEN NVL(b1.IBSRCE,a1.IMSRCE)='7' THEN 'LIM'&#13;&#10;&#9;&#9; WHEN NVL(b1.IBSRNR,a1.IMSRNR)='Y' THEN 'ILL'&#13;&#10;&#9;&#9; ELSE 'NON' END \&quot;serie_numero\&quot;,&#13;&#10;&#9;NVL(UPPER(CONVERT(f5.DRDL01, 'US7ASCII', 'WE8ISO8859P1')),' ') \&quot;couleur\&quot;,&#13;&#10;&#9;NVL(UPPER(CONVERT(e1.DRDL01, 'US7ASCII', 'WE8ISO8859P1')),' ') \&quot;createur\&quot;,&#13;&#10;&#9;CASE WHEN d7.T3RMK='Y' THEN 'OUI' ELSE 'NON' END \&quot;ecomFR\&quot;,&#13;&#10;&#9;CASE WHEN d8.T3RMK='Y' THEN 'OUI' ELSE 'NON' END \&quot;ecomUK\&quot;,&#13;&#10;&#9;CASE WHEN d9.T3RMK='Y' THEN 'OUI' ELSE 'NON' END \&quot;ecomUS\&quot;,&#13;&#10;&#9;CASE WHEN da.T3RMK='Y' THEN 'OUI' ELSE 'NON' END \&quot;ecomCH\&quot;,&#13;&#10;&#9;NVL(db.T3RMK2,'N') \&quot;top_web\&quot;,&#13;&#10;&#9;d2.T3UKID \&quot;IN_UKID\&quot;,&#13;&#10;&#9;CASE WHEN a1.IMPRGR IN (&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;SELECT DISTINCT IKPRGR&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;FROM &quot; + context.JDE920_Schema_DTA + &quot;.F40942&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;LEFT JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F4072 ON ADCGID=CKCGID &#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;LEFT JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F40941 ON IKIGID=ADIGID&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;WHERE CKCPGP='AC16' AND IKPRGR&lt;&gt;' ') &#13;&#10;&#9;&#9;THEN a1.IMPRGR &#13;&#10;&#9;&#9;ELSE n' ' END \&quot;grp_article\&quot;&#13;&#10;FROM &quot; + context.JDE920_Schema_DTA + &quot;.F4101 a1&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F4101D a2 ON a2.IMITM=a1.IMITM AND a2.IMLNGP='E'&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F4102  b1 ON b1.IBITM=a1.IMITM AND b1.IBMCU='        10WL'&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F4105  c1 ON c1.COITM=a1.IMITM AND c1.COMCU='        10WL' AND c1.COLEDG='02'&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 d1 ON d1.T3SDB='LIG' AND d1.T3TYDT='10' AND d1.T3EFTE=140366 AND d1.T3SBN1=a1.IMITM&#9;&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 d2 ON d2.T3SDB='LIG' AND d2.T3TYDT='IN' AND d2.T3KY='RP' AND d2.T3EFTE=140366 AND d2.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 d3 ON d3.T3SDB='LIG' AND d3.T3TYDT='15' AND d3.T3EFTE=140366 AND d3.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 d4 ON d4.T3SDB='LIG' AND d4.T3TYDT='55' AND d4.T3EFTE=140366 AND d4.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 d5 ON d5.T3SDB='LIG' AND d5.T3TYDT='45' AND d5.T3EFTE=140366 AND d5.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 d6 ON d6.T3SDB='LIG' AND d6.T3TYDT='20' AND d6.T3EFTE=140366 AND d6.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 d7 ON d7.T3SDB='LIG' AND d7.T3TYDT='IW' AND d7.T3KY='01' AND d7.T3EFTE=140366 AND d7.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 d8 ON d8.T3SDB='LIG' AND d8.T3TYDT='IW' AND d8.T3KY='02' AND d8.T3EFTE=140366 AND d8.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 d9 ON d9.T3SDB='LIG' AND d9.T3TYDT='IW' AND d9.T3KY='03' AND d9.T3EFTE=140366 AND d9.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 da ON da.T3SDB='LIG' AND da.T3TYDT='IW' AND da.T3KY='05' AND da.T3EFTE=140366 AND da.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 db ON db.T3SDB='LIG' AND db.T3TYDT='IW' AND db.T3KY='00' AND db.T3EFTE=140366 AND db.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 dc ON dc.T3SDB='LIG' AND dc.T3TYDT='DT' AND dc.T3KY='1' AND dc.T3EFTE=140366 AND dc.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_CTL + &quot;.F0005  e1 ON e1.DRSY='55' AND e1.DRRT='IJ' AND e1.DRKY&lt;&gt;' ' AND e1.DRKY='      '||d1.T3KY&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_CTL + &quot;.F0005  e2 ON e2.DRSY='41' AND e2.DRRT='S4' AND e2.DRKY&lt;&gt;' ' AND e2.DRKY='       '||a1.IMSRP4&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_CTL + &quot;.F0005D f1 ON f1.DRSY='41' AND f1.DRRT='09' AND f1.DRLNGP='F' AND f1.DRKY&lt;&gt;' ' AND f1.DRKY='    '||a1.IMSRP9&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_CTL + &quot;.F0005D f3 ON f3.DRSY='55' AND f3.DRRT='IH' AND f3.DRLNGP='F' AND f3.DRKY&lt;&gt;' ' AND f3.DRKY='       '||d4.T3KY&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_CTL + &quot;.F0005D f4 ON f4.DRSY='55' AND f4.DRRT='I1' AND f4.DRLNGP='F' AND f4.DRKY&lt;&gt;' ' AND f4.DRKY='       '||d5.T3KY&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_CTL + &quot;.F0005D f5 ON f5.DRSY='55' AND f5.DRRT='IF' AND f5.DRLNGP='F' AND f5.DRKY&lt;&gt;' ' AND f5.DRKY='       '||d6.T3KY&#13;&#10;WHERE a1.IMUPCN&lt;&gt;' ' AND d2.T3RMK='Y'&#13;&#10;&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#13;&#10;&#9;a1.IMITM \&quot;num_article\&quot;,&#13;&#10;&#9;d3.T3KY \&quot;code_marque\&quot;,&#13;&#10;&#9;CASE WHEN a1.IMPRGR IN (&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;SELECT DISTINCT IKPRGR&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;FROM &quot; + context.JDE920_Schema_DTA + &quot;.F40942&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;LEFT JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F4072 ON ADCGID=CKCGID &#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;LEFT JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F40941 ON IKIGID=ADIGID&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;WHERE CKCPGP='AC16' AND IKPRGR&lt;&gt;' ') &#13;&#10;&#9;&#9;THEN a1.IMPRGR &#13;&#10;&#9;&#9;ELSE n' ' END \&quot;grp_article\&quot;&#13;&#10;FROM &quot; + context.JDE920_Schema_DTA + &quot;.F4101 a1&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 d2 ON d2.T3SDB='LIG' AND d2.T3TYDT='IN' AND d2.T3KY='RP' AND d2.T3EFTE=140366 AND d2.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 d3 ON d3.T3SDB='LIG' AND d3.T3TYDT='15' AND d3.T3EFTE=140366 AND d3.T3SBN1=a1.IMITM&#13;&#10;WHERE a1.IMUPCN&lt;&gt;' ' AND d2.T3RMK='Y' AND d2.T3RMK3&lt;&gt;' ' AND d3.T3KY='GLQ'&#13;&#10;FETCH FIRST 5 ROWS ONLY&#13;&#10;&quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -1877,57 +1868,7 @@
     <elementParameter field="TABLE" name="TRIM_COLUMN">
       <elementValue elementRef="SCHEMA_COLUMN" value="num_article"/>
       <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="item_sid"/>
-      <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="code_upc"/>
-      <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="code_article"/>
-      <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="code_DCS"/>
-      <elementValue elementRef="TRIM" value="true"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="code_marque"/>
-      <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="desc_france"/>
-      <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="desc_anglais"/>
-      <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="pilier_commercial"/>
-      <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="fam_finance"/>
-      <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="code_taxe"/>
-      <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="code_blocage"/>
-      <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="pri_std"/>
-      <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="theme"/>
-      <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="collection"/>
-      <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="saison"/>
-      <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ligne_collection"/>
-      <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="classe_abc"/>
-      <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="serie_numero"/>
-      <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="couleur"/>
-      <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="createur"/>
-      <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ecomFR"/>
-      <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ecomUK"/>
-      <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ecomUS"/>
-      <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ecomCH"/>
-      <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="top_web"/>
-      <elementValue elementRef="TRIM" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="IN_UKID"/>
       <elementValue elementRef="TRIM" value="true"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="grp_article"/>
       <elementValue elementRef="TRIM" value="false"/>
@@ -1937,38 +1878,12 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tDBInput_1">
       <column comment="" defaultValue="" key="false" length="0" name="num_article" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" key="false" length="50" name="item_sid" nullable="true" originalLength="25" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="13" name="code_upc" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="true" length="25" name="code_article" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="9" name="code_DCS" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="10" name="code_marque" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="desc_france" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="desc_anglais" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="pilier_commercial" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="3" name="fam_finance" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="1" name="code_taxe" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="3" name="code_blocage" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="15" name="pri_std" nullable="true" originalLength="15" pattern="" precision="4" sourceType="DOUBLE PRECISION" type="id_Double" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="theme" nullable="true" originalLength="30" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="collection" nullable="true" originalLength="30" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="3" name="saison" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="ligne_collection" nullable="true" originalLength="30" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="3" name="classe_abc" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="3" name="serie_numero" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="CHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="couleur" nullable="true" originalLength="30" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="createur" nullable="true" originalLength="30" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="ecomFR" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="ecomUK" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="ecomUS" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="ecomCH" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="top_web" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="IN_UKID" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" key="false" length="8" name="grp_article" nullable="false" originalLength="8" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="8" name="grp_article" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="-32" posY="736">
+  <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="-64" posY="736">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tMap_2"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
     <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
     <elementParameter field="DIRECTORY" name="TEMPORARY_DATA_DIRECTORY" value=""/>
@@ -1982,17 +1897,13 @@
     <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="true"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="TarUpd">
-      <column comment="" key="false" length="50" name="style_sid" nullable="true" originalLength="50" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="50" name="item_sid" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="13" name="upc" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="25" name="alu" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="9" name="dcs_code" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="created_date" nullable="true" originalLength="-1" pattern="&quot;yyyy-MM-dd'T'HH:mm:ss&quot;" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="modified_date" nullable="true" originalLength="-1" pattern="&quot;yyyy-MM-dd'T'HH:mm:ss&quot;" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="8" name="grp_article" nullable="true" originalLength="8" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="-1" name="sbs_no" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="alu" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="-1" name="tar_detail" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="-1" name="tar_cession" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Relational.ISNULL(Inv_Sbs.ALU) ? &quot;NEW&quot; : &quot;UPD&quot; " name="new_item" type="id_String"/>
         <mapperTableEntries expression="Relational.ISNULL(Inv_Sbs.ALU) ? Lalique.GetSidAlu(row2.code_upc) : Long.toString(Inv_Sbs.ITEM_SID) " name="item_sid" type="id_String"/>
@@ -2000,44 +1911,15 @@
         <mapperTableEntries expression="TalendDate.getDate(&quot;yyyy-MM-dd'T'HH:mm:ss&quot;) " name="modified_date" type="id_String"/>
       </varTables>
       <outputTables activateExpressionFilter="true" expressionFilter="Var.new_item.equals(&quot;UPD&quot;)" name="TarUpd" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="Relational.ISNULL(Inv_Sbs.ALU) ? Var.item_sid : Long.toString(Inv_Sbs.STYLE_SID) " name="style_sid" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="Var.item_sid " name="item_sid" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="row2.code_upc " name="upc" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="row2.code_article " name="alu" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="row2.code_DCS " name="dcs_code" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="Var.created_date " name="created_date" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="Var.modified_date " name="modified_date" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="row2.grp_article " name="grp_article" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="(int)globalMap.get(&quot;sbs_no&quot;)" name="sbs_no" nullable="true" type="id_Integer"/>
+        <mapperTableEntries expression="row2.num_article " name="alu" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="" name="tar_detail" nullable="true" type="id_Float"/>
+        <mapperTableEntries name="tar_cession" nullable="true" type="id_Float"/>
       </outputTables>
-      <inputTables activateExpressionFilter="true" expressionFilter="code_marque.equals(&quot;GLQ&quot;)" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="row2" sizeState="INTERMEDIATE">
+      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="row2" sizeState="INTERMEDIATE">
         <mapperTableEntries name="num_article" type="id_BigDecimal"/>
-        <mapperTableEntries name="item_sid" nullable="true" type="id_String"/>
-        <mapperTableEntries name="code_upc" nullable="true" type="id_String"/>
-        <mapperTableEntries name="code_article" nullable="true" type="id_String"/>
-        <mapperTableEntries name="code_DCS" nullable="true" type="id_String"/>
         <mapperTableEntries name="code_marque" nullable="true" type="id_String"/>
-        <mapperTableEntries name="desc_france" nullable="true" type="id_String"/>
-        <mapperTableEntries name="desc_anglais" nullable="true" type="id_String"/>
-        <mapperTableEntries name="pilier_commercial" nullable="true" type="id_String"/>
-        <mapperTableEntries name="fam_finance" nullable="true" type="id_String"/>
-        <mapperTableEntries name="code_taxe" nullable="true" type="id_String"/>
-        <mapperTableEntries name="code_blocage" nullable="true" type="id_String"/>
-        <mapperTableEntries name="pri_std" nullable="true" type="id_Double"/>
-        <mapperTableEntries name="theme" nullable="true" type="id_String"/>
-        <mapperTableEntries name="collection" nullable="true" type="id_String"/>
-        <mapperTableEntries name="saison" nullable="true" type="id_String"/>
-        <mapperTableEntries name="ligne_collection" nullable="true" type="id_String"/>
-        <mapperTableEntries name="classe_abc" nullable="true" type="id_String"/>
-        <mapperTableEntries name="serie_numero" nullable="true" type="id_String"/>
-        <mapperTableEntries name="couleur" nullable="true" type="id_String"/>
-        <mapperTableEntries name="createur" nullable="true" type="id_String"/>
-        <mapperTableEntries name="ecomFR" nullable="true" type="id_String"/>
-        <mapperTableEntries name="ecomUK" nullable="true" type="id_String"/>
-        <mapperTableEntries name="ecomUS" nullable="true" type="id_String"/>
-        <mapperTableEntries name="ecomCH" nullable="true" type="id_String"/>
-        <mapperTableEntries name="top_web" nullable="true" type="id_String"/>
-        <mapperTableEntries name="IN_UKID" nullable="true" type="id_BigDecimal"/>
-        <mapperTableEntries name="grp_article" type="id_String"/>
+        <mapperTableEntries name="grp_article" nullable="true" type="id_String"/>
       </inputTables>
       <inputTables lookupMode="RELOAD" matchingMode="UNIQUE_MATCH" name="Inv_Sbs" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="" name="ITEM_SID" type="id_Long"/>
@@ -2063,7 +1945,7 @@
       </inputTables>
     </nodeData>
   </node>
-  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="-128" posY="672">
+  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="-192" posY="672">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBInput_2"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" show="false" value="REPOSITORY"/>
@@ -2185,12 +2067,11 @@
       <additionalProperties key="Comment" value=""/>
     </metadata>
   </node>
-  <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="128" posY="736">
+  <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="64" posY="736">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileOutputDelimited_5"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="CHECK" name="USESTREAM" value="false"/>
     <elementParameter field="TEXT" name="STREAMNAME" show="false" value="outputStream"/>
-    <elementParameter field="FILE" name="FILENAME" value="context.Root_Directory+context.Temp_Folder+&quot;PriceUpd.csv&quot;"/>
+    <elementParameter field="FILE" name="FILENAME" value="context.Root_Directory+context.Temp_Folder+&quot;RateUpd.csv&quot;"/>
     <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
     <elementParameter field="CHECK" name="OS_LINE_SEPARATOR_AS_ROW_SEPARATOR" show="false" value="true"/>
     <elementParameter field="OPENED_LIST" name="CSVROWSEPARATOR" show="false" value="&quot;\n&quot;"/>
@@ -2215,17 +2096,13 @@
     <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="false"/>
     <elementParameter field="CHECK" name="FILE_EXIST_EXCEPTION" value="false"/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="90"/>
-    <elementParameter field="TEXT" name="LABEL" value="PriceUpd.csv"/>
+    <elementParameter field="TEXT" name="LABEL" value="RateUpd.csv"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tFileOutputDelimited_5">
-      <column comment="" key="false" length="50" name="style_sid" nullable="true" originalLength="50" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="50" name="item_sid" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="13" name="upc" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="25" name="alu" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="9" name="dcs_code" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="created_date" nullable="true" originalLength="-1" pattern="&quot;yyyy-MM-dd'T'HH:mm:ss&quot;" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="modified_date" nullable="true" originalLength="-1" pattern="&quot;yyyy-MM-dd'T'HH:mm:ss&quot;" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="8" name="grp_article" nullable="true" originalLength="8" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="-1" name="sbs_no" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="alu" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="-1" name="tar_detail" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="-1" name="tar_cession" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="-576" posY="320">
@@ -2278,7 +2155,7 @@
       <elementValue elementRef="TRIM" value="false"/>
     </elementParameter>
     <elementParameter field="CHECK" name="NO_NULL_VALUES" value="false"/>
-    <elementParameter field="TEXT" name="LABEL" value="_Tarifs"/>
+    <elementParameter field="TEXT" name="LABEL" value="cession"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tDBInput_9">
       <column comment="" key="false" length="3" name="ABAC16" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
@@ -2291,7 +2168,7 @@
   </node>
   <node componentName="tJavaRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="-448" posY="320">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJavaRow_1"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="//Code généré selon les schémas d'entrée et de sortie&#13;&#10;//output_row.ABAC16 = input_row.ABAC16;&#13;&#10;//output_row.AICPGP = input_row.AICPGP;&#13;&#10;//output_row.AIASN = input_row.AIASN;&#13;&#10;//output_row.CKCGID = input_row.CKCGID;&#13;&#10;//output_row.ABAN8 = input_row.ABAN8;&#13;&#10;//output_row.AICRCD = input_row.AICRCD;&#13;&#10;&#10;globalMap.put(&quot;tarif_cession_base&quot;, input_row.ABAC16);&#10;globalMap.put(&quot;grp_client_cession&quot;, input_row.CKCGID);&#10;globalMap.put(&quot;devise_cession&quot;, input_row.AICRCD);&#10;&#10;System.out.println(&quot;Tarif de cession de base = &quot; + (String)globalMap.get(&quot;tarif_cession_base&quot;) + &quot; (&quot; + (BigDecimal)globalMap.get(&quot;grp_client_cession&quot;) + &quot;)&quot;);&#10;System.out.println(&quot;Devise société = &quot; + (String)globalMap.get(&quot;devise_cession&quot;));"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="//Code généré selon les schémas d'entrée et de sortie&#13;&#10;//output_row.ABAC16 = input_row.ABAC16;&#13;&#10;//output_row.AICPGP = input_row.AICPGP;&#13;&#10;//output_row.AIASN = input_row.AIASN;&#13;&#10;//output_row.CKCGID = input_row.CKCGID;&#13;&#10;//output_row.ABAN8 = input_row.ABAN8;&#13;&#10;//output_row.AICRCD = input_row.AICRCD;&#13;&#10;&#10;globalMap.put(&quot;tarif_cession_base&quot;, input_row.ABAC16);&#10;globalMap.put(&quot;grp_client_cession&quot;, input_row.CKCGID);&#10;globalMap.put(&quot;devise_ste&quot;, input_row.AICRCD);&#10;&#10;System.out.println(&quot;Tarif de cession de base = &quot; + (String)globalMap.get(&quot;tarif_cession_base&quot;) + &quot; (&quot; + (BigDecimal)globalMap.get(&quot;grp_client_cession&quot;) + &quot;)&quot;);&#10;System.out.println(&quot;Devise société = &quot; + (String)globalMap.get(&quot;devise_ste&quot;));"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJavaRow_1">
@@ -2339,7 +2216,6 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="filiales"/>
   </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputExcel_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputExcel_1" target="tFileInputDelimited_1">
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk1"/>
   </connection>
   <connection connectorName="FLOW" label="param" lineStyle="0" metaname="param" offsetLabelX="0" offsetLabelY="0" source="tMap_4" target="tFileOutputDelimited_3">
@@ -2521,47 +2397,23 @@
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row3"/>
   </connection>
   <connection connectorName="FILTER" label="row4" lineStyle="0" metaname="FILTER" offsetLabelX="0" offsetLabelY="0" source="tFilterRow_19" target="tFlowToIterate_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row4"/>
   </connection>
   <connection connectorName="ITERATE" label="Iterate" lineStyle="7" metaname="tFlowToIterate_1" offsetLabelX="0" offsetLabelY="0" source="tFlowToIterate_1" target="tDBInput_1">
     <elementParameter field="CHECK" name="ENABLE_PARALLEL" value="false"/>
     <elementParameter field="TEXT" name="NUMBER_PARALLEL" show="false" value="2"/>
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="iterate3"/>
   </connection>
   <connection connectorName="FLOW" label="row2" lineStyle="0" metaname="tDBInput_1" offsetLabelX="0" offsetLabelY="0" source="tDBInput_1" target="tMap_2">
-    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
-      <elementValue elementRef="TRACE_COLUMN" value="pri_std"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="IN_UKID"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="created_date"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="grp_article"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-    </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row2"/>
   </connection>
   <connection connectorName="FLOW" label="TarUpd" lineStyle="0" metaname="TarUpd" offsetLabelX="0" offsetLabelY="0" source="tMap_2" target="tFileOutputDelimited_5">
-    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
-      <elementValue elementRef="TRACE_COLUMN" value="grp_article"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-    </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="TarUpd"/>
   </connection>
   <connection connectorName="FLOW" label="Inv_Sbs" lineStyle="8" metaname="tDBInput_2" offsetLabelX="0" offsetLabelY="0" source="tDBInput_2" target="tMap_2">
@@ -2576,14 +2428,14 @@
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tDBInput_9" offsetLabelX="0" offsetLabelY="0" source="tDBInput_9" target="tFileInputExcel_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk3"/>
   </connection>
-  <note opaque="false" posX="-96" posY="416" sizeHeight="161" sizeWidth="417" text="Création d'un fichier temporaire qui récupère par filiale : &#13;&#10;- les taux de change en vigueur (1er jour du mois),&#13;&#10;- le groupe client du tarif de base (si BAREME),&#13;&#10;- le code adresse (si DIRECT),&#13;&#10;- le groupe client du tarif de base pour calcul cession (D01)&#13;&#10;&#13;&#10;Remarques:&#13;&#10;- Le taux de change par défaut est de 1 si la devise n'est pas déclarée &#13;&#10;dans F0015 (ex ; EUR en EUR)&#13;&#10;- Le champ CRR est BigDecimal mais est renvoyé avec 7 décimales">
+  <note opaque="false" posX="-128" posY="416" sizeHeight="161" sizeWidth="417" text="Création d'un fichier temporaire qui récupère par filiale : &#13;&#10;- les taux de change en vigueur (1er jour du mois),&#13;&#10;- le groupe client du tarif de base (si BAREME),&#13;&#10;- le code adresse (si DIRECT),&#13;&#10;- le groupe client du tarif de base pour calcul cession (D01)&#13;&#10;&#13;&#10;Remarques:&#13;&#10;- Le taux de change par défaut est de 1 si la devise n'est pas déclarée &#13;&#10;dans F0015 (ex ; EUR en EUR)&#13;&#10;- Le champ CRR est BigDecimal mais est renvoyé avec 7 décimales">
     <elementParameter field="RADIO" name="NOTETXT_LEFT" value="true"/>
     <elementParameter field="RADIO" name="NOTETXT_CENTER" value="false"/>
     <elementParameter field="RADIO" name="NOTELABEL_CENTER" value="false"/>
     <elementParameter field="RADIO" name="NOTETXT_TOP" value="true"/>
     <elementParameter field="TEXT" name="FONT_SIZE" value="9"/>
   </note>
-  <note opaque="false" posX="320" posY="640" sizeHeight="161" sizeWidth="449" text="Les prix de cession sont calculés en appliquant un taux de remise sur&#13;&#10;le prix de base. Ce taux dépend du groupe article (PRGR) de l'article.&#13;&#10;Seuls les groupes déclarés en RATE dans les tables F4072,F40941&#13;&#10;et F40942 sont retenus, les autres sont considérés comme étant&#13;&#10;à blanc et se verront appliqués le taux par défaut.&#13;&#10;&#13;&#10;Notes : &#13;&#10; - Ne pas supprimer les blancs du champ grp_article de vue_RPRO">
+  <note opaque="false" posX="224" posY="640" sizeHeight="129" sizeWidth="449" text="Les prix de cession sont calculés en appliquant un taux de remise sur&#13;&#10;le prix de base. Ce taux dépend du groupe article (PRGR) de l'article.&#13;&#10;Seuls les groupes déclarés en RATE dans les tables F4072,F40941&#13;&#10;et F40942 sont retenus, les autres sont considérés comme étant&#13;&#10;à blanc et se verront appliqués le taux par défaut.&#13;&#10;&#13;&#10;Notes : &#13;&#10; - Ne pas supprimer les blancs du champ grp_article de vue_RPRO">
     <elementParameter field="COLOR" name="NOTETXT_COLOR" value="255;128;0"/>
     <elementParameter field="RADIO" name="NOTETXT_LEFT" value="true"/>
     <elementParameter field="RADIO" name="NOTETXT_CENTER" value="false"/>
@@ -2687,8 +2539,10 @@
     <elementParameter field="CHECK" name="SUBJOB_DISPLAYED" show="false" value="false"/>
   </subjob>
   <subjob>
+    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileInputDelimited_1"/>
-    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
+    <elementParameter field="TEXT" name="SUBJOB_TITLE" value="Traitement des articles LALIQUE SA (GLQ)"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
   <subjob>
@@ -2698,13 +2552,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_f0776add-5602-4fdc-af60-f7e186109a92"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>tLliOmcoeWEov/LwfHWfcztqGcOrEjBVBJM6X4KoqIr6thCUHd61zG9xczSUKWqONtxIA31V4ZxU&#13;
-Qi4fw17aKA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_ba28c610-fd8e-45c6-bfef-53a9dd5b7c43"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>YgawPXNpv/hItWj+knHvNX04oe1IbQnwHRAHSDl5y9zI6brqZoUo3ORbUUi5VGJOcXVGcTKSmzbP&#13;
-653F3zf8pw==</DigestValue></Reference></SignedInfo><SignatureValue>OZy6Kc7adVw3dh5C9DrQxFa+kdj8OVf7H4xFGsI7ZUs+9AY4QtaB98mkK+ZdKogcUvJ140xgB8TR&#13;
-9ummjBUk0wcE8R2cRFJeVfHP36ZrsNC4b8Ddbsf15n0XIjE1JSiPOsyttPCzW1jBWRK8pFJU5YHX&#13;
-mLVZZpmEPR8+D+QtSaka5j+cdCrNJXFvRwyKECdRZ32egiH6R1/3qmRupiKZJWByKrivOiUUxn29&#13;
-ormh5ji3x3KC/6qNBJAyn+Q4tRStCaKWeJs3HT5/1+w63xZa/g9xyr5Iy7gsXJmajXsjFD/RL4zi&#13;
-3HNizWejWxNX4ghrh7llyIENc0h6NvTp1MH3gg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_796ab830-dcc8-4352-905b-193aa1c5f7df"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>x6DNr6BIalQOhdZbhOJi4l+DQQ7O++gIas0mgBgfdppTy/k9dgbenOoG+kU9dWOlEPpU5tRWb8Ge&#13;
+v4iOXiybiw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_9d2bf6ef-6424-4084-ab91-6a6740bf272c"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>+dRWti7bAvehBrgh02V0ot7G42seAIgRRL0W5MCxBzatSu1hhRILQK103/aFzxpfgrheCZkybweO&#13;
+rY22N28DlQ==</DigestValue></Reference></SignedInfo><SignatureValue>WS8GIO7DZSurgwbWbNDZvFGpZOkxGuzNfrXNa/2aqzREqXehy6VOH6Ns8tQPGGNaa/U22rWLCZpw&#13;
+doB0D9ozPjBkNw8UKlCo8bzA8eXpfhcJjMmEVcre5TERhJHgJy+iEr3RLCgYD9nwEHvWill4Gjmh&#13;
+Nra6CKm7C3BKTu/gRzreTO1q1xlAXiXk4tQ/dMjgRJxuh8VBcEi32j3+up/uzXdCUwtI7CV6Xekj&#13;
+V3fn69nHL/LQlLeoh1Y5FgVpAEJONNPFA1KCSnLq69iO3QEMlVt4fpM24gsw0IYg+LJY8CbyZfYV&#13;
+usQ10bH54BlnXBcQJ4eZFG7OaqjBoxWRS1Ddbg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD&#13;
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5&#13;
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U&#13;
@@ -2726,4 +2580,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/&#13
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW&#13;
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+&#13;
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg&#13;
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_ba28c610-fd8e-45c6-bfef-53a9dd5b7c43" Target="#_f0776add-5602-4fdc-af60-f7e186109a92"><Timestamp>2021-03-04 09:42:37</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_9d2bf6ef-6424-4084-ab91-6a6740bf272c" Target="#_796ab830-dcc8-4352-905b-193aa1c5f7df"><Timestamp>2021-03-04 13:54:15</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
