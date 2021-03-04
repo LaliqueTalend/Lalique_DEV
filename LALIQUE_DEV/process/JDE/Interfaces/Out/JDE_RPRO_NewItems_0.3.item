@@ -464,9 +464,10 @@
       <column comment="" key="false" length="-1" name="grp_client" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="address" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="grp_client_cession" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="devise_cession" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
       <outputTables name="param" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="filiales.sbs_no " name="sbs_no" nullable="true" type="id_Integer"/>
@@ -486,6 +487,7 @@
         <mapperTableEntries expression="JDE.cnvLong(grp_client.CKCGID)" name="grp_client" nullable="true" type="id_Long"/>
         <mapperTableEntries expression="JDE.cnvLong(grp_client.ABAN8)" name="address" nullable="true" type="id_Long"/>
         <mapperTableEntries expression="JDE.cnvLong(grp_client_cession.CKCGID)" name="grp_client_cession" nullable="true" type="id_Long"/>
+        <mapperTableEntries expression="grp_client_cession.AICRCD " name="devise_cession" nullable="true" type="id_String"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="filiales" sizeState="INTERMEDIATE">
         <mapperTableEntries name="sbs_no" nullable="true" type="id_Integer"/>
@@ -522,6 +524,7 @@
         <mapperTableEntries name="AIASN" nullable="true" type="id_String"/>
         <mapperTableEntries name="CKCGID" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries name="ABAN8" type="id_BigDecimal"/>
+        <mapperTableEntries name="AICRCD" nullable="true" type="id_String"/>
       </inputTables>
     </nodeData>
   </node>
@@ -623,9 +626,10 @@
       <column comment="" key="false" length="3" name="tarif_cession" nullable="true" originalLength="3" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="10" name="zone_geo" nullable="true" originalLength="10" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="0" name="taux_change" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_Double" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="-1" name="grp_client" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="-1" name="address" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="-1" name="grp_client_cession" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="grp_client" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="address" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="grp_client_cession" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="devise_cession" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="-352" posY="288">
@@ -707,7 +711,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT ABAC16,AICPGP,AIASN,CKCGID,ABAN8&#13;&#10;FROM &quot; +context.JDE920_Schema_DTA + &quot;.F0101&#13;&#10;&#9;LEFT JOIN &quot; +context.JDE920_Schema_DTA + &quot;.F03012 ON AIAN8=ABAN8&#13;&#10;&#9;LEFT JOIN &quot; +context.JDE920_Schema_DTA + &quot;.F40942 ON CKCPGP=AICPGP&#13;&#10;WHERE ABMCU='          10' AND ABAC16='D01' &#13;&#10;&quot;&#13;&#10;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT ABAC16,AICPGP,AIASN,CKCGID,ABAN8,AICRCD&#13;&#10;FROM &quot; +context.JDE920_Schema_DTA + &quot;.F0101&#13;&#10;&#9;LEFT JOIN &quot; +context.JDE920_Schema_DTA + &quot;.F03012 ON AIAN8=ABAN8&#13;&#10;&#9;LEFT JOIN &quot; +context.JDE920_Schema_DTA + &quot;.F40942 ON CKCPGP=AICPGP&#13;&#10;WHERE ABMCU='          10' AND ABAC16='D01' &#13;&#10;&quot;&#13;&#10;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -732,6 +736,8 @@
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="ABAN8"/>
       <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="AICRCD"/>
+      <elementValue elementRef="TRIM" value="false"/>
     </elementParameter>
     <elementParameter field="CHECK" name="NO_NULL_VALUES" value="false"/>
     <elementParameter field="TEXT" name="LABEL" value="Tarifs"/>
@@ -742,6 +748,7 @@
       <column comment="" key="false" length="-1" name="AIASN" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="CKCGID" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="ABAN8" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="AICRCD" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="-416" posY="768">
@@ -802,6 +809,8 @@
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="grp_client_cession"/>
       <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="devise_cession"/>
+      <elementValue elementRef="TRIM" value="false"/>
     </elementParameter>
     <elementParameter field="CHECK" name="CHECK_FIELDS_NUM" value="false"/>
     <elementParameter field="CHECK" name="CHECK_DATE" value="false"/>
@@ -844,6 +853,8 @@
       <elementValue elementRef="DECODE" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="grp_client_cession"/>
       <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="devise_cession"/>
+      <elementValue elementRef="DECODE" value="false"/>
     </elementParameter>
     <elementParameter field="TEXT" name="DESTINATION" show="false" value=""/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
@@ -867,6 +878,7 @@
       <column comment="" defaultValue="" key="false" length="-1" name="grp_client" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="address" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="grp_client_cession" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
+      <column comment="" key="false" length="3" name="devise_cession" nullable="true" originalLength="3" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
     </metadata>
     <metadata connector="REJECT" name="REJECT">
       <column comment="" defaultValue="" key="false" length="2" name="sbs_no" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
@@ -886,6 +898,7 @@
       <column comment="" defaultValue="" key="false" length="-1" name="grp_client" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="address" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="grp_client_cession" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
+      <column comment="" key="false" length="3" name="devise_cession" nullable="true" originalLength="3" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
@@ -1456,7 +1469,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#13;&#10;&#9;a1.IMITM \&quot;num_article\&quot;,&#13;&#10;&#9;d2.T3RMK3 \&quot;item_sid\&quot;,&#13;&#10;&#9;a1.IMUPCN \&quot;code_upc\&quot;,&#13;&#10;&#9;a1.IMLITM \&quot;code_article\&quot;,&#13;&#10;&#9;SUBSTR(a1.IMSRP6,1,3)||a1.IMSRP7 \&quot;code_DCS\&quot;,&#13;&#10;&#9;d3.T3KY \&quot;code_marque\&quot;,&#13;&#10;&#9;a1.IMDSC1 \&quot;desc_france\&quot;,&#13;&#10;&#9;a2.IMDSC1 \&quot;desc_anglais\&quot;,&#13;&#10;&#9;NVL(f3.DRDL02,' ') \&quot;pilier_commercial\&quot;,&#13;&#10;&#9;a1.IMSRP1 \&quot;fam_finance\&quot;,&#13;&#10;&#9;CASE WHEN b1.IBTAX1 IN('3','4','5','6') THEN '0' ELSE '1' END \&quot;code_taxe\&quot;,&#13;&#10;&#9;CASE WHEN a1.IMSRP3 IN('NAV','SUS','DEF') THEN '1' ELSE '0' END \&quot;code_blocage\&quot;,&#13;&#10;&#9;NVL(c1.COUNCS/10000,0) \&quot;pri_std\&quot;,&#13;&#10;&#9;NVL(UPPER(CONVERT(f1.DRDL01, 'US7ASCII', 'WE8ISO8859P1')),' ') \&quot;theme\&quot;,&#13;&#10;&#9;NVL(UPPER(CONVERT(e2.DRDL01, 'US7ASCII', 'WE8ISO8859P1')), TO_CHAR(dc.T3DYUD)) \&quot;collection\&quot;,&#13;&#10;&#9;a1.IMPRP3 \&quot;saison\&quot;,&#13;&#10;&#9;NVL(UPPER(CONVERT(f4.DRDL01, 'US7ASCII', 'WE8ISO8859P1')),' ') \&quot;ligne_collection\&quot;,&#13;&#10;&#9;a1.IMSRP5 \&quot;classe_abc\&quot;,&#13;&#10;&#9;CASE WHEN NVL(b1.IBSRCE,a1.IMSRCE)='7' THEN 'LIM'&#13;&#10;&#9;&#9; WHEN NVL(b1.IBSRNR,a1.IMSRNR)='Y' THEN 'ILL'&#13;&#10;&#9;&#9; ELSE 'NON' END \&quot;serie_numero\&quot;,&#13;&#10;&#9;NVL(UPPER(CONVERT(f5.DRDL01, 'US7ASCII', 'WE8ISO8859P1')),' ') \&quot;couleur\&quot;,&#13;&#10;&#9;NVL(UPPER(CONVERT(e1.DRDL01, 'US7ASCII', 'WE8ISO8859P1')),' ') \&quot;createur\&quot;,&#13;&#10;&#9;CASE WHEN d7.T3RMK='Y' THEN 'OUI' ELSE 'NON' END \&quot;ecomFR\&quot;,&#13;&#10;&#9;CASE WHEN d8.T3RMK='Y' THEN 'OUI' ELSE 'NON' END \&quot;ecomUK\&quot;,&#13;&#10;&#9;CASE WHEN d9.T3RMK='Y' THEN 'OUI' ELSE 'NON' END \&quot;ecomUS\&quot;,&#13;&#10;&#9;CASE WHEN da.T3RMK='Y' THEN 'OUI' ELSE 'NON' END \&quot;ecomCH\&quot;,&#13;&#10;&#9;NVL(db.T3RMK2,'N') \&quot;top_web\&quot;,&#13;&#10;&#9;d2.T3UKID \&quot;IN_UKID\&quot;,&#13;&#10;&#9;CASE WHEN a1.IMPRGR IN (&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;SELECT DISTINCT IKPRGR&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;FROM &quot; + context.JDE920_Schema_DTA + &quot;.F40942&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;LEFT JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F4072 ON ADCGID=CKCGID &#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;LEFT JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F40941 ON IKIGID=ADIGID&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;WHERE CKCPGP='AC16' AND IKPRGR&lt;&gt;' ') &#13;&#10;&#9;&#9;THEN a1.IMPRGR &#13;&#10;&#9;&#9;ELSE n' ' END \&quot;grp_article\&quot;&#13;&#10;FROM &quot; + context.JDE920_Schema_DTA + &quot;.F4101 a1&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F4101D a2 ON a2.IMITM=a1.IMITM AND a2.IMLNGP='E'&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F4102  b1 ON b1.IBITM=a1.IMITM AND b1.IBMCU='        10WL'&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F4105  c1 ON c1.COITM=a1.IMITM AND c1.COMCU='        10WL' AND c1.COLEDG='02'&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 d1 ON d1.T3SDB='LIG' AND d1.T3TYDT='10' AND d1.T3EFTE=140366 AND d1.T3SBN1=a1.IMITM&#9;&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 d2 ON d2.T3SDB='LIG' AND d2.T3TYDT='IN' AND d2.T3KY='RP' AND d2.T3EFTE=140366 AND d2.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 d3 ON d3.T3SDB='LIG' AND d3.T3TYDT='15' AND d3.T3EFTE=140366 AND d3.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 d4 ON d4.T3SDB='LIG' AND d4.T3TYDT='55' AND d4.T3EFTE=140366 AND d4.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 d5 ON d5.T3SDB='LIG' AND d5.T3TYDT='45' AND d5.T3EFTE=140366 AND d5.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 d6 ON d6.T3SDB='LIG' AND d6.T3TYDT='20' AND d6.T3EFTE=140366 AND d6.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 d7 ON d7.T3SDB='LIG' AND d7.T3TYDT='IW' AND d7.T3KY='01' AND d7.T3EFTE=140366 AND d7.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 d8 ON d8.T3SDB='LIG' AND d8.T3TYDT='IW' AND d8.T3KY='02' AND d8.T3EFTE=140366 AND d8.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 d9 ON d9.T3SDB='LIG' AND d9.T3TYDT='IW' AND d9.T3KY='03' AND d9.T3EFTE=140366 AND d9.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 da ON da.T3SDB='LIG' AND da.T3TYDT='IW' AND da.T3KY='05' AND da.T3EFTE=140366 AND da.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 db ON db.T3SDB='LIG' AND db.T3TYDT='IW' AND db.T3KY='00' AND db.T3EFTE=140366 AND db.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 dc ON dc.T3SDB='LIG' AND dc.T3TYDT='DT' AND dc.T3KY='1' AND dc.T3EFTE=140366 AND dc.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_CTL + &quot;.F0005  e1 ON e1.DRSY='55' AND e1.DRRT='IJ' AND e1.DRKY&lt;&gt;' ' AND e1.DRKY='      '||d1.T3KY&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_CTL + &quot;.F0005  e2 ON e2.DRSY='41' AND e2.DRRT='S4' AND e2.DRKY&lt;&gt;' ' AND e2.DRKY='       '||a1.IMSRP4&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_CTL + &quot;.F0005D f1 ON f1.DRSY='41' AND f1.DRRT='09' AND f1.DRLNGP='F' AND f1.DRKY&lt;&gt;' ' AND f1.DRKY='    '||a1.IMSRP9&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_CTL + &quot;.F0005D f3 ON f3.DRSY='55' AND f3.DRRT='IH' AND f3.DRLNGP='F' AND f3.DRKY&lt;&gt;' ' AND f3.DRKY='       '||d4.T3KY&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_CTL + &quot;.F0005D f4 ON f4.DRSY='55' AND f4.DRRT='I1' AND f4.DRLNGP='F' AND f4.DRKY&lt;&gt;' ' AND f4.DRKY='       '||d5.T3KY&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_CTL + &quot;.F0005D f5 ON f5.DRSY='55' AND f5.DRRT='IF' AND f5.DRLNGP='F' AND f5.DRKY&lt;&gt;' ' AND f5.DRKY='       '||d6.T3KY&#13;&#10;WHERE a1.IMUPCN&lt;&gt;' ' AND d2.T3RMK='Y' AND d2.T3RMK2&lt;&gt;'Y'&#13;&#10;&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#13;&#10;&#9;a1.IMITM \&quot;num_article\&quot;,&#13;&#10;&#9;d2.T3RMK3 \&quot;item_sid\&quot;,&#13;&#10;&#9;a1.IMUPCN \&quot;code_upc\&quot;,&#13;&#10;&#9;a1.IMLITM \&quot;code_article\&quot;,&#13;&#10;&#9;SUBSTR(a1.IMSRP6,1,3)||a1.IMSRP7 \&quot;code_DCS\&quot;,&#13;&#10;&#9;d3.T3KY \&quot;code_marque\&quot;,&#13;&#10;&#9;a1.IMDSC1 \&quot;desc_france\&quot;,&#13;&#10;&#9;a2.IMDSC1 \&quot;desc_anglais\&quot;,&#13;&#10;&#9;NVL(f3.DRDL02,' ') \&quot;pilier_commercial\&quot;,&#13;&#10;&#9;a1.IMSRP1 \&quot;fam_finance\&quot;,&#13;&#10;&#9;CASE WHEN b1.IBTAX1 IN('3','4','5','6') THEN '0' ELSE '1' END \&quot;code_taxe\&quot;,&#13;&#10;&#9;CASE WHEN a1.IMSRP3 IN('NAV','SUS','DEF') THEN '1' ELSE '0' END \&quot;code_blocage\&quot;,&#13;&#10;&#9;NVL(c1.COUNCS/10000,0) \&quot;pri_std\&quot;,&#13;&#10;&#9;NVL(UPPER(CONVERT(f1.DRDL01, 'US7ASCII', 'WE8ISO8859P1')),' ') \&quot;theme\&quot;,&#13;&#10;&#9;NVL(UPPER(CONVERT(e2.DRDL01, 'US7ASCII', 'WE8ISO8859P1')), TO_CHAR(dc.T3DYUD)) \&quot;collection\&quot;,&#13;&#10;&#9;a1.IMPRP3 \&quot;saison\&quot;,&#13;&#10;&#9;NVL(UPPER(CONVERT(f4.DRDL01, 'US7ASCII', 'WE8ISO8859P1')),' ') \&quot;ligne_collection\&quot;,&#13;&#10;&#9;a1.IMSRP5 \&quot;classe_abc\&quot;,&#13;&#10;&#9;CASE WHEN NVL(b1.IBSRCE,a1.IMSRCE)='7' THEN 'LIM'&#13;&#10;&#9;&#9; WHEN NVL(b1.IBSRNR,a1.IMSRNR)='Y' THEN 'ILL'&#13;&#10;&#9;&#9; ELSE 'NON' END \&quot;serie_numero\&quot;,&#13;&#10;&#9;NVL(UPPER(CONVERT(f5.DRDL01, 'US7ASCII', 'WE8ISO8859P1')),' ') \&quot;couleur\&quot;,&#13;&#10;&#9;NVL(UPPER(CONVERT(e1.DRDL01, 'US7ASCII', 'WE8ISO8859P1')),' ') \&quot;createur\&quot;,&#13;&#10;&#9;CASE WHEN d7.T3RMK='Y' THEN 'OUI' ELSE 'NON' END \&quot;ecomFR\&quot;,&#13;&#10;&#9;CASE WHEN d8.T3RMK='Y' THEN 'OUI' ELSE 'NON' END \&quot;ecomUK\&quot;,&#13;&#10;&#9;CASE WHEN d9.T3RMK='Y' THEN 'OUI' ELSE 'NON' END \&quot;ecomUS\&quot;,&#13;&#10;&#9;CASE WHEN da.T3RMK='Y' THEN 'OUI' ELSE 'NON' END \&quot;ecomCH\&quot;,&#13;&#10;&#9;NVL(db.T3RMK2,'N') \&quot;top_web\&quot;,&#13;&#10;&#9;d2.T3UKID \&quot;IN_UKID\&quot;,&#13;&#10;&#9;CASE WHEN a1.IMPRGR IN (&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;SELECT DISTINCT IKPRGR&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;FROM &quot; + context.JDE920_Schema_DTA + &quot;.F40942&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;LEFT JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F4072 ON ADCGID=CKCGID &#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;LEFT JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F40941 ON IKIGID=ADIGID&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;WHERE CKCPGP='AC16' AND IKPRGR&lt;&gt;' ') &#13;&#10;&#9;&#9;THEN a1.IMPRGR &#13;&#10;&#9;&#9;ELSE n' ' END \&quot;grp_article\&quot;&#13;&#10;FROM &quot; + context.JDE920_Schema_DTA + &quot;.F4101 a1&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F4101D a2 ON a2.IMITM=a1.IMITM AND a2.IMLNGP='E'&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F4102  b1 ON b1.IBITM=a1.IMITM AND b1.IBMCU='        10WL'&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F4105  c1 ON c1.COITM=a1.IMITM AND c1.COMCU='        10WL' AND c1.COLEDG='02'&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 d1 ON d1.T3SDB='LIG' AND d1.T3TYDT='10' AND d1.T3EFTE=140366 AND d1.T3SBN1=a1.IMITM&#9;&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 d2 ON d2.T3SDB='LIG' AND d2.T3TYDT='IN' AND d2.T3KY='RP' AND d2.T3EFTE=140366 AND d2.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 d3 ON d3.T3SDB='LIG' AND d3.T3TYDT='15' AND d3.T3EFTE=140366 AND d3.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 d4 ON d4.T3SDB='LIG' AND d4.T3TYDT='55' AND d4.T3EFTE=140366 AND d4.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 d5 ON d5.T3SDB='LIG' AND d5.T3TYDT='45' AND d5.T3EFTE=140366 AND d5.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 d6 ON d6.T3SDB='LIG' AND d6.T3TYDT='20' AND d6.T3EFTE=140366 AND d6.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 d7 ON d7.T3SDB='LIG' AND d7.T3TYDT='IW' AND d7.T3KY='01' AND d7.T3EFTE=140366 AND d7.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 d8 ON d8.T3SDB='LIG' AND d8.T3TYDT='IW' AND d8.T3KY='02' AND d8.T3EFTE=140366 AND d8.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 d9 ON d9.T3SDB='LIG' AND d9.T3TYDT='IW' AND d9.T3KY='03' AND d9.T3EFTE=140366 AND d9.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 da ON da.T3SDB='LIG' AND da.T3TYDT='IW' AND da.T3KY='05' AND da.T3EFTE=140366 AND da.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 db ON db.T3SDB='LIG' AND db.T3TYDT='IW' AND db.T3KY='00' AND db.T3EFTE=140366 AND db.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_DTA + &quot;.F00092 dc ON dc.T3SDB='LIG' AND dc.T3TYDT='DT' AND dc.T3KY='1' AND dc.T3EFTE=140366 AND dc.T3SBN1=a1.IMITM&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_CTL + &quot;.F0005  e1 ON e1.DRSY='55' AND e1.DRRT='IJ' AND e1.DRKY&lt;&gt;' ' AND e1.DRKY='      '||d1.T3KY&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_CTL + &quot;.F0005  e2 ON e2.DRSY='41' AND e2.DRRT='S4' AND e2.DRKY&lt;&gt;' ' AND e2.DRKY='       '||a1.IMSRP4&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_CTL + &quot;.F0005D f1 ON f1.DRSY='41' AND f1.DRRT='09' AND f1.DRLNGP='F' AND f1.DRKY&lt;&gt;' ' AND f1.DRKY='    '||a1.IMSRP9&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_CTL + &quot;.F0005D f3 ON f3.DRSY='55' AND f3.DRRT='IH' AND f3.DRLNGP='F' AND f3.DRKY&lt;&gt;' ' AND f3.DRKY='       '||d4.T3KY&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_CTL + &quot;.F0005D f4 ON f4.DRSY='55' AND f4.DRRT='I1' AND f4.DRLNGP='F' AND f4.DRKY&lt;&gt;' ' AND f4.DRKY='       '||d5.T3KY&#13;&#10;&#9;LEFT OUTER JOIN &quot; + context.JDE920_Schema_CTL + &quot;.F0005D f5 ON f5.DRSY='55' AND f5.DRRT='IF' AND f5.DRLNGP='F' AND f5.DRKY&lt;&gt;' ' AND f5.DRKY='       '||d6.T3KY&#13;&#10;WHERE a1.IMUPCN&lt;&gt;' ' AND d2.T3RMK='Y' AND d2.T3RMK2='N' AND d3.T3KY='GLQ'&#13;&#10;&quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -1652,7 +1665,7 @@
       <column comment="" defaultValue="" key="false" length="11" name="unorderable" nullable="true" originalLength="-1" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Relational.ISNULL(Inv_Sbs.ALU) ? &quot;NEW&quot; : &quot;UPD&quot; " name="new_item" type="id_String"/>
         <mapperTableEntries expression="Relational.ISNULL(Inv_Sbs.ALU) ? Lalique.GetSidAlu(row2.code_upc) : Long.toString(Inv_Sbs.ITEM_SID) " name="item_sid" type="id_String"/>
@@ -1732,7 +1745,7 @@
         <mapperTableEntries expression="row2.code_upc " name="upc" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row2.code_blocage " name="unorderable" nullable="true" type="id_String"/>
       </outputTables>
-      <inputTables activateExpressionFilter="true" expressionFilter="code_marque.equals(&quot;GLQ&quot;)" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="row2" sizeState="INTERMEDIATE">
+      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="row2" sizeState="INTERMEDIATE">
         <mapperTableEntries name="num_article" type="id_BigDecimal"/>
         <mapperTableEntries name="item_sid" nullable="true" type="id_String"/>
         <mapperTableEntries name="code_upc" nullable="true" type="id_String"/>
@@ -2187,7 +2200,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#10;  a.ITEM_SID, &#10;  a.SBS_NO, &#10;  a.ALU, &#10;  a.ITEM_NO, &#10;  a.DCS_CODE, &#10;  a.VEND_CODE, &#10;  a.DESCRIPTION1, &#10;  a.ATTR, &#10;  a.COST, &#10;  a.LST_RCVD_COST, &#10;  a.STYLE_SID, &#10;  a.LOCAL_UPC, &#10;  a.CREATED_DATE, &#10;  a.MODIFIED_DATE, &#10;  a.TAX_CODE, &#10;  a.ACTIVE, &#10;  a.UNORDERABLE, &#10;  a.EXT_FLAG, &#10;  a.SUBLOC_FLAG&#10;FROM &quot; + context.RP9_CMS_Schema + &quot;.INVN_SBS_V a&#13;&#10;WHERE   a.SBS_NO=123&#9;AND a.ACTIVE=1&#13;&#10;&#9;AND a.ALU='&quot; + (String)globalMap.get(&quot;code_article&quot;) + &quot;' &quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#10;  a.ITEM_SID, &#10;  a.SBS_NO, &#10;  a.ALU, &#10;  a.ITEM_NO, &#10;  a.DCS_CODE, &#10;  a.VEND_CODE, &#10;  a.DESCRIPTION1, &#10;  a.ATTR, &#10;  a.COST, &#10;  a.LST_RCVD_COST, &#10;  a.STYLE_SID, &#10;  a.LOCAL_UPC, &#10;  a.CREATED_DATE, &#10;  a.MODIFIED_DATE, &#10;  a.TAX_CODE, &#10;  a.ACTIVE, &#10;  a.UNORDERABLE, &#10;  a.EXT_FLAG, &#10;  a.SUBLOC_FLAG&#10;FROM &quot; + context.RP9_CMS_Schema + &quot;.INVN_SBS_V a&#13;&#10;WHERE   a.SBS_NO=1&#9;AND a.ACTIVE=1&#13;&#10;&#9;AND a.ALU='&quot; + (String)globalMap.get(&quot;code_article&quot;) + &quot;' &quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -2555,6 +2568,8 @@
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="grp_client_cession"/>
       <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="devise_cession"/>
+      <elementValue elementRef="TRIM" value="false"/>
     </elementParameter>
     <elementParameter field="CHECK" name="CHECK_FIELDS_NUM" value="false"/>
     <elementParameter field="CHECK" name="CHECK_DATE" value="false"/>
@@ -2597,6 +2612,8 @@
       <elementValue elementRef="DECODE" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="grp_client_cession"/>
       <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="devise_cession"/>
+      <elementValue elementRef="DECODE" value="false"/>
     </elementParameter>
     <elementParameter field="TEXT" name="DESTINATION" show="false" value=""/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
@@ -2615,11 +2632,12 @@
       <column comment="" key="false" length="12" name="magasin" nullable="true" originalLength="12" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="3" name="tarif_detail" nullable="true" originalLength="3" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="3" name="tarif_cession" nullable="true" originalLength="3" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="10" name="zone_geo" nullable="true" originalLength="10" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="10" name="zone_geo" nullable="true" originalLength="10" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="0" name="taux_change" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_Double" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="grp_client" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="address" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="grp_client_cession" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
+      <column comment="" key="false" length="3" name="devise_cession" nullable="true" originalLength="3" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
     </metadata>
     <metadata connector="REJECT" name="REJECT">
       <column comment="" defaultValue="" key="false" length="2" name="sbs_no" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" sourceType="" type="id_Integer" usefulColumn="true"/>
@@ -2634,11 +2652,12 @@
       <column comment="" key="false" length="12" name="magasin" nullable="true" originalLength="12" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="3" name="tarif_detail" nullable="true" originalLength="3" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="3" name="tarif_cession" nullable="true" originalLength="3" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="10" name="zone_geo" nullable="true" originalLength="10" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="10" name="zone_geo" nullable="true" originalLength="10" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="0" name="taux_change" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_Double" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="grp_client" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="address" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="grp_client_cession" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Long" usefulColumn="true"/>
+      <column comment="" key="false" length="3" name="devise_cession" nullable="true" originalLength="3" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
@@ -3001,7 +3020,7 @@
     <elementParameter field="CLOSED_LIST" name="GENERATION_MODE" value="Null"/>
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;UTF-8&quot;"/>
     <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="UTF-8"/>
-    <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="false"/>
+    <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="true"/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
     <elementParameter field="TEXT" name="XMLNODE_OPT_NUM" show="false" value="100"/>
     <elementParameter field="TEXT" name="LABEL" value="Tarxxx_New.xml"/>
@@ -3139,7 +3158,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT BPLITM,BPUPRC&#13;&#10;FROM &quot; + context.JDE920_Schema_DTA + &quot;.F4106&#13;&#10;WHERE BPLITM='&quot; + (String)globalMap.get(&quot;cession_alu&quot;) + &quot;' &#13;&#10;AND BPCGID=&quot; + (Long)globalMap.get(&quot;grp_client_cession&quot;) + &quot; &#13;&#10;AND BPCRCD='EUR' &#13;&#10;AND &quot; + (int)globalMap.get(&quot;date_tarifs&quot;) + &quot; BETWEEN BPEFTJ AND BPEXDJ&#13;&#10;&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT BPLITM,BPUPRC&#13;&#10;FROM &quot; + context.JDE920_Schema_DTA + &quot;.F4106&#13;&#10;WHERE BPLITM='&quot; + (String)globalMap.get(&quot;cession_alu&quot;) + &quot;' &#13;&#10;AND BPCGID=&quot; + (Long)globalMap.get(&quot;grp_client_cession&quot;) + &quot; &#13;&#10;AND BPCRCD='&quot; + (String)globalMap.get(&quot;devise_cession&quot;) + &quot;' &#13;&#10;AND &quot; + (int)globalMap.get(&quot;date_tarifs&quot;) + &quot; BETWEEN BPEFTJ AND BPEXDJ&#13;&#10;&quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -3559,6 +3578,11 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="grp_client"/>
   </connection>
   <connection connectorName="FLOW" label="grp_client_cession" lineStyle="8" metaname="tDBInput_9" offsetLabelX="0" offsetLabelY="0" source="tDBInput_9" target="tMap_4">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="AICRCD"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="grp_client_cession"/>
   </connection>
@@ -3580,6 +3604,9 @@
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
       <elementValue elementRef="TRACE_COLUMN" value="zone_geo"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="devise_cession"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
@@ -3892,8 +3919,9 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Inv_Sbs"/>
   </connection>
-  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tFileOutputExcel_1" offsetLabelX="0" offsetLabelY="0" source="tFileOutputExcel_1" target="tSendMail_1">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk8"/>
+  <connection connectorName="RUN_IF" label="NB_LINE" lineStyle="6" metaname="tFileOutputExcel_1" offsetLabelX="0" offsetLabelY="0" source="tFileOutputExcel_1" target="tSendMail_1">
+    <elementParameter field="MEMO_JAVA" name="CONDITION" value="(int)globalMap.get(&quot;tFileOutputExcel_1_NB_LINE&quot;) &gt; 0"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="NB_LINE"/>
   </connection>
   <connection connectorName="FLOW" label="sbs2" lineStyle="0" metaname="tFileInputDelimited_3" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_3" target="tFlowToIterate_2">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
@@ -3904,6 +3932,9 @@
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
       <elementValue elementRef="TRACE_COLUMN" value="zone_geo"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="devise_cession"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
@@ -4039,9 +4070,12 @@
     <elementParameter field="CHECK" name="FONT_BOLD" value="true"/>
   </note>
   <note opaque="true" posX="256" posY="672" sizeHeight="97" sizeWidth="353" text="Après les tests, penser à mettre à jour la requête Invn_Sbs&#13;&#10;WHERE a.SBS_NO=123 AND a.ACTIVE=1&#13;&#10;réactiver F00092&#13;&#10;désactiver monTEST.csv">
+    <elementParameter field="COLOR" name="NOTETXT_COLOR" value="128;128;128"/>
     <elementParameter field="TEXT" name="FONT_SIZE" value="9"/>
+    <elementParameter field="CHECK" name="FONT_ITALIC" value="true"/>
+    <elementParameter field="COLOR" name="NOTE_LINECOLOR" value="152;168;191"/>
   </note>
-  <note opaque="true" posX="-512" posY="128" sizeHeight="97" sizeWidth="321" text="Ajout des articles JDE de code marque GLQ,&#13;&#10;topés Retail Pro=Y et Top Synchro&lt;&gt;Y &#13;&#10;et non présents dans Retail PRO">
+  <note opaque="true" posX="-512" posY="128" sizeHeight="97" sizeWidth="321" text="Ajout des articles JDE &#13;&#10;de code marque GLQ,&#13;&#10;topés Retail Pro=Y et Top Synchro=N &#13;&#10;et non présents dans Retail PRO">
     <elementParameter field="CHECK" name="FONT_BOLD" value="true"/>
     <elementParameter field="CHECK" name="FONT_ITALIC" value="true"/>
   </note>
@@ -4156,13 +4190,13 @@
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
     <elementParameter field="CHECK" name="SUBJOB_DISPLAYED" show="false" value="false"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_629d4294-4cf9-4f34-a8f8-d4fb759de685"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>bBZ/Cjbhb4RLXiGVSIdaSn4ImBk7MWk6glfRxd3lTA0DMB4fw0PQ/mTlE8b+OcAJ9p4ICfnzsJ7N&#13;
-R9ZwOgsNxw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_48591f65-c33c-4724-8d82-1d19124a7710"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>iASJltg0EBsB6mDrf+ndqaZjASB3nRXTddLx7Yfn6xBsDcI9v9KLiz/TUGUteCBOJxmOMzIdvbdO&#13;
-LbWfrKqiug==</DigestValue></Reference></SignedInfo><SignatureValue>eED3lSgUPHRcj7IXIEWugpyWJ3AK0fMgMu6wIDhVHLSc6luJXlXx+1tJdmso+xJX6yJcYKyQtvGH&#13;
-zpSNYXg4maO34ZcME8QtrsrJfS3tXnlUwT42Qf9OQFlXRfDyjLHutW0Ya9XZvV3Dp3zvgVjoyyaB&#13;
-4vdIdDz/bdRJ47ien37bNZqknnigAZP0clbUQEbZ7z5GMsaZndxvEbpNcZzxl/GGxslzOuk5sRbM&#13;
-aYRlqBWxAKQRICFPO4FT03dCUNnuoes7RRg0QxrIL8mwsw17LsFsbX8haVzJjogONUr3OmGLGZfg&#13;
-TPexRoU3/rOr6WHZzc/sBUAkPp57NSRr7rETUw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_b608373a-c86f-4cd1-97a5-60acef18e300"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>fCNFvp1SJAqPhCX9c2x1680vAZ9emtVKvKIgBtlSeN1hv6iYIfsJvr/fv2b1fu0Q1Z4sTMJeU76J&#13;
+mkK8YWBVjA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_6fe4b5ba-6d9b-4e05-b4e7-bf8adb81a17d"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>+9aK3YNHii/JEq4kIzD0jIktSpyNd4KmC1/rJhzM5Eh877RePe8MHrgqlGbl7CUV7Uopa5bpwao5&#13;
++GUUcLM5jw==</DigestValue></Reference></SignedInfo><SignatureValue>ooq/ofUFZ04MRofhqLCHgfo4yDzUBsU0lwYNYGmE20S9QwEWe9xDeJlVL6LevnO+eYVy228DRnFg&#13;
+fHiNUWwEC5X7f2930G9KF5eL7pexd7o4X0k173HK6Ss7ZXWNiInR5uazAPec5acd1uP4RYgtHhQk&#13;
+q0fMcd24y288qEtHHuK9d9ev39KZVoRA9cx6fR83SM+qPtNV0s5ahD4i8UUuyzpJHIEiBMHVOYbi&#13;
+YiSoKYJ/ErmJo0abjH3MXVnjnGyhl/6gsJhgiZqSoTZr+euzRKnGxvLltBBHqXNoEkChUgUmFa48&#13;
+oqyxKIKfns0VcVYJDTRaxtJrGzyOl5b5OLX3Zw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD&#13;
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5&#13;
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U&#13;
@@ -4184,4 +4218,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/&#13
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW&#13;
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+&#13;
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg&#13;
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_48591f65-c33c-4724-8d82-1d19124a7710" Target="#_629d4294-4cf9-4f34-a8f8-d4fb759de685"><Timestamp>2021-02-26 06:38:59</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_6fe4b5ba-6d9b-4e05-b4e7-bf8adb81a17d" Target="#_b608373a-c86f-4cd1-97a5-60acef18e300"><Timestamp>2021-03-02 09:52:00</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
