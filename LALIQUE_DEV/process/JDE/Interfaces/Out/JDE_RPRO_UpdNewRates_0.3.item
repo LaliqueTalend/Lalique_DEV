@@ -1590,9 +1590,9 @@
     <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="true"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="out1">
-      <column comment="" key="false" length="30" name="style_sid" nullable="true" originalLength="20" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="item_sid" nullable="true" originalLength="20" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="13" name="upc" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="30" name="style_sid" nullable="true" originalLength="20" pattern="" precision="-1" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="30" name="item_sid" nullable="true" originalLength="20" pattern="" precision="0" sourceType="NCHAR" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="13" name="upc" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="sbs_no" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="25" name="alu" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="9" name="dcs_code" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
@@ -1609,10 +1609,10 @@
         <mapperTableEntries expression="row4.tar_cession != 0 ? JDE.cnvString((row4.tar_detail * (Double)globalMap.get(&quot;taux_change&quot;)), &quot;0.0000&quot;,true) : null " name="prix_cession" type="id_String"/>
       </varTables>
       <outputTables name="out1" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="retail.STYLE_SID.toString" name="style_sid" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="retail.ITEM_SID.toString" name="item_sid" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="retail.LOCAL_UPC.toString" name="upc" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="JDE.cnvString(row4.sbs_no )" name="sbs_no" nullable="true" type="id_Integer"/>
+        <mapperTableEntries expression="retail.STYLE_SID" name="style_sid" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries expression="retail.ITEM_SID" name="item_sid" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries expression="retail.LOCAL_UPC" name="upc" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries expression="row4.sbs_no" name="sbs_no" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="row4.alu " name="alu" nullable="true" type="id_String"/>
         <mapperTableEntries expression="retail.DCS_CODE " name="dcs_code" nullable="true" type="id_String"/>
         <mapperTableEntries expression="TalendDate.formatDate(&quot;yyyy-MM-dd'T'HH:mm:ss&quot;,retail.CREATED_DATE) " name="created_date" nullable="true" type="id_String"/>
@@ -1774,11 +1774,11 @@
     <elementParameter field="TEXT" name="XMLNODE_OPT_NUM" show="false" value="100"/>
     <elementParameter field="TEXT" name="LABEL" value="Tarxxx_Upd.xml"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" label="TarNew" name="tAdvancedFileOutputXML_2">
-      <column comment="" key="false" length="30" name="style_sid" nullable="true" originalLength="20" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="item_sid" nullable="true" originalLength="20" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="13" name="upc" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="sbs_no" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+    <metadata connector="FLOW" name="tAdvancedFileOutputXML_2">
+      <column comment="" key="false" length="30" name="style_sid" nullable="true" originalLength="20" pattern="" precision="-1" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="30" name="item_sid" nullable="true" originalLength="20" pattern="" precision="0" sourceType="NCHAR" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="13" name="upc" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="-1" name="sbs_no" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="25" name="alu" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="9" name="dcs_code" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="created_date" nullable="true" originalLength="-1" pattern="&quot;yyyy-MM-dd'T'HH:mm:ss&quot;" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
@@ -2203,13 +2203,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_c71fd408-0ef4-401d-b76d-daf0750b077e"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>u8IsVDgMQ+ZTz00K8zikV2hX/3+AQcqHgu9TyAv7YQP6AENRbb7EsomJuIheuh0r9RyoZcYk4uGd&#13;
-MlAsrXEUlA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_be44d5df-370d-4405-99a6-46f19efb9789"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>7/6AMwBKfjskdKB8F8rwpC3g1eoFVBEyWyKgqs+Z+P82Zmge4V9J5zvJwwOHdUP94x/GjOCrlbqB&#13;
-2BTrEQX1bQ==</DigestValue></Reference></SignedInfo><SignatureValue>NCFy8Sro0goEGhzpB0HiHrRTD6uU6gdsHUxONFxbGViDuDqiK9bBhAIXujNrGko/g5YPp3MkRuTT&#13;
-YNN6S6HEBQaeGUQJLwBFFvXzrnggPHrPDKdXUoYnhIlGyr4L571LOaL7ZuUKo7Pvq6R4x9yzFuFn&#13;
-vcsEkymmBQ96Qh1DqerK9iAPZO5oClXgOgs39qKQHW8xz84vkZcwIrlln1hUbYEHH6YqnX+LkiNM&#13;
-I3PCB13nItA6Hq19s6To6F9jLIybZtCEXya2Cxa9qFSvrA24eS0XToCNz0u5FCAZeUKfb6vYYE6Q&#13;
-H5sqoPsRV2yQhkISMqt9SoB1n/t9HJYkojUYqw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_ef440240-4c8d-462e-ad36-3fbddb9f6568"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>DDH2FVPAzCFONTmYRaGrbyGA5Il4NM4qj7ap+5v9WVzI+bod0gI+5t1piAIWbFTl0MIKbnwd9/8Y&#13;
+C6gIiMp/5g==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_c79f8835-2a7d-4204-853d-3e9a858b2cd3"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>LZ5YIUOKK2l4sVp5nhtYKUd8rY4oXwQJ52K+yVaDTNDgiQ+00oXFz5OMs6qlMcsdK8OOQsBeZOqY&#13;
+Bw54+D5Nww==</DigestValue></Reference></SignedInfo><SignatureValue>dpZQRWCwb6nu8NUuwohlXEGgVhSipu/gywRZwixEEAdHP0q9zOVC4+6wtuy4onc6iFyBJWZbStuz&#13;
+TQE0THVf3Z9H70tJD9QOuxaM6ZVYZedmpQD5Ito9DeO9DvlzvxhxB+kTj3GPsZ0Z2sCJFbNQIc8t&#13;
+vYSIySp9iLBsfcTKmcugpqd5MmUzuSCwm3124o4n5nHn4lgIq5+AFM6NzkakygzlG2MoUjJViHYR&#13;
+mKcbuhYEbEVLhJMJEkFhbPBS1pgLLnBPfn0QhO/tyvOqnAFK8gQEetHndSf1T2jjcB1L2+snfasp&#13;
+AS3f6fpJKpCrBIzOW3eR4PLrRr4v5q+Xpr0r6w==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD&#13;
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5&#13;
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U&#13;
@@ -2231,4 +2231,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/&#13
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW&#13;
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+&#13;
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg&#13;
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_be44d5df-370d-4405-99a6-46f19efb9789" Target="#_c71fd408-0ef4-401d-b76d-daf0750b077e"><Timestamp>2021-03-05 09:47:31</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_c79f8835-2a7d-4204-853d-3e9a858b2cd3" Target="#_ef440240-4c8d-462e-ad36-3fbddb9f6568"><Timestamp>2021-03-05 09:49:55</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
