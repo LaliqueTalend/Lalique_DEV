@@ -1218,14 +1218,6 @@
       <column comment="" key="false" length="-1" name="price" nullable="true" originalLength="16" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="-480" posY="32">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_1"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="Date today = new Date();&#10;long myTimeStamp = Long.parseLong(new SimpleDateFormat(&quot;yyMMddHHmmss&quot;).format(today));&#10;&#10;// nom du fichier logs&#10;globalMap.put(&quot;Log_File&quot;, jobName + &quot;_&quot; + myTimeStamp + &quot;.csv&quot;);&#10;//context.Log_File = jobName + &quot;_&quot; + myTimeStamp + &quot;.csv&quot;;&#10;&#10;globalMap.put(&quot;JobTimeStamp&quot;, myTimeStamp);&#10;globalMap.put(&quot;JobDate&quot;, Integer.parseInt(Integer.toString(today.getYear()) + new SimpleDateFormat(&quot;DDD&quot;).format(today)));&#10;globalMap.put(&quot;JobTime&quot;, Integer.parseInt(new SimpleDateFormat(&quot;HHmmss&quot;).format(today)));&#10;&#10;// date d'effet des tarifs : 1er jour du mois en cours&#10;globalMap.put(&quot;date_tarifs&quot;, JDE.convertToJulian(today));&#10;// date d'effet des taux de change : 1er jour du mois en cours&#10;globalMap.put(&quot;date_devise&quot;, JDE.convertToJulian(TalendDate.getFirstDayOfMonth(today)));&#10;&#10;System.out.println(&quot;Date tarifs = &quot; + (int)globalMap.get(&quot;date_tarifs&quot;));&#10;System.out.println(&quot;Date devise = &quot; + (int)globalMap.get(&quot;date_devise&quot;));&#10;&#10;&#10;"/>
-    <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
-    <elementParameter field="TEXT" name="LABEL" value="tJava_1"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tJava_1"/>
-  </node>
   <node componentName="tOracleConnection" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="-320" posY="32">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBConnection_1"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="REPOSITORY"/>
@@ -2001,7 +1993,7 @@
   </node>
   <node componentName="tJavaRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="-416" posY="320">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJavaRow_1"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="//Code généré selon les schémas d'entrée et de sortie&#13;&#10;//output_row.ABAC16 = input_row.ABAC16;&#13;&#10;//output_row.AICPGP = input_row.AICPGP;&#13;&#10;//output_row.AIASN = input_row.AIASN;&#13;&#10;//output_row.CKCGID = input_row.CKCGID;&#13;&#10;//output_row.ABAN8 = input_row.ABAN8;&#13;&#10;//output_row.AICRCD = input_row.AICRCD;&#13;&#10;&#10;globalMap.put(&quot;tarif_cession_base&quot;, input_row.ABAC16);&#10;globalMap.put(&quot;grp_client_cession&quot;, input_row.CKCGID);&#10;globalMap.put(&quot;devise_ste&quot;, input_row.AICRCD);&#10;globalMap.put(&quot;tarif_mcu&quot;, &quot;        10WL&quot;);&#10;&#10;System.out.println(&quot;Tarif de cession de base = &quot; + (String)globalMap.get(&quot;tarif_cession_base&quot;) + &quot; (&quot; + (BigDecimal)globalMap.get(&quot;grp_client_cession&quot;) + &quot;)&quot;);&#10;System.out.println(&quot;Devise société = &quot; + (String)globalMap.get(&quot;devise_ste&quot;));"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="//Code généré selon les schémas d'entrée et de sortie&#13;&#10;//output_row.ABAC16 = input_row.ABAC16;&#13;&#10;//output_row.AICPGP = input_row.AICPGP;&#13;&#10;//output_row.AIASN = input_row.AIASN;&#13;&#10;//output_row.CKCGID = input_row.CKCGID;&#13;&#10;//output_row.ABAN8 = input_row.ABAN8;&#13;&#10;//output_row.AICRCD = input_row.AICRCD;&#13;&#10;&#10;globalMap.put(&quot;tarif_cession_base&quot;, input_row.ABAC16);&#10;globalMap.put(&quot;grp_client_cession&quot;, input_row.CKCGID);&#10;globalMap.put(&quot;devise_ste&quot;, input_row.AICRCD);&#10;&#10;System.out.println(&quot;Tarif de cession de base = &quot; + (String)globalMap.get(&quot;tarif_cession_base&quot;) + &quot; (&quot; + (BigDecimal)globalMap.get(&quot;grp_client_cession&quot;) + &quot;)&quot;);&#10;System.out.println(&quot;Devise société = &quot; + (String)globalMap.get(&quot;devise_ste&quot;));"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJavaRow_1">
@@ -2025,6 +2017,14 @@
     <elementParameter field="TEXT" name="LABEL" value="RateUpd.csv"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tFileDelete_1"/>
+  </node>
+  <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="-480" posY="32">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_1"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="Date today = new Date();&#10;long myTimeStamp = Long.parseLong(new SimpleDateFormat(&quot;yyMMddHHmmss&quot;).format(today));&#10;&#10;// nom du fichier logs&#10;globalMap.put(&quot;Log_File&quot;, jobName + &quot;_&quot; + myTimeStamp + &quot;.csv&quot;);&#10;//context.Log_File = jobName + &quot;_&quot; + myTimeStamp + &quot;.csv&quot;;&#10;&#10;globalMap.put(&quot;JobTimeStamp&quot;, myTimeStamp);&#10;globalMap.put(&quot;JobDate&quot;, Integer.parseInt(Integer.toString(today.getYear()) + new SimpleDateFormat(&quot;DDD&quot;).format(today)));&#10;globalMap.put(&quot;JobTime&quot;, Integer.parseInt(new SimpleDateFormat(&quot;HHmmss&quot;).format(today)));&#10;&#10;// date d'effet des tarifs : 1er jour du mois en cours&#10;globalMap.put(&quot;date_tarifs&quot;, JDE.convertToJulian(today));&#10;// date d'effet des taux de change : 1er jour du mois en cours&#10;globalMap.put(&quot;date_devise&quot;, JDE.convertToJulian(TalendDate.getFirstDayOfMonth(today)));&#10;// magasin associé aux tarifs&#10;globalMap.put(&quot;tarif_mcu&quot;, &quot;        10WL&quot;);&#10;&#10;// TEST ======================&#10;globalMap.put(&quot;date_tarifs&quot;, 121050);&#10;&#10;System.out.println(&quot;Date tarifs = &quot; + (int)globalMap.get(&quot;date_tarifs&quot;));&#10;System.out.println(&quot;Date devise = &quot; + (int)globalMap.get(&quot;date_devise&quot;));&#10;&#10;&#10;"/>
+    <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
+    <elementParameter field="TEXT" name="LABEL" value="tJava_1"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tJava_1"/>
   </node>
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tPrejob_1" offsetLabelX="0" offsetLabelY="0" source="tPrejob_1" target="tJava_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk1"/>
@@ -2184,9 +2184,6 @@
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="inv_sbs3"/>
   </connection>
-  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tJava_1" offsetLabelX="0" offsetLabelY="0" source="tJava_1" target="tDBConnection_1">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk3"/>
-  </connection>
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tDBConnection_1" offsetLabelX="0" offsetLabelY="0" source="tDBConnection_1" target="tDBConnection_2">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk4"/>
   </connection>
@@ -2271,6 +2268,9 @@
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileDelete_1" offsetLabelX="0" offsetLabelY="0" source="tFileDelete_1" target="tFileInputDelimited_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk4"/>
   </connection>
+  <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tJava_1" offsetLabelX="0" offsetLabelY="0" source="tJava_1" target="tDBConnection_1">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk3"/>
+  </connection>
   <note opaque="false" posX="-160" posY="448" sizeHeight="161" sizeWidth="417" text="Création d'un fichier temporaire qui récupère par filiale : &#13;&#10;- les taux de change en vigueur (1er jour du mois),&#13;&#10;- le groupe client du tarif de base (si BAREME),&#13;&#10;- le code adresse (si DIRECT),&#13;&#10;- le groupe client du tarif de base pour calcul cession (D01)&#13;&#10;&#13;&#10;Remarques:&#13;&#10;- Le taux de change par défaut est de 1 si la devise n'est pas déclarée &#13;&#10;dans F0015 (ex ; EUR en EUR)&#13;&#10;- Le champ CRR est BigDecimal mais est renvoyé avec 7 décimales">
     <elementParameter field="RADIO" name="NOTETXT_LEFT" value="true"/>
     <elementParameter field="RADIO" name="NOTETXT_CENTER" value="false"/>
@@ -2328,12 +2328,6 @@
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
   <subjob>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_1"/>
-    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
-    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
-    <elementParameter field="CHECK" name="SUBJOB_DISPLAYED" show="false" value="false"/>
-  </subjob>
-  <subjob>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBConnection_1"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
@@ -2388,13 +2382,20 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_012fd2d9-5516-48f0-a7fd-809630c258e6"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>h3unc7P3OOZG1PLVv+WRxxVpiRVb/01k2hrdxnYCfZ/mQ4E9JKm2wAezplFE7xp4bMDUHPz4evPv&#13;
-SK6x9HQDWQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_c251dbdb-16e4-4cb1-946a-55c2040e60b1"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>nhBYqd4qg9V41E7CooHsPwB9NmS6UIrzi8pBH54CF9SMFQmCd0WIfqw2dTIPrxYpXD52TTLPOmDI&#13;
-hIOvRBt7Yw==</DigestValue></Reference></SignedInfo><SignatureValue>N0WBX05O3jqJlIRtgleSyCqNY2uGrOfeLvEhekRqkTErJLC7iH9UepmDhkvmMCvNpXPaFTQYhmfA&#13;
-pmSTpFHPG/q/0a6ridzjTr1uDgCFGn2NA9t8VNi+LfeK5jlc/RUcB5vrUWe+JUZh6VUYZJbrOdnH&#13;
-aLMYnYu73XPTT9PDh5xu9zeH6/nzTu08Tk+QqBYt2Irt3rYQgf+c1w/lyGMZ/8q0jg/HgDQ8s4GC&#13;
-B0BffYUJKrnmR+pU1OwfaK8fDemAjZ5/i8I97+37X8ehge+N5RH6aAcYgEk/8uoliXhAr1uabqHj&#13;
-n2WWyrN1jv5OiGbaQZqHEWL5txpISxnNO/qMaA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
+  <subjob>
+    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_1"/>
+    <elementParameter field="TEXT" name="SUBJOB_TITLE" value="paramétres"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+  </subjob>
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_1bea52b1-4abe-4931-92de-d74d3bbb214f"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>SlqkxoPLuCsOt5H+z0cya18ysJ6Jd3aVoHCzLoMyGpKAaFwNv3NlNhh0fDtafAkxc+NrJ9lUAxrp&#13;
+L0D2eLoGwQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_d0995faf-25c3-43c6-b091-c47ce2b84f16"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>eCSgLMpR8U5h4D0+readNaKlu2NSlZnoJzQwLFs7x3PI21uaVuflEVjRXm7I3AbRuUTRMXji8BDh&#13;
+ZZaiq7TpQw==</DigestValue></Reference></SignedInfo><SignatureValue>JCUUv7kFxU4RDVMI83Ok67LcVXL0xaxyNc6kSPK8XwruBJlglVukZcQejiF2zXrk2sG1ddl03OW3&#13;
+JMHOW5RiXLcGTPZtRWpikOEbl7drezSLDAR/g/O9NTUs6dCKaCqH9pSuAfVnlftf2jbf/m5airiK&#13;
+oCGa+qYyyiPHxWr+96x0pcRC+3hePPU4iqU2wP5vwbB2tCeoQqK387P1w1v107sLMfKEwIGOxQYn&#13;
+u3pms97i+Tb+mkXT23nZZUac86o3Ug6z93Or6f8retZBrJ3tQe5+7pZ6hxr9vblDADLRJmBpuVov&#13;
+2iwDE303hORQ0LzlWSJQHuZCaVa32VJ6kWKXhQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD&#13;
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5&#13;
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U&#13;
@@ -2416,4 +2417,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/&#13
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW&#13;
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+&#13;
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg&#13;
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_c251dbdb-16e4-4cb1-946a-55c2040e60b1" Target="#_012fd2d9-5516-48f0-a7fd-809630c258e6"><Timestamp>2021-03-05 07:06:23</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_d0995faf-25c3-43c6-b091-c47ce2b84f16" Target="#_1bea52b1-4abe-4931-92de-d74d3bbb214f"><Timestamp>2021-03-05 07:12:04</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
