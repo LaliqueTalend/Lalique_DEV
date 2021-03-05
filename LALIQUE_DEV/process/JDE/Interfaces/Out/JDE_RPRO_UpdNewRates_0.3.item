@@ -469,7 +469,7 @@
       <column comment="" key="false" length="-1" name="devise_cession" nullable="true" originalLength="3" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
       <outputTables name="param" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="filiales.sbs_no " name="sbs_no" nullable="true" type="id_Integer"/>
@@ -489,7 +489,7 @@
         <mapperTableEntries expression="JDE.cnvLong(grp_client.CKCGID)" name="grp_client" nullable="true" type="id_Long"/>
         <mapperTableEntries expression="JDE.cnvLong(grp_client.ABAN8)" name="address" nullable="true" type="id_Long"/>
         <mapperTableEntries expression="JDE.cnvLong((BigDecimal)globalMap.get(&quot;grp_client_cession&quot;))" name="grp_client_cession" nullable="true" type="id_Long"/>
-        <mapperTableEntries expression="(String)globalMap.get(&quot;devise_cession&quot;)" name="devise_cession" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="(String)globalMap.get(&quot;devise_ste&quot;)" name="devise_cession" nullable="true" type="id_String"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="filiales" sizeState="INTERMEDIATE">
         <mapperTableEntries name="sbs_no" nullable="true" type="id_Integer"/>
@@ -543,7 +543,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT CXCRCD,CXCRDC,CXCRR &#13;&#10;FROM &quot; +context.JDE920_Schema_DTA + &quot;.F0015&#13;&#10;WHERE CXCRCD='EUR' AND CXEFT=&quot; + (int)globalMap.get(&quot;date_devise&quot;) + &quot; &quot;&#13;&#10;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT CXCRCD,CXCRDC,CXCRR &#13;&#10;FROM &quot; +context.JDE920_Schema_DTA + &quot;.F0015&#13;&#10;WHERE CXCRCD='&quot; + (String)globalMap.get(&quot;devise_ste&quot;) + &quot;' &#13;&#10;AND CXEFT=&quot; + (int)globalMap.get(&quot;date_devise&quot;) + &quot; &#13;&#10;&quot;&#13;&#10;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -2287,6 +2287,13 @@
     <elementParameter field="TEXT" name="FONT_SIZE" value="14"/>
     <elementParameter field="CHECK" name="FONT_BOLD" value="true"/>
   </note>
+  <note opaque="false" posX="-320" posY="288" sizeHeight="97" sizeWidth="417" text="Récupère les infos du tarif de base utilisé pour le calcul des prix de &#13;&#10;cession (tarif D01) et la devise associée (devise société)&#13;&#10;Le magasin par défaut est le 10WL">
+    <elementParameter field="RADIO" name="NOTETXT_LEFT" value="true"/>
+    <elementParameter field="RADIO" name="NOTETXT_CENTER" value="false"/>
+    <elementParameter field="RADIO" name="NOTELABEL_CENTER" value="false"/>
+    <elementParameter field="RADIO" name="NOTETXT_TOP" value="true"/>
+    <elementParameter field="TEXT" name="FONT_SIZE" value="9"/>
+  </note>
   <subjob>
     <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" show="false" value="true"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tPrejob_1"/>
@@ -2381,13 +2388,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_5c89138b-5dc6-44db-8877-7583dd4c155e"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>gXN8m03/9Yjasa9bqHTS0Qapt+xPqdm9HB/mZYdYd0PBJIMczpxpHy2tQvYMrHbCCX4oY23Kc7gi&#13;
-b7j2/AnioA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_d672d7ed-f560-4e70-ae47-eecf7aedeaa3"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>32SPOQfphmwiowN/PHS2jcGUjgpYgI8mI0wgcvAfJdzX1cCPYEygs3ElfXL91/ssiYPXAf6b00XX&#13;
-U4Et5OHtlg==</DigestValue></Reference></SignedInfo><SignatureValue>H1tPDD/BwBbO1rFOTNuN5gRG9o9IIZiZq0lVJc05XorQudKNN0CaeaoLQVPwVAAjdLL1rRBYNHFf&#13;
-hVChyFRe2cKNIS41VmqL3Tk/YhUnD/ln3FFMZ8V+SFtqCkU0V2/50Dn6fpTyGzhXzTHadImprW3l&#13;
-aijk8nO7FTlDVM+NA5fbvI1iMvTsHg+l4cTThU8yTCSPKDSV1VBVF3tPpz3FuJpvpTbRe9fEboIP&#13;
-7TPUWdCjG7sVKannE36JQZDrtWCBwngJcwAhKZ4DEu7zManHtwbwwKTcIJNRoLA+G6KVtyTRZaQ0&#13;
-TUgiX+AErvQTWjpuRl5vHZ7h2/m6RqC7/hioRw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_012fd2d9-5516-48f0-a7fd-809630c258e6"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>h3unc7P3OOZG1PLVv+WRxxVpiRVb/01k2hrdxnYCfZ/mQ4E9JKm2wAezplFE7xp4bMDUHPz4evPv&#13;
+SK6x9HQDWQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_c251dbdb-16e4-4cb1-946a-55c2040e60b1"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>nhBYqd4qg9V41E7CooHsPwB9NmS6UIrzi8pBH54CF9SMFQmCd0WIfqw2dTIPrxYpXD52TTLPOmDI&#13;
+hIOvRBt7Yw==</DigestValue></Reference></SignedInfo><SignatureValue>N0WBX05O3jqJlIRtgleSyCqNY2uGrOfeLvEhekRqkTErJLC7iH9UepmDhkvmMCvNpXPaFTQYhmfA&#13;
+pmSTpFHPG/q/0a6ridzjTr1uDgCFGn2NA9t8VNi+LfeK5jlc/RUcB5vrUWe+JUZh6VUYZJbrOdnH&#13;
+aLMYnYu73XPTT9PDh5xu9zeH6/nzTu08Tk+QqBYt2Irt3rYQgf+c1w/lyGMZ/8q0jg/HgDQ8s4GC&#13;
+B0BffYUJKrnmR+pU1OwfaK8fDemAjZ5/i8I97+37X8ehge+N5RH6aAcYgEk/8uoliXhAr1uabqHj&#13;
+n2WWyrN1jv5OiGbaQZqHEWL5txpISxnNO/qMaA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD&#13;
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5&#13;
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U&#13;
@@ -2409,4 +2416,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/&#13
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW&#13;
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+&#13;
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg&#13;
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_d672d7ed-f560-4e70-ae47-eecf7aedeaa3" Target="#_5c89138b-5dc6-44db-8877-7583dd4c155e"><Timestamp>2021-03-05 06:46:40</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_c251dbdb-16e4-4cb1-946a-55c2040e60b1" Target="#_012fd2d9-5516-48f0-a7fd-809630c258e6"><Timestamp>2021-03-05 07:06:23</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
