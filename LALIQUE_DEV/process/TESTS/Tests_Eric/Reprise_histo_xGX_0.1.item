@@ -371,7 +371,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#13;&#10;  e.NUMEVE, &#13;&#10;  DECODE (e.NUMEVS, 0, 0, e.NUMEVE, 0, e.NUMEVS) as NUMEVS,&#13;&#10;  e.TYPEVE, &#13;&#10;  e.DATVAL, &#13;&#10;  e.SIGDEP as DEPOT,&#13;&#10;  e.REFEXT,&#13;&#10;  e.SIGTIE,&#13;&#10;  e.CODCTG as CAT_CDE,&#13;&#10;  e.NUMADR,&#13;&#10;  e.NUMFIL,&#13;&#10;  e.DATEVE,&#13;&#10;  e.TAUREM,&#13;&#10;  e.CODDEV,&#13;&#10;  t.CODZN2 as TYP_CLIENT,&#13;&#10;  t.SIGREP,&#13;&#10;  t.NOMTIE&#13;&#10;FROM SOC1.EVE e&#13;&#10;JOIN SOC1.TIE t&#13;&#10;ON t.SIGTIE = e.SIGTIE&#13;&#10;WHERE e.CODSOC=11&#13;&#10;&#9;AND e.ACHVTE = 'V'&#13;&#10;&#9;AND e.TYPEVE IN ('FAV', 'AVV', 'AVE')&#13;&#10;&#9;AND e.DATVAL BETWEEN '&quot;+context.Date_début+&quot;' AND '&quot;+context.Date_fin+&quot;' &#13;&#10;&#9;AND e.SIGDEP in ('COM')&#13;&#10;&#9;AND e.CODETA!='A'&#13;&#10;&#9;AND t.TYPTIE = 'CLI'&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#13;&#10;  e.NUMEVE, &#13;&#10;  DECODE (e.NUMEVS, 0, 0, e.NUMEVE, 0, e.NUMEVS) as NUMEVS,&#13;&#10;  e.TYPEVE, &#13;&#10;  e.DATVAL, &#13;&#10;  e.SIGDEP as DEPOT,&#13;&#10;  e.REFEXT,&#13;&#10;  e.SIGTIE,&#13;&#10;  e.CODCTG as CAT_CDE,&#13;&#10;  e.NUMADR,&#13;&#10;  e.NUMFIL,&#13;&#10;  e.DATEVE,&#13;&#10;  e.TAUREM,&#13;&#10;  e.CODDEV,&#13;&#10;  t.CODZN2 as TYP_CLIENT,&#13;&#10;  t.SIGREP,&#13;&#10;  t.NOMTIE,&#13;&#10;  DECODE (evs.DATEVE, null, e.DATVAL, evs.DATEVE) as DATEDECREATION&#13;&#10;FROM SOC1.EVE e&#13;&#10;JOIN SOC1.TIE t&#13;&#10;ON t.SIGTIE = e.SIGTIE&#13;&#10;LEFT JOIN SOC1.EVE evs&#13;&#10;ON e.CODSOC = evs.CODSOC &#13;&#10;AND e.ACHVTE = evs.ACHVTE&#13;&#10;AND e.NUMEVE = evs.NUMEVE&#13;&#10;AND e.TYPEVE = evs.TYPEVE&#13;&#10;AND evs.NUMEVE = DECODE (e.NUMEVS, 0, 0, e.NUMEVE, 0, e.NUMEVS)&#13;&#10;&#13;&#10;WHERE e.CODSOC=11&#13;&#10;&#9;AND e.ACHVTE = 'V'&#13;&#10;&#9;AND e.TYPEVE IN ('FAV', 'AVV', 'AVE')&#13;&#10;&#9;AND e.DATVAL BETWEEN '&quot;+context.Date_début+&quot;' AND '&quot;+context.Date_fin+&quot;' &#13;&#10;&#9;AND e.SIGDEP in ('COM')&#13;&#10;&#9;AND e.CODETA!='A'&#13;&#10;&#9;AND t.TYPTIE = 'CLI'&quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -418,6 +418,8 @@
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="NOMTIE"/>
       <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="DATEDECREATION"/>
+      <elementValue elementRef="TRIM" value="false"/>
     </elementParameter>
     <elementParameter field="CHECK" name="NO_NULL_VALUES" value="false"/>
     <elementParameter field="TEXT" name="LABEL" value="__TABLE__"/>
@@ -439,6 +441,7 @@
       <column comment="" key="false" length="40" name="TYP_CLIENT" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="12" name="SIGREP" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="NOMTIE" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="DATEDECREATION" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <additionalProperties key="Comment" value=""/>
     </metadata>
   </node>
@@ -489,13 +492,13 @@
         <mapperTableEntries expression="entete_1.NUMFIL " name="Num_Filiere_Fac" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="entete_1.DATVAL " name="Date_Cre_Client" nullable="true" type="id_String"/>
         <mapperTableEntries expression="entete_1.REFEXT " name="Ref_Client" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="" name="Date_Cde" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="entete_1.DATEDECREATION " name="Date_Cde" nullable="true" type="id_String"/>
         <mapperTableEntries expression="" name="Date_Liv" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Relational.NOT(Relational.ISNULL(Lad_Fac.SIGTIE)) ? Lad_Fac.SIGADR + Lad_Fac.TYPADR1 + Lalique.Pad0(Lad_Fac.NUMADR1.toString(),3) : &quot;&quot; " name="Client_Fac" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Relational.NOT(Relational.ISNULL(Lad_Liv_1.SIGTIE)) &amp;&amp; entete_1.NUMFIL &gt; 0 &amp;&amp; entete_1.NUMFIL &lt; 100 ? Lad_Liv_1.SIGADR + Lad_Liv_1.TYPADR1 + Lalique.Pad0(Lad_Liv_1.NUMADR1.toString(),3) : &#13;&#10;Relational.NOT(Relational.ISNULL(Lad_Liv_2.SIGTIE)) &amp;&amp; entete_1.NUMFIL &gt;= 100 ? Lad_Liv_2.SIGADR + Lad_Liv_2.TYPADR1 + Lalique.Pad0(Lad_Liv_2.NUMADR1.toString(),3) : &quot;&quot; " name="Client_Liv" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Relational.NOT(Relational.ISNULL(Lad_Pay.SIGTIE)) ? Lad_Pay.SIGADR + Lad_Pay.TYPADR1 + Lalique.Pad0(Lad_Pay.NUMADR1.toString(),3) : &quot;&quot; " name="Client_Pay" nullable="true" type="id_String"/>
       </outputTables>
-      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="entete_1" sizeState="INTERMEDIATE">
+      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="entete_1" sizeState="INTERMEDIATE">
         <mapperTableEntries name="NUMEVE" type="id_BigDecimal"/>
         <mapperTableEntries name="NUMEVS" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries name="TYPEVE" type="id_String"/>
@@ -512,6 +515,7 @@
         <mapperTableEntries name="TYP_CLIENT" nullable="true" type="id_String"/>
         <mapperTableEntries name="SIGREP" nullable="true" type="id_String"/>
         <mapperTableEntries name="NOMTIE" nullable="true" type="id_String"/>
+        <mapperTableEntries name="DATEDECREATION" nullable="true" type="id_String"/>
       </inputTables>
       <inputTables activateCondensedTool="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="Lad_Fac" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="entete_1.SIGTIE " name="SIGTIE" operator="=" type="id_String"/>
@@ -1282,6 +1286,11 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row3"/>
   </connection>
   <connection connectorName="FLOW" label="entete_1" lineStyle="0" metaname="tDBInput_1" offsetLabelX="0" offsetLabelY="0" source="tDBInput_1" target="tMap_2">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="DATEDECREATION"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="entete_1"/>
   </connection>
@@ -1329,13 +1338,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_04f9d42b-81f2-48ab-a393-2c5fccd08cec"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>HnbqlSG01uY1dQYWvCR0JDzc/cUCmGNI3VgPpWeY4E7MPP2ATM8x0nwt88WqfyTTtUw0U8dNqk3g
-fcdp13jwZA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_bc65e192-fd2a-4812-a835-e14586e3bb5a"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>INZsD7twq6mSeLhztQaav3JsWN0X+GlAqSymLTpvIMgcogLZVLV/oHRO5tFcnTwRw26ThF+eL+AN
-Q/on8xwT0Q==</DigestValue></Reference></SignedInfo><SignatureValue>Hn19quwOHYlpKtbwJfb3uya9mXkhfkatqZbVwzXU73GUPJPrQvDRZaSPDweeow65bAlb4GATXUcu
-C9EfoUw19zz5j3q3TrrFVv5tpO5iH6ABGNRrGM6ko/hjiPpxh4C+tHbHAPNglrFcLFBjO939Y+uV
-e4Slxdp1CC0R0fBSTs5P7bqA3abKLUxdmrslHIdzTJRq8HMmeYyGB/ueZzKN0U9JNu89N+Hwiie6
-UWaBLrZ0ul/3d5UkVSOgWJ0mpm2alyX41tJ+qIgvPm7To2Kli8OnJZSfLEk4bOBJg3lk+0b+7rPO
-skF/7sxrSzKjZPtee4hN+zZ7x0zo8T9Jw/OJEg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_6504e881-ec74-4e38-86dd-e113a469adc5"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>aJxnIAO7CgVjtDLHGgGD8IwbQitnE3liecKdmxKnoo42/XbNNW7U/ii0XQ1vc9gUJxXv7VzU9zfV
+IOL520cnrA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_d3840cf6-d101-4ad1-9edd-c15ea8130be1"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>cMl9CDO9gnl062go/KVXMr3tigOB5yuR/vp0w04rjUM81Dvkn6hp5wloSvVS/+EI5M2UAC89Qvs3
+A685cdpycQ==</DigestValue></Reference></SignedInfo><SignatureValue>pQIHdwRBqCWfyv7GF/uZwKdF4vZEz+dvMK1eOk+Qyp6evGu2dpjQuyZSc2d+wtzDgJ2txcz87PQi
+YGoHqU7i8HISROKqQEznaIraXsyAW/VCt1o/T+UcyPZAbY5yYWihQTpc5RaakTBmGfu6+hJ59lf8
+ealb6drOpl8oJVyaiU6H35ihc/cWdS840d4rKh5FcNuHrQVXEVPpufGrLilL+hBA6UNQQ0byOj1L
+Gl28j180RrBVArOaewZyA98YuF0Ow2hDEqY+0GiWThFnUorSVTSaWzldC4kb/kCHWiEMmCcKXdTp
+FyNvAdMg96D7lfiIBeP8a4LD9kmDiQtp01jNCA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1357,4 +1366,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_bc65e192-fd2a-4812-a835-e14586e3bb5a" Target="#_04f9d42b-81f2-48ab-a393-2c5fccd08cec"><Timestamp>2021-03-09 08:54:40</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_d3840cf6-d101-4ad1-9edd-c15ea8130be1" Target="#_6504e881-ec74-4e38-86dd-e113a469adc5"><Timestamp>2021-03-09 09:01:15</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
