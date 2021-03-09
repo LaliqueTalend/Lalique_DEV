@@ -24,7 +24,7 @@
   <parameters>
     <elementParameter field="CLOSED_LIST" name="LOG4J_RUN_LEVEL" show="false" value="Trace"/>
     <elementParameter field="TEXT" name="SCREEN_OFFSET_X" show="false" value="0"/>
-    <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" show="false" value="0"/>
+    <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" show="false" value="64"/>
     <elementParameter field="TEXT" name="REPOSITORY_CONNECTION_ID" show="false" value=""/>
     <elementParameter field="TEXT" name="OOZIE_PROPERTY_TYPENAME" show="false" value=""/>
     <elementParameter field="TEXT" name="OOZIE_HADOOP_DISTRIBUTION" show="false" value=""/>
@@ -484,8 +484,8 @@
         <mapperTableEntries expression="entete_1.NUMEVE " name="Num_Fac" type="id_BigDecimal"/>
         <mapperTableEntries expression="Var.Typ_Doc_Jde " name="Type_Cde_Jde" nullable="true" type="id_String"/>
         <mapperTableEntries expression="entete_1.NUMEVS " name="Num_Cde" nullable="true" type="id_BigDecimal"/>
-        <mapperTableEntries expression="&quot;EC&quot; .equals(entete_1.CAT_CDE) ? &quot;V000&quot;+ entete_1.NUMEVE : entete_1.SIGTIE " name="Num_Client" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="&quot;EC&quot; .equals(entete_1.CAT_CDE) ? Lad_Liv_3.NUMADR : entete_1.NUMFIL " name="Num_Filiere_Liv" nullable="true" type="id_Integer"/>
+        <mapperTableEntries expression="entete_1.SIGTIE " name="Num_Client" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot;EC&quot; .equals(entete_1.CAT_CDE) ? Lad_Liv_3.NUMADR : entete_1.NUMADR " name="Num_Filiere_Liv" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="entete_1.NUMADR " name="Num_Filiere_Fac" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="entete_1.DATVAL " name="Date_Cre_Client" nullable="true" type="id_String"/>
         <mapperTableEntries expression="entete_1.REFEXT " name="Ref_Client" nullable="true" type="id_String"/>
@@ -495,7 +495,7 @@
         <mapperTableEntries expression="Relational.NOT(Relational.ISNULL(Lad_Liv_1.SIGTIE)) &amp;&amp; entete_1.NUMFIL &gt; 0 &amp;&amp; entete_1.NUMFIL &lt; 100 ? Lad_Liv_1.SIGADR + Lad_Liv_1.TYPADR1 + Lalique.Pad0(Lad_Liv_1.NUMADR1.toString(),3) : &#13;&#10;Relational.NOT(Relational.ISNULL(Lad_Liv_2.SIGTIE)) &amp;&amp; entete_1.NUMFIL &gt;= 100 ? Lad_Liv_2.SIGADR + Lad_Liv_2.TYPADR1 + Lalique.Pad0(Lad_Liv_2.NUMADR1.toString(),3) : &quot;&quot; " name="Client_Liv" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Relational.NOT(Relational.ISNULL(Lad_Pay.SIGTIE)) ? Lad_Pay.SIGADR + Lad_Pay.TYPADR1 + Lalique.Pad0(Lad_Pay.NUMADR1.toString(),3) : &quot;&quot; " name="Client_Pay" nullable="true" type="id_String"/>
       </outputTables>
-      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="entete_1" sizeState="INTERMEDIATE">
+      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="entete_1" sizeState="INTERMEDIATE">
         <mapperTableEntries name="NUMEVE" type="id_BigDecimal"/>
         <mapperTableEntries name="NUMEVS" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries name="TYPEVE" type="id_String"/>
@@ -513,7 +513,7 @@
         <mapperTableEntries name="SIGREP" nullable="true" type="id_String"/>
         <mapperTableEntries name="NOMTIE" nullable="true" type="id_String"/>
       </inputTables>
-      <inputTables activateCondensedTool="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Lad_Fac" sizeState="INTERMEDIATE">
+      <inputTables activateCondensedTool="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="Lad_Fac" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="entete_1.SIGTIE " name="SIGTIE" operator="=" type="id_String"/>
         <mapperTableEntries expression="" name="TYPTIE" type="id_String"/>
         <mapperTableEntries expression="" name="TYPADR" type="id_String"/>
@@ -539,11 +539,11 @@
         <mapperTableEntries name="UTIMOD" nullable="true" type="id_String"/>
         <mapperTableEntries name="CODSOC" type="id_Integer"/>
       </inputTables>
-      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="Lad_Liv_2" sizeState="INTERMEDIATE">
+      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Lad_Liv_2" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="entete_1.SIGTIE " name="SIGTIE" type="id_String"/>
         <mapperTableEntries name="TYPTIE" type="id_String"/>
         <mapperTableEntries name="TYPADR" type="id_String"/>
-        <mapperTableEntries expression="entete_1.NUMFIL " name="NUMADR" type="id_Integer"/>
+        <mapperTableEntries expression="entete_1.NUMADR " name="NUMADR" type="id_Integer"/>
         <mapperTableEntries name="SIGADR" nullable="true" type="id_String"/>
         <mapperTableEntries name="TYPTIE1" nullable="true" type="id_String"/>
         <mapperTableEntries name="TYPADR1" nullable="true" type="id_String"/>
@@ -552,7 +552,7 @@
         <mapperTableEntries name="UTIMOD" nullable="true" type="id_String"/>
         <mapperTableEntries name="CODSOC" type="id_Integer"/>
       </inputTables>
-      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="Lad_Liv_3" sizeState="INTERMEDIATE">
+      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Lad_Liv_3" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="entete_1.SIGTIE " name="SIGTIE" type="id_String"/>
         <mapperTableEntries name="TYPTIE" type="id_String"/>
         <mapperTableEntries name="TYPADR" type="id_String"/>
@@ -580,7 +580,7 @@
       </inputTables>
     </nodeData>
   </node>
-  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="352" posY="32">
+  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="256" posY="64">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBInput_4"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="REPOSITORY"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" show="false" value="_TDzwoArHEeWx1dV_9Bg5iA"/>
@@ -681,7 +681,7 @@
       <additionalProperties key="Comment" value=""/>
     </metadata>
   </node>
-  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="416" posY="32">
+  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="352" posY="32">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBInput_5"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="REPOSITORY"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" show="false" value="_TDzwoArHEeWx1dV_9Bg5iA"/>
@@ -782,7 +782,7 @@
       <additionalProperties key="Comment" value=""/>
     </metadata>
   </node>
-  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="480" posY="32">
+  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="448" posY="0">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBInput_6"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="REPOSITORY"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" show="false" value="_TDzwoArHEeWx1dV_9Bg5iA"/>
@@ -883,7 +883,7 @@
       <additionalProperties key="Comment" value=""/>
     </metadata>
   </node>
-  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="544" posY="32">
+  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="544" posY="0">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBInput_7"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="REPOSITORY"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" show="false" value="_TDzwoArHEeWx1dV_9Bg5iA"/>
@@ -1329,13 +1329,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_e15d54fa-4e3a-4895-8f71-60ccc6105c8d"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>ZO/JVUui3wJYT46jcyr56JNaYeQ2EzMZmIe1AQV+WgEXs3+NGTnVcyTpcfeNUmoY22pDuM6UMba3
-xs4m/NIeaw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_321e4341-a2ea-4405-8ccf-9a26fb94f2ff"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>nnRugHAVKVc5lYcuFLog+SZGeYg0OUFINrYoSpynik/fKAXPYa9hEgtI7FshBMxtP9iMdzGuiiql
-25VcKjNErA==</DigestValue></Reference></SignedInfo><SignatureValue>If/rJCDTzbDR8rKSb5CMUev/zPKl8b4+TzS8wwWKaRvg3895sO9uEfTqUWJpClW1WS2v2joBZ+b1
-pI9cXDNqktm8p4CuM3+6qIVym3MI6mdzwvegj/a7+xbWzJa8iJKjRCZ6Bi5MKVWo2JEByBxYhXcf
-PVrY84GMCom897TmD2L6/hH20IJINlKAXxEwsgh+gbv6un/Sg/Aly/OPr94brOeu+PB/gdPKRb4m
-eVKpgkH31f8CI6Yc9FNU4+yNPxIYCWDEw7NyMn8v5YUkKwWjjCS2vO0q7NiAV24Dnw1Wfw74NImq
-I8/8jXluLZ50CejygNjoV/KyIq6XMiEDxEhXTA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_bb7f7b9d-657d-4042-becb-9ff5ced8b175"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>ETPnveJanpfdZ2KZh8rmdFhQAEMBkkDA8Oi0m8Wb98/wLnveq0R0YmkuDuir5Yzpv50eUpDF1qzy
+R+EmjmduAQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_ae033337-b1b4-46f4-93fe-5a0303ddd117"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>efjLikaz9oBw1XYqZUV5bR7S2FYnb+mSvTmr7Inuy8gmgjnEbOa345dTCv6E+a66hQFnPUXnFQqE
+nspwf7Zq6w==</DigestValue></Reference></SignedInfo><SignatureValue>YMLc03tpDESGasjB2A59XvQq2Pck7qGzaiwobZcPlT0QZiq732eH/t0YkpTLk484DCu0R0Xtb2ZB
+4Rar3cr0VDGSWt4Ztn5b2mtsNEwzpU8AXhi04aJy7XbrVEARJWKsu5fKge6iPqEXC0cRioyabhsj
+Tgf/uDuJeUIiQBkuflYqZPtmuXp3amstH1e4DP3DV2CFwcbp5FayyWfkGqUO2XC+dCDw6e1uKs22
+5mz5AnKrpCSbA7ReD6fscZF62DJis0br3DPfc/QlLCBLDavGVE8UkQZhrJRFRPo4Yg95B/qJV+nU
+D3UZ/mqOUv3lsmdzpiWS1V5c728LSSDFr81Lyw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1357,4 +1357,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_321e4341-a2ea-4405-8ccf-9a26fb94f2ff" Target="#_e15d54fa-4e3a-4895-8f71-60ccc6105c8d"><Timestamp>2021-03-09 08:32:25</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_ae033337-b1b4-46f4-93fe-5a0303ddd117" Target="#_bb7f7b9d-657d-4042-becb-9ff5ced8b175"><Timestamp>2021-03-09 08:44:17</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
