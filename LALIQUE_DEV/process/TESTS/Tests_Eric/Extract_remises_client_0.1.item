@@ -185,7 +185,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#13;&#10;  c.ACHVTE,&#13;&#10;  c.TYPCOT,&#13;&#10;  c.CLEQUI,&#13;&#10;  c.CLEQOI,&#13;&#10;  c.NUMCOT,&#13;&#10;  c.TYPREM,&#13;&#10;  c.TAUREM1,&#13;&#10;  c.DATAPP,&#13;&#10;  c.DATVAL,&#13;&#10;  c.DATMOD,&#13;&#10;  c.NUMCTS,&#13;&#10;  c.NUMLIG,&#13;&#10;  c.TQUI,&#13;&#10;  c.TQOI&#13;&#10;FROM SOC1.CTS c&#13;&#10;WHERE c.TYPCOT = 'LIG'  &#13;&#10;AND c.DATVAL = ' '  &#13;&#10;AND c.TQUI = '1' &#13;&#10;AND c.TQOI IN ( '5', '502')&#13;&#10;AND c.DATAPP = (SELECT MAX(DATAPP) FROM CTS &#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;WHERE TYPCOT = 'LIG'  AND DATVAL = ' '  &#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;AND TQUI = '1' AND TQOI IN ( '5', '502') AND CLEQUI = c.CLEQUI)&#13;&#10;ORDER BY CLEQUI &quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#13;&#10;  c.ACHVTE,&#13;&#10;  c.TYPCOT,&#13;&#10;  c.CLEQUI,&#13;&#10;  t.NOMTIE,&#13;&#10;  c.CLEQOI,&#13;&#10;  c.NUMCOT,&#13;&#10;  c.TYPREM,&#13;&#10;  c.TAUREM1,&#13;&#10;  c.DATAPP,&#13;&#10;  c.DATVAL,&#13;&#10;  c.DATMOD,&#13;&#10;  c.NUMCTS,&#13;&#10;  c.NUMLIG,&#13;&#10;  c.TQUI,&#13;&#10;  c.TQOI&#13;&#10;FROM SOC1.CTS c&#13;&#10;JOIN TIE t&#13;&#10;&#9;ON c.CLEQUI = t.SIGTIE&#13;&#10;WHERE c.TYPCOT = 'LIG'  &#13;&#10;AND t.TYPTIE = 'CLI'&#13;&#10;AND c.DATVAL = ' '  &#13;&#10;AND c.TQUI = '1' &#13;&#10;AND c.TQOI IN ( '5', '502')&#13;&#10;AND c.DATAPP = (SELECT MAX(DATAPP) FROM CTS &#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;WHERE TYPCOT = 'LIG'  AND DATVAL = ' '  &#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;AND TQUI = '1' AND TQOI IN ( '5', '502') AND CLEQUI = c.CLEQUI)&#13;&#10;ORDER BY CLEQUI &quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -205,6 +205,8 @@
       <elementValue elementRef="SCHEMA_COLUMN" value="TYPCOT"/>
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="CLEQUI"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="NOMTIE"/>
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="CLEQOI"/>
       <elementValue elementRef="TRIM" value="false"/>
@@ -236,6 +238,7 @@
       <column comment="" key="false" length="1" name="ACHVTE" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="3" name="TYPCOT" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="16" name="CLEQUI" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="30" name="NOMTIE" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="16" name="CLEQOI" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="38" name="NUMCOT" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="" key="false" length="1" name="TYPREM" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
@@ -270,6 +273,8 @@
       <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="CLEQUI"/>
       <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="NOMTIE"/>
+      <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="CLEQOI"/>
       <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="NUMCOT"/>
@@ -300,6 +305,7 @@
       <column comment="" key="false" length="1" name="ACHVTE" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="3" name="TYPCOT" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="16" name="CLEQUI" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="30" name="NOMTIE" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="16" name="CLEQOI" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="38" name="NUMCOT" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="" key="false" length="1" name="TYPREM" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
@@ -331,13 +337,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_94e1f7e5-8323-4f65-b112-0a8e7dd51c55"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>ZiqLu5sFr0/XXnexTBXAXUeuBB4JmtvoSmJ2m4F8i3suLC271easzfmbV0KYVhnlzIn53sCYVR2Y
-5QT1zOTfqQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_b9d94309-3740-4119-80ce-83506c598873"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>/2HnxjEYV0Be7mEApnRXn6+sizbQDC6MK4tdPEZDbFbZDV92d2vJuR7B2NrWR7/i58ZgE1hg7qwI
-Vkjq+JCiSA==</DigestValue></Reference></SignedInfo><SignatureValue>Q6D1YCIWpKJPPuJwffZxZKUUGobduh3+RkZ9L1xfT9dbK5asdkscIYioz2g8I1a94M2VKVpk1l2N
-//eqk0QaiMTmjlWrQnKpqeerNS5x7l48giPyNIjfXW+ZGGB+c/bt2CFm+Wp7jxSXJ0cktQux0Qqr
-1eBQA/Hh/wzf3ZusJIBQ6bvprHijcpCtl5IcTEPfzOc8006r2jj4uRBnwNUQbyV8FllwYYAMYZbx
-FJyWoBnHuYsNeDf0/qeGpOQo2vXxZu88DwyQ8oY0sSzsDLdiqfM2ADOLEOieIDmr+8qTWkvqzJjf
-3Vn3Hg4DN+BQB7uvKISuUUgvRTfWhOPMWgmAZA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_e5dfbf43-679f-4c54-8c27-5a083fb8acff"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>TutSQJy9fEIqGoEf2YafCv8O8ZFGtw4ADKePsIdHC8gMMSorslBFjBGoEIYZQqRYUz+4T9TRdjUi
+jx8z9JJ7QQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_d657191c-4e02-4220-8580-b41da7745c42"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>YKZK4zXTY/bvKbCxWTDLz748IdzCV2ztINOWswfdNP/c75qaE6c6bXbibcsIfDEAWYvdDwGKNnau
+NIZJ3kbkvA==</DigestValue></Reference></SignedInfo><SignatureValue>aKtgLL7GP9gOECwZUR2pROknCBbORdHzsv22EVSOGEqPRKDwBWWgwHCk7vTyuF6WSOHa8yuV+gXV
+vGRqrurBgPmYjIjXqS0pN+186M+c0lFbHU8NwsOxnbZC6fQWCwSGZf58uspcYrzSUrQvLX4ZXBaJ
+a6L+IwcMdY7DHNE2fugkYNhE/04HZYi8ji48eDJWa03D4MH7cQdcQCaLdWBU5hqji6pKmmtJlI7a
+ElSgj+5533w+tIbcYPt5xjJzhy/ZqtRoCj6NajLm51iKXGAoc+rLmyoM/RMdV7r8S2FELip0iePh
+wtFd+2u67kuWCSd93d/lA0+GPESNqJXMcO+1kg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -359,4 +365,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_b9d94309-3740-4119-80ce-83506c598873" Target="#_94e1f7e5-8323-4f65-b112-0a8e7dd51c55"><Timestamp>2021-03-10 15:35:35</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_d657191c-4e02-4220-8580-b41da7745c42" Target="#_e5dfbf43-679f-4c54-8c27-5a083fb8acff"><Timestamp>2021-03-10 15:37:28</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
