@@ -1565,9 +1565,11 @@
         <mapperTableEntries name="Client_Liv" nullable="true" type="id_String"/>
         <mapperTableEntries name="Client_Pay" nullable="true" type="id_String"/>
       </inputTables>
-      <inputTables activateCondensedTool="true" lookupMode="LOAD_ONCE" matchingMode="ALL_ROWS" name="detail_lig" sizeState="INTERMEDIATE">
+      <inputTables activateCondensedTool="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="detail_lig" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="entete_l.Num_Fac " name="NUMEVE" type="id_BigDecimal"/>
+        <mapperTableEntries expression="entete_l.Type_Fac_eGX " name="TYPEVE" type="id_String"/>
         <mapperTableEntries name="PRXVDU" nullable="true" type="id_BigDecimal"/>
-        <mapperTableEntries name="CODPRO" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="" name="CODPRO" nullable="true" type="id_String"/>
         <mapperTableEntries name="QTECDE" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries name="QTELIV" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries name="REFLOT" nullable="true" type="id_String"/>
@@ -1744,7 +1746,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#13;&#10;  p.PRXVDU, &#13;&#10;  l.CODPRO,&#13;&#10;  l.QTECDE, &#13;&#10;  l.QTELIV,&#13;&#10;  o.REFLOT&#13;&#10;FROM SOC1.EVP p&#13;&#10;JOIN SOC1.EVL l&#13;&#10;ON e.CODSOC = l.CODSOC &#13;&#10;&#9;AND e.ACHVTE = l.ACHVTE&#13;&#10;&#9;AND e.NUMEVE = l.NUMEVE&#13;&#10;&#9;AND e.TYPEVE = l.TYPEVE&#13;&#10;LEFT JOIN SOC1.OST o&#13;&#10;ON o.CODSOC = 1&#13;&#10;&#9;AND o.CODPRO = l.CODPRO&#13;&#10;&#9;AND o.NUMLOT = l.NUMLOT&#13;&#10;WHERE p.CODSOC=11&#13;&#10;&#9;AND p.ACHVTE = 'V'&#13;&#10;&#9;AND p.NUMEVE = &quot;+ globalMap.get(&quot;NUMEVE&quot;) +&quot;&#13;&#10;&#9;AND p.TYPEVE = '&quot;+ globalMap.get(&quot;TYPEVE&quot;) +&quot;'&#13;&#10;&#9;AND p.NUMPOS = l.NUMPOS&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#13;&#10;  p.NUMEVE,&#13;&#10;  p.TYPEVE,&#13;&#10;  p.PRXVDU, &#13;&#10;  l.CODPRO,&#13;&#10;  l.QTECDE, &#13;&#10;  l.QTELIV,&#13;&#10;  o.REFLOT&#13;&#10;FROM SOC1.EVP p&#13;&#10;JOIN SOC1.EVL l&#13;&#10;ON p.CODSOC = l.CODSOC &#13;&#10;&#9;AND p.ACHVTE = l.ACHVTE&#13;&#10;&#9;AND p.NUMEVE = l.NUMEVE&#13;&#10;&#9;AND p.TYPEVE = l.TYPEVE&#13;&#10;LEFT JOIN SOC1.OST o&#13;&#10;ON o.CODSOC = 1&#13;&#10;&#9;AND o.CODPRO = l.CODPRO&#13;&#10;&#9;AND o.NUMLOT = l.NUMLOT&#13;&#10;WHERE p.CODSOC=11&#13;&#10;&#9;AND p.ACHVTE = 'V'&#13;&#10;&#9;AND p.NUMEVE = &quot;+ globalMap.get(&quot;NUMEVE&quot;) +&quot;&#13;&#10;&#9;AND p.TYPEVE = '&quot;+ globalMap.get(&quot;TYPEVE&quot;) +&quot;'&#13;&#10;&#9;AND p.NUMPOS = l.NUMPOS&quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -1759,6 +1761,10 @@
     <elementParameter field="TEXT" name="CURSOR_SIZE" show="false" value="1000"/>
     <elementParameter field="CHECK" name="TRIM_ALL_COLUMN" value="false"/>
     <elementParameter field="TABLE" name="TRIM_COLUMN">
+      <elementValue elementRef="SCHEMA_COLUMN" value="NUMEVE"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="TYPEVE"/>
+      <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="PRXVDU"/>
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="CODPRO"/>
@@ -1774,11 +1780,13 @@
     <elementParameter field="TEXT" name="LABEL" value="__TABLE__"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tDBInput_7">
-      <column comment="" defaultValue="" key="false" length="0" name="PRXVDU" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" key="false" length="16" name="CODPRO" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="0" name="QTECDE" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="0" name="QTELIV" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="REFLOT" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="-1" name="NUMEVE" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="TYPEVE" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="-1" name="PRXVDU" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="CODPRO" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="-1" name="QTECDE" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="-1" name="QTELIV" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="REFLOT" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <additionalProperties key="Comment" value=""/>
     </metadata>
   </node>
@@ -1941,13 +1949,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_d66434a6-a295-4bed-830b-9877482069d2"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>rGz6xAj7WVBteXeWibYnDuyqyuJQp9EybozyCZHkgvAyLyxCsQitX9ltdZ4A6hs0fV19FgV/OqRH
-OouJYUVlig==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_65694136-9c7f-4b78-bc41-3f0e86aeac39"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>dkPJPM3kwEf2oQsDZTpBIZDv8EWYyod1moNEFwTTJ9hFfx74koTXyHGBzEPph3baYzo/4nonLlsL
-YL0Q8ENIuw==</DigestValue></Reference></SignedInfo><SignatureValue>K5oguSX1g/D2/7r5W/Drd9i7QSYzxNyxF08F8aUKs6UBk9xhviwuOV5p4Fgre1/IxzR3ErB9ZSh7
-oohaV6eEdB/dVuLSiItK8HqXSW4LyNEjPaeBp5IJLiJL1Ep8jOh8WCWmbHsqH31IJikilpHxmK/e
-MD+70DjAPuQI0l62cACwkVEK5k56wGsodUMdqaErROzobWV7y5sTHtk/tuLSy+PIplitvnDfBDIA
-OEjlGHvNTuGWlCOO1P/OrQDpsKunnYXGEVywxSh2iaHTXf5oQfEHUahyQmICVw2WsOqIkOODaIpZ
-yLKPQazRwPrdl3t1NJyhmxQ+z6LdEcoDCc6oDw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_3e66c519-659a-45f9-bed9-de0c257dd2f0"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Stwcei6+YAsjizjjSajseW0Fj4FyiY+D7d38XgKbgmgX/EjEO9YTmtk8aC6/AS1re/p1XHPRX9y+
+9k2zoqpEwA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_9900555f-ba3e-4020-a101-dd5c7873ce1c"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>lxf6C4pIbHc7qot9Ovb4QWvLzAd5qA4W5kXE6smLc9RstM4wZ1gF8Tn/jujrtpl0EI94AA553i3P
+aBWPHSjy8w==</DigestValue></Reference></SignedInfo><SignatureValue>ObsZO0tWAMedaMC4/QSPOorGi0MDHadoeYI9XcDAsvOA79RBI/VNeLky0PAfYLQsUAy4m9haveVE
+fIPDQa/3PFUl7HbROgO8PpdNJOiFzp9CgtiAqkenyrV6+8sIU2L88LdAtE206g3JXTXU+zOgjF7l
+9vi7fQw0bvLGjfOCaYXtonwWaqRuz3ggTaPLh3yeD/YbdCpy48bfjmyKi2F4jyIdoJ+4bLB8nbcE
+Nl0Q/P999s5hgX/TznNvRXo7nRgrmxUOiMtHsdIbrfVIozqkCwXKn0BXQhz86Es84L7XowilCmtI
+RoyyC6wjJf4SJNJScTvJXdzaMTcn2nmIm06Szw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1969,4 +1977,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_65694136-9c7f-4b78-bc41-3f0e86aeac39" Target="#_d66434a6-a295-4bed-830b-9877482069d2"><Timestamp>2021-03-10 10:05:06</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_9900555f-ba3e-4020-a101-dd5c7873ce1c" Target="#_3e66c519-659a-45f9-bed9-de0c257dd2f0"><Timestamp>2021-03-10 10:14:20</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
