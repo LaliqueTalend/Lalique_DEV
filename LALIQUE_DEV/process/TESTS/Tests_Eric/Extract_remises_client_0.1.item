@@ -463,7 +463,7 @@
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
-      <outputTables activateCondensedTool="true" name="compare" rejectInnerJoin="true" sizeState="INTERMEDIATE">
+      <outputTables name="compare" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="rem_jde.ADAST" name="ADAST" type="id_String"/>
         <mapperTableEntries expression="rem_jde.ADAN8" name="ADAN8" type="id_Integer"/>
         <mapperTableEntries expression="rem_jde.TIERS_EGX" name="TIERS_EGX" nullable="true" type="id_String"/>
@@ -488,7 +488,7 @@
         <mapperTableEntries name="ADEFTJ" nullable="true" type="id_Integer"/>
         <mapperTableEntries name="ADEXDJ" type="id_Integer"/>
       </inputTables>
-      <inputTables activateCondensedTool="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="row1" sizeState="INTERMEDIATE">
+      <inputTables activateCondensedTool="true" lookupMode="RELOAD" matchingMode="UNIQUE_MATCH" name="row1" sizeState="INTERMEDIATE">
         <mapperTableEntries name="ACHVTE" type="id_String"/>
         <mapperTableEntries name="TYPCOT" type="id_String"/>
         <mapperTableEntries expression="rem_jde.TIERS_EGX " name="CLEQUI" operator="=" type="id_String"/>
@@ -504,6 +504,7 @@
         <mapperTableEntries name="NUMLIG" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries name="TQUI" type="id_String"/>
         <mapperTableEntries name="TQOI" type="id_String"/>
+        <globalMapKeysValues expression="" name="&quot;CLEQUI&quot;"/>
       </inputTables>
     </nodeData>
   </node>
@@ -582,7 +583,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#13;&#10;  c.ACHVTE,&#13;&#10;  c.TYPCOT,&#13;&#10;  c.CLEQUI,&#13;&#10;  t.NOMTIE,&#13;&#10;  c.CLEQOI,&#13;&#10;  c.NUMCOT,&#13;&#10;  c.TYPREM,&#13;&#10;  c.TAUREM1,&#13;&#10;  c.DATAPP,&#13;&#10;  c.DATVAL,&#13;&#10;  c.DATMOD,&#13;&#10;  c.NUMCTS,&#13;&#10;  c.NUMLIG,&#13;&#10;  c.TQUI,&#13;&#10;  c.TQOI&#13;&#10;FROM SOC1.CTS c&#13;&#10;JOIN TIE t&#13;&#10;&#9;ON c.CLEQUI = t.SIGTIE&#13;&#10;WHERE c.TYPCOT = 'LIG'  &#13;&#10;AND t.TYPTIE = 'CLI'&#13;&#10;AND c.DATVAL = ' '  &#13;&#10;AND c.TQUI = '1' &#13;&#10;AND c.TQOI IN ( '5', '502')&#13;&#10;AND c.DATAPP = (SELECT MAX(DATAPP) FROM CTS &#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;WHERE TYPCOT = 'LIG'  AND DATVAL = ' '  &#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;AND TQUI = '1' AND TQOI IN ( '5', '502') AND CLEQUI = c.CLEQUI)&#13;&#10;ORDER BY CLEQUI &quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#13;&#10;  c.ACHVTE,&#13;&#10;  c.TYPCOT,&#13;&#10;  c.CLEQUI,&#13;&#10;  t.NOMTIE,&#13;&#10;  c.CLEQOI,&#13;&#10;  c.NUMCOT,&#13;&#10;  c.TYPREM,&#13;&#10;  c.TAUREM1,&#13;&#10;  c.DATAPP,&#13;&#10;  c.DATVAL,&#13;&#10;  c.DATMOD,&#13;&#10;  c.NUMCTS,&#13;&#10;  c.NUMLIG,&#13;&#10;  c.TQUI,&#13;&#10;  c.TQOI&#13;&#10;FROM SOC1.CTS c&#13;&#10;JOIN TIE t&#13;&#10;&#9;ON c.CLEQUI = t.SIGTIE&#13;&#10;WHERE c.TYPCOT = 'LIG'  &#13;&#10;AND t.TYPTIE = 'CLI'&#13;&#10;AND c.CLEQUI = '&quot;+ globalMap.get(&quot;CLEQUI&quot;) +&quot;'&#13;&#10;AND c.DATVAL = ' '  &#13;&#10;AND c.TQUI = '1' &#13;&#10;AND c.TQOI IN ( '5', '502')&#13;&#10;AND c.DATAPP = (SELECT MAX(DATAPP) FROM CTS &#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;WHERE TYPCOT = 'LIG'  AND DATVAL = ' '  &#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;AND TQUI = '1' AND TQOI IN ( '5', '502') AND CLEQUI = c.CLEQUI)&#13;&#10;ORDER BY CLEQUI &quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -739,13 +740,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_f24e6337-4b47-4743-85b5-3d783146a550"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>H635z9CRnJe9gOJE5WXZzC3fRx/cm+Tpkji76ZVCUo11CIa/hSwJaTIF+rl4fC23yj+TgvGCesT4
-yCGadewK+Q==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_7881900a-53ed-492e-ab20-ef48605d7097"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>MOZ7n9BYNwJgMR7pa1WBT5W4Me1Cy2E4/DlHX+w8JutJVDu17vE34C9l1ByRHyGz96LJi4u9g1zk
-ao9fT55l3A==</DigestValue></Reference></SignedInfo><SignatureValue>IJHV69oILRKoT/5y/cZyF7bbxFbaCHpR4qN4hlmzBhB+g1c7OQHQFpYdXQq83Z3YJexKZKwwOMTL
-01yPRgg52l4m8hcMyE2BhCeaYMar3AX2SjJnRiWMeF/jD0rTRio67Y9GinMI6pqSyK0spqQX0qFo
-WV4v9Qfql+zVJNfQRJ7IwTbEcFpFX+4AL1mHxbubAGKKMIFtVuhi2eYuSmBm2TJsMVJd4mpZt1pL
-G3k3wYbraKyRmLgRFVMlBEdTndQSw7qU5MM4n7GI33/Hab/PkoyPpsAXsNxM+TAFGYM3al6ktmYf
-G8WKA3Z2A+QJY+FZfTlthgCIJK4wJOxsglpcog==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_2ac53da8-ce68-4764-ad5d-47f57e6de0b5"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>JnX7O4kMOu6VMGWOCgOAJ1+2yuu33HCWaC8gWwTvRk0BnMiLcLvClymQaBgSlnrvKZzpnYGtEaBw
+VFyNwJXKDg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_db15a466-ef70-408c-9ec4-c571b3d9067a"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>5sFZRCfuAui4/b9H8PbXu5jbQTfFVpMqGQeEDiVk7gz8ByF7Bdb9LnOzfKHVGjDjKr6lNeeRnDM4
+lp0bRJ+jeA==</DigestValue></Reference></SignedInfo><SignatureValue>pLfrZDrsvunKlZEfbU+6/T+GOuE0cqVy8ssOL7/pJSW1/AwvAs/iO04pit4v7H747u6oy7UdFznT
+OFSEvxIovzhYza2rjh+v9yZFdT4Y2+DLPR4/wrEB3tsRytfgMlnbhAyEMZK2le/tQYGP+RXEyu0/
+HmcHzDl/U0amNBsM0g3VoTyiue36HdgpbuGPI4tl3bq1XMhzSeuAwuIYfj/JQtNUwhZN3YAiWUOc
+nn5XRRmlt40RwzkuJhNz2wq8aZy8wyWaOKxTyLy0Hagqu9dbzI6iAHsWBmKMVA32IeF+BXNwsrik
+YveT8jlE9BJwl96mvpzwXFIVmefWb61DeNuGOQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -767,4 +768,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_7881900a-53ed-492e-ab20-ef48605d7097" Target="#_f24e6337-4b47-4743-85b5-3d783146a550"><Timestamp>2021-03-10 21:34:03</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_db15a466-ef70-408c-9ec4-c571b3d9067a" Target="#_2ac53da8-ce68-4764-ad5d-47f57e6de0b5"><Timestamp>2021-03-10 21:37:14</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
