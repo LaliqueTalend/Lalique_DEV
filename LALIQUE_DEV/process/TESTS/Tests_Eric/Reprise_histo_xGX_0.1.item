@@ -1770,8 +1770,9 @@
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="32" posY="320">
+  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="960" posY="192">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBInput_10"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" show="false" value="REPOSITORY"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" show="false" value="_TDzwoArHEeWx1dV_9Bg5iA"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="true"/>
@@ -2321,7 +2322,7 @@
       <column comment="" key="false" length="-1" name="Code_Produit" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="Qte_Commande" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="Qte_livre" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="-1" name="Serie_Limitee" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Serie_Limitee" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
@@ -2345,11 +2346,11 @@
         <mapperTableEntries expression="Relational.NOT(Relational.ISNULL(Lad_Fac2.SIGTIE)) ? Lad_Fac2.SIGADR + Lad_Fac2.TYPADR1 + Lalique.Pad0(Lad_Fac2.NUMADR1.toString(),3) : &quot;&quot; " name="Client_Fac" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Relational.NOT(Relational.ISNULL(Lad_Liv2_1.SIGTIE)) &amp;&amp; frais_1.NUMFIL &gt; 0 &amp;&amp; frais_1.NUMFIL &lt; 100 ? Lad_Liv2_1.SIGADR + Lad_Liv2_1.TYPADR1 + Lalique.Pad0(Lad_Liv2_1.NUMADR1.toString(),3) : " name="Client_Liv" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Relational.NOT(Relational.ISNULL(Lad_Pay2.SIGTIE)) ? Lad_Pay2.SIGADR + Lad_Pay2.TYPADR1 + Lalique.Pad0(Lad_Pay2.NUMADR1.toString(),3) : &quot;&quot; " name="Client_Pay" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="frais_1.PRXVDU " name="Prix_Vte" nullable="true" type="id_BigDecimal"/>
-        <mapperTableEntries expression="frais_1.CODPRO " name="Code_Produit" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="frais_1.QTECDE " name="Qte_Commande" nullable="true" type="id_BigDecimal"/>
-        <mapperTableEntries expression="frais_1.QTELIV " name="Qte_livre" nullable="true" type="id_BigDecimal"/>
-        <mapperTableEntries expression="frais_1.REFLOT " name="Serie_Limitee" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="frais_1.MONFRD " name="Prix_Vte" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries expression="Param_Frais.Code_Jde " name="Code_Produit" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="1" name="Qte_Commande" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries expression="1" name="Qte_livre" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries expression="&quot; &quot;" name="Serie_Limitee" nullable="true" type="id_String"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="frais_1" sizeState="INTERMEDIATE">
         <mapperTableEntries name="NUMEVE" type="id_BigDecimal"/>
@@ -2399,7 +2400,7 @@
         <mapperTableEntries name="UTIMOD" nullable="true" type="id_String"/>
         <mapperTableEntries name="CODSOC" type="id_Integer"/>
       </inputTables>
-      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Lad_Liv2_2" sizeState="INTERMEDIATE">
+      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="Lad_Liv2_2" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="frais_1.SIGTIE " name="SIGTIE" type="id_String"/>
         <mapperTableEntries name="TYPTIE" type="id_String"/>
         <mapperTableEntries name="TYPADR" type="id_String"/>
@@ -2412,7 +2413,7 @@
         <mapperTableEntries name="UTIMOD" nullable="true" type="id_String"/>
         <mapperTableEntries name="CODSOC" type="id_Integer"/>
       </inputTables>
-      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Lad_Liv2_3" sizeState="INTERMEDIATE">
+      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="Lad_Liv2_3" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="frais_1.SIGTIE " name="SIGTIE" type="id_String"/>
         <mapperTableEntries name="TYPTIE" type="id_String"/>
         <mapperTableEntries name="TYPADR" type="id_String"/>
@@ -2437,6 +2438,10 @@
         <mapperTableEntries name="DATMOD" nullable="true" type="id_String"/>
         <mapperTableEntries name="UTIMOD" nullable="true" type="id_String"/>
         <mapperTableEntries name="CODSOC" type="id_Integer"/>
+      </inputTables>
+      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Param_Frais" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="frais_1.CODFRD " name="Code_Egx" nullable="true" type="id_String"/>
+        <mapperTableEntries name="Code_Jde" nullable="true" type="id_String"/>
       </inputTables>
     </nodeData>
   </node>
@@ -2541,7 +2546,7 @@
       <additionalProperties key="Comment" value=""/>
     </metadata>
   </node>
-  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="704" posY="224">
+  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="640" posY="224">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBInput_16"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="REPOSITORY"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" show="false" value="_TDzwoArHEeWx1dV_9Bg5iA"/>
@@ -2697,6 +2702,66 @@
       <column comment="" defaultValue="" key="false" length="-1" name="Serie_Limitee" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
+  <node componentName="tFileInputExcel" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="736" posY="224">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileInputExcel_2"/>
+    <elementParameter field="CHECK" name="VERSION_2007" value="true"/>
+    <elementParameter field="FILE" name="FILENAME" value="&quot;C:/Users/efevre/LALIQUE/Projet 3F - Gestion/REPRISE_DONNEES/Reprise_CarnetCdes/Tables_Param/Param_Frais_Reprise.xlsx&quot;"/>
+    <elementParameter field="CHECK" name="ALL_SHEETS" value="false"/>
+    <elementParameter field="TABLE" name="SHEETLIST">
+      <elementValue elementRef="SHEETNAME" value="&quot;Feuil1&quot;"/>
+      <elementValue elementRef="USE_REGEX" value=""/>
+    </elementParameter>
+    <elementParameter field="TEXT" name="HEADER" value="1"/>
+    <elementParameter field="TEXT" name="FOOTER" value="0"/>
+    <elementParameter field="TEXT" name="LIMIT" value=""/>
+    <elementParameter field="CHECK" name="AFFECT_EACH_SHEET" value="false"/>
+    <elementParameter field="TEXT" name="FIRST_COLUMN" value="1"/>
+    <elementParameter field="TEXT" name="LAST_COLUMN" value=""/>
+    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" show="false" value="REPOSITORY"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" show="false" value="_JEKE8Dx5Eequi7bMagpgaA - metadata"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA_REJECT:SCHEMA_TYPE" show="false" value="REPOSITORY"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA_REJECT:REPOSITORY_SCHEMA_TYPE" show="false" value="_JEKE8Dx5Eequi7bMagpgaA - metadata"/>
+    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
+    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" show="false" value="&quot;,&quot;"/>
+    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" show="false" value="&quot;.&quot;"/>
+    <elementParameter field="CHECK" name="TRIMALL" value="false"/>
+    <elementParameter field="TABLE" name="TRIMSELECT">
+      <elementValue elementRef="SCHEMA_COLUMN" value="Code_Egx"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Code_Jde"/>
+      <elementValue elementRef="TRIM" value="false"/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="CONVERTDATETOSTRING" value="false"/>
+    <elementParameter field="TABLE" name="DATESELECT" show="false">
+      <elementValue elementRef="SCHEMA_COLUMN" value="Code_Egx"/>
+      <elementValue elementRef="CONVERTDATE" value="false"/>
+      <elementValue elementRef="PATTERN" value="&quot;MM-dd-yyyy&quot;"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Code_Jde"/>
+      <elementValue elementRef="CONVERTDATE" value="false"/>
+      <elementValue elementRef="PATTERN" value="&quot;MM-dd-yyyy&quot;"/>
+    </elementParameter>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;UTF-8&quot;"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="UTF-8"/>
+    <elementParameter field="CHECK" name="READ_REAL_VALUE" show="false" value="false"/>
+    <elementParameter field="CHECK" name="STOPREAD_ON_EMPTYROW" value="false"/>
+    <elementParameter field="CHECK" name="NOVALIDATE_ON_CELL" show="false" value="false"/>
+    <elementParameter field="CHECK" name="SUPPRESS_WARN" show="false" value="false"/>
+    <elementParameter field="CLOSED_LIST" name="GENERATION_MODE" value="USER_MODE"/>
+    <elementParameter field="CHECK" name="INCLUDE_PHONETICRUNS" show="false" value="true"/>
+    <elementParameter field="TEXT" name="LABEL" value="Param_Frais_Reprise"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" label="metadata" name="tFileInputExcel_2">
+      <column comment="" key="false" length="4" name="Code_Egx" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="14" name="Code_Jde" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
+    </metadata>
+    <metadata connector="REJECT" label="metadata" name="REJECT">
+      <column comment="" key="false" length="4" name="Code_Egx" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="14" name="Code_Jde" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tDBConnection_1" offsetLabelX="0" offsetLabelY="0" source="tDBConnection_1" target="tDBInput_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk1"/>
   </connection>
@@ -2708,6 +2773,9 @@
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="ligne_1"/>
+  </connection>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tDBInput_1" offsetLabelX="0" offsetLabelY="0" source="tDBInput_1" target="tDBInput_11">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk2"/>
   </connection>
   <connection connectorName="FLOW" label="ligne_2" lineStyle="0" metaname="ligne_2" offsetLabelX="0" offsetLabelY="0" source="tMap_2" target="tFileOutputDelimited_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
@@ -2811,6 +2879,10 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Lad_Pay2"/>
   </connection>
+  <connection connectorName="FLOW" label="Param_Frais" lineStyle="8" metaname="tFileInputExcel_2" offsetLabelX="0" offsetLabelY="0" source="tFileInputExcel_2" target="tMap_4">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Param_Frais"/>
+  </connection>
   <subjob>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBConnection_1"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
@@ -2851,13 +2923,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_eec527d2-4869-4653-9734-df996481bbcd"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>0yLVPgvhQ43nKIiPc4N0mUV+61Xv7jrdtt6kH26bvqmleo05lD8vKv2Ezzu/lJYHhq5kxYPeP0p5
-4ejxWCFWNg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_d91d8cf0-d511-490f-94d7-3851b42b4945"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>8vLdy0EaPfYc3FjvTYlgPfmi/J+QT6nbGcZRpfSB6dv5nMFjlUuVKgK2OOlbjL1Ixy88Qf3hkBsA
-ppUmNOcR/A==</DigestValue></Reference></SignedInfo><SignatureValue>QuipdkqFPJcP+Schv0QyK+rDssuVN0OevfqXLSvYGriCG8778bukoK6kgUcgS8MGp6aK2/Mgk15k
-3FH+kNFVThEDs0IBl/hqMccGy0D89qyFvVEqk5odjNgWTAMJjOcG+b/TLjE69u1KPCRn24mDQ16w
-uhBNSICp23T5FG/fgJQ3GcEOBBRqWhD+kZHmvVZmluP16c1DxfzkmW5BW39d4OX+K2/4yVjR/9ho
-oSNGRrQG7yOSZ2ToglR4c52gcTTgLAc38SqeP4wZxswyWwJBpEZweyWYiEEbQSGXaK59pyWTnKzL
-hh6eC5vIrMrtBWykrq0ZTMxGg4SZxABtxrDa2g==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_71a12ba8-99bf-408d-81e2-249d179a17d3"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>5okuxM1EUMCMG+YuQM/3FmNm5w2Aq+PiD2J3SzL3PG6NSyX0C3A32tl559sy8Jvmwy1flk2uKoIe
+M396PEfrIQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_fdbcfda3-5825-4b28-a7fb-18261e8762e3"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Dfc3LSziqHBJPC7EuF/qGxwVxfIrVbXyGUjfn0VRIHJyaKjNqakMyl4Fq/2vlijAUp/FDmOkKuEf
+JISXF2JJDQ==</DigestValue></Reference></SignedInfo><SignatureValue>orsjCZBCQoHOkEYizciRRE2oYL9WIwZtQ7oKVUiDoRbF/9ELGwJYkOFtbhTT7TGu+JO4LoZNJA3d
+4fpKBhL54jrTvAXyX4Vn8PA3TG5x1cEvkr5g/dXeZReKIGuBnivzjgLCsMwwliovNEes9aTID2gM
+6XttxGy57X+SOen8buCUR8ocOY7DO4Lka4jqNFunEba8gOXzx2eStBJecAucYdLXfEX1k/EJRVo4
+uJ/QF2AaRfpwusoSmKIzpc9W2RvqG/hPK17u4A4A74jN4rVrzfb/2vvZaCbMN+VcXBZftLdI44ae
+vDtNQjXY44XivFR+/A8MXuD7gYQoZRJThN3/Sw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -2879,4 +2951,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_d91d8cf0-d511-490f-94d7-3851b42b4945" Target="#_eec527d2-4869-4653-9734-df996481bbcd"><Timestamp>2021-03-10 11:08:40</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_fdbcfda3-5825-4b28-a7fb-18261e8762e3" Target="#_71a12ba8-99bf-408d-81e2-249d179a17d3"><Timestamp>2021-03-10 11:22:17</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
