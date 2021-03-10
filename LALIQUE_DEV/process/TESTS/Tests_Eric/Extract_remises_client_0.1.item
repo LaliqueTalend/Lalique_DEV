@@ -185,7 +185,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#13;&#10;  c.ACHVTE,&#13;&#10;  c.TYPCOT,&#13;&#10;  c.CLEQUI,&#13;&#10;  c.NUMCOT,&#13;&#10;  c.TYPREM,&#13;&#10;  c.TAUREM1,&#13;&#10;  c.DATAPP,&#13;&#10;  c.DATVAL,&#13;&#10;  c.DATMOD,&#13;&#10;  c.NUMCTS,&#13;&#10;  c.NUMLIG,&#13;&#10;  c.TQUI,&#13;&#10;  c.TQOI&#13;&#10;FROM SOC1.CTS c&#13;&#10;WHERE c.TYPCOT = 'LIG'  &#13;&#10;AND c.DATVAL = ' '  &#13;&#10;AND c.TQUI = '1' &#13;&#10;AND c.TQOI = '5'&#13;&#10;AND c.DATAPP = (SELECT MAX(DATAPP) FROM CTS &#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;WHERE TYPCOT = 'LIG'  AND DATVAL = ' '  &#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;AND TQUI = '1' AND TQOI = '5' AND CLEQUI = c.CLEQUI)&#13;&#10;ORDER BY CLEQUI &quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#13;&#10;  c.ACHVTE,&#13;&#10;  c.TYPCOT,&#13;&#10;  c.CLEQUI,&#13;&#10;  c.CLEQOI,&#13;&#10;  c.NUMCOT,&#13;&#10;  c.TYPREM,&#13;&#10;  c.TAUREM1,&#13;&#10;  c.DATAPP,&#13;&#10;  c.DATVAL,&#13;&#10;  c.DATMOD,&#13;&#10;  c.NUMCTS,&#13;&#10;  c.NUMLIG,&#13;&#10;  c.TQUI,&#13;&#10;  c.TQOI&#13;&#10;FROM SOC1.CTS c&#13;&#10;WHERE c.TYPCOT = 'LIG'  &#13;&#10;AND c.DATVAL = ' '  &#13;&#10;AND c.TQUI = '1' &#13;&#10;AND c.TQOI IN ( '5', '502')&#13;&#10;AND c.DATAPP = (SELECT MAX(DATAPP) FROM CTS &#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;WHERE TYPCOT = 'LIG'  AND DATVAL = ' '  &#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;AND TQUI = '1' AND TQOI IN ( '5', '502') AND CLEQUI = c.CLEQUI)&#13;&#10;ORDER BY CLEQUI &quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -205,6 +205,8 @@
       <elementValue elementRef="SCHEMA_COLUMN" value="TYPCOT"/>
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="CLEQUI"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="CLEQOI"/>
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="NUMCOT"/>
       <elementValue elementRef="TRIM" value="false"/>
@@ -234,16 +236,17 @@
       <column comment="" key="false" length="1" name="ACHVTE" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="3" name="TYPCOT" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="16" name="CLEQUI" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="16" name="CLEQOI" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="38" name="NUMCOT" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="" key="false" length="1" name="TYPREM" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="0" name="TAUREM1" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" key="false" length="8" name="DATAPP" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="8" name="DATVAL" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="8" name="DATMOD" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="8" name="DATAPP" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="8" name="DATVAL" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="8" name="DATMOD" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="38" name="NUMCTS" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="38" name="NUMLIG" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" key="false" length="3" name="TQUI" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="3" name="TQOI" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="3" name="TQUI" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="3" name="TQOI" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <additionalProperties key="Comment" value=""/>
     </metadata>
   </node>
@@ -266,6 +269,8 @@
       <elementValue elementRef="SCHEMA_COLUMN" value="TYPCOT"/>
       <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="CLEQUI"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="CLEQOI"/>
       <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="NUMCOT"/>
       <elementValue elementRef="LENGTH" value="10"/>
@@ -295,16 +300,17 @@
       <column comment="" key="false" length="1" name="ACHVTE" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="3" name="TYPCOT" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="16" name="CLEQUI" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="16" name="CLEQOI" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="38" name="NUMCOT" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="" key="false" length="1" name="TYPREM" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="0" name="TAUREM1" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" key="false" length="8" name="DATAPP" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="8" name="DATVAL" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="8" name="DATMOD" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="8" name="DATAPP" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="8" name="DATVAL" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="8" name="DATMOD" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="38" name="NUMCTS" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="38" name="NUMLIG" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" key="false" length="3" name="TQUI" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="3" name="TQOI" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="3" name="TQUI" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="3" name="TQOI" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <additionalProperties key="Comment" value=""/>
     </metadata>
   </node>
@@ -325,13 +331,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_daa3eae5-3205-4ce3-bacc-7fd1746904fe"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>+9/2XUNl3f8ZoTK60yhoP/KvYb3rKq4nljjmxCBe7SHgPc5l65wokKzMfBbYfmnCSeKmpe6XKNDe
-iguOvPnJPw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_95986cb1-aa52-4574-9da8-c71d5c8aac96"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>aezb2ycgBYnlZeI8qpDBDRgBLvc+S2uaSP+UT5Fv7uXlG3Gw9vStfaxhCF68comXTMkAB/opvK61
-0pV1gy1bQQ==</DigestValue></Reference></SignedInfo><SignatureValue>EdWNldwyyuWk69PRW1763savQcm7GNxh5UyKKr+0UyJJp/iUfOxGf389H1LNwAn0MnqJBYzth6NB
-J4W24bo0xKTXJO31S320VUF8R2o8WfO9xadOD2JY7J3F9rN/j2itDxdDkGOjHxF8r09vAcuOPqDo
-D1SBDpg9kbH+jfpJKkJq34ydrvPm+htvUJZ4Ks5r+GwF4cfxHOgo6flJbtzR3zZGz81SNMaXpxCe
-bKHNOkt+LLId4IKJ4bTAvxsQFeee8xE8I/agb4H6arajaOmKaYukgZKntDahfyYg3pFRWcLGQbQc
-qpy6Cas+vRgh0w1MpQ1oSysDBg9LWn0nkmvf2Q==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_fb364e84-8996-459f-be7f-29dc5a9aef8e"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>MXJm1tXviswU4Wi1aDOtC5PBLqiw3mUQ5zr4fYsWcnPEs1lNq8/MCigQ60wBQEILu9Voa6APy1wY
+Rq+xsf6J5g==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_de9830f3-431b-4d35-8241-97656b38e36b"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>GzZpmGQh8IL4sr32Bpe7yWMNSp34VxZ2pvW2LnV+mGNF/EaXP7QoP1XQBVkvoCvLwu4uT0nd7x5+
+QoOVkLu8oQ==</DigestValue></Reference></SignedInfo><SignatureValue>UUJ3MY4Dwe46zbPRaOmJAduA1a90F4GLJp4e7duwOn/0zzp8KRfZJs5y7+u+nauYoAuUa80QdV02
+yjqdpgJqJvOoFM2gaSMkrsPKoSPcg6K88c5iLj2rqwaSixQ5ZKvtxjk4znw4Hn1+rLlizwAdgQUm
+K0mZI2IF6Rmk/9ruyFG7u2eGZ1goeR5vhSQT4hFkr8wv9EKVuTPqkLxTEm+1E+bqKUTTSL6CTxrx
+Zp/46thhgbRUJMOtivbPbbHNpLmWxbN4gSrI60ONBXB76tp92LXTOkktV0RBgxDoGR6XbOCWKh+T
+DtKWCnetObLFOBgwu6BX44wdHXPULx0gapxWrQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -353,4 +359,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_95986cb1-aa52-4574-9da8-c71d5c8aac96" Target="#_daa3eae5-3205-4ce3-bacc-7fd1746904fe"><Timestamp>2021-03-10 15:15:23</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_de9830f3-431b-4d35-8241-97656b38e36b" Target="#_fb364e84-8996-459f-be7f-29dc5a9aef8e"><Timestamp>2021-03-10 15:28:55</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
