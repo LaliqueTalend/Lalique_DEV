@@ -50,8 +50,8 @@
     <contextParameter comment="" name="RP9_CMS_Sid" prompt="RP9_CMS_Sid?" promptNeeded="false" repositoryContextId="_2HnxEAtpEeW0saFt_gCqpQ" type="id_String" value="rproods"/>
   </context>
   <parameters>
-    <elementParameter field="TEXT" name="SCREEN_OFFSET_X" show="false" value="256"/>
-    <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" show="false" value="160"/>
+    <elementParameter field="TEXT" name="SCREEN_OFFSET_X" show="false" value="322"/>
+    <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" show="false" value="200"/>
     <elementParameter field="TEXT" name="REPOSITORY_CONNECTION_ID" show="false" value=""/>
     <elementParameter field="TEXT" name="OOZIE_PROPERTY_TYPENAME" show="false" value=""/>
     <elementParameter field="TEXT" name="OOZIE_HADOOP_DISTRIBUTION" show="false" value=""/>
@@ -253,8 +253,6 @@
     <elementParameter field="TEXT" name="USER" show="false" value="context.EGX_Login"/>
     <elementParameter field="PASSWORD" name="PASS" show="false" value="8pW6Nmy2kud0oKKgG5DmApkfM/R5LHCA"/>
     <elementParameter field="TEXT" name="JDBC_URL" show="false" value="&quot;jdbc:oracle:oci:/@talend&quot;"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" show="false" value="REPOSITORY"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" show="false" value="_TDzwoArHEeWx1dV_9Bg5iA - VW_ASN_RP"/>
     <elementParameter field="DBTABLE" name="TABLE" value="&quot;VW_ASN_RP&quot;"/>
     <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="&quot;&quot;"/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
@@ -1187,8 +1185,6 @@
     <elementParameter field="TEXT" name="USER" show="false" value="context.EGX_Login"/>
     <elementParameter field="PASSWORD" name="PASS" show="false" value="8pW6Nmy2kud0oKKgG5DmApkfM/R5LHCA"/>
     <elementParameter field="TEXT" name="JDBC_URL" show="false" value="&quot;jdbc:oracle:oci:/@talend&quot;"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" show="false" value="REPOSITORY"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" show="false" value="_TDzwoArHEeWx1dV_9Bg5iA - DEM"/>
     <elementParameter field="DBTABLE" name="TABLE" value="&quot;DEM&quot;"/>
     <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="&quot;&quot;"/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
@@ -1583,7 +1579,7 @@
       <column comment="" key="false" length="16" name="cost" nullable="true" originalLength="16" pattern="" precision="4" sourceType="" type="id_Float" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="TalendDate.getDate(&quot;yyyy-MM-dd'T'HH:mm:ss&quot;) " name="DateJour" type="id_String"/>
       </varTables>
@@ -1650,7 +1646,7 @@
         <mapperTableEntries expression="row4.upc " name="upc" nullable="true" type="id_Long"/>
         <mapperTableEntries expression="row4.qty " name="qty" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="row4.qty " name="orig_qty" nullable="true" type="id_Float"/>
-        <mapperTableEntries expression="row4.cost / row4.taux_dev " name="cost" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="(2 == row4.sbs_no &amp;&amp; 4 == row4.store_no) ? row4.cost :&#13;&#10;row4.cost / row4.taux_dev " name="cost" nullable="true" type="id_Float"/>
       </outputTables>
       <inputTables activateExpressionFilter="true" expressionFilter="row4.sbs_no == ((Integer)globalMap.get(&quot;sbs_no&quot;))" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="row4" sizeState="INTERMEDIATE">
         <mapperTableEntries name="sbs_no" nullable="true" type="id_Integer"/>
@@ -2460,8 +2456,6 @@
     <elementParameter field="CLOSED_LIST" name="TABLE_ACTION" value="NONE"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="Warning : this component configuration will automatically generate a commit before data insert/update/delete"/>
     <elementParameter field="CLOSED_LIST" name="DATA_ACTION" value="UPDATE"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA_FLOW:SCHEMA_TYPE" show="false" value="REPOSITORY"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA_FLOW:REPOSITORY_SCHEMA_TYPE" show="false" value="_TDzwoArHEeWx1dV_9Bg5iA - EVT"/>
     <elementParameter field="LABEL" name="NOTE" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -2763,7 +2757,7 @@
   <node componentName="tSendMail" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="576" posY="192">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSendMail_1"/>
     <elementParameter field="TEXT" name="TO" value="&quot;cguerin@lalique.fr&quot;"/>
-    <elementParameter field="TEXT" name="FROM" value="&quot;classuspigat@lalique.fr&quot;"/>
+    <elementParameter field="TEXT" name="FROM" value="&quot;workflow@lalique.fr&quot;"/>
     <elementParameter field="CHECK" name="NEED_PERSONAL_NAME" value="false"/>
     <elementParameter field="TEXT" name="PERSONAL_NAME" show="false" value="&quot;sender&quot;"/>
     <elementParameter field="TEXT" name="CC" value="&quot;classuspigat@lalique.fr&quot;"/>
@@ -2806,7 +2800,7 @@
   <node componentName="tSendMail" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="448" posY="608">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSendMail_2"/>
     <elementParameter field="TEXT" name="TO" value="&quot;cguerin@lalique.fr&quot;"/>
-    <elementParameter field="TEXT" name="FROM" value="&quot;classuspigat@lalique.fr&quot;"/>
+    <elementParameter field="TEXT" name="FROM" value="&quot;workflow@lalique.fr&quot;"/>
     <elementParameter field="CHECK" name="NEED_PERSONAL_NAME" value="false"/>
     <elementParameter field="TEXT" name="PERSONAL_NAME" show="false" value="&quot;sender&quot;"/>
     <elementParameter field="TEXT" name="CC" value="&quot;classuspigat@lalique.fr&quot;"/>
@@ -3110,13 +3104,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_5cf3b3a9-40cc-476a-be19-04a9c464a501"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>iISp1EdiHDAqK4n0AikjznpYz0fiEn2qIzKG9dwUl8dZzs/eAY3cWJbjmaCZAn/PSs64AThanPaO
-hcPJWFHjdQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_5963b03b-22d9-4ebb-aa67-453337443b78"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>6rxvL38HK/H8iAwlsNPaQnAOeWwIXDt2jOKDOOEhwcz5TwxzrTCZeRoReY+/BE6f3bfFcsGSXb5N
-5z82kK12HQ==</DigestValue></Reference></SignedInfo><SignatureValue>M8sEhNUvTZREqOllSZP5DQNPm1i5/qX8x/J8+Y8kWEVwW53oucAhiOeFGVfi+4IcjE4+aTVySyVv
-ObtkautjZfcecQa/E4RW4suBrSPaVLoy0sMVzeefmaB/p6iOO7W8BiqZlPTF5T70G+d+cdPSsYWg
-QQbyCzanRmadXMs6cOSbn9vnnDLaHOyK4GaDbQbKm0rxk+XXuvic/m9rjtpwIiLp/Duk/Ssi+VJH
-714tTCBmsseHSh2o8GCSaU4n2T+aD72dzULa+ouc6ca2DMt70cwEoHSpaAOYCZdTvmjUChrW+FC4
-9woU5lOFYSxca99JnkpywgPEHXhfoTBnbNM72Q==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_141e577a-2f7c-4ee7-a550-101574b17cec"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>BJWbwjnQ9oNXo/znv5i8PUdSIo+rg5iXajlvSnTd9KVLlyJGUOQHLSAh9N8p/JlpBMkDVoKKIN8M
+CuwAztfJhg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_2d7ff88d-5dab-41a0-806b-d6d846c684e5"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>m0PZlx4lHi1QGoN8KdA6FWvX0fVzdb40AMQ1ueOCAMFFLtWJo/KWKm4+FHDMEF3n0K912euBKqxm
+VcPYdko7tQ==</DigestValue></Reference></SignedInfo><SignatureValue>mF+YQNbgLTYGNQT3n2ZSwWO3TfoTWQWXAj8yPjorPMFXzyv+nq0yn+pHHeGaYaqLw7hS/V4kIqwA
+LsKNVmYlDgoQD4GAQ6Pd94ATa1aD4UdLem8EkxGFm+/MPZIqgJY+dq3sqP1Vcp8GsHmbB0Sv7NSq
+V+uh2PlYePNXx8vhOn2gMH0v+PMgnE1l/AisFZ7s2uOB3FDccBOePCaVZaW6IZf9lThDm1zqIWq0
+L85qnRIrm5HY5eadlTHi/mUrjhtYfEmsLpi27LKDQWTdM8siaFJo7ZmXNr8WqCamzvvk2GVBpn6m
+3En+6MGrFEfqd5ztbTkNd8ktPLq2ZSfcYPA47w==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -3138,4 +3132,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_5963b03b-22d9-4ebb-aa67-453337443b78" Target="#_5cf3b3a9-40cc-476a-be19-04a9c464a501"><Timestamp>2020-09-02 17:21:33</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_2d7ff88d-5dab-41a0-806b-d6d846c684e5" Target="#_141e577a-2f7c-4ee7-a550-101574b17cec"><Timestamp>2021-02-01 09:04:23</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
