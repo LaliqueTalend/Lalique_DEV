@@ -1077,9 +1077,9 @@
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="Relational.ISNULL(row6.Dat_App) ? null : row6.Dat_App.substring(2, 3)+row6.Dat_App.substring(4, 7) " name="Date_Effet" type="id_String"/>
+        <mapperTableEntries expression="Relational.ISNULL(row6.Dat_App) ? null : row6.Dat_App.substring(2, 7) " name="Date_Effet" type="id_String"/>
       </varTables>
-      <outputTables activateExpressionFilter="true" name="Ajustements" sizeState="INTERMEDIATE">
+      <outputTables activateExpressionFilter="true" expressionFilter="row6.Cle.equals('3BI')" name="Ajustements" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="(int)(-1000000000)" name="Niveau" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="&quot;UC&quot;" name="UM" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row6.Taux " name="Val_Coeff" nullable="true" type="id_Float"/>
@@ -1097,7 +1097,7 @@
         <mapperTableEntries expression="&quot;&quot;" name="Table_Variables" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;&quot;" name="Biblio_Objets" nullable="true" type="id_String"/>
         <mapperTableEntries expression="'N'" name="MG" nullable="true" type="id_Character"/>
-        <mapperTableEntries expression="row6.Cle " name="Groupe_Art" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="row12.cle_jde " name="Groupe_Art" nullable="true" type="id_String"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="row6" sizeState="INTERMEDIATE">
         <mapperTableEntries name="Cli_eGX" nullable="true" type="id_String"/>
@@ -1110,6 +1110,10 @@
         <mapperTableEntries name="Taux" nullable="true" type="id_Float"/>
         <mapperTableEntries name="Dat_App" nullable="true" type="id_String"/>
         <mapperTableEntries name="Num_Lig" nullable="true" type="id_Integer"/>
+      </inputTables>
+      <inputTables activateCondensedTool="true" lookupMode="LOAD_ONCE" matchingMode="ALL_MATCHES" name="row12" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="row6.Cle " name="cle_egx" nullable="true" type="id_String"/>
+        <mapperTableEntries name="cle_jde" nullable="true" type="id_String"/>
       </inputTables>
     </nodeData>
   </node>
@@ -1318,6 +1322,62 @@
       <column comment="" key="false" length="-1" name="DATAPP" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="NUMLIG" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="TQOI" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="736" posY="64">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileInputDelimited_5"/>
+    <elementParameter field="LABEL" name="FILENAMETEXT" value="&quot;When the input source is a stream or a zip file,footer and random shouldn't be bigger than 0.&quot;"/>
+    <elementParameter field="FILE" name="FILENAME" value="context.repertoire_data+&quot;/parametres_groupes_articles_tarifaires.csv&quot;"/>
+    <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
+    <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
+    <elementParameter field="OPENED_LIST" name="CSVROWSEPARATOR" show="false" value="&quot;\n&quot;"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;"/>
+    <elementParameter field="TEXT" name="ESCAPE_CHAR" show="false" value="&quot;&quot;&quot;"/>
+    <elementParameter field="TEXT" name="TEXT_ENCLOSURE" show="false" value="&quot;&quot;&quot;"/>
+    <elementParameter field="TEXT" name="HEADER" value="1"/>
+    <elementParameter field="TEXT" name="FOOTER" value="0"/>
+    <elementParameter field="TEXT" name="LIMIT" value=""/>
+    <elementParameter field="CHECK" name="REMOVE_EMPTY_ROW" value="true"/>
+    <elementParameter field="CHECK" name="UNCOMPRESS" value="false"/>
+    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false"/>
+    <elementParameter field="DIRECTORY" name="TEMP_DIR" show="false" value="&quot;C:/Talend-Studio-20190620_1446-V7.2.1/workspace&quot;"/>
+    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
+    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" show="false" value="&quot;,&quot;"/>
+    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" show="false" value="&quot;.&quot;"/>
+    <elementParameter field="CHECK" name="RANDOM" value="false"/>
+    <elementParameter field="TEXT" name="NB_RANDOM" show="false" value="10"/>
+    <elementParameter field="CHECK" name="TRIMALL" value="false"/>
+    <elementParameter field="TABLE" name="TRIMSELECT">
+      <elementValue elementRef="SCHEMA_COLUMN" value="cle_egx"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="cle_jde"/>
+      <elementValue elementRef="TRIM" value="false"/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="CHECK_FIELDS_NUM" value="false"/>
+    <elementParameter field="CHECK" name="CHECK_DATE" value="false"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter field="CHECK" name="SPLITRECORD" value="false"/>
+    <elementParameter field="CHECK" name="ENABLE_DECODE" value="false"/>
+    <elementParameter field="TABLE" name="DECODE_COLS" show="false">
+      <elementValue elementRef="SCHEMA_COLUMN" value="cle_egx"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="cle_jde"/>
+      <elementValue elementRef="DECODE" value="false"/>
+    </elementParameter>
+    <elementParameter field="TEXT" name="DESTINATION" show="false" value=""/>
+    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
+    <elementParameter field="TEXT" name="LABEL" value="GROUPE_ART"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tFileInputDelimited_5">
+      <column comment="" key="false" length="-1" name="cle_egx" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="cle_jde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
+    <metadata connector="REJECT" name="REJECT">
+      <column comment="" key="false" length="-1" name="cle_egx" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="cle_jde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="960" posY="416">
@@ -2276,6 +2336,10 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row15"/>
   </connection>
+  <connection connectorName="FLOW" label="row12" lineStyle="8" metaname="tFileInputDelimited_5" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_5" target="tMap_7">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row12"/>
+  </connection>
   <connection connectorName="FLOW" label="copyOfRejet" lineStyle="0" metaname="copyOfRejet" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_4" target="tLogRow_5">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
@@ -2545,13 +2609,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_432f4364-bc5e-4757-a616-e5452656bc6a"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>fK437TKydjwgzpzzmRLiB6gtAm8ndeg5rdjrF+CtkUpOKSNkAfwS6pGLeeWKRFZbRzviTFsjaxoD
-NpsgY7U2OQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_575d1bc7-e1bc-442c-897d-a801f9a31154"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>4yA8Gfom5uUpv123ae2m0/JF7N5913tYtFH0T+cBE7v2+kdxUAcL/G1nZMIAyWm84AavGnGukH95
-/SEn7k2qqg==</DigestValue></Reference></SignedInfo><SignatureValue>fZVrcPdmsrFwy7+wCy21Z2CNimCWkBQ/tQYwLtg4VOFTvxltSfh0Xjm7OgBIvWNbB8kg47KqH2bB
-z/oLQZ76veK/rMK714Pa27cMaD1xyCzoUb+6/t0aGz5mgG8tSI5z++Vf23LgH8jwuTXYPePIqU9E
-nFjvd0QUq8g5Zylf872uCevWOKMKMSGG103KGxGhG67V1LhRKQXKy6QxytqlPfTnHk0YsNeNOnV2
-o0kuXfEjnxZ+fhWQVTx8E2AR58k+1w2JlWVxbbBeBWDEwE6VIs8bp99v6gys8gwCFqo28+7KV+Jr
-tnJq/AmKwJYDPgHBk/FfTvuTkyhQPOHjLWZDfA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_b3457514-fade-4f62-ae9f-1f10044e787d"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>wYH4KTgzKF3xEr2UGTJ6ujsWvq07YZyPwCmE77DX2kTPgA3uQqRg7LbP3aJbpyLdJUIgh8QRmie/
+VH6Bb+YX9g==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_abe8189d-b29c-48f6-ab69-e5edb4a46d24"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>46bmMYF2Fd25uv1U3KeX8ggR0iBjaGc3K1wLZMZUZobguLchqB2DgXnyOPZoJBvyQtUI0ibciUwk
+9Go59uj7iw==</DigestValue></Reference></SignedInfo><SignatureValue>apVQpeLI0pgvLB7Neg6VzlQ3qhKPYMDJrZFv9VICH55ESOUvtp1bTxjurgFLRe7jWMEmDKwum9u/
+AAPLCuhEk+BOI6aypcHpW5QUyVC0+fTLgjh7SzIEg/kuACRgfvmrhcROx3dItmELG4V1oxJ0/7DN
+BhvdGQAVOTqzn28+qGwhxMa3s6VJLO16fYvCOBBX9ooATz734PqiP9nEk1S0B84rw5NZHEY0//5N
+zL+rxda7Illah7KRpLT5wzcJv7NIENprMGQZvoViF/tZtoYuKx0hHpwNlBvwAl+IWzcLADotYI5J
+tNCaDKakDw9sUCMI4ftlRL/v30JDvPHOkEUUiQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -2573,4 +2637,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_575d1bc7-e1bc-442c-897d-a801f9a31154" Target="#_432f4364-bc5e-4757-a616-e5452656bc6a"><Timestamp>2021-03-13 16:05:45</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_abe8189d-b29c-48f6-ab69-e5edb4a46d24" Target="#_b3457514-fade-4f62-ae9f-1f10044e787d"><Timestamp>2021-03-13 16:20:40</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
