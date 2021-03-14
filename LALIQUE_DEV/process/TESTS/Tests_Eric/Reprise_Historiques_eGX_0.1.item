@@ -212,7 +212,7 @@
   <parameters>
     <elementParameter field="TEXT" name="JOB_RUN_VM_ARGUMENTS" show="false" value="{&quot;JOB_RUN_VM_ARGUMENTS&quot;:[&quot;-Xms256M&quot;,&quot;-Xmx12G&quot;]}"/>
     <elementParameter field="CHECK" name="JOB_RUN_VM_ARGUMENTS_OPTION" show="false" value="true"/>
-    <elementParameter field="TEXT" name="SCREEN_OFFSET_X" show="false" value="36"/>
+    <elementParameter field="TEXT" name="SCREEN_OFFSET_X" show="false" value="32"/>
     <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" show="false" value="0"/>
     <elementParameter field="TEXT" name="REPOSITORY_CONNECTION_ID" show="false" value=""/>
     <elementParameter field="TEXT" name="OOZIE_PROPERTY_TYPENAME" show="false" value=""/>
@@ -10807,7 +10807,7 @@
         <mapperTableEntries expression="Relational.NOT(Relational.ISNULL(Lad_Liv_1.SIGTIE)) &amp;&amp; EnTete_Cde_1.Num_Filiere_Liv &gt; 0 &amp;&amp; EnTete_Cde_1.Num_Filiere_Liv &lt; 100 ? Lad_Liv_1.SIGADR + Lad_Liv_1.TYPADR1 + Lalique.Pad0(Lad_Liv_1.NUMADR1.toString(),3) : &#13;&#10;Relational.NOT(Relational.ISNULL(Lad_Liv_2.SIGTIE)) &amp;&amp; EnTete_Cde_1.Num_Filiere_Liv &gt;= 100 ? Lad_Liv_2.SIGADR + Lad_Liv_2.TYPADR1 + Lalique.Pad0(Lad_Liv_2.NUMADR1.toString(),3) : &quot;&quot; " name="Client_Liv" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Relational.NOT(Relational.ISNULL(Lad_Pay.SIGTIE)) ? Lad_Pay.SIGADR + Lad_Pay.TYPADR1 + Lalique.Pad0(Lad_Pay.NUMADR1.toString(),3) : &quot;&quot; " name="Client_Pay" nullable="true" type="id_String"/>
       </outputTables>
-      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="EnTete_Cde_1" sizeState="INTERMEDIATE">
+      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="EnTete_Cde_1" sizeState="INTERMEDIATE">
         <mapperTableEntries name="Num_Doc" type="id_Integer"/>
         <mapperTableEntries name="Typ_Doc" nullable="true" type="id_String"/>
         <mapperTableEntries name="Cat_Cde" nullable="true" type="id_String"/>
@@ -10901,7 +10901,7 @@
         <mapperTableEntries name="UNISAI" nullable="true" type="id_String"/>
         <mapperTableEntries name="COEFSAI" nullable="true" type="id_BigDecimal"/>
       </inputTables>
-      <inputTables activateCondensedTool="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Lad_Fac" sizeState="INTERMEDIATE">
+      <inputTables activateCondensedTool="true" lookupMode="CACHE_OR_RELOAD" matchingMode="UNIQUE_MATCH" name="Lad_Fac" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="EnTete_Cde_1.Num_Client " name="SIGTIE" type="id_String"/>
         <mapperTableEntries expression="" name="TYPTIE" type="id_String"/>
         <mapperTableEntries expression="" name="TYPADR" type="id_String"/>
@@ -10913,6 +10913,8 @@
         <mapperTableEntries name="DATMOD" nullable="true" type="id_String"/>
         <mapperTableEntries name="UTIMOD" nullable="true" type="id_String"/>
         <mapperTableEntries name="CODSOC" type="id_Integer"/>
+        <globalMapKeysValues expression="" name="&quot;SIGTIE&quot;"/>
+        <globalMapKeysValues expression="" name="&quot;ADR&quot;"/>
       </inputTables>
       <inputTables activateCondensedTool="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="Lad_Liv_1" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="EnTete_Cde_1.Num_Client " name="SIGTIE" type="id_String"/>
@@ -10991,7 +10993,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#10;  SOC1.LAD.SIGTIE, &#10;  SOC1.LAD.TYPTIE, &#10;  SOC1.LAD.TYPADR, &#10;  SOC1.LAD.NUMADR, &#10;  SOC1.LAD.SIGADR, &#10;  SOC1.LAD.TYPTIE1, &#10;  SOC1.LAD.TYPADR1, &#10;  SOC1.LAD.NUMADR1, &#10;  SOC1.LAD.DATMOD, &#10;  SOC1.LAD.UTIMOD, &#10;  SOC1.LAD.CODSOC&#10;FROM SOC1.LAD&#13;&#10;WHERE  SOC1.LAD.TYPTIE = 'CLI' &#13;&#10;AND  SOC1.LAD.TYPADR = 'FAC'&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#10;  SOC1.LAD.SIGTIE, &#10;  SOC1.LAD.TYPTIE, &#10;  SOC1.LAD.TYPADR, &#10;  SOC1.LAD.NUMADR, &#10;  SOC1.LAD.SIGADR, &#10;  SOC1.LAD.TYPTIE1, &#10;  SOC1.LAD.TYPADR1, &#10;  SOC1.LAD.NUMADR1, &#10;  SOC1.LAD.DATMOD, &#10;  SOC1.LAD.UTIMOD, &#10;  SOC1.LAD.CODSOC&#10;FROM SOC1.LAD&#13;&#10;WHERE  SOC1.LAD.TYPTIE = 'CLI' &#13;&#10;AND  SOC1.LAD.TYPADR = 'FAC'&#13;&#10;AND SOC1.LAD.SIGTIE = &quot; + globalMap.get(&quot;SIGTIE&quot;) + &quot;&#13;&#10;AND SOC1.LAD.NUMADR = &quot; + (int)globalMap.get(&quot;ADR&quot;) + &quot;&#13;&#10;&quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -13558,13 +13560,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_a2a16ce3-7561-4dab-af99-0adfd6dad1b9"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>UGK2QxvsmJ2N7eaUdYy0U7zJBqsPL8t2OFHXnDvHL5DcNYX9lVywkdh0zxFpR4Z1cz/2mmNn+tsS
-hG2A4+02dw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_4e51f530-af96-4a89-bfc1-4c9fae151305"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>tGViZgsNJBjZSBNmOtxeC74gMsNw+Q9BNfHNCJBMzgxi9nuN2YxP4Ob1USskBOOvSNZ4lrtUOfaN
-R3td/Dm8jw==</DigestValue></Reference></SignedInfo><SignatureValue>KgYoKFiNmvwy3PcW2hct3T4d+EpgtNuM4kFM6p+r3+4dI+XgxRGW3R+8rGitS5ZeR5NSubJG65SY
-QLfx0Fp6NGfzTq5Y9TW7E0l4enAyzjjjRquONgzi+R+4d2kVyI79tSs+ZnCNqtsImLIZKLU3EeQi
-r4u2c3d1DZNulOJc3RpsQHqsGLzUOig/2a5gxMbp708OC9l0V24KX6VHlEZRvRjl29ug6osZLEnG
-w/GYG8Qo6iAArm22yWHRkkc3S9wcRUVZ4WkvLa7UvHx9NHEUuckbL30sZnm+x76pPvdiyykeuRmj
-t2jw+Bf9W0vGAc9uj0Fg65HUZ2Vi+l9RZ1U7/w==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_8aa58638-ceb2-47e5-b18a-031fc8f2dc89"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Xw1CmzGavJOkSZIeLqjmCYODvNPB9ynDR94Rg5/yZcQgJuks7X6y9o51JCKnIphgmKMiLLrh8aGc
+sBAGy9Ky3A==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_61d1c5d6-bc35-4242-9d8a-a3f81891040a"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>AdBny7uz3CT7gQhW63KbxeGUZP8O7Ki76HJl1jQy8N/bi/bywzONaeHsjc2gEYFJJ5QMaTQnmamB
+PytOPVfttw==</DigestValue></Reference></SignedInfo><SignatureValue>nNb6rovEcY5B8pApm9jTDymgroU9jpD7a00GOIvmozbcZcXcbGXHGi7mlJKgXO0YNunyTyY1KNxp
+7l8fPwOBFD3dt27NwFq9uzYktwXzPPPD2E1wd29YIoCV2Dc+Oft1dXx/Z5uGzH63Or6wG5WQ0xM+
+FxWmN2jpnYpwy+pMzhziB/xdewwHpH7M7Zawq1+FzF9Ceg9lBPuek9mgYn7izpKxx56tRPN0UKCW
+rHTjXKQU4tTCDxB8d4FyJT9th+M3dHqrsfKclI3r3h0q2K1dG7C9+zfM7PWiOEN+xCCtaanzxUSn
+NQ0fMbKoS4Xa25uV374HeLLd0p2QMSWe/dKqBg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -13586,4 +13588,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_4e51f530-af96-4a89-bfc1-4c9fae151305" Target="#_a2a16ce3-7561-4dab-af99-0adfd6dad1b9"><Timestamp>2021-03-14 17:13:26</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_61d1c5d6-bc35-4242-9d8a-a3f81891040a" Target="#_8aa58638-ceb2-47e5-b18a-031fc8f2dc89"><Timestamp>2021-03-14 17:18:50</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
