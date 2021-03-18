@@ -388,7 +388,7 @@
     <elementParameter field="TEXT" name="ROWS_BUFFER_SIZE" value="2000000"/>
     <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="true"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="Enreg_Paie">
+    <metadata connector="FLOW" name="Enreg_Paie_Debit">
       <column comment="" key="false" length="6" name="Ste_Jde" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="2" name="Jour" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="4" name="Mois" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
@@ -397,12 +397,25 @@
       <column comment="" key="false" length="-1" name="Ccout" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Objet" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="SsCpte" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Sens" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Montant" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+    </metadata>
+    <metadata connector="FLOW" name="Enreg_Paie_Credit">
+      <column comment="" key="false" length="-1" name="Ste_Jde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="jour" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Mois" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Siecle" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="An" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="CCout" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Objet" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="SsCpte" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Sens" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Montant" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
-      <outputTables name="Enreg_Paie" sizeState="INTERMEDIATE">
+      <outputTables activateExpressionFilter="true" expressionFilter="FPaie.Mtt_Debit != 0" name="Enreg_Paie_Debit" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Integer.parseInt(FPaie.NTrait) " name="Ste_Jde" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="FPaie.Jour " name="Jour" nullable="true" type="id_String"/>
         <mapperTableEntries expression="StringHandling.LEFT(FPaie.Mois_An,2) " name="Mois" nullable="true" type="id_String"/>
@@ -411,7 +424,20 @@
         <mapperTableEntries expression="Integer.parseInt(FPaie.Compte) &lt;= Integer.parseInt(&quot;600000&quot;) ? FPaie.NTrait : Secteurs.Code__Jde " name="Ccout" nullable="true" type="id_String"/>
         <mapperTableEntries expression="FPaie.Compte " name="Objet" nullable="true" type="id_String"/>
         <mapperTableEntries expression="FPaie.SsCompte " name="SsCpte" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="FPaie.Mtt_Debit &gt; 0 ? FPaie.Mtt_Debit : FPaie.Mtt_Credit " name="Montant" nullable="true" type="id_Integer"/>
+        <mapperTableEntries expression=" &quot;D&quot;" name="Sens" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="FPaie.Mtt_Debit " name="Montant" nullable="true" type="id_Integer"/>
+      </outputTables>
+      <outputTables activateExpressionFilter="true" expressionFilter="FPaie.Mtt_Credit  != 0" name="Enreg_Paie_Credit" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="Integer.parseInt(FPaie.NTrait) " name="Ste_Jde" nullable="true" type="id_Integer"/>
+        <mapperTableEntries expression="FPaie.Jour " name="jour" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="StringHandling.LEFT(FPaie.Mois_An,2) " name="Mois" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="FPaie.Siecle " name="Siecle" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="StringHandling.RIGHT(FPaie.Mois_An,2)" name="An" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Integer.parseInt(FPaie.Compte) &lt;= Integer.parseInt(&quot;600000&quot;) ? FPaie.NTrait : Secteurs.Code__Jde " name="CCout" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="FPaie.Compte " name="Objet" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="FPaie.SsCompte " name="SsCpte" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot;C&quot;" name="Sens" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="FPaie.Mtt_Credit * -1" name="Montant" nullable="true" type="id_Integer"/>
       </outputTables>
       <inputTables activateExpressionFilter="true" columnNameFilter="" expressionFilter="&quot;D&quot; .equals( FPaie.Enreg) &amp;&amp;  Relational.NOT(&quot;60000&quot; .equals(FPaie.NTrait) || &quot;60006&quot; .equals(FPaie.NTrait))" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="FPaie" sizeState="INTERMEDIATE">
         <mapperTableEntries name="CFichier" nullable="true" type="id_String"/>
@@ -532,7 +558,7 @@
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="384" posY="416">
+  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="416" posY="384">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tLogRow_2"/>
     <elementParameter field="RADIO" name="BASIC_MODE" value="true"/>
     <elementParameter field="RADIO" name="TABLE_PRINT" value="false"/>
@@ -580,7 +606,58 @@
       <column comment="" key="false" length="-1" name="Montant" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tOracleOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="800" posY="448">
+  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="416" posY="448">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tLogRow_3"/>
+    <elementParameter field="RADIO" name="BASIC_MODE" value="true"/>
+    <elementParameter field="RADIO" name="TABLE_PRINT" value="false"/>
+    <elementParameter field="RADIO" name="VERTICAL" value="false"/>
+    <elementParameter field="RADIO" name="PRINT_UNIQUE" show="false" value="true"/>
+    <elementParameter field="RADIO" name="PRINT_LABEL" show="false" value="false"/>
+    <elementParameter field="RADIO" name="PRINT_UNIQUE_LABEL" show="false" value="false"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;|&quot;"/>
+    <elementParameter field="CHECK" name="PRINT_HEADER" value="false"/>
+    <elementParameter field="CHECK" name="PRINT_UNIQUE_NAME" value="false"/>
+    <elementParameter field="CHECK" name="PRINT_COLNAMES" value="false"/>
+    <elementParameter field="CHECK" name="USE_FIXED_LENGTH" value="false"/>
+    <elementParameter field="TABLE" name="LENGTHS" show="false">
+      <elementValue elementRef="SCHEMA_COLUMN" value="Ste_Jde"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="jour"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Mois"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Siecle"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="An"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="CCout"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Objet"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="SsCpte"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Sens"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Montant"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="PRINT_CONTENT_WITH_LOG4J" value="true"/>
+    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tLogRow_3">
+      <column comment="" key="false" length="-1" name="Ste_Jde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="jour" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Mois" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Siecle" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="An" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="CCout" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Objet" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="SsCpte" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Sens" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Montant" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tOracleOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="1056" posY="416">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBOutput_1"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
@@ -2763,7 +2840,7 @@
       <additionalProperties key="Comment" value=""/>
     </metadata>
   </node>
-  <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="512" posY="416">
+  <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="736" posY="416">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tMap_1"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
@@ -3564,7 +3641,7 @@
       </outputTables>
     </nodeData>
   </node>
-  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="704" posY="416">
+  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="928" posY="416">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tLogRow_1"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="RADIO" name="BASIC_MODE" value="true"/>
@@ -4562,14 +4639,13 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="FPaie"/>
   </connection>
-  <connection connectorName="FLOW" label="Enreg_Paie" lineStyle="0" metaname="Enreg_Paie" offsetLabelX="0" offsetLabelY="0" source="tMap_2" target="tLogRow_2">
-    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
-      <elementValue elementRef="TRACE_COLUMN" value="Enreg"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-    </elementParameter>
+  <connection connectorName="FLOW" label="Enreg_Paie_Debit" lineStyle="0" metaname="Enreg_Paie_Debit" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_2" target="tLogRow_2">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Enreg_Paie"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Enreg_Paie_Debit"/>
+  </connection>
+  <connection connectorName="FLOW" label="Enreg_Paie_Credit" lineStyle="0" metaname="Enreg_Paie_Credit" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_2" target="tLogRow_3">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Enreg_Paie_Credit"/>
   </connection>
   <connection connectorName="FLOW" label="Secteurs" lineStyle="8" metaname="tFileInputExcel_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputExcel_1" target="tMap_2">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
@@ -4607,13 +4683,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_4a02814a-8fa4-4de1-ae6f-e50f4d691f17"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>2o8eMu2ikMwGwA83sj3wkb1btEt1L4OewsDTO0l/M6D+F/IkwOcAUgRhFeuH8lP0o3Cz4LZZQk+z
-liGdMiLDGA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_62126ce3-d126-4944-8451-f0451a61b3e8"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>6uei7tsaOtsS1sIjbWu++u2eFAjIWCz75R3rCurLwSINUqAFqDjRS7ugiquYVktDyTS1rLVRIG7S
-MMgJUHceIA==</DigestValue></Reference></SignedInfo><SignatureValue>FLD1JcQCmslqhlDD8KLbnq/9gze1MwIytLCXhBiXm2Ep3cmGAgohfyfiuFZGP+id8EZqe6Al3j6p
-j0cG5uSsZ9j0/kZQplG1ScuaCkzmGvgCehYJ/Q+JSQgqXH3Nw7RXmWfwJ61Duh/XjO7zRza7IOeZ
-QJxQbAi+e55cn28SAEg9lb+p2jWb2aq9AzcOwp3jP3qqvoPr7e5ObBu+F8QPmygCyPTPg9YuJSPi
-P05KayFbTaOj2pL13Atnflz4EFxIOzcaCxz9ODrHgt5a+9+vKvCVTfP8gIA3faj/9WpCnzABIR50
-ykJcRqfn3myOJ2fuhLLe10jbDVAc3CKkA5LVbw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_931184e7-faf9-4cb8-ab42-852384130f7b"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Sb5vk4o9KsLHLpyTQYXw/41ZmQsWZEmJNvyirVl6JoiZ3PowfiUYF4d70AUVqDjxZW3TIR65yFHo
+ocqUD3MVOg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_b6f91629-ec52-4a2b-86dd-a5cf6694ca57"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>T+uXWBI2HnGKRJbJu667NKvF7du2+ax3opLdExNmw8PEFLMi7DRFk4NQYvuu4sx2MOciYsm/mHen
+gyWMqxqy7w==</DigestValue></Reference></SignedInfo><SignatureValue>nKQXO6Zxo+IRDuvREvrpefpLQdLQdrABYP+xjxwOJ8fflTxKyXcwlk/ByXDybvS5MhzhybjAQgrm
+cYbzlt7MAI/ZQuV0ebLmXZl6M1R9d1K/ibz8jkxhJXDqGeCwoviwNhPpxMYRRnBpCfHnNK+UG7Fo
+wBnRESZAqy1sJik7kCbisobntyVdcnwCbr4togg8F2arrRBCotut7FkpzMYpecKnuUDcLyoywS/d
+JRWIWU5NT5ak5WxWmJS4SRy9H4v8QLUtCoJW6RbH/FJsqbstDOWY7zduaJe3S91XbP9xo69WNJmW
+wpM5cCGzrUQGpvAnqdwVpgvim0ZIdBQ8wG92pQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -4635,4 +4711,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_62126ce3-d126-4944-8451-f0451a61b3e8" Target="#_4a02814a-8fa4-4de1-ae6f-e50f4d691f17"><Timestamp>2021-03-18 13:45:47</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_b6f91629-ec52-4a2b-86dd-a5cf6694ca57" Target="#_931184e7-faf9-4cb8-ab42-852384130f7b"><Timestamp>2021-03-18 13:58:13</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
