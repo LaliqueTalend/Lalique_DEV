@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><talendfile:ProcessType xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmlns:xmi="http://www.omg.org/XMI" defaultContext="Test" jobType="Standard" xmi:version="2.0">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><talendfile:ProcessType xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmlns:TalendMapper="http://www.talend.org/mapper" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" defaultContext="Test" jobType="Standard" xmi:version="2.0">
   <context confirmationNeeded="false" name="Prod">
     <contextParameter comment="" name="EGX_AdditionalParams" prompt="EGX_AdditionalParams?" promptNeeded="false" repositoryContextId="_mVqRAAtlEeW0saFt_gCqpQ" type="id_String" value=""/>
     <contextParameter comment="" name="EGX_Login" prompt="EGX_Login?" promptNeeded="false" repositoryContextId="_mVqRAAtlEeW0saFt_gCqpQ" type="id_String" value="SOC1"/>
@@ -189,7 +189,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#13;&#10;  SOC1.EVE.SIGTIE,  &#13;&#10;  SOC1.TIE.NOMTIE,&#13;&#10;  SOC1.EVL.TYPEVE, &#13;&#10;  SOC1.EVL.NUMEVE, &#13;&#10;  SOC1.EVL.DATVAL, &#13;&#10;  SOC1.EVL.CODPRO,&#13;&#10;  SOC1.OST.REFLOT, &#13;&#10;  SOC1.EVL.QTELIV&#13;&#10;FROM SOC1.EVL&#13;&#10;JOIN SOC1.EVE&#13;&#10;ON SOC1.EVE.CODSOC = SOC1.EVL.CODSOC &#13;&#10;AND SOC1.EVE.ACHVTE = SOC1.EVL.ACHVTE&#13;&#10;AND SOC1.EVE.NUMEVE = SOC1.EVL.NUMEVE&#13;&#10;AND SOC1.EVE.TYPEVE = SOC1.EVL.TYPEVE&#13;&#10;JOIN SOC1.TIE&#13;&#10;ON SOC1.TIE.SIGTIE = SOC1.EVE.SIGTIE&#13;&#10;JOIN SOC1.OST&#13;&#10;ON SOC1.OST.CODSOC = 1&#13;&#10;AND SOC1.OST.CODPRO = SOC1.EVL.CODPRO&#13;&#10;AND SOC1.OST.NUMLOT = SOC1.EVL.NUMLOT&#13;&#10;WHERE SOC1.EVL.CODSOC=11&#13;&#10;AND SOC1.EVL.ACHVTE = 'V'&#13;&#10;AND SOC1.EVL.TYPEVE IN ('FAV', 'AVV', 'AVE')&#13;&#10;AND SOC1.EVL.NUMLOT != ' '&#13;&#10;AND SOC1.TIE.TYPTIE = 'CLI'&#13;&#10;AND SOC1.EVE.SIGDEP in ('COM')&#13;&#10;AND SOC1.EVE.CODETA!='A'&#13;&#10;--AND SOC1.EVL.CODPRO = '88091110'&#13;&#10;ORDER BY SOC1.EVL.CODPRO, SOC1.OST.REFLOT &quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#13;&#10;  e2.SIGTIE,  &#13;&#10;  ti.NOMTIE,&#13;&#10;  el.TYPEVE AS TYPFAC, &#13;&#10;  el.NUMEVE AS NUMFAC,&#13;&#10;  li.TYPEVE AS TYPLIV,&#13;&#10;  li.NUMEVE AS NUMLIV,&#13;&#10;  cd.TYPEVE AS TYPCDE,&#13;&#10;  cd.NUMEVE AS NUMCDE,&#13;&#10;  el.DATVAL AS DATLIV, &#13;&#10;  el.CODPRO,&#13;&#10;  ns.REFLOT,&#13;&#10;  el.QTELIV&#13;&#10;FROM SOC1.EVL el&#13;&#10;JOIN SOC1.EVE e2&#13;&#10;ON e2.CODSOC = el.CODSOC AND e2.ACHVTE = el.ACHVTE AND e2.NUMEVE = el.NUMEVE AND e2.TYPEVE = el.TYPEVE&#13;&#10;JOIN SOC1.TIE ti&#13;&#10;ON ti.SIGTIE = e2.SIGTIE&#13;&#10;JOIN SOC1.OST ns&#13;&#10;ON ns.CODSOC = 1 AND ns.CODPRO = el.CODPRO AND ns.NUMLOT = el.NUMLOT&#13;&#10;LEFT JOIN eve li&#13;&#10;ON e2.numevo = li.NUMEVE AND e2.TYPEVO = li.TYPEVE AND e2.CODSOC = li.CODSOC AND e2.ACHVTE = li.ACHVTE&#9;&#13;&#10;LEFT JOIN eve cd &#13;&#10;ON li.NUMEVO = cd.NUMEVE AND li.TYPEVO = cd.TYPEVE AND li.CODSOC = cd.CODSOC AND li.ACHVTE = cd.ACHVTE&#13;&#10;WHERE el.CODSOC=11&#13;&#10;AND el.ACHVTE = 'V'&#13;&#10;AND el.TYPEVE IN ('FAV', 'AVV', 'AVE')&#13;&#10;AND el.NUMLOT != ' '&#13;&#10;AND ti.TYPTIE = 'CLI'&#13;&#10;AND e2.SIGDEP in ('COM')&#13;&#10;AND e2.CODETA!='A'&#13;&#10;AND cd.TYPEVE != 'REX'&#13;&#10;--AND el.QTELIV &gt; 0&#13;&#10;--AND el.CODPRO like '890301%'&#13;&#10;--AND cd.NUMEVE IS NULL &#13;&#10;ORDER BY el.CODPRO DESC, ns.REFLOT, el.DATVAL  &quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -208,11 +208,19 @@
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="NOMTIE"/>
       <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="TYPEVE"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="TYPFAC"/>
       <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="NUMEVE"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="NUMFAC"/>
       <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="DATVAL"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="TYPLIV"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="NUMLIV"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="TYPCDE"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="NUMCDE"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="DATLIV"/>
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="CODPRO"/>
       <elementValue elementRef="TRIM" value="false"/>
@@ -227,16 +235,77 @@
     <metadata connector="FLOW" name="tDBInput_1">
       <column comment="" key="false" length="12" name="SIGTIE" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="NOMTIE" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="3" name="TYPEVE" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="38" name="NUMEVE" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" key="false" length="8" name="DATVAL" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="16" name="CODPRO" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="REFLOT" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="3" name="TYPFAC" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="38" name="NUMFAC" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="3" name="TYPLIV" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="38" name="NUMLIV" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="3" name="TYPCDE" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="38" name="NUMCDE" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="8" name="DATLIV" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="16" name="CODPRO" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="30" name="REFLOT" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="0" name="QTELIV" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
       <additionalProperties key="Comment" value=""/>
     </metadata>
   </node>
-  <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="192" posY="160">
+  <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="160" posY="160">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tMap_1"/>
+    <elementParameter field="EXTERNAL" name="MAP" value=""/>
+    <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
+    <elementParameter field="DIRECTORY" name="TEMPORARY_DATA_DIRECTORY" value=""/>
+    <elementParameter field="IMAGE" name="PREVIEW" value="_G2wiQG-0EeufZJukEHqjmw-tMap_1-PREVIEW.bmp"/>
+    <elementParameter field="CHECK" name="DIE_ON_ERROR" show="false" value="true"/>
+    <elementParameter field="CHECK" name="LKUP_PARALLELIZE" show="false" value="false"/>
+    <elementParameter field="TEXT" name="LEVENSHTEIN" show="false" value="0"/>
+    <elementParameter field="TEXT" name="JACCARD" show="false" value="0"/>
+    <elementParameter field="CHECK" name="ENABLE_AUTO_CONVERT_TYPE" show="false" value="false"/>
+    <elementParameter field="TEXT" name="ROWS_BUFFER_SIZE" value="2000000"/>
+    <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="true"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="NUM_SER">
+      <column comment="" key="false" length="12" name="SIGTIE" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="30" name="NOMTIE" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="3" name="Type_Cmde" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="38" name="Num_cmde" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="8" name="DATLIV" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="16" name="CODPRO" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="30" name="REFLOT" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="0" name="QTELIV" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
+      <additionalProperties key="Comment" value=""/>
+    </metadata>
+    <nodeData xsi:type="TalendMapper:MapperData">
+      <uiProperties shellMaximized="true"/>
+      <varTables name="Var" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="Relational.ISNULL(row1.TYPCDE) ? (Relational.ISNULL(row1.TYPLIV) ? row1.TYPFAC : row1.TYPLIV) : row1.TYPCDE " name="TypCmd" type="id_String"/>
+        <mapperTableEntries expression="Relational.ISNULL(row1.NUMCDE) ? (Relational.ISNULL(row1.NUMLIV) ? row1.NUMFAC : row1.NUMLIV) : row1.NUMCDE " name="NumCmd" type="id_BigDecimal"/>
+      </varTables>
+      <outputTables name="NUM_SER" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="row1.SIGTIE" name="SIGTIE" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="row1.NOMTIE" name="NOMTIE" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Var.TypCmd " name="Type_Cmde" type="id_String"/>
+        <mapperTableEntries expression="Var.NumCmd.intValue() " name="Num_cmde" type="id_Integer"/>
+        <mapperTableEntries expression="row1.DATLIV" name="DATLIV" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="row1.CODPRO" name="CODPRO" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="row1.REFLOT" name="REFLOT" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="row1.QTELIV" name="QTELIV" nullable="true" type="id_Integer"/>
+      </outputTables>
+      <inputTables lookupMode="LOAD_ONCE" matchingMode="ALL_ROWS" name="row1" sizeState="INTERMEDIATE">
+        <mapperTableEntries name="SIGTIE" nullable="true" type="id_String"/>
+        <mapperTableEntries name="NOMTIE" nullable="true" type="id_String"/>
+        <mapperTableEntries name="TYPFAC" type="id_String"/>
+        <mapperTableEntries name="NUMFAC" type="id_BigDecimal"/>
+        <mapperTableEntries name="TYPLIV" type="id_String"/>
+        <mapperTableEntries name="NUMLIV" type="id_BigDecimal"/>
+        <mapperTableEntries name="TYPCDE" type="id_String"/>
+        <mapperTableEntries name="NUMCDE" type="id_BigDecimal"/>
+        <mapperTableEntries name="DATLIV" nullable="true" type="id_String"/>
+        <mapperTableEntries name="CODPRO" nullable="true" type="id_String"/>
+        <mapperTableEntries name="REFLOT" nullable="true" type="id_String"/>
+        <mapperTableEntries name="QTELIV" nullable="true" type="id_BigDecimal"/>
+      </inputTables>
+    </nodeData>
+  </node>
+  <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="384" posY="160">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileOutputDelimited_1"/>
     <elementParameter field="CHECK" name="USESTREAM" value="false"/>
     <elementParameter field="TEXT" name="STREAMNAME" show="false" value="outputStream"/>
@@ -263,23 +332,23 @@
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
     <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
     <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="false"/>
-    <elementParameter field="CHECK" name="FILE_EXIST_EXCEPTION" value="true"/>
+    <elementParameter field="CHECK" name="FILE_EXIST_EXCEPTION" value="false"/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="90"/>
     <elementParameter field="TEXT" name="LABEL" value="LIST_#LIMITED_SOLD"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tFileOutputDelimited_1">
       <column comment="" key="false" length="12" name="SIGTIE" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="NOMTIE" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="3" name="TYPEVE" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="38" name="NUMEVE" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" key="false" length="8" name="DATVAL" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="3" name="Type_Cmde" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="38" name="Num_cmde" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="8" name="DATLIV" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="16" name="CODPRO" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="REFLOT" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="0" name="QTELIV" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="0" name="QTELIV" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
       <additionalProperties key="Comment" value=""/>
     </metadata>
   </node>
-  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="352" posY="160">
+  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="544" posY="160">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tLogRow_1"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="RADIO" name="BASIC_MODE" value="true"/>
@@ -298,11 +367,11 @@
       <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="NOMTIE"/>
       <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="TYPEVE"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Type_Cmde"/>
       <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="NUMEVE"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Num_cmde"/>
       <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="DATVAL"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="DATLIV"/>
       <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="CODPRO"/>
       <elementValue elementRef="LENGTH" value="10"/>
@@ -317,21 +386,30 @@
     <metadata connector="FLOW" name="tLogRow_1">
       <column comment="" key="false" length="12" name="SIGTIE" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="NOMTIE" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="3" name="TYPEVE" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="38" name="NUMEVE" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" key="false" length="8" name="DATVAL" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="3" name="Type_Cmde" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="38" name="Num_cmde" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="8" name="DATLIV" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="16" name="CODPRO" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="30" name="REFLOT" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="0" name="QTELIV" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="0" name="QTELIV" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
       <additionalProperties key="Comment" value=""/>
     </metadata>
   </node>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tDBConnection_1" offsetLabelX="0" offsetLabelY="0" source="tDBConnection_1" target="tDBInput_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk1"/>
   </connection>
-  <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tDBInput_1" offsetLabelX="0" offsetLabelY="0" source="tDBInput_1" target="tFileOutputDelimited_1">
+  <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tDBInput_1" offsetLabelX="0" offsetLabelY="0" source="tDBInput_1" target="tMap_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row1"/>
+  </connection>
+  <connection connectorName="FLOW" label="NUM_SER" lineStyle="0" metaname="NUM_SER" offsetLabelX="0" offsetLabelY="0" source="tMap_1" target="tFileOutputDelimited_1">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="Type_Cmde"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="NUM_SER"/>
   </connection>
   <connection connectorName="FLOW" label="row2" lineStyle="0" metaname="tFileOutputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileOutputDelimited_1" target="tLogRow_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
@@ -353,13 +431,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_f6ced5b7-56ed-41b0-afb4-db46494c7c03"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>jgXLZdLCL+XJSO2jBGAtCeVY5KnvtkWZ1ZzpTVBIYpntjpja0BjZcQMIg0oYZYi2aQes1Lg+eOEw
-zEfly/zpGQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_93c808ef-ba49-4c1a-8ac5-38d16da17fc1"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>guCMvND65D4u+7EZmku4XeB/xgRKkinTS5jF2rtm1Z+K5tluTSP3AfbA65rHqjxYisUqp7XT+IxP
-j67+rMpruA==</DigestValue></Reference></SignedInfo><SignatureValue>FtpXvm7wvTjVtw5IfDEJeyHk8MONsAEu+0knxgzlExaKWfbTOwplEPLLfwHjRHcoQwhm1fvfLe0e
-2yrTZH8b58FzNFaMBzhfmZ1rAtcDQZMyXKycNEtiz7CRSYBe21JEkBfoFVz1/S75bCR6oCodWlwd
-rYQ2Qhh6BSBUqBMHyJ6b6kzINWIIfbqK5QcVdxXHW3IusNfB4l2CeFfK+J8NlmswDpax4wvPpyY7
-/wfWEpqGeVBvnn7le/dMpn8Wv1QX1PxckQDr+9pKhwmTXCiSCAboU+KJo4XrmCQEgH9zWDdAHY0A
-pSKImb38qRbnmu3rRvxuuJ5ALNlshHlgFTAWaw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_75a9ba6f-32d9-4ada-b9cf-cbfa4e50843a"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>tFuzThtG1xeS4EmUSq/MTuNig2iZgkIR8QjJHdmuUKx2dLJ+kUf2h8kFyWnjBJVIR3Fr33EdcZ4n
+tm70cDyVtQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_528601dc-448b-414c-af9b-8b6423ce919a"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>cfwNMCsKZdBEmN5rU5dfNeEr0WYhEmay/cMcm8jP5TZh3zudv6W5zBu8GN0qDnUNY5JWYs0mVj1k
+IBiVBUUVJg==</DigestValue></Reference></SignedInfo><SignatureValue>kZbjIYWAFVkT6x0GqOQPc846xnIyC8VpPopaNa73IX1IIMCbbxMSpnTJXmwhPLm+2MPIalvUgVFf
+LvZEn497qpcitf0GoOtZZHiJiCSJDVOqeIUzl+w32bcKPtizaqYERHamdyn8kIfshIv0tTNthyVK
+iUGBeX/9btOnKH6bAkr0KlKv7DdG5RHIPNIWig6P2FAf7IwqvAn2o9GYVrnCNEGTj7BL9gHt/4EY
+xmpZV/UgLOr8gmOpHtj17BrwNBhq3HoHqTAbqH3TIGUWWmyZji+qcvMJC9JbkRAZCWbCXBWqMlh0
+URtUNf13nRR4ACsc21hYBnBj6BHz6TtYtwCBTg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -381,4 +459,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_93c808ef-ba49-4c1a-8ac5-38d16da17fc1" Target="#_f6ced5b7-56ed-41b0-afb4-db46494c7c03"><Timestamp>2021-02-21 16:50:15</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_528601dc-448b-414c-af9b-8b6423ce919a" Target="#_75a9ba6f-32d9-4ada-b9cf-cbfa4e50843a"><Timestamp>2021-03-20 22:19:39</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
