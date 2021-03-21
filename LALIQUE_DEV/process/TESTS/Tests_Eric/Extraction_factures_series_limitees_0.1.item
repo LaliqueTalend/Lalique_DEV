@@ -555,10 +555,10 @@
       <column comment="" key="false" length="30" name="NOMTIE" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="3" name="Type_Cmde" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="38" name="Num_cmde" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="8" name="DATLIV" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="true" length="8" name="DATLIV" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="true" length="16" name="CODPRO" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="true" length="30" name="REFLOT" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="true" length="0" name="QTELIV" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="0" name="QTELIV" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
     </metadata>
     <metadata connector="REJECT" name="REJECT">
       <column comment="" key="false" length="12" name="SIGTIE" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
@@ -598,6 +598,7 @@
       <column comment="" key="false" length="-1" name="NSJOBN" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="NSUPMJ" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="NSTDAY" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Type_cmde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
@@ -608,7 +609,7 @@
       <outputTables name="SERIE_LIMITED" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="List.CODPRO " name="NSLITM" nullable="true" type="id_String"/>
         <mapperTableEntries expression="List.REFLOT " name="NSLOTN" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="(BigDecimal)888888 " name="NSSEQNC" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries expression="BigDecimal.valueOf(888888) " name="NSSEQNC" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries expression="&quot;A&quot;" name="NS55SER01" nullable="true" type="id_String"/>
         <mapperTableEntries expression="List.Type_Cmde + &quot; &quot; + List.Num_cmde + &quot;-CLI&quot; + List.SIGTIE " name="NSDL01" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;REPRISE&quot;" name="NSUSER" nullable="true" type="id_String"/>
@@ -616,8 +617,9 @@
         <mapperTableEntries expression="&quot;ENTNONPROD&quot;" name="NSJOBN" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Var.Date_jour " name="NSUPMJ" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries expression="Var.Heure_jour " name="NSTDAY" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries expression="List.Type_Cmde" name="Type_cmde" nullable="true" type="id_String"/>
       </outputTables>
-      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="List" sizeState="INTERMEDIATE">
+      <inputTables activateExpressionFilter="true" expressionFilter="List.Type_Cmde != 'RET'" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="List" sizeState="INTERMEDIATE">
         <mapperTableEntries name="SIGTIE" nullable="true" type="id_String"/>
         <mapperTableEntries name="NOMTIE" nullable="true" type="id_String"/>
         <mapperTableEntries name="Type_Cmde" type="id_String"/>
@@ -628,7 +630,7 @@
         <mapperTableEntries name="QTELIV" nullable="true" type="id_Integer"/>
       </inputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Max" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="List.QTELIV " name="DATLIV" nullable="true" operator="=" type="id_String"/>
+        <mapperTableEntries expression="List.DATLIV " name="DATLIV" nullable="true" operator="=" type="id_String"/>
         <mapperTableEntries expression="List.CODPRO " name="CODPRO" nullable="true" operator="=" type="id_String"/>
         <mapperTableEntries expression="List.REFLOT " name="REFLOT" nullable="true" operator="=" type="id_String"/>
       </inputTables>
@@ -730,6 +732,8 @@
       <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="NSTDAY"/>
       <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Type_cmde"/>
+      <elementValue elementRef="LENGTH" value="10"/>
     </elementParameter>
     <elementParameter field="CHECK" name="PRINT_CONTENT_WITH_LOG4J" value="true"/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
@@ -745,6 +749,7 @@
       <column comment="" key="false" length="-1" name="NSJOBN" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="NSUPMJ" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="NSTDAY" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Type_cmde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tDBConnection_1" offsetLabelX="0" offsetLabelY="0" source="tDBConnection_1" target="tDBInput_1">
@@ -788,6 +793,11 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="List"/>
   </connection>
   <connection connectorName="FLOW" label="SERIE_LIMITED" lineStyle="0" metaname="SERIE_LIMITED" offsetLabelX="0" offsetLabelY="0" source="tMap_2" target="tLogRow_2">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="Type_cmde"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="SERIE_LIMITED"/>
   </connection>
@@ -826,13 +836,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_31f2ab7d-9c4c-47aa-b4bb-5e1e49acd185"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>9lOd7/pWKwmWeJvk+FpGWeNSDdzaCx8Ob0oH9J6MhvBf1q+sOSvjdOey9PD1OwSkRedOgrUXJtbw
-+NiH9D7j1Q==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_72f6e6d9-0dfc-4666-9d49-c8ede78e6a1e"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>5BYV+OxkPkfOIjNQtXoOLAHhoCYt6z3zuoRrlgL7rvfRmxixyV0ohbqmS5UuVg/w5sJaqTouYAIa
-NfqhzjKRsA==</DigestValue></Reference></SignedInfo><SignatureValue>LCcfMUmtE3jKn+K3NmhgBzizatfLMfE6qGOCmG6c7/aPycBCw2BDqUuE5OXyfAVxVyJaocTo/R0i
-9tOJzcKm8RcUIE0Iw37DeBSiTYtaHn3x6wyjSFJB0WOmf/n8c4ivYJOu8supENVACrWInZRytkoZ
-VRzom2lA3eLTzgAhtRai7W4H3fVtn0MAjKO3xcIgkyAkrRs0FcHmr45yN77wiEEVB6XDQQHKhjJN
-KD5Uwm4e1J+8m8RaevOxlRUdYhupgpphi2Wtc+bTYYY5C7/lL5TEdKK695qdCdyyvYRWLmleKQsd
-POy9A6YtyHFIZovoYMu9/P+JZo+IkWu9DssF/g==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_ab117e88-cb05-4b9f-b3e2-15999750c194"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>ahrgP7HHcz4VpKcP3xcKZw8fzNgAtXOJCOnSm6xFhDlGVCrQki5IKq+ePjsAULQ7VJkCEu0QFJ9y
+N6p575octg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_d680f018-f3b6-4977-b884-b627c8b2258c"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>dOYVpZ2Ujp8GPxrx/heGCa3c+MnBXPJd2fbatrR+UGtnev41gy00u1vhthSUJUTowtD2n4jsdhUv
+aDClqJZcww==</DigestValue></Reference></SignedInfo><SignatureValue>eqEDDmTBOurjhHn8eo+79dv/NN1OOjKnVxOCyEfnPDIH6Hs0fQtJ1Ehv2YfvC3kOYSvFY8jse53F
+YuAIBIGMIO7fDaH7CtzKgOmye8j8owLKc0HyFFEPLpWyzcBIadG8ULObadqhdpBozdR2ZfYufCuf
+348/BpChoI8MkZtof2JIbsGXGivTDUki6NRCJ1IFaZzXm3l4itl3JhBDXyp9nx50rmpx01BKKqBF
+HVFKCkkzSv2ehGUeI0AFQjqEd8VnI0BqA99qnawPJo3IoUYaAVaifUeR+xLBCl/gnVstHSqyPq9o
+Q8gEpdpeFwVk94GiAAPLzisyHbOvA5nxILs4oA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -854,4 +864,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_72f6e6d9-0dfc-4666-9d49-c8ede78e6a1e" Target="#_31f2ab7d-9c4c-47aa-b4bb-5e1e49acd185"><Timestamp>2021-03-21 16:06:14</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_d680f018-f3b6-4977-b884-b627c8b2258c" Target="#_ab117e88-cb05-4b9f-b3e2-15999750c194"><Timestamp>2021-03-21 16:10:59</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
