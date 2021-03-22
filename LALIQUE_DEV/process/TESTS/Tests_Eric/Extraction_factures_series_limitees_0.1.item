@@ -743,13 +743,14 @@
         <mapperTableEntries expression="List.REFLOT " name="REFLOT" nullable="true" operator="=" type="id_String"/>
         <globalMapKeysValues expression="" name="&quot;N&quot;"/>
       </inputTables>
-      <inputTables lookupMode="LOAD_ONCE" matchingMode="ALL_ROWS" name="row5" sizeState="INTERMEDIATE">
-        <mapperTableEntries name="NSLITM" type="id_String"/>
-        <mapperTableEntries name="NSLOTN" type="id_String"/>
-        <mapperTableEntries name="NSSEQNC" nullable="true" type="id_BigDecimal"/>
+      <inputTables activateCondensedTool="true" lookupMode="CACHE_OR_RELOAD" matchingMode="UNIQUE_MATCH" name="Serie" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="List.CODPRO " name="NSLITM" operator="=" type="id_String"/>
+        <mapperTableEntries expression="List.REFLOT " name="NSLOTN" operator="=" type="id_String"/>
+        <mapperTableEntries expression="" name="NSSEQNC" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries name="NS55SER01" nullable="true" type="id_String"/>
         <mapperTableEntries name="NSDL01" nullable="true" type="id_String"/>
         <mapperTableEntries name="NSDOCO" nullable="true" type="id_BigDecimal"/>
+        <globalMapKeysValues expression="" name="&quot;LIST.LITM&quot;"/>
       </inputTables>
     </nodeData>
   </node>
@@ -976,45 +977,6 @@
       <column comment="" defaultValue="" key="false" length="0" name="NSDOCO" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="576" posY="416">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tLogRow_4"/>
-    <elementParameter field="RADIO" name="BASIC_MODE" value="true"/>
-    <elementParameter field="RADIO" name="TABLE_PRINT" value="false"/>
-    <elementParameter field="RADIO" name="VERTICAL" value="false"/>
-    <elementParameter field="RADIO" name="PRINT_UNIQUE" show="false" value="true"/>
-    <elementParameter field="RADIO" name="PRINT_LABEL" show="false" value="false"/>
-    <elementParameter field="RADIO" name="PRINT_UNIQUE_LABEL" show="false" value="false"/>
-    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;|&quot;"/>
-    <elementParameter field="CHECK" name="PRINT_HEADER" value="false"/>
-    <elementParameter field="CHECK" name="PRINT_UNIQUE_NAME" value="false"/>
-    <elementParameter field="CHECK" name="PRINT_COLNAMES" value="false"/>
-    <elementParameter field="CHECK" name="USE_FIXED_LENGTH" value="false"/>
-    <elementParameter field="TABLE" name="LENGTHS" show="false">
-      <elementValue elementRef="SCHEMA_COLUMN" value="NSLITM"/>
-      <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="NSLOTN"/>
-      <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="NSSEQNC"/>
-      <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="NS55SER01"/>
-      <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="NSDL01"/>
-      <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="NSDOCO"/>
-      <elementValue elementRef="LENGTH" value="10"/>
-    </elementParameter>
-    <elementParameter field="CHECK" name="PRINT_CONTENT_WITH_LOG4J" value="true"/>
-    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tLogRow_4">
-      <column comment="" key="true" length="25" name="NSLITM" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="true" length="30" name="NSLOTN" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="0" name="NSSEQNC" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" key="false" length="11" name="NS55SER01" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="30" name="NSDL01" nullable="true" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="0" name="NSDOCO" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
-    </metadata>
-  </node>
   <node componentName="tOracleConnection" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="32" posY="384">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBConnection_2"/>
     <elementParameter field="CLOSED_LIST" name="CONNECTION_TYPE" value="ORACLE_SERVICE_NAME"/>
@@ -1122,13 +1084,9 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Max"/>
   </connection>
-  <connection connectorName="FLOW" label="Exist" lineStyle="0" metaname="tDBInput_2" offsetLabelX="0" offsetLabelY="0" source="tDBInput_2" target="tLogRow_4">
+  <connection connectorName="FLOW" label="Serie" lineStyle="8" metaname="tDBInput_2" offsetLabelX="0" offsetLabelY="0" source="tDBInput_2" target="tMap_2">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Exist"/>
-  </connection>
-  <connection connectorName="FLOW" label="row5" lineStyle="8" metaname="tLogRow_4" offsetLabelX="0" offsetLabelY="0" source="tLogRow_4" target="tMap_2">
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row5"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Serie"/>
   </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tDBConnection_2" offsetLabelX="0" offsetLabelY="0" source="tDBConnection_2" target="tFileInputDelimited_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk2"/>
@@ -1153,13 +1111,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_d63e9130-14a1-4dde-9d24-2d6a7bc387ab"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>GBvtFvChNurz/r4MNLOeJk+0SqJVifBf6rV5xwdbKMqr3NRSNK/FANBmQjA2vABrG1oZy3Z1ztXD
-L3n0AornaA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_18886320-0cc1-499f-b928-999a8bf8010e"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>W0VOJ6sc5jyk8/jqEOjwSHFbyLLS8jlo7pgLrYqmgPpZJcupGlS5u4rRrPaka8BI8a1hJ5g3xCq+
-jBg5sxOACA==</DigestValue></Reference></SignedInfo><SignatureValue>UDCPEBxTftSLvRvrFkZma/cHOHkMbEYKuAOoCdHJjiDkchEsCE3TCAYDzL/sJhdtpmEo3gEmFLOh
-6lGV92Pb1NeLGK9z91jhDsMqWCoFND8inRYDeaKcZ9tQbkmYSvPr6vQuq+08rQD6qnWXKzoUOHYb
-9PVtMFpn6f5NPzwd0PIdgB+E+TcT3tjAa5fH3N576bTm8iW9EIsfZLO8mOvXkc8qFHDc4GbUMsvU
-D95bzK4H/YFwTFl+DvIJAJDYOYZmgcIiJpdmo6enc9P5dRLpcdE7w6X4HxatmmkUzvBYKD0UO7pJ
-jc2/ute30/WaCBb9ExpbeyLlrfJyaAwKpE1Y5g==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_4316eaaf-19be-436a-8b6f-42291e6a5906"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>30R1Rbf//Gtep5EkexqCBZltRRQr/CBazVUNOQOIZutcmg5x4Z6tswH5S3h4fag6y4lGSaLCtOFT
+CTTILKm83A==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_a3a746fa-df40-4aea-83ac-64a4877ef190"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>T2pw9hM2mz/KSk74uK+gzV+Os1Mgdj56zI3A5h2DHXQQCNJnX9LU4l18FmeFiIxG3YslmDp/BYiy
+q4kkS3SQaw==</DigestValue></Reference></SignedInfo><SignatureValue>VXDJprov+YeYzx0f8IO7W7uLU4RSULVulZ7t3G39T/HFsu35FKMw4IsOMTKp6LWCHf1/907joBjC
+/Xr3T2PqCDXKiia5RFPfE0Nbg9QmiztfEsCdKiA37V9nEgC/3ZlKFvj55GB8NnIa4QRD6cQYhvPB
+1TcEAtVchviIqbhl897q4HHd4SgHAVf7bMU/KwrRuinlGk5rs2aibnlk33oEcQZ0sH9ZiDgvBhRf
+WvGYGJSBcHoImw2ua83/EppguEVeeshKzEvnT01ZswUSKpYvDe0dN6tQU9Cq3ymBkBs3bPbexcIJ
+3THVsoiA7xjJ49bJcQCVe9fACNNKLnfantAfzg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1181,4 +1139,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_18886320-0cc1-499f-b928-999a8bf8010e" Target="#_d63e9130-14a1-4dde-9d24-2d6a7bc387ab"><Timestamp>2021-03-22 07:39:53</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_a3a746fa-df40-4aea-83ac-64a4877ef190" Target="#_4316eaaf-19be-436a-8b6f-42291e6a5906"><Timestamp>2021-03-22 07:45:30</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
