@@ -394,10 +394,13 @@
       <column comment="" key="false" length="-1" name="Tx_Rem" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
+      <column comment="" key="false" length="-1" name="Art_MTO" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
-      <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
+      <varTables name="Var" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="&quot;MTO&quot;.equals(article.IBSRP0) ? &quot;MTO&quot; : &quot;STD&quot;" name="Art_MTO" type="id_String"/>
+      </varTables>
       <outputTables name="Lignes_Cde" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="EnTete_Cde_Lignes.Transaction" name="Transaction" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="V_Evlrepr.NUMEVE " name="Num_Cde" nullable="true" type="id_Integer"/>
@@ -409,6 +412,7 @@
         <mapperTableEntries expression="(float)0" name="Px_Unit" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="&quot; &quot;" name="Flag_Frais" nullable="true" type="id_String"/>
         <mapperTableEntries expression="V_Evlrepr.QTESUP6 " name="Tx_Rem" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="Var.Art_MTO " name="Art_MTO" nullable="true" type="id_String"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="EnTete_Cde_Lignes" sizeState="INTERMEDIATE">
         <mapperTableEntries name="Transaction" nullable="true" type="id_Integer"/>
@@ -558,6 +562,7 @@
       <column comment="" key="false" length="-1" name="Tx_Rem" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
+      <column comment="" key="false" length="-1" name="Art_MTO" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="384" posY="576">
@@ -9623,9 +9628,10 @@
       <column comment="" key="false" length="-1" name="Tx_Rem" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
+      <column comment="" key="false" length="-1" name="Art_MTO" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
       <outputTables name="Frais_Cde" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Evf.NUMEVE " name="Num_Cde" nullable="true" type="id_Integer"/>
@@ -9637,6 +9643,7 @@
         <mapperTableEntries expression="Evf.MONFRD" name="Px_Unit" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="&quot;1&quot;" name="Flag_Frais" nullable="true" type="id_String"/>
         <mapperTableEntries expression="(float)0 " name="Tx_Rem" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="&quot;STD&quot;" name="Art_MTO" nullable="true" type="id_String"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="EnTete_Cde_Frais" sizeState="INTERMEDIATE">
         <mapperTableEntries name="Transaction" nullable="true" type="id_Integer"/>
@@ -10000,6 +10007,7 @@
       <column comment="" key="false" length="-1" name="Tx_Rem" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
+      <column comment="" key="false" length="-1" name="Art_MTO" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="192" posY="192">
@@ -14435,6 +14443,9 @@
       <elementValue elementRef="TRACE_COLUMN" value="Transaction"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Art_MTO"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Lignes_Cde"/>
@@ -14520,6 +14531,9 @@
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
       <elementValue elementRef="TRACE_COLUMN" value="Flag_Frais"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Art_MTO"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
@@ -14727,13 +14741,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_fef96948-3923-437e-bd08-ed6c2ad1b0c9"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>D7MYfTwy+y1YMwAiQuGa8yBH5KGuQ/kvsJY2JhAlctCOclR0BPDZgSQgND3s7M9I4ssPMW7W1WYY
-lUoQDwkj7A==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_934217ef-aa5f-452d-9e99-f8a0e0cf24e7"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>I93ZLmJUTJNDYV8iv6xnRgpvPIyS11ql9SNGSWZIsr+InIW0uZ5tKv4toaOqugmTf7ypcPu/v198
-b1WBeWxYXA==</DigestValue></Reference></SignedInfo><SignatureValue>EjX+yDjYNt5JvxdRUTG0KWeVhCe+HwUIOJB55pMUnAFYl4Sy7wIZ+MN/6IfbdT6QBFfR3FWcSYGS
-lRnQpLw/jI2sLf4CzTNIQrME9ToklmVkCFOUti3H71RzTrdYYAHXfVHjeWGTjNZK9Yjtp3SHd0E7
-n/UXu5IbTyKhdk8+wCUi3TV0Co9diOBhM49oI5XFEMYsXKtNYNw006VnRAwiIZdH6NgYu/TM49/8
-7PKAlZKyPSoxk5rOHyFP3QKwBNV9XLUMqdILeu75Sbd8TyphjUbbJTl+AVS+d2M2dbS6NYaLZe4m
-qjmAPXHCpWZNg1YD/PNn/6Ba1j0JAhQmSkx2+Q==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_91aa933e-8d88-4c16-8b8a-a43c4b26f762"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Ei33jD3j79YrFX3CthxFd1SOcMd60RmjGc2aArvQmTtkKO2YDXQGdKtxNIk54e5R3AzNt/nzChI+
+fZi4h9jPRw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_1b36ae58-9acb-44c3-8dc0-10f93584ea42"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>a0kphbg0E7qgwzLaMxujSC0MpK4EMAgDDcwo1Ywi/U074MzRrOrWUfulQfR1+nA07ErcOpv6J4bN
+bhLrdQeGIg==</DigestValue></Reference></SignedInfo><SignatureValue>dW5reCHSwM6mbYBJOJ1//BZdLWmTfvs6LaHPxJy48nDXAzxn9gPwAYFbxmihfr1VTPv8DQgCK9KZ
+uR0Dneo5tdnjsa3OuHB6u8/ZlwO4Dvs/Il9gY1woSS+BVNHa92RIi0Jyg8L6HNJLKtD5zuKrSS/z
+S8iCei/UXTHhzORQdgLqXf8KLYeSMbrSt919MeIitzLW/ahlvco+dRSaJK71hD5R/bEH0p7nHiyI
+IYLu7E5iSNzaRPf5tSbE1slrG3g7YX6kPBjkIFk3hEmx/H63UmLCFUsAwiblAxqVtzNMt3Lxa5/g
+FmqEd7QWyCU+Vn2k3O0C8F5iRvJswK1HZmFbWw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -14755,4 +14769,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_934217ef-aa5f-452d-9e99-f8a0e0cf24e7" Target="#_fef96948-3923-437e-bd08-ed6c2ad1b0c9"><Timestamp>2021-03-27 11:21:57</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_1b36ae58-9acb-44c3-8dc0-10f93584ea42" Target="#_91aa933e-8d88-4c16-8b8a-a43c4b26f762"><Timestamp>2021-03-27 11:25:03</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
