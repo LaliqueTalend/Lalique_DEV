@@ -16376,17 +16376,12 @@
     <elementParameter field="CHECK" name="ENABLE_AUTO_CONVERT_TYPE" show="false" value="false"/>
     <elementParameter field="TEXT" name="ROWS_BUFFER_SIZE" value="2000000"/>
     <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="true"/>
+    <elementParameter field="TEXT" name="LABEL" value="ADD_COMM"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" label="com_orig" name="com_orig">
       <column comment="" key="false" length="-1" name="Num_Cde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Num_Ligne" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Comment" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-    </metadata>
-    <metadata connector="FLOW" name="com_rejet">
-      <column comment="" key="false" length="-1" name="Num_Cde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Num_Ligne" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Poste" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Ligne" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
@@ -16395,12 +16390,6 @@
         <mapperTableEntries expression="lig.Num_Cde" name="Num_Cde" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="lig.Num_Ligne" name="Num_Ligne" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="comm.COMMEN1+&quot; &quot;+(Relational.ISNULL(comm.COMMEN2) ? ' ' : comm.COMMEN2+&quot; &quot;)+(Relational.ISNULL(comm.COMMEN3) ? ' ' : comm.COMMEN3+&quot; &quot;)+(Relational.ISNULL(comm.COMMEN4) ? ' ' : comm.COMMEN4+&quot; &quot;)+(Relational.ISNULL(comm.COMMEN5) ? ' ' : comm.COMMEN5+&quot; &quot;)+(Relational.ISNULL(comm.COMMEN6) ? ' ' : comm.COMMEN6+&quot; &quot;)+(Relational.ISNULL(comm.COMMEN7) ? ' ' : comm.COMMEN7+&quot; &quot;)+(Relational.ISNULL(comm.COMMEN8) ? ' ' : comm.COMMEN8+&quot; &quot;)+(Relational.ISNULL(comm.COMMEN9) ? ' ' : comm.COMMEN9+&quot; &quot;)+(Relational.ISNULL(comm.COMMEN10) ? ' ' : comm.COMMEN10)" name="Comment" nullable="true" type="id_String"/>
-      </outputTables>
-      <outputTables activateCondensedTool="true" name="com_rejet" rejectInnerJoin="true" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="lig.Num_Cde " name="Num_Cde" nullable="true" type="id_Integer"/>
-        <mapperTableEntries expression="lig.Num_Ligne " name="Num_Ligne" nullable="true" type="id_Integer"/>
-        <mapperTableEntries expression="lig.Num_Ligne / 1000" name="Poste" nullable="true" type="id_Integer"/>
-        <mapperTableEntries expression="(int)Mathematical.MOD((double)lig.Num_Ligne,(double)1000) " name="Ligne" nullable="true" type="id_Integer"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="lig" sizeState="INTERMEDIATE">
         <mapperTableEntries name="Num_Cde" nullable="true" type="id_Integer"/>
@@ -16508,7 +16497,29 @@
       <additionalProperties key="Comment" value=""/>
     </metadata>
   </node>
-  <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="768" posY="1120">
+  <node componentName="tSortRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="704" posY="1088">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSortRow_2"/>
+    <elementParameter field="TABLE" name="CRITERIA">
+      <elementValue elementRef="COLNAME" value="Num_Cde"/>
+      <elementValue elementRef="SORT" value="num"/>
+      <elementValue elementRef="ORDER" value="asc"/>
+      <elementValue elementRef="COLNAME" value="Num_Ligne"/>
+      <elementValue elementRef="SORT" value="num"/>
+      <elementValue elementRef="ORDER" value="asc"/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="EXTERNAL" value="false"/>
+    <elementParameter field="DIRECTORY" name="TEMPFILE" show="false" value="&quot;C:/Talend-Studio-20190620_1446-V7.2.1/workspace/temp&quot;"/>
+    <elementParameter field="CHECK" name="CREATEDIR" show="false" value="true"/>
+    <elementParameter field="TEXT" name="EXTERNAL_SORT_BUFFERSIZE" show="false" value="1000000"/>
+    <elementParameter field="TEXT" name="LABEL" value="TRI"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" label="com_orig" name="tSortRow_2">
+      <column comment="" key="false" length="-1" name="Num_Cde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Num_Ligne" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Comment" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="896" posY="1088">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileOutputDelimited_9"/>
     <elementParameter field="CHECK" name="USESTREAM" value="false"/>
     <elementParameter field="TEXT" name="STREAMNAME" show="false" value="outputStream"/>
@@ -16532,8 +16543,8 @@
     <elementParameter field="CHECK" name="FLUSHONROW" value="false"/>
     <elementParameter field="TEXT" name="FLUSHONROW_NUM" show="false" value="1"/>
     <elementParameter field="CHECK" name="ROW_MODE" value="false"/>
-    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
-    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;UTF-8&quot;"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="UTF-8"/>
     <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="false"/>
     <elementParameter field="CHECK" name="FILE_EXIST_EXCEPTION" value="false"/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="90"/>
@@ -16543,40 +16554,6 @@
       <column comment="" key="false" length="-1" name="Num_Cde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Num_Ligne" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Comment" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-    </metadata>
-  </node>
-  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="768" posY="1024">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tLogRow_1"/>
-    <elementParameter field="RADIO" name="BASIC_MODE" value="false"/>
-    <elementParameter field="RADIO" name="TABLE_PRINT" value="true"/>
-    <elementParameter field="RADIO" name="VERTICAL" value="false"/>
-    <elementParameter field="RADIO" name="PRINT_UNIQUE" show="false" value="true"/>
-    <elementParameter field="RADIO" name="PRINT_LABEL" show="false" value="false"/>
-    <elementParameter field="RADIO" name="PRINT_UNIQUE_LABEL" show="false" value="false"/>
-    <elementParameter field="TEXT" name="FIELDSEPARATOR" show="false" value="&quot;|&quot;"/>
-    <elementParameter field="CHECK" name="PRINT_HEADER" show="false" value="false"/>
-    <elementParameter field="CHECK" name="PRINT_UNIQUE_NAME" show="false" value="false"/>
-    <elementParameter field="CHECK" name="PRINT_COLNAMES" show="false" value="false"/>
-    <elementParameter field="CHECK" name="USE_FIXED_LENGTH" show="false" value="false"/>
-    <elementParameter field="TABLE" name="LENGTHS" show="false">
-      <elementValue elementRef="SCHEMA_COLUMN" value="Num_Cde"/>
-      <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="Num_Ligne"/>
-      <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="Poste"/>
-      <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="Ligne"/>
-      <elementValue elementRef="LENGTH" value="10"/>
-    </elementParameter>
-    <elementParameter field="CHECK" name="PRINT_CONTENT_WITH_LOG4J" value="true"/>
-    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
-    <elementParameter field="TEXT" name="LABEL" value="Comm_rejet"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tLogRow_1">
-      <column comment="" key="false" length="-1" name="Num_Cde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Num_Ligne" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Poste" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Ligne" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
   </node>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tOracleConnection_3" offsetLabelX="-3" offsetLabelY="2" source="tOracleConnection_3" target="tSetGlobalVar_1">
@@ -16912,13 +16889,9 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="e_comm"/>
   </connection>
-  <connection connectorName="FLOW" label="com_orig" lineStyle="0" metaname="com_orig" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_3" target="tFileOutputDelimited_9">
+  <connection connectorName="FLOW" label="com_orig" lineStyle="0" metaname="com_orig" offsetLabelX="0" offsetLabelY="0" source="tMap_3" target="tSortRow_2">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="com_orig"/>
-  </connection>
-  <connection connectorName="FLOW" label="com_rejet" lineStyle="0" metaname="com_rejet" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_3" target="tLogRow_1">
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="com_rejet"/>
   </connection>
   <connection connectorName="FLOW" label="comm" lineStyle="8" metaname="tDBInput_4" offsetLabelX="0" offsetLabelY="0" source="tDBInput_4" target="tMap_3">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
@@ -16928,6 +16901,10 @@
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="comm"/>
+  </connection>
+  <connection connectorName="FLOW" label="com_sorted" lineStyle="0" metaname="tSortRow_2" offsetLabelX="0" offsetLabelY="0" source="tSortRow_2" target="tFileOutputDelimited_9">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="com_sorted"/>
   </connection>
   <subjob>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tOracleConnection_3"/>
@@ -16945,33 +16922,45 @@
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
   <subjob>
+    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileInputDelimited_1"/>
-    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
+    <elementParameter field="TEXT" name="SUBJOB_TITLE" value="EXTRACTION DES LIGNES"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
   <subjob>
+    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileInputDelimited_5"/>
-    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
+    <elementParameter field="TEXT" name="SUBJOB_TITLE" value="INSERT ENTETE - F47011"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
   <subjob>
+    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileInputDelimited_7"/>
-    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
+    <elementParameter field="TEXT" name="SUBJOB_TITLE" value="INSERT LIGNES - F47012"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
   <subjob>
+    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileInputDelimited_9"/>
-    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
+    <elementParameter field="TEXT" name="SUBJOB_TITLE" value="INSERT ADRESSES - F4706"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
   <subjob>
+    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileInputDelimited_2"/>
-    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
+    <elementParameter field="TEXT" name="SUBJOB_TITLE" value="EXTRTACTION DES FRAIS"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
   <subjob>
+    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBInput_2"/>
-    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
+    <elementParameter field="TEXT" name="SUBJOB_TITLE" value="EXTRACTION DES ENTETES"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
   <subjob>
@@ -16980,17 +16969,19 @@
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
   <subjob>
+    <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileInputDelimited_6"/>
-    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
+    <elementParameter field="TEXT" name="SUBJOB_TITLE" value="PREPARATION DES COMMENTAIRES"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_62c65f8e-1d24-4e95-9e02-c68987df6502"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>OAk02GPH+5JHH9nrG3dPYDFFxWBpglI5k5ggddKJEIYXlSsnrOXpVUSTtjdbK+1MQ2qdECeoiqmI
-gnMzmpBO5w==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_91bae3f1-1658-441c-8ce3-b29b8d31220c"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>6XdoH/k15wWYVSh8Z95t1OzJH9p5kKXQgOJPupCXVLerC70+bwKEELYfcS5qUDFKStv7ZuyZPJHW
-jaTs1jKCDg==</DigestValue></Reference></SignedInfo><SignatureValue>dwKK10vT7ybCplQuHLKY6rQOcMwBaTIYCZs1+q+z4/n5jkFwngIqMz6G3FRjWgyByldnKxcSp/WJ
-7L8QKHZQZ/PRZR2VYkyXf6LigBt0ZezJmWAI6wU04JMTuzPzokmdN8DZWP0SZS1xQDVBU38ePcCG
-YQ0mamX7BfYSQdYfZKkYvvPo78srtJSHjZa/Qvgj1KKIXGuk9uCdVZUvkhBM6dRwHSgoTKsni9vB
-kr7e9oWaJ9BL0vqbjZCcf7iqFjEQ+0R7BaiigceMZmZy8eyHXXkHbL9GOThbJYPA2qZ2ezfzU9F4
-lXUyPqKY4BbYG5B1rSSaluPxt0EXr7UyEV14/w==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_4f9c0879-4a44-416c-b94f-3bfe0c650f70"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>AFci3l9T6oR8jaj1w2MHE08AWvi+MwfD3G7o3imrqHwycDbXcqUGoM6WBNCLbLbuMnt5NGXX3jXM
+uGPdbwVzvQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_6a4f0573-6aec-4323-a523-62d4afba20fa"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>5TEpk//gZG1JGT8ruuTKV+nio8OfbaH/PE0B9noehs/PNh78k5894aVySSjXPT9ZGJI+vh4hsoSG
+iw1QF7R9oQ==</DigestValue></Reference></SignedInfo><SignatureValue>mHScCL/8SZWAiW4jZnjHZP9DntnAsC4rT+9s6ZU7cm5n+/aoY9wrPZ4xq9Cq1PWlMXFACoBxQCSD
+HiKCCRKSa0zAmLgxpYQi1zOUrsMU7d553nBH85CllXJug3UVNDv7CBjotd5KMzX7db6RXAHcA59y
+TdLFJQC539wc+zO7lSVcjDeg3MhbX6pnI09O6JCT6l4zXXTErvC18+vO/hlFcl+RQQRiAXkOdDjh
+s7ki2rhKnL6TTceqeWXBwH/2MfjCBPvYVdamj29EgNHz1V4cIfpqY4dxutlumKRswxOo/qN32f7a
+rVTm1zn4AfWFL1Jbx4icftpDJyTroDuXWqlgug==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -17012,4 +17003,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_91bae3f1-1658-441c-8ce3-b29b8d31220c" Target="#_62c65f8e-1d24-4e95-9e02-c68987df6502"><Timestamp>2021-03-27 19:35:28</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_6a4f0573-6aec-4323-a523-62d4afba20fa" Target="#_4f9c0879-4a44-416c-b94f-3bfe0c650f70"><Timestamp>2021-03-27 19:49:06</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
