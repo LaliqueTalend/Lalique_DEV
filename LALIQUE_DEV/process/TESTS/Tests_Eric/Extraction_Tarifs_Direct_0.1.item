@@ -1141,7 +1141,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#13;&#10;&#9;m.ABALKY, &#13;&#10;&#9;m.ABAN8, &#13;&#10;&#9;m.ABAT1, &#13;&#10;&#9;m.ABALPH, &#13;&#10;&#9;c.AICPGP&#13;&#10;FROM &quot;+context.JDE920_Schema_DTA+&quot;.F0101 m&#13;&#10;JOIN &quot;+context.JDE920_Schema_DTA+&quot;.F03012 c &#13;&#10;ON m.ABAN8 = c.AIAN8 &#13;&#10;WHERE m.ABAT1 LIKE 'C%'&#13;&#10;AND c.AICPGP = 'DIRECT' &quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#13;&#10;&#9;m.ABALKY, &#13;&#10;&#9;m.ABAN8, &#13;&#10;&#9;m.ABAT1, &#13;&#10;&#9;m.ABALPH, &#13;&#10;&#9;c.AICPGP,&#13;&#10;&#9;m.ABAC16,&#13;&#10;&#9;c.AIAC16&#13;&#10;FROM &quot;+context.JDE920_Schema_DTA+&quot;.F0101 m&#13;&#10;JOIN &quot;+context.JDE920_Schema_DTA+&quot;.F03012 c &#13;&#10;ON m.ABAN8 = c.AIAN8 &#13;&#10;WHERE m.ABAT1 LIKE 'C%'&#13;&#10;AND c.AICPGP = 'DIRECT' &quot;"/>
     <elementParameter field="LABEL" name="NOTE" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -1166,6 +1166,10 @@
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="AICPGP"/>
       <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ABAC16"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="AIAC16"/>
+      <elementValue elementRef="TRIM" value="false"/>
     </elementParameter>
     <elementParameter field="CHECK" name="NO_NULL_VALUES" value="false"/>
     <elementParameter field="TEXT" name="LABEL" value="__TABLE__"/>
@@ -1176,6 +1180,8 @@
       <column comment="" key="false" length="-1" name="ABAT1" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="ABALPH" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="AICPGP" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="ABAC16" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="AIAC16" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="576" posY="160">
@@ -1202,6 +1208,10 @@
       <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="AICPGP"/>
       <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ABAC16"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="AIAC16"/>
+      <elementValue elementRef="LENGTH" value="10"/>
     </elementParameter>
     <elementParameter field="CHECK" name="PRINT_CONTENT_WITH_LOG4J" value="true"/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
@@ -1212,6 +1222,8 @@
       <column comment="" key="false" length="-1" name="ABAT1" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="ABALPH" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="AICPGP" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="ABAC16" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="AIAC16" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tDBConnection_1" offsetLabelX="0" offsetLabelY="0" source="tDBConnection_1" target="tDBConnection_2">
@@ -1222,6 +1234,14 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk2"/>
   </connection>
   <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tDBInput_2" offsetLabelX="0" offsetLabelY="0" source="tDBInput_2" target="tLogRow_1">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="AIAC16"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="ABAC16"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row1"/>
   </connection>
@@ -1245,13 +1265,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_3cc2e63f-8452-43ab-ab02-3419a728543f"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>wFFiNJSvWWvsYfQFY+BkzYyZSf6XSZB7qJneRNP76AqOUtSJbGhIX+ylZty7UQOrS81jTiI67Gp7
-1JgLPg2ERw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_7b3f38b8-8c89-4ec6-b68c-22c1626d5ddf"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>y9oVsEbbSnFuPZDh3SUaOweN8s+dw/hxhz7yNGEayAcFwSEu6nDe9U4zEXfIXMzsijgOY7gKRfOl
-Ox66VJlBkg==</DigestValue></Reference></SignedInfo><SignatureValue>Us2h1WJp5cj/WlmN6FPxLdliC+9grUOS+dAFmPTwFrjKP2kZoOJaGlRqU4IKg6dVUVCQZyo0LxqU
-TZ3Q0n1tAVDAYjKDEtJfE4zLPQj89QIl2yoLkT6lTon3pRPybDJbv7Y2kq5RHNZYGXZz6BTB44D9
-uAxb8qtTR4sjunfGNlHhffcSsh0p2a5eyMoVYHSwWRq4D8zouzToEX9g8XK+sv9ExPxxif0k3T3r
-dy/BrcgVilOWdBv/KOl2uIxK/fKJnmxq14qOwOhTWClnY2Cy9oeVavj+4uT+l317JfbV4t0//a1d
-ERVVvOKEpQXfgU0/BpyZqG//dbZOhLVupzQRWg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_d72279e5-0d48-4924-9387-eae632eb0fd6"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>BGZuSzyUEI/ZAJKUHywWgU/ns0+KvHyJ50R3VX6srQLPAUmtKDcygtQYpFjID0NgUqV+P0bQ0an6
+i1VvhL3tvA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_3c13b209-c38a-4b86-ad06-e5acab561c31"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Tm7ruoV5KmgdAKMbmHHpuys8w9iLSRiedyi5+IVEhZWHmIeU/L9lHL2kSFIctZsRS7QpTbLU8+Nc
+LWfV6EaGbQ==</DigestValue></Reference></SignedInfo><SignatureValue>WbqBoNhALgl8WNDZ3i6e5Og9+Uw9q9xw9w7vy51DvpgkqrN5SxmjrhWwv66KHYfWRVzrQRJBl0XI
+gTZj8w9Uu4AJb38yPnYkeA+3NjN2w6CAIC9+xOiy4229oM9QHLe7pdeesXnyr7XJOfc23QSBHm/O
+XpU5Q//eyu3ix3s/Ft3K8ckhHlL72leRP5F5yiufu11DV56Zi8w2ucmcYI9Hzs4I+WEdkJcjHIRP
+AER6JSseXd9KXG/AB0utJchvPZhDjTd38HaelaBGzTbaFUJnFXKdvNTAyExYo2DK8SJxdlae2bNR
+UxK8p/JRk1iRKytx7e6p+m71mVgV1ju7hBWzcg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1273,4 +1293,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_7b3f38b8-8c89-4ec6-b68c-22c1626d5ddf" Target="#_3cc2e63f-8452-43ab-ab02-3419a728543f"><Timestamp>2021-03-28 17:48:12</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_3c13b209-c38a-4b86-ad06-e5acab561c31" Target="#_d72279e5-0d48-4924-9387-eae632eb0fd6"><Timestamp>2021-03-28 17:51:34</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
