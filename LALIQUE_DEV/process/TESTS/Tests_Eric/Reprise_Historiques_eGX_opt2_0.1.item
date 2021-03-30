@@ -6917,7 +6917,7 @@
     <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="false"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" label="F47012" name="F47012">
-      <column comment="" key="false" length="1" name="SZEDTY" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+      <column comment="" key="false" length="1" name="SZEDTY" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_Integer" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="-1" name="SZEDSQ" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
@@ -7722,9 +7722,11 @@
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
-      <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
-      <outputTables activateExpressionFilter="true" expressionFilter="Relational.NOT( &quot;10035200&quot;.equals(Lignes.CODPRO))" name="F47012" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="&quot; &quot;" name="SZEDTY" nullable="true" type="id_String"/>
+      <varTables name="Var" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="EnTete.Transaction == 101 || EnTete.Transaction == 131 ? 10 :&#13;&#10;EnTete.Transaction == 111 || EnTete.Transaction == 132 ? 11 :&#13;&#10;EnTete.Transaction == 121 || EnTete.Transaction == 133 ? 12 : EnTete.Transaction " name="Transaction" type="id_Integer"/>
+      </varTables>
+      <outputTables activateColumnNameFilter="true" activateExpressionFilter="true" columnNameFilter="" expressionFilter="Relational.NOT( &quot;10035200&quot;.equals(Lignes.CODPRO)) AND  Var.Transaction &lt; 16" name="F47012" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="&quot; &quot;" name="SZEDTY" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="(float)0" name="SZEDSQ" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="&quot;00010&quot;" name="SZEKCO" type="id_String"/>
         <mapperTableEntries expression="EnTete.Num_Cde" name="SZEDOC" type="id_Integer"/>
@@ -7938,7 +7940,7 @@
         <mapperTableEntries expression="(float)0" name="SZFEA" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="(float)0" name="SZFUC" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="(float)0" name="SZFEC" nullable="true" type="id_Float"/>
-        <mapperTableEntries expression="EnTete.Transaction+&quot;&quot; " name="SZURCD" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Var.Transaction " name="SZURCD" nullable="true" type="id_String"/>
         <mapperTableEntries expression="(float)0" name="SZURDT" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="(float)0" name="SZURAT" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="(float)0" name="SZURAB" nullable="true" type="id_Float"/>
@@ -8245,7 +8247,7 @@
     <elementParameter field="TEXT" name="LABEL" value="F47012"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" label="F47012" name="tFileOutputDelimited_9">
-      <column comment="" key="false" length="1" name="SZEDTY" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+      <column comment="" key="false" length="1" name="SZEDTY" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_Integer" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="-1" name="SZEDSQ" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
@@ -10913,7 +10915,7 @@
     <elementParameter field="TEXT" name="LABEL" value="F47012"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" label="F47012" name="tOracleOutput_2">
-      <column comment="" key="false" length="1" name="SZEDTY" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+      <column comment="" key="false" length="1" name="SZEDTY" nullable="true" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="-1" name="SZEDSQ" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
@@ -11717,7 +11719,7 @@
       <additionalProperties key="Comment" value=""/>
     </metadata>
     <metadata connector="REJECT" label="F47012" name="REJECT">
-      <column comment="" key="false" length="1" name="SZEDTY" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+      <column comment="" key="false" length="1" name="SZEDTY" nullable="true" pattern="" precision="0" sourceType="INT" type="id_Integer" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="-1" name="SZEDSQ" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
@@ -19206,6 +19208,7 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Parallelize"/>
   </connection>
   <subjob>
+    <elementParameter field="CHECK" name="COLLAPSED" show="false" value="true"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tOracleConnection_3"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
@@ -19265,13 +19268,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_07a71750-47d2-4464-8d2c-bfea32209d4d"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>enmrZLao2AUc+tFxSpmlUucU2A2Ji0B3Ne/WNGOFEfQOkacO29z35pQg//Zehg7GPPb3Pu9qVysi
-gnWtHzg1Qg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_bfd49f16-2809-40dd-abdc-2919142c28f9"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>BxxQvdsbyu7xUwE2jEMMNk7tXpuNMf4LtoVLAuekjqf/3rGnmGy2kwlS2lUtuyNuMeNBB52M6P9t
-q6DUQnqjDA==</DigestValue></Reference></SignedInfo><SignatureValue>Hc2FjXHvH1fr27Kk5ogwc4rM9qlUXHzWHjNsw8nSjgd3rJjlLb/F+fNkXotxwsYihqu7kB1tBuEE
-R/9NisB+vD3WYRI7bYvQu3ZXbsD9f2+gvuK+d9TTfE5q96rn62AAl4uGwxIMWf8azwE9ROzt6tdB
-8NaDVhLUJYpTVI1e1GAGQ5ZRZzFlUIO0fX1ZdnBx+yK5ZQq3Jdz7P31XBuUUZZk2rjBBQKiNf1te
-P/dylZ+BsMvThPi3ksBRkwdTZurd9lLIah1WVd/KQoOr5SPP1awPKxH3wf24FaktCeuQRZvhZX9X
-DRY1YoAQ+UQw1sxBbJ8EBWT4mXUUTkeD3Lkadg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_dcbf3d30-dca7-41f9-ae8c-99e865b91476"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>XxHNTg7EFK4XY1je5dKn1OmPiFfiiX7eDDUsfaCNBoPR5+8IhnhBQKHIQ91K67Tk64bnS9jooNfk
+tFCHZRJk6g==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_006ffb99-a964-4ff8-a49c-d7e0cc902268"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>F+hix/p6HqA6g38Iz6okY+U8SjJdSMhgKWBLggi+gG/tVgZNK/6dvtUriDpsuQsCwqq3N8B7Drfq
+px190VRUkg==</DigestValue></Reference></SignedInfo><SignatureValue>bdAvcrpSMahq/SQxVtOBAs4lvlYQkPZuFh3oXBCzHhuO1etbmDr3mGn8I/Y8xXrtRyQXdB5Xgw8V
+Ayf4M+bphGhBxEeJDFULf1UC3zd0V7RqPyBfBUBpG+axmM/3IR8RCZh8LgwMFKHzothi/QfqKVAy
+tJwnLq4lAdakFLWJ/ccW4vAegPc+4xSAfEVRFxGxN93x7P8utr4XvSXTDDaPrRz+zexrt4pe3N4C
+thq7+JxO67yDYpR0fEDM38AGZYsD2byeXzBCxfdL5+OXnUABmohzuXyXAFVbvwJkloClXkfqYFRD
+2eAWGQ2ViU0cyiGjQtCJV44BQJO27dbKl/ZjDQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -19293,4 +19296,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_bfd49f16-2809-40dd-abdc-2919142c28f9" Target="#_07a71750-47d2-4464-8d2c-bfea32209d4d"><Timestamp>2021-03-30 14:49:58</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_006ffb99-a964-4ff8-a49c-d7e0cc902268" Target="#_dcbf3d30-dca7-41f9-ae8c-99e865b91476"><Timestamp>2021-03-30 15:02:57</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
