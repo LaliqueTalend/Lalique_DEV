@@ -8454,24 +8454,15 @@
       <column comment="" defaultValue="" key="false" length="-1" name="QTESUP6" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true"/>
     </metadata>
     <metadata connector="FLOW" name="rejet_frais">
+      <column comment="" defaultValue="" key="false" length="-1" name="Num_Doc" nullable="false" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Typ_Doc" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="Num_Cde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="true" length="3" name="TYPEVE" nullable="false" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="true" length="-1" name="NUMEVE" nullable="false" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="true" length="-1" name="NUMPOS" nullable="false" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="6" name="CODFRD" nullable="true" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
+      <column comment="" key="false" length="-1" name="Typ_Cde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE"/>
-      <outputTables minimized="true" name="Frais_Doc" sizeState="INTERMEDIATE">
+      <outputTables name="Frais_Doc" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="EnTete_Cde_Frais.Transaction" name="Transaction" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="EnTete_Cde_Frais.Num_Doc" name="Num_Doc" type="id_Integer"/>
         <mapperTableEntries expression="EnTete_Cde_Frais.Typ_Doc" name="Typ_Doc" nullable="true" type="id_String"/>
@@ -8547,11 +8538,10 @@
         <mapperTableEntries expression="(float)0" name="QTESUP6" nullable="true" type="id_Float"/>
       </outputTables>
       <outputTables activateCondensedTool="true" name="rejet_frais" rejectInnerJoin="true" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="EnTete_Cde_Frais.Num_Doc " name="Num_Doc" type="id_Integer"/>
+        <mapperTableEntries expression="EnTete_Cde_Frais.Typ_Doc " name="Typ_Doc" nullable="true" type="id_String"/>
         <mapperTableEntries expression="EnTete_Cde_Frais.Num_Cde " name="Num_Cde" nullable="true" type="id_Integer"/>
-        <mapperTableEntries expression="Evf.TYPEVE " name="TYPEVE" type="id_String"/>
-        <mapperTableEntries expression="Evf.NUMEVE " name="NUMEVE" type="id_Integer"/>
-        <mapperTableEntries expression="Evf.NUMPOS " name="NUMPOS" type="id_Integer"/>
-        <mapperTableEntries expression="Evf.CODFRD " name="CODFRD" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="EnTete_Cde_Frais.Typ_Cde " name="Typ_Cde" nullable="true" type="id_String"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="EnTete_Cde_Frais" sizeState="INTERMEDIATE">
         <mapperTableEntries name="Transaction" nullable="true" type="id_Integer"/>
@@ -8571,8 +8561,8 @@
       </inputTables>
       <inputTables innerJoin="true" lookupMode="LOAD_ONCE" matchingMode="ALL_MATCHES" name="Evf" sizeState="INTERMEDIATE">
         <mapperTableEntries name="ACHVTE" type="id_String"/>
-        <mapperTableEntries name="TYPEVE" type="id_String"/>
-        <mapperTableEntries expression="EnTete_Cde_Frais.Num_Cde " name="NUMEVE" type="id_Integer"/>
+        <mapperTableEntries expression="EnTete_Cde_Frais.Typ_Doc " name="TYPEVE" operator="=" type="id_String"/>
+        <mapperTableEntries expression="EnTete_Cde_Frais.Num_Doc " name="NUMEVE" operator="=" type="id_Integer"/>
         <mapperTableEntries expression="" name="NUMPOS" type="id_Integer"/>
         <mapperTableEntries name="CODFRD" nullable="true" type="id_String"/>
         <mapperTableEntries expression="" name="TAUFRD" nullable="true" type="id_BigDecimal"/>
@@ -8609,7 +8599,7 @@
       </inputTables>
     </nodeData>
   </node>
-  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="256" posY="608">
+  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="256" posY="576">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tOracleInput_4"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" show="false" value="REPOSITORY"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" show="false" value="_TDzwoArHEeWx1dV_9Bg5iA"/>
@@ -8996,34 +8986,23 @@
     <elementParameter field="CHECK" name="PRINT_COLNAMES" value="false"/>
     <elementParameter field="CHECK" name="USE_FIXED_LENGTH" value="false"/>
     <elementParameter field="TABLE" name="LENGTHS" show="false">
+      <elementValue elementRef="SCHEMA_COLUMN" value="Num_Doc"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Typ_Doc"/>
+      <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="Num_Cde"/>
       <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="TYPEVE"/>
-      <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="NUMEVE"/>
-      <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="NUMPOS"/>
-      <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="CODFRD"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Typ_Cde"/>
       <elementValue elementRef="LENGTH" value="10"/>
     </elementParameter>
     <elementParameter field="CHECK" name="PRINT_CONTENT_WITH_LOG4J" value="true"/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tLogRow_3">
+      <column comment="" defaultValue="" key="false" length="-1" name="Num_Doc" nullable="false" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Typ_Doc" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="Num_Cde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="true" length="3" name="TYPEVE" nullable="false" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="true" length="-1" name="NUMEVE" nullable="false" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="true" length="-1" name="NUMPOS" nullable="false" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="6" name="CODFRD" nullable="true" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
+      <column comment="" key="false" length="-1" name="Typ_Cde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="96" posY="384">
@@ -18479,6 +18458,15 @@
       <elementValue elementRef="TRACE_COLUMN" value="Num_Cde"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Num_Doc"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Typ_Doc"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Typ_Cde"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="rejet_frais"/>
@@ -19277,13 +19265,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_ae43e69d-0b5c-42d7-879b-a2f503232f19"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>lcSRl5CI00FlyTds4Cuoyguyp8JQ/tgDQ0O9ayj78zFMZXt4i+axaJjDxgsNlZqfahD1CZ51oLJI
-k6lPo/Ejfg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_5c88603b-cf3a-4f30-8442-ee8ea811ab06"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>fbJYlKuilkZbrhIkhnZ33/0LAxeLPOvXAp4Fr/iamIIFaAzDzvXFY2kbsRLftVcSRiFShNPyTrVo
-PJz/I4qKGg==</DigestValue></Reference></SignedInfo><SignatureValue>DSnCJkxCURH+7JZatNr0UP6SdTh+rN9pS0uE9LUZWiaTPWHs/QinQ1UV8pIgZqwQ9QmDouQr6vTF
-aTqatijaXgA9MHdCkUBTpzfQUZQUJtAuyPzDeYtxDRHeuQ0dLkwu/Qs5aFseC6sy/fwkVD111Xnx
-6OnfueYKh8IlnXc2OND9jyMRuqmuZeViqu2u9t9dhiniI9f3Hp5tbou5MjdX8BqTHONkY9DKqlH+
-Z80I0ZPaxspLUgID94fr67ETLnv17vyX3LLnAwdY3RaTB/hJLYQYavljBES0IenYQX2bLzEH2Gy7
-JoW6PmLJ+AOGhyWfw5kMXa8HcfmoGSdJlYx7CA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_0794785d-949d-4dae-aefe-3beeaaaf2c94"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>1UzR9tjP/DoYDykXAHsVvE9BAWnWXrYWzoVCTZaJ1Hc4kc9QjXMI0DCpA6z4px1Sy6uqM5atu1vl
+wsOIQ8sW+g==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_023b083b-fbc4-4f5d-9ff9-474693a9cdd4"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>SlvQ+GHlABLG0o95hhm33RXBaVJlMujiBnLA2ySCQcMgdNrY/2J+8VFMKo5+qlIe9Fn81g5q4aqF
+u8QmJbswDA==</DigestValue></Reference></SignedInfo><SignatureValue>ky4uZD4yWyppxBzroCqe/ygaka2ol8afMxc9Dsr+kUrlbxT+nm4pdNbNyGyh1swqmfgn38uNANae
+RxlOWpH+2Eiym7RauF072lsOiUi4Gw6gSrIuYkpWZno5uRiU4GATFM2vwGyWO7EQ/GGlaqMzWQgr
+/jA+9xB9N6QH/8hCpzK6wtFs/+AITP7047GsrT8V/xAMXQo7RSNHTbvHg9xPGkDXwnUIzKXYlL1O
+HQCh1l0O3hNVuTSDCx5dv8YnhGmCPL08kXufLl+jCIzsItLv/wkfy6GgJvYYBbmf+RwOE9qU2QOW
+91dyzNQuHwWQbelzdzDxSAUdE0NWSEt8aPJvUw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -19305,4 +19293,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_5c88603b-cf3a-4f30-8442-ee8ea811ab06" Target="#_ae43e69d-0b5c-42d7-879b-a2f503232f19"><Timestamp>2021-03-30 12:13:53</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_023b083b-fbc4-4f5d-9ff9-474693a9cdd4" Target="#_0794785d-949d-4dae-aefe-3beeaaaf2c94"><Timestamp>2021-03-30 12:24:43</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
