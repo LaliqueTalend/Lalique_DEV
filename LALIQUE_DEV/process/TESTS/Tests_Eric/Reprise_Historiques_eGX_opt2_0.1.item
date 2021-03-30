@@ -1983,8 +1983,10 @@
       <additionalProperties key="Comment" value=""/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
-      <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
+      <uiProperties shellMaximized="true"/>
+      <varTables name="Var" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="EnTete_Cde_.Transaction == 101 || EnTete_Cde_.Transaction == 131 ? 10 :&#13;&#10;EnTete_Cde_.Transaction == 111 || EnTete_Cde_.Transaction == 132 ? 11 :&#13;&#10;EnTete_Cde_.Transaction == 121 || EnTete_Cde_.Transaction == 133 ? 12 : EnTete_Cde_.Transaction " name="Transaction" type="id_String"/>
+      </varTables>
       <outputTables name="F47011" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="&quot; &quot;" name="SYEDTY" nullable="true" type="id_String"/>
         <mapperTableEntries expression="(float)0" name="SYEDSQ" nullable="true" type="id_Float"/>
@@ -2074,12 +2076,12 @@
         <mapperTableEntries expression="(float)0" name="SYFCST" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="&quot; &quot;" name="SYORBY" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="SYTKBY" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="EnTete_Cde.Transaction+&quot;&quot; " name="SYURCD" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Var.Transaction+&quot;&quot; " name="SYURCD" nullable="true" type="id_String"/>
         <mapperTableEntries expression="(float)0" name="SYURDT" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="(float)0" name="SYURAT" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="(float)0" name="SYURAB" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="&quot; &quot;" name="SYURRF" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="&quot;REPRISE&quot;" name="SYTORG" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot;REPRISE_HISTO&quot;" name="SYTORG" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;REPRISE_HISTO&quot;" name="SYUSER" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;EP47010&quot;" name="SYPID" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="SYJOBN" nullable="true" type="id_String"/>
@@ -9552,9 +9554,9 @@
       <column comment="" defaultValue="" key="false" length="-1" name="QTESUP6" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="&quot;COM&quot; .equals(Ligne_Doc.Depot) &amp;&amp; (&quot;SD&quot; .equals(Ligne_Doc.Cat_Cde) || &quot;CS&quot; .equals(Ligne_Doc.Cat_Cde)) ? 10 :&#13;&#10;&quot;COM&quot; .equals(Ligne_Doc.Depot) &amp;&amp; &quot;SF&quot; .equals(Ligne_Doc.Cat_Cde) &amp;&amp; Relational.NOT(&quot;M&quot; .equals(Ligne_Doc.Type_Client) || &quot;F&quot; .equals(Ligne_Doc.Type_Client)) ? 10 : &#13;&#10;&quot;COM&quot; .equals(Ligne_Doc.Depot) &amp;&amp; (&quot;RP&quot; .equals(Ligne_Doc.Cat_Cde) || &quot;SF&quot; .equals(Ligne_Doc.Cat_Cde)) &amp;&amp; &quot;M&quot; .equals(Ligne_Doc.Type_Client) ? 11 :&#13;&#10;&quot;COM&quot; .equals(Ligne_Doc.Depot) &amp;&amp; &quot;EC&quot; .equals(Ligne_Doc.Cat_Cde) &amp;&amp; &quot;M&quot; .equals(Ligne_Doc.Type_Client) ? 14 :&#13;&#10;&quot;COM&quot; .equals(Ligne_Doc.Depot) &amp;&amp; &quot;EC&quot; .equals(Ligne_Doc.Cat_Cde) &amp;&amp; &quot;F&quot; .equals(Ligne_Doc.Type_Client) ? 15 :&#13;&#10;&quot;COM&quot; .equals(Ligne_Doc.Depot) &amp;&amp; (&quot;RP&quot; .equals(Ligne_Doc.Cat_Cde) || &quot;SF&quot; .equals(Ligne_Doc.Cat_Cde) || &quot;SD&quot; .equals(Ligne_Doc.Cat_Cde)) &amp;&amp; &quot;F&quot; .equals(Ligne_Doc.Type_Client) ? 12 : &#13;&#10;&quot;COM&quot; .equals(Ligne_Doc.Depot) &amp;&amp; &quot;CB&quot; .equals(Ligne_Doc.Cat_Cde)  ? 13 :&#13;&#10;&quot;COM&quot; .equals(Ligne_Doc.Depot) &amp;&amp; &quot;CO&quot; .equals(Ligne_Doc.Cat_Cde) ? 16 :&#13;&#10;&quot;DECO&quot; .equals(Ligne_Doc.Depot) &amp;&amp; &quot;CO&quot; .equals(Ligne_Doc.Cat_Cde) ? 17 : 0 " name="Transaction" type="id_Integer"/>
+        <mapperTableEntries expression="&quot;COM&quot; .equals(Ligne_Doc.Depot) ? &#13;&#10;&#9;( Relational.NOT(&quot;M&quot; .equals(Ligne_Doc.Type_Client) || &quot;F&quot; .equals(Ligne_Doc.Type_Client)) ?&#13;&#10;&#9;&#9;(&quot;SD&quot; .equals(Ligne_Doc.Cat_Cde) ? 10 :&#13;&#10;&#9;&#9;&quot;CS&quot; .equals(Ligne_Doc.Cat_Cde) ? 101 :&#13;&#10;&#9;&#9;&quot;SF&quot; .equals(Ligne_Doc.Cat_Cde) ? 10 : &#13;&#10;&#9;&#9;&quot;CB&quot; .equals(Ligne_Doc.Cat_Cde) ? 130 : &#13;&#10;&#9;&#9;&quot;CO&quot; .equals(Ligne_Doc.Cat_Cde) ? 16 : -1 ) :&#13;&#10;&#9;  &quot;M&quot; .equals(Ligne_Doc.Type_Client) ?&#13;&#10;&#9;&#9;(&quot;SD&quot; .equals(Ligne_Doc.Cat_Cde) ? 11 :&#13;&#10;&#9;&#9;&quot;CS&quot; .equals(Ligne_Doc.Cat_Cde) ? 111 :&#13;&#10;&#9;&#9;&quot;SF&quot; .equals(Ligne_Doc.Cat_Cde) ? 11 : &#13;&#10;&#9;&#9;&quot;RP&quot; .equals(Ligne_Doc.Cat_Cde) ? 11 : &#13;&#10;&#9;&#9;&quot;EC&quot; .equals(Ligne_Doc.Cat_Cde) ? 14 : &#13;&#10;&#9;&#9;&quot;CB&quot; .equals(Ligne_Doc.Cat_Cde) ? 131 : &#13;&#10;&#9;&#9;&quot;CO&quot; .equals(Ligne_Doc.Cat_Cde) ? 16 : -2 ) :&#13;&#10;&#9;  &quot;F&quot; .equals(Ligne_Doc.Type_Client) ?&#13;&#10;&#9;&#9;(&quot;SD&quot; .equals(Ligne_Doc.Cat_Cde) ? 12 :&#13;&#10;&#9;&#9;&quot;CS&quot; .equals(Ligne_Doc.Cat_Cde) ? 121 :&#13;&#10;&#9;&#9;&quot;SF&quot; .equals(Ligne_Doc.Cat_Cde) ? 12 : &#13;&#10;&#9;&#9;&quot;RP&quot; .equals(Ligne_Doc.Cat_Cde) ? 12 : &#13;&#10;&#9;&#9;&quot;EC&quot; .equals(Ligne_Doc.Cat_Cde) ? 15 : &#13;&#10;&#9;&#9;&quot;CB&quot; .equals(Ligne_Doc.Cat_Cde) ? 132 : &#13;&#10;&#9;&#9;&quot;CO&quot; .equals(Ligne_Doc.Cat_Cde) ? 16 : -3 ) : -4 ) :&#13;&#10;&quot;DECO&quot; .equals(Ligne_Doc.Depot) &amp;&amp; &quot;CO&quot; .equals(Ligne_Doc.Cat_Cde) ? 17 : -5 " name="Transaction" type="id_Integer"/>
       </varTables>
       <outputTables name="Ligne" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Var.Transaction " name="Transaction" nullable="true" type="id_Integer"/>
@@ -9629,7 +9631,7 @@
         <mapperTableEntries expression="Ligne_Doc.CODPRO " name="CODPRO" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Ligne_Doc.QTESUP6 " name="QTESUP6" nullable="true" type="id_Float"/>
       </outputTables>
-      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Ligne_Doc" sizeState="INTERMEDIATE">
+      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="Ligne_Doc" sizeState="INTERMEDIATE">
         <mapperTableEntries name="Num_Doc" type="id_Integer"/>
         <mapperTableEntries name="Typ_Doc" nullable="true" type="id_String"/>
         <mapperTableEntries name="Cat_Cde" nullable="true" type="id_String"/>
@@ -19164,13 +19166,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_36ae2b74-cbd1-42cf-bdd2-85885f80eef3"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>u/OsN3lJswwTSa/vN00/RuSXInWWeBgM26D93XAVaT4MeItIJFU6EevsX490nmSCyo/F1PryWTlj
-E01MBQrduw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_ea59c266-c373-4b92-a7bf-45b7657bcb06"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>5cATjftSJPDU4U6TfV57J4djP5tbFZxKFbQHZXVAsMTX91tADne6cAfrP6yj/d33kMZDbuZNcspK
-qbvgReErXQ==</DigestValue></Reference></SignedInfo><SignatureValue>OMsCSvmGDH0nNa9UQc4mVxcF8Bjrm1XI89iVPKF6d55aAxJj41tL447Jm7XlNo3MJg2xnl6MaxVR
-gzGwDhy4bD/Cq7q7lK3q6yo9iag9g3UlmgQxgxDUYfrG6cYWhFVbrv8xx8Q7zI15nMtc2SFLgI3w
-Il8CUiEd17XoaJewNImkJozaRqdqSNQyYqYdLOJzI0WIyOmBefYIAU+8yas9R65TtYpNrBDAq+nu
-APHDBwckDwZY/QBJXv8+D9m/0cr/V4BpmQwpFZ3aZ0R+pizHrgQ5OJ0cr2lH6L7fxfHcBs1c4e2b
-/ePQO3l27LBRJOv/i6OcaYuLmABHlpQGtEtQAA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_e4835a03-a137-4f39-b0a9-2f090b973b53"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>E7eJEZwq0gB2aTnweQBCS71sDs+2Tu2MkE75SX9mj8ead7fPtcIxtDCdJVV9UAR8nAMwsnN1RoRm
+IfY6xbP6lw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_7906352b-e29b-4c39-bc99-2ba498cea4c5"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>KTP5bqJOWuqh8ZRfQLMvR6VPH2x/fsUBW12LB8UI+GT0yMvq/vog7uvV0nHNzPvryJf08kLuDet7
+RJLKLKEDew==</DigestValue></Reference></SignedInfo><SignatureValue>NSGRyqLUKKYepz5H08AV1kIUTJ+50ogNwNWGP3vONfadxPa3kTADhgjmRbdG0R7UemVNnk5keLkR
+60Ox3Uvxo60XZTjt34piLHyf22SQqB0cRQ1jwjZMLwoXyBwwH1sGr6Q3VTCbFZMRJf8esOUpvabY
+cu0nimiGqCccudHTWyCwFus8LZARxHAKnCEhbqrLHFo3rUz4WFeS7M2s/ERBicVqGZ0QsIzrCGbt
+s5E7bXZlOdPG3woRrswozpC4YXswkKsorLyY+ANK4pcwztIpXepkJazT5KudSgUE9zfQdq6hCF/J
+cyJnL9iuVRloSeuW9FP9UoD1wEKPZTVoPqzxIQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -19192,4 +19194,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_ea59c266-c373-4b92-a7bf-45b7657bcb06" Target="#_36ae2b74-cbd1-42cf-bdd2-85885f80eef3"><Timestamp>2021-03-28 20:44:12</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_7906352b-e29b-4c39-bc99-2ba498cea4c5" Target="#_e4835a03-a137-4f39-b0a9-2f090b973b53"><Timestamp>2021-03-30 09:49:15</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
