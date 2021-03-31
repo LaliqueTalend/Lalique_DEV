@@ -14352,8 +14352,8 @@
       <column comment="" key="false" length="-1" name="Typ_Doc" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Nom_Client" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Ref_Client" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Date_Cde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Date_Liv" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="DRQJ" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="TRDJ" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="8" name="Date_Cre_Client" nullable="true" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
@@ -14466,7 +14466,7 @@
         <mapperTableEntries expression="Tiers_Liv.Tiers_Jde " name="Client_Liv" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="Tiers_Pay.Tiers_Jde " name="Client_Pay" nullable="true" type="id_Integer"/>
       </outputTables>
-      <outputTables activateExpressionFilter="true" expressionFilter="Ligne.Num_Filiere_Liv &lt; 0 || Ligne.Num_Filiere_Liv &gt;= 100" minimized="true" name="Adresses_Cde" sizeState="INTERMEDIATE">
+      <outputTables activateExpressionFilter="true" expressionFilter="Ligne.Num_Filiere_Liv &lt; 0 || Ligne.Num_Filiere_Liv &gt;= 100" name="Adresses_Cde" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Ligne.Transaction " name="Transaction" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="Ligne.Num_Doc" name="Num_Doc" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="Ligne.Typ_Doc " name="Typ_Doc" nullable="true" type="id_String"/>
@@ -14483,14 +14483,14 @@
         <mapperTableEntries expression="Adr.CODPAY " name="Pays" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Var.TRDJ " name="Date_Cde" nullable="true" type="id_String"/>
       </outputTables>
-      <outputTables activateCondensedTool="true" minimized="true" name="Rejets_EnTete" rejectInnerJoin="true" sizeState="INTERMEDIATE">
+      <outputTables activateCondensedTool="true" name="Rejets_EnTete" rejectInnerJoin="true" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Ligne.Transaction " name="Transaction" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="Ligne.Num_Doc" name="Num_Doc" type="id_Integer"/>
         <mapperTableEntries expression="Ligne.Typ_Doc " name="Typ_Doc" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Ligne.Nom_Client " name="Nom_Client" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Ligne.Ref_Client " name="Ref_Client" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="Ligne.Date_Cde " name="Date_Cde" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="Ligne.Date_Liv " name="Date_Liv" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Var.TRDJ " name="DRQJ" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Var.DRQJ " name="TRDJ" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Ligne.Date_Cre_Client " name="Date_Cre_Client" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Ligne.Client_Fac " name="Client_Fac" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Tiers_Fac.Tiers_Jde " name="Tiers_Jde_Fac" nullable="true" type="id_Integer"/>
@@ -16171,10 +16171,10 @@
       <elementValue elementRef="INPUT_COLUMN" value="Nom_Client"/>
       <elementValue elementRef="OUTPUT_COLUMN" value="Ref_Client"/>
       <elementValue elementRef="INPUT_COLUMN" value="Ref_Client"/>
-      <elementValue elementRef="OUTPUT_COLUMN" value="Date_Doc"/>
-      <elementValue elementRef="INPUT_COLUMN" value="Date_Doc"/>
-      <elementValue elementRef="OUTPUT_COLUMN" value="Date_Cde"/>
-      <elementValue elementRef="INPUT_COLUMN" value="Date_Cde"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="DRQJ"/>
+      <elementValue elementRef="INPUT_COLUMN" value="DRQJ"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="TRDJ"/>
+      <elementValue elementRef="INPUT_COLUMN" value="TRDJ"/>
       <elementValue elementRef="OUTPUT_COLUMN" value="Date_Liv"/>
       <elementValue elementRef="INPUT_COLUMN" value="Date_Liv"/>
       <elementValue elementRef="OUTPUT_COLUMN" value="Client_Fac"/>
@@ -16185,7 +16185,7 @@
       <elementValue elementRef="INPUT_COLUMN" value="Client_Pay"/>
     </elementParameter>
     <elementParameter field="TABLE" name="OPERATIONS">
-      <elementValue elementRef="OUTPUT_COLUMN" value="Nb_Ligne"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="Transaction"/>
       <elementValue elementRef="FUNCTION" value="count"/>
       <elementValue elementRef="INPUT_COLUMN" value="Transaction"/>
       <elementValue elementRef="IGNORE_NULL" value="false"/>
@@ -16204,13 +16204,12 @@
       <column comment="" key="false" length="-1" name="Typ_Cde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Nom_Client" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Ref_Client" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Date_Doc" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Date_Cde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="DRQJ" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="TRDJ" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Date_Liv" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="Client_Fac" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="Client_Liv" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="Client_Pay" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Nb_Ligne" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="1088" posY="320">
@@ -16252,13 +16251,12 @@
       <column comment="" key="false" length="-1" name="Typ_Cde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Nom_Client" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Ref_Client" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Date_Doc" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Date_Cde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="DRQJ" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="TRDJ" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Date_Liv" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="Client_Fac" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="Client_Liv" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="Client_Pay" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Nb_Ligne" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tAggregateRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="960" posY="384">
@@ -16274,10 +16272,10 @@
       <elementValue elementRef="INPUT_COLUMN" value="Nom_Client"/>
       <elementValue elementRef="OUTPUT_COLUMN" value="Ref_Client"/>
       <elementValue elementRef="INPUT_COLUMN" value="Ref_Client"/>
-      <elementValue elementRef="OUTPUT_COLUMN" value="Date_Cde"/>
-      <elementValue elementRef="INPUT_COLUMN" value="Date_Cde"/>
-      <elementValue elementRef="OUTPUT_COLUMN" value="Date_Liv"/>
-      <elementValue elementRef="INPUT_COLUMN" value="Date_Liv"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="DRQJ"/>
+      <elementValue elementRef="INPUT_COLUMN" value="DRQJ"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="TRDJ"/>
+      <elementValue elementRef="INPUT_COLUMN" value="TRDJ"/>
       <elementValue elementRef="OUTPUT_COLUMN" value="Date_Cre_Client"/>
       <elementValue elementRef="INPUT_COLUMN" value="Date_Cre_Client"/>
       <elementValue elementRef="OUTPUT_COLUMN" value="Client_Fac"/>
@@ -16294,7 +16292,7 @@
       <elementValue elementRef="INPUT_COLUMN" value="Tiers_Jde_Pay"/>
     </elementParameter>
     <elementParameter field="TABLE" name="OPERATIONS">
-      <elementValue elementRef="OUTPUT_COLUMN" value="Nb_Lig"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="Transaction"/>
       <elementValue elementRef="FUNCTION" value="count"/>
       <elementValue elementRef="INPUT_COLUMN" value="Transaction"/>
       <elementValue elementRef="IGNORE_NULL" value="false"/>
@@ -16312,8 +16310,8 @@
       <column comment="" key="false" length="-1" name="Typ_Doc" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Nom_Client" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Ref_Client" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Date_Cde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Date_Liv" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="DRQJ" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="TRDJ" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="8" name="Date_Cre_Client" nullable="true" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
@@ -16323,7 +16321,6 @@
       <column comment="" key="false" length="7" name="Tiers_Jde_Liv" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Client_Pay" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="7" name="Tiers_Jde_Pay" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Nb_Lig" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="1088" posY="384">
@@ -16365,8 +16362,8 @@
       <column comment="" key="false" length="-1" name="Typ_Doc" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Nom_Client" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Ref_Client" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Date_Cde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Date_Liv" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="DRQJ" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="TRDJ" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="8" name="Date_Cre_Client" nullable="true" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
@@ -16376,7 +16373,6 @@
       <column comment="" key="false" length="7" name="Tiers_Jde_Liv" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Client_Pay" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="7" name="Tiers_Jde_Pay" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Nb_Lig" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tParallelize" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="64" posY="960">
@@ -17955,6 +17951,11 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Adresses_Cde"/>
   </connection>
   <connection connectorName="FLOW" label="Rejets_EnTete" lineStyle="0" metaname="Rejets_EnTete" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tMap_9" target="tAggregateRow_1">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="DRQJ"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Rejets_EnTete"/>
   </connection>
@@ -18329,13 +18330,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_56602d8f-39e4-4f72-b52d-1c86c84670ac"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>6vWx4gPu1KURL3pxY18fbiQMo4UvYrQiTqg8bZBGMLLi5VoIwFG/31qqCBAKKMdiT49aCJf7fIFm
-a1XzRIQ1Pg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_bb9ed4fa-ba1e-4e46-9558-74aa2dd68fb7"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>dncEvqt8MULLW39XkOssgNXjt4P5ChKMN6tIZapM2tMOhiFKwahtXs+jDDw6M45RUGxEWNKAVJ47
-tAxULhDG4w==</DigestValue></Reference></SignedInfo><SignatureValue>VllpY4nJfuqphpWbWdKJKpuhK9yEH2nF9GQdp1TkaqTDtPjzYcICf/j+TvEfImvvxb7UkjgM0INK
-UYat2hGY4AMTxeYwYZpeS6wobDWm2RazWcNmuCLfOxIWDUllJqoxVcSEMiibuD8SrCs/792auciO
-G1Y19q/QlR7AkgwH/BuXtx3gtVdamUgLkUkq0vf7S+va4NqtWlIw6aY2TM87OegbcZ7svJMMWNIw
-KNoCAuawYGjxnhkpwit0Ql31VRNmT42HQrv7G1j1W4dVjBEUFKUI2MPrOtDNzrIke38wvw7uP5cs
-Hj7O2IGmHZuvk0aWw4pHj9/3S1ocsGrRzefz6w==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_f59de1a1-c77d-4325-bf59-6cffc3db2229"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>6uYlnJ466UiPvCcrZMi0DUO3zhnCLcdrZwGnbUAdlZlicrSCKZ6IKV3h/m3EAS8x6tFt0FmlMDT4
+IJOlSQVz5A==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_76358d65-4f40-4315-b13e-989b211c98ef"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>JBmr3mTGc7o9Ei0jF0omvCad5qdR4w4SuKRFX3bgd+KgdkPIW1yOixwCtwndzJCz8eqno/hAfztv
+mrYOGW6YFg==</DigestValue></Reference></SignedInfo><SignatureValue>KlBZwjRC1BiwUbN7qnmjjgfxL6KgGEMPJ94ThGYWWs4Ci29CrI1mvzs5aHfVWe3n7Q42ZfKgixJ3
+0qBuyCMtJBqpZFggNkUGT2NFFVng6c363V9wPRfi+12HX9hxseiN+YM3d5XsaODZMcATUPqf02s8
+/lWE2dl5ep/F9zCTsATd8B4D1QgTD6/23rv5I9HUr0iyRyW7Q7qybkc29isKvowoKBN4yNNIjXAL
+RzBP1GZJwtcvjZzjNwc3zo3+n8j8MtqIbaSFRwGyZaEoeJ5uQeUo0Q/PuEPl3b4u+VFElq7A2PT3
+A2VHFb9HImC7k4YvubrBnpRtd5K/4B6QXbhkYA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -18357,4 +18358,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_bb9ed4fa-ba1e-4e46-9558-74aa2dd68fb7" Target="#_56602d8f-39e4-4f72-b52d-1c86c84670ac"><Timestamp>2021-03-31 20:34:20</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_76358d65-4f40-4315-b13e-989b211c98ef" Target="#_f59de1a1-c77d-4325-bf59-6cffc3db2229"><Timestamp>2021-03-31 20:41:19</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
