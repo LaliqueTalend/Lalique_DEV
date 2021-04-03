@@ -63,7 +63,7 @@
     <contextParameter comment="" name="LOGYS_ServiceName" prompt="LOGYS_ServiceName?" promptNeeded="false" repositoryContextId="_mLqGEEu3EemDErY9Bsb9Ow" type="id_String" value="lalp.lalique"/>
   </context>
   <parameters>
-    <elementParameter field="TEXT" name="SCREEN_OFFSET_X" show="false" value="122"/>
+    <elementParameter field="TEXT" name="SCREEN_OFFSET_X" show="false" value="96"/>
     <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" show="false" value="0"/>
     <elementParameter field="TEXT" name="REPOSITORY_CONNECTION_ID" show="false" value=""/>
     <elementParameter field="TEXT" name="OOZIE_PROPERTY_TYPENAME" show="false" value=""/>
@@ -2369,7 +2369,7 @@
         <mapperTableEntries expression="Var.Code_Pays .equals(&quot;FR&quot;) ? &quot;FL&quot; : &#13;&#10;(Var.Code_Pays .equals(&quot;AT&quot;) || Var.Code_Pays .equals(&quot;BE&quot;) || Var.Code_Pays .equals(&quot;CY&quot;) || Var.Code_Pays .equals(&quot;CZ&quot;) || Var.Code_Pays .equals(&quot;DE&quot;) || Var.Code_Pays .equals(&quot;DK&quot;) || Var.Code_Pays .equals(&quot;EE&quot;) || Var.Code_Pays .equals(&quot;ES&quot;) || Var.Code_Pays .equals(&quot;FI&quot;) || Var.Code_Pays .equals(&quot;GB&quot;) || Var.Code_Pays .equals(&quot;GR&quot;) || Var.Code_Pays .equals(&quot;HU&quot;) || Var.Code_Pays .equals(&quot;IE&quot;) || Var.Code_Pays .equals(&quot;IT&quot;) || Var.Code_Pays .equals(&quot;LT&quot;) || Var.Code_Pays .equals(&quot;LU&quot;) || Var.Code_Pays .equals(&quot;LV&quot;) || Var.Code_Pays .equals(&quot;MT&quot;) || Var.Code_Pays .equals(&quot;NL&quot;) || Var.Code_Pays .equals(&quot;PL&quot;) || Var.Code_Pays .equals(&quot;PT&quot;) | Var.Code_Pays .equals(&quot;SE&quot;) || Var.Code_Pays .equals(&quot;SI&quot;) || Var.Code_Pays .equals(&quot;SK&quot;) || Var.Code_Pays .equals(&quot;BG&quot;) || Var.Code_Pays .equals(&quot;HR&quot;) || Var.Code_Pays .equals(&quot;RO&quot;)) ? &quot;FE&quot; : &#13;&#10;&quot;FX&quot; " name="Zone_Geo" type="id_String"/>
         <mapperTableEntries expression="&quot;FL&quot; .equals (Var.Zone_Geo) ? &quot;FRCTVA&quot; : &quot;FE&quot; .equals (Var.Zone_Geo) ? &quot;FRCLIVR&quot; : &quot;FX&quot; .equals (Var.Zone_Geo) ? &quot;FRCEXPORT&quot; : &quot;NA&quot; " name="Zone_Taxe" type="id_String"/>
       </varTables>
-      <outputTables activateExpressionFilter="true" expressionFilter="Relational.ISNULL(Tiers_Jde_Cli_Cree.Tiers_Jde)" name="Tiers_Jde_Cli" sizeState="INTERMEDIATE">
+      <outputTables activateExpressionFilter="true" expressionFilter="Integer.parseInt(Clients_Egx.NumAdr)  &lt; 100 &amp;&amp;  Relational.ISNULL(Tiers_Jde_Cli_Cree.Tiers_Jde)" name="Tiers_Jde_Cli" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Tie_Aco.NOMTIE " name="Ass_Comm" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Tie_Adv.NOMTIE " name="Ass_Adv" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Clients_Egx.Cle " name="Tiers_Anael" nullable="true" type="id_String"/>
@@ -9540,14 +9540,14 @@
       </column>
     </metadata>
   </node>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tOracleInput_1" offsetLabelX="0" offsetLabelY="0" source="tOracleInput_1" target="tOracleInput_5">
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk7"/>
+  </connection>
   <connection connectorName="FLOW" label="Lad_Liv" lineStyle="0" metaname="tOracleInput_1" offsetLabelX="0" offsetLabelY="0" source="tOracleInput_1" target="tMap_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Lad_Liv"/>
-  </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tOracleInput_1" offsetLabelX="0" offsetLabelY="0" source="tOracleInput_1" target="tOracleInput_5">
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk7"/>
   </connection>
   <connection connectorName="FLOW" label="Filiere" lineStyle="0" metaname="Filiere" offsetLabelX="0" offsetLabelY="0" source="tMap_1" target="tFileOutputExcel_1">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
@@ -9599,7 +9599,7 @@
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Adr_Filiere"/>
   </connection>
-  <connection connectorName="FLOW" label="Cli_Fac" lineStyle="0" metaname="Cli_Fac" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_2" target="tFileOutputExcel_2">
+  <connection connectorName="FLOW" label="Cli_Pay" lineStyle="0" metaname="Cli_Pay" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_2" target="tFileOutputExcel_4">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="Cle"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
@@ -9610,7 +9610,7 @@
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Cli_Fac"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Cli_Pay"/>
   </connection>
   <connection connectorName="FLOW" label="Cli_Liv" lineStyle="0" metaname="Cli_Liv" offsetLabelX="50" offsetLabelY="7" outputId="2" source="tMap_2" target="tFileOutputExcel_3">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
@@ -9625,7 +9625,7 @@
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Cli_Liv"/>
   </connection>
-  <connection connectorName="FLOW" label="Cli_Pay" lineStyle="0" metaname="Cli_Pay" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tMap_2" target="tFileOutputExcel_4">
+  <connection connectorName="FLOW" label="Cli_Fac" lineStyle="0" metaname="Cli_Fac" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tMap_2" target="tFileOutputExcel_2">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="Cle"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
@@ -9636,19 +9636,19 @@
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Cli_Pay"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Cli_Fac"/>
   </connection>
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tOracleConnection_1" offsetLabelX="0" offsetLabelY="0" source="tOracleConnection_1" target="tOracleConnection_2">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk3"/>
+  </connection>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tOracleInput_5" offsetLabelX="0" offsetLabelY="0" source="tOracleInput_5" target="tOracleInput_12">
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk8"/>
   </connection>
   <connection connectorName="FLOW" label="Lad" lineStyle="0" metaname="tOracleInput_5" offsetLabelX="0" offsetLabelY="0" source="tOracleInput_5" target="tMap_3">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Lad"/>
-  </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tOracleInput_5" offsetLabelX="0" offsetLabelY="0" source="tOracleInput_5" target="tOracleInput_12">
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk8"/>
   </connection>
   <connection connectorName="FLOW" label="Clients" lineStyle="0" metaname="Clients" offsetLabelX="0" offsetLabelY="0" source="tMap_3" target="tFileOutputExcel_5">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
@@ -9877,14 +9877,14 @@
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk4"/>
   </connection>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tOracleInput_12" offsetLabelX="0" offsetLabelY="0" source="tOracleInput_12" target="tFileInputExcel_1">
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk10"/>
+  </connection>
   <connection connectorName="FLOW" label="Val_Param" lineStyle="0" metaname="tOracleInput_12" offsetLabelX="0" offsetLabelY="0" source="tOracleInput_12" target="tMap_6">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Val_Param"/>
-  </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tOracleInput_12" offsetLabelX="0" offsetLabelY="0" source="tOracleInput_12" target="tFileInputExcel_1">
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk10"/>
   </connection>
   <connection connectorName="FLOW" label="Emb_Clients" lineStyle="0" metaname="Emb_Clients" offsetLabelX="0" offsetLabelY="0" source="tMap_6" target="tAggregateRow_1">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
@@ -9954,13 +9954,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_f152bb96-71f1-46fc-9a0b-2b9cbd0e27d2"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>9CMM/wFA1NnCBS9hVnss5NlqohE2NzIp7RrvTQ+EwjUm5STj8a8sb8q+KkNFkPamVGsFFwYwllrn
-3IBGT6M/eA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_8647650b-0b52-465c-81a9-26f0a7ba1b13"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>eF5TKZ0jGQgshQIJKcYxk5y+Rm2Q6fU9pg57TMxnQspVFJTPgIamWLAfbNr86u2lPdZEuc8fzW8j
-W4LbcILhDg==</DigestValue></Reference></SignedInfo><SignatureValue>mWGRl2lte2sk3xTefGZrc+PzA0YajYID6wX/WVJzlrchwTeW5Md5nJU/dnknLYXRjSn4L3SCL+qv
-j7Dnb09jef3S+CpljK6qr8cYh4towSbdHJvbOtrghX5mzeJHn7lshf/Ny32YJax+MUbTau56jY/V
-3rgASfF7Hs9PFl3BIFOtJVFt88rkqKP8YxAs6DTyz2sRTlljRmIGPBwOjtkkzm3v23SX64wmvyeg
-lrll/4OaGxW3nH8G+5JWmex2VGljPNKNkvzbm9dWSsnIpOYuVoN1XACWRgr5hxHSfHARvqJol2vJ
-m0i/B6PcnUCOBPIxY8ZIEfkympaLWH+W9/WgBA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_a71a2226-1b21-4b11-bcdc-e1c582fcd435"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>aX7rsqDpRLBA5RQNy/o0YdHvB/gYZyKXevXMXzXPIarBPeqILxnc45NRjUCbJm8y9u00+jH7TeEl
+KSSWvPIf1g==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_33602c4f-ca40-43cf-b34d-2db59d970647"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>yXrbydtwR4npgCTKTv6oklSXl1FcwL0gHS29MKgpzpMWelCjpmZY4P7W3JIwZYKnUoUShmzptStX
+8qSLeK42Jw==</DigestValue></Reference></SignedInfo><SignatureValue>fwnlcbakmTMf6o76SHqBRzxD5rVeIJP+H1DaJmr4U3gc/U8fHyZVraf2J6zyp/oM0FsJify1FXGx
+unubq8+A5zHXmPlNg3CpV2eMgxagSyJWoMBh78grGdVt68s9Hr8jVXHMyIClgW9z6aSOYncnlPyi
+s4KXNzLJcsdGBwg1+CaUYb69IhSA5XW6WnhV0eKWMlSmhjNnCAmj7qJ9J+E02IYB5f18GZN505a2
+hu3rAHKgwEyFK1lf3WVDuhJ3dkCtoqBV/TN9H/NEDW1u1IqylDDWTVjDGGVJnS3glUTzkJ07vWnA
+TN1fjqGRE2NC0u+5CdteTHMbwgP4DojRGr085Q==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -9982,4 +9982,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_8647650b-0b52-465c-81a9-26f0a7ba1b13" Target="#_f152bb96-71f1-46fc-9a0b-2b9cbd0e27d2"><Timestamp>2021-04-03 07:20:23</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_33602c4f-ca40-43cf-b34d-2db59d970647" Target="#_a71a2226-1b21-4b11-bcdc-e1c582fcd435"><Timestamp>2021-04-03 09:20:09</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
