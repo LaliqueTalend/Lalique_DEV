@@ -76,7 +76,6 @@
     <contextParameter comment="" name="JDE920_ServiceName" prompt="JDE920_ServiceName?" promptNeeded="false" repositoryContextId="_7_vSEIRmEeq1lPpnM_KXRQ" type="id_String" value="JDE92PD"/>
   </context>
   <parameters>
-    <elementParameter field="CHECK" name="LOG4J_RUN_ACTIVATE" show="false" value="true"/>
     <elementParameter field="CLOSED_LIST" name="LOG4J_RUN_LEVEL" show="false" value="Debug"/>
     <elementParameter field="TEXT" name="SCREEN_OFFSET_X" show="false" value="0"/>
     <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" show="false" value="0"/>
@@ -3533,9 +3532,16 @@
       <column comment="" key="false" length="-1" name="MAG" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <metadata connector="FLOW" name="retour_a_creer">
-      <column comment="" key="false" length="-1" name="SIGTIE" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="NUMADR" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="CLIEGX" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="12" name="SIGADR" nullable="true" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="3" name="TYPADR1" nullable="true" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="NUMADR1" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
       <column comment="" key="false" length="-1" name="CODPRO" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="DESCRIPTION" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="QTE" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
@@ -3565,9 +3571,10 @@
         <mapperTableEntries expression="&quot;        10CO&quot;" name="MAG" nullable="true" type="id_String"/>
       </outputTables>
       <outputTables activateCondensedTool="true" name="retour_a_creer" rejectInnerJoin="true" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="row10.SIGTIE " name="SIGTIE" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="row10.NUMADR " name="NUMADR" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="row11.SIGADR + row11.TYPADR1 + StringHandling.RIGHT(&quot;00&quot;+row11.NUMADR1,3)  " name="CLIEGX" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="row11.SIGADR " name="SIGADR" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="row11.TYPADR1 " name="TYPADR1" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="row11.NUMADR1 " name="NUMADR1" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="row10.CODPRO" name="CODPRO" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="DESCRIPTION" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row10.QTE" name="QTE" nullable="true" type="id_Integer"/>
@@ -3855,9 +3862,16 @@
     <elementParameter field="TEXT" name="LABEL" value="RETOUR_CONSIG_A_CREER"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tFileOutputDelimited_5">
-      <column comment="" key="false" length="-1" name="SIGTIE" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="NUMADR" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="CLIEGX" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="12" name="SIGADR" nullable="true" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="3" name="TYPADR1" nullable="true" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="NUMADR1" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
       <column comment="" key="false" length="-1" name="CODPRO" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="DESCRIPTION" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="QTE" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
@@ -4178,6 +4192,15 @@
       <elementValue elementRef="TRACE_COLUMN" value="SIGTIE"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="NUMADR1"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="SIGADR"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="TYPADR1"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="retour_a_creer"/>
@@ -4274,13 +4297,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_95648ab1-c612-49e5-8c2a-e6da32238c3a"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>acXx8GongsxbjUjhBmcevlCnct3Xp70KuYoDsRsT9N67rdvifPyt5s6zRKDs/aZPkdytV22gEFfr
-8rAzScobrA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_f379ab5a-5860-4ad8-b664-63a6262d763f"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>c1Womtw4w+DpPhGJbSMKGtrsk3bS5sETsQtCxHPV4VsILEariDUcmaaiDX+lE85ukS4v6c5z5GEf
-O2dghigB8Q==</DigestValue></Reference></SignedInfo><SignatureValue>e7skm5a9T4C2zufgf17EIBMH9Mb9xNm38GH5dT/BlSeRZ/LXKVYI8enknpj/d7h6hb5fnRdrExBi
-GyFTwwXMPmDw1sskRIEUHxNIGKPRCP/8ZjQgJufUkZpOUUfETIqkoJL18TemtYAfrRp7WeiJ84a2
-58cQ7ubdXqQrRgqDwdQbrGV6JB/wOaP57UK76iIavLhP66fU/NQRAHOHZtTw6DXOk5w+EwJ1ro5C
-tBYw+GZlx2ymnShPiDw5dEC27OA23dNdZghPbrIuAQZr30STPAXmKLeZeKGFbM72MWvnB/Z5mL+w
-S/GXpdQyRfUxN+Q3/Eq7z9uzbmz4sjeEnEp94w==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_e9f39de8-3842-4439-8517-a5d449fbe1a6"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>3fk1mhZ5WUsXBSxoFEnIBtHpgsrjj7VcxCHUs8tCWz8yprAAaBvi9l6UXMoxXtthvxkIni1akdfY
+KFr7EBVYzw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_9312d52e-3d54-42b1-b399-6455639cbf8c"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>hRJwiYwJIAldF9Ys/7vYAm5dK32WTVWvJet7NQjZ3QVWtGu6W6i/OCHnn+Aso2tVQexykDq5ftWq
+cVL0cTl/SQ==</DigestValue></Reference></SignedInfo><SignatureValue>PXWcg+rMdAEOszxpRfC00jXncMog4+Sl/Poo6A752YJ5q9wjJ9F5gVrnAmW2iotXY7Eg+M088Hg6
+/AqXtQJKUgM5817YQ9V+7yMP6+aBbs8N2JihvKamiLoRIVWySxsl60T092FDSXxZUiR6h66EeYmC
+4t5KtPD+P7EaUy9SRjhdklOIjFTaSYH41LfOOZiBlbWUBoFFGa5VM7BODkGbf6FXBDiNvxWe1AxY
+UfnvdhdPtbdpiH1REMXH8WhRtGjIluu/QA0GPzOZ3TTVN2Vaa3aS1D/8mqZcwXVSUSM5LUDRq2QE
+ThHbeEY1DidGXGPiGz81Q6wKjUvRvpigycq/7Q==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -4302,4 +4325,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_f379ab5a-5860-4ad8-b664-63a6262d763f" Target="#_95648ab1-c612-49e5-8c2a-e6da32238c3a"><Timestamp>2021-04-03 20:04:02</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_9312d52e-3d54-42b1-b399-6455639cbf8c" Target="#_e9f39de8-3842-4439-8517-a5d449fbe1a6"><Timestamp>2021-04-03 20:07:18</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
