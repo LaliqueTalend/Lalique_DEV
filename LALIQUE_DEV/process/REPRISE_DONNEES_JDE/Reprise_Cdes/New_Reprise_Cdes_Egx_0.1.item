@@ -1834,12 +1834,12 @@
       <additionalProperties key="Comment" value=""/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="EnTete_Cde_.Transaction == 101 || EnTete_Cde_.Transaction == 131 ? 10 :&#13;&#10;EnTete_Cde_.Transaction == 111 || EnTete_Cde_.Transaction == 132 ? 11 :&#13;&#10;EnTete_Cde_.Transaction == 121 || EnTete_Cde_.Transaction == 133 ? 12 : EnTete_Cde_.Transaction " name="Transaction" type="id_Integer"/>
         <mapperTableEntries expression="JDE.convertToJulian(StringHandling.RIGHT(EnTete_Cde_.Date_Liv,2) + StringHandling.LEFT(StringHandling.RIGHT(EnTete_Cde_.Date_Liv,4),2) + StringHandling.LEFT(EnTete_Cde_.Date_Liv,4))  " name="RSDJ" type="id_Integer"/>
       </varTables>
-      <outputTables name="F47011" sizeState="INTERMEDIATE">
+      <outputTables activateColumnNameFilter="true" columnNameFilter="" name="F47011" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="&quot; &quot;" name="SYEDTY" nullable="true" type="id_String"/>
         <mapperTableEntries expression="(float)0" name="SYEDSQ" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="&quot;00010&quot;" name="SYEKCO" type="id_String"/>
@@ -1862,7 +1862,7 @@
         <mapperTableEntries expression="(float)0" name="SYDOCO" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="&quot; &quot;" name="SYDCTO" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="SYSFXO" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="13 == Var.Transaction ? &quot;        10WL&quot; : &quot;&quot; " name="SYMCU" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot;&quot; " name="SYMCU" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="SYCO" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="SYOKCO" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="SYOORN" nullable="true" type="id_String"/>
@@ -6062,11 +6062,11 @@
       <column comment="" key="false" length="-1" name="Num_Lot" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="&quot;STD&quot;.equals(Lignes.Art_MTO) &amp;&amp; Lignes.Transaction &gt; 100 " name="Personnalisation" type="id_Boolean"/>
       </varTables>
-      <outputTables minimized="true" name="F47012" sizeState="INTERMEDIATE">
+      <outputTables name="F47012" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="&quot; &quot;" name="SZEDTY" nullable="true" type="id_String"/>
         <mapperTableEntries expression="(float)0" name="SZEDSQ" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="&quot;00010&quot;" name="SZEKCO" type="id_String"/>
@@ -6086,7 +6086,7 @@
         <mapperTableEntries expression=" &quot; &quot;" name="SZDCTO" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Lignes.Num_Ligne" name="SZLNID" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression=" &quot; &quot;" name="SZSFXO" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="&quot; &quot; .equals(Lignes.Flag_Frais) &amp;&amp;  (13 == EnTete.Transaction || Var.Personnalisation) ? &quot;        10WU&quot; : &quot;&quot; " name="SZMCU" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot; &quot; .equals(Lignes.Flag_Frais) &amp;&amp;  Var.Personnalisation ? &quot;        10WU&quot; : &quot;&quot; " name="SZMCU" nullable="true" type="id_String"/>
         <mapperTableEntries expression=" &quot; &quot;" name="SZCO" nullable="true" type="id_String"/>
         <mapperTableEntries expression=" &quot; &quot;" name="SZOKCO" nullable="true" type="id_String"/>
         <mapperTableEntries expression=" &quot; &quot;" name="SZOORN" nullable="true" type="id_String"/>
@@ -6128,7 +6128,7 @@
         <mapperTableEntries expression="(float)0" name="SZEXDP" nullable="true" type="id_Float"/>
         <mapperTableEntries expression=" &quot; &quot;" name="SZDSC1" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;&quot; .equals(StringHandling.CHANGE(Lignes.Num_Lot,&quot; &quot;,&quot;&quot;)) ? &quot;&quot; : &quot;SER:&quot; + StringHandling.CHANGE(Lignes.Num_Lot,&quot; &quot;,&quot;&quot;) " name="SZDSC2" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="&quot; &quot; .equals(Lignes.Flag_Frais) &amp;&amp;  (13 == EnTete.Transaction || Var.Personnalisation) ? &quot;W&quot; : &quot; &quot; " name="SZLNTY" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot; &quot; .equals(Lignes.Flag_Frais) &amp;&amp;  Var.Personnalisation ? &quot;W&quot; : &quot; &quot; " name="SZLNTY" nullable="true" type="id_String"/>
         <mapperTableEntries expression=" &quot; &quot;" name="SZNXTR" nullable="true" type="id_String"/>
         <mapperTableEntries expression=" &quot; &quot;" name="SZLTTR" nullable="true" type="id_String"/>
         <mapperTableEntries expression=" &quot; &quot;" name="SZEMCU" nullable="true" type="id_String"/>
@@ -16637,28 +16637,19 @@
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tOracleConnection_3" offsetLabelX="-3" offsetLabelY="2" source="tOracleConnection_3" target="tSetGlobalVar_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk5"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tSetGlobalVar_1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tSetGlobalVar_1" target="tFileInputDelimited_7">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk11"/>
-  </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tSetGlobalVar_1" offsetLabelX="0" offsetLabelY="0" outputId="5" source="tSetGlobalVar_1" target="tFileInputDelimited_1">
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tSetGlobalVar_1" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tSetGlobalVar_1" target="tFileInputDelimited_1">
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk7"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tSetGlobalVar_1" offsetLabelX="0" offsetLabelY="0" outputId="6" source="tSetGlobalVar_1" target="tDBInput_2">
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tSetGlobalVar_1" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tSetGlobalVar_1" target="tDBInput_2">
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk2"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tSetGlobalVar_1" offsetLabelX="0" offsetLabelY="0" outputId="7" source="tSetGlobalVar_1" target="tFileInputDelimited_2">
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tSetGlobalVar_1" offsetLabelX="0" offsetLabelY="0" outputId="4" source="tSetGlobalVar_1" target="tFileInputDelimited_2">
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk8"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tSetGlobalVar_1" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tSetGlobalVar_1" target="tFileInputDelimited_9">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk10"/>
-  </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tSetGlobalVar_1" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tSetGlobalVar_1" target="tFileInputDelimited_5">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk9"/>
-  </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tSetGlobalVar_1" offsetLabelX="0" offsetLabelY="0" outputId="4" source="tSetGlobalVar_1" target="tFileInputDelimited_6">
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tSetGlobalVar_1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tSetGlobalVar_1" target="tFileInputDelimited_6">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk13"/>
   </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tOracleConnection_1" offsetLabelX="0" offsetLabelY="0" source="tOracleConnection_1" target="tOracleConnection_3">
@@ -16714,6 +16705,9 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="EnTete_Cde_"/>
   </connection>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputDelimited_5" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_5" target="tFileInputDelimited_9">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk10"/>
+  </connection>
   <connection connectorName="FLOW" label="F47011" lineStyle="0" metaname="F47011" offsetLabelX="-7" offsetLabelY="-3" source="tMap_11" target="tFileOutputDelimited_2">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F47011"/>
@@ -16763,6 +16757,9 @@
   <connection connectorName="FLOW" label="row4" lineStyle="0" metaname="tFileInputDelimited_9" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_9" target="tMap_13">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row4"/>
+  </connection>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputDelimited_9" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_9" target="tFileInputDelimited_7">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk11"/>
   </connection>
   <connection connectorName="FLOW" label="F4706" lineStyle="0" metaname="F4706" offsetLabelX="0" offsetLabelY="0" source="tMap_13" target="tFileOutputDelimited_7">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
@@ -16940,6 +16937,9 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row7"/>
   </connection>
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputDelimited_6" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_6" target="tFileInputDelimited_5">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk9"/>
+  </connection>
   <connection connectorName="FLOW" label="lig" lineStyle="0" metaname="tUnite_2" offsetLabelX="0" offsetLabelY="0" source="tUnite_2" target="tMap_3">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="lig"/>
@@ -17042,13 +17042,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_da36270e-bc82-43c5-9729-0e06c972a02a"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>fukn3UnILlZZNvLxnNzAJhME9LhoUzW4k8eQ4ZaDaQqDOp1q81L9JVLrTl4kQMDHV6L4u3/GsKyY
-1VXXpFR7dg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_07a45b3e-1b59-4990-9103-fafb461ea715"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>fAN+nxQGFqxAdUD5/H8kZa3yLpgMrPuBgnA73DXpBHDc8BZQfo+cu5ACEudA5dGhiYg+ffSHuNSX
-2etE7zSrfw==</DigestValue></Reference></SignedInfo><SignatureValue>aJz5TOasKr7DAQz0BkyzwxQYv+UWU5joAyeFuyWdrajhKRTMlfkzqNEyx4BtB2KHbsSvxBqQGOD7
-uis0wrUwjafC/4LwnLqplL4epchg30qWAC6j+oa0qMUPrFpT3bLkqcj6RpwXGhvHxq7vvcrTirSg
-PkWQdzTJG+WGZE0kq/aVCkWjH809W0bHL/V95+XAc27lp8cL7MrmG8tqf4/ciGsHQOOuTwSVX9EM
-WHJ+VqzLGhOww2DIe1jsT9gPuBB4Yl/twkHnTDMnzb1v30vKGS0CNGHugwb7un5lx1nbAnerFXeX
-spARkeuF5FllzeA5cnFmhGK42t04myMDs4UB0A==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_3854a316-b7f0-4243-ae58-1b54236102ed"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>qB3GBqYpbP0bxshjBRqCHV+NTXt+O0nJ1JnWSs8hrAUsdV4HbvwVNTrWYw+F14fTTnR8nDBime8L
+eSn8uTsjbg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_a50c3577-57c1-4a69-a952-da57e7d4c33d"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>MrE02O/rwjaFkd9K+h1Ys7GBdenkNYL3QNuMCLp7Ra2jiRSl+60MPCTLmyjM8iW8jEUImLfmAEtG
+fH6gGMHl0Q==</DigestValue></Reference></SignedInfo><SignatureValue>HSSslTgoYRaLqNj68ZyEaOBkx8Fy/vMycEsn6eN+YeSc+JoBT+frW+PCzcy/YM6IAZN460FQh3kn
+3n41lVa1rT/7qobXk1PytRnEXdqtwaOIsVCe5I8quBAHEUzDdaY3wRjFU+fucJJ1FFZPRKiMeVeY
+TEHniHWPQRZAV1XWmxilcKRUQoSwCAk0rDCIE3VrD+9J/ajOFSaL3g8lS4bTLZ+jKaVB6vVq6pJ/
+nSUAEnv9xIKo7UNqzv8fFkhhD8HqYL0qbqZVfERWIpg0iAQB7ABr6JGzIgh1YXCWFf2UaxkGiMel
+HjjwhcWL5i7NGFgyKoePLJOJX+xCEqU6aXbEzQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -17070,4 +17070,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_07a45b3e-1b59-4990-9103-fafb461ea715" Target="#_da36270e-bc82-43c5-9729-0e06c972a02a"><Timestamp>2021-04-04 12:52:51</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_a50c3577-57c1-4a69-a952-da57e7d4c33d" Target="#_3854a316-b7f0-4243-ae58-1b54236102ed"><Timestamp>2021-04-04 13:13:40</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
