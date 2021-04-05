@@ -515,23 +515,22 @@
       <column comment="" key="false" length="30" name="IMDSC1" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="-1" name="Physique" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Reserve_1" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Reserve_2" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Stk_Ecom" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="JDE.stringRAB(&quot;10WL&quot;,12) " name="var1" type="id_String"/>
+        <mapperTableEntries expression="JDE.cnvInt(F41021.LIPQOH) /10000" name="Physique" type="id_Integer"/>
+        <mapperTableEntries expression="JDE.cnvInt(F41021.LIPCOM) /10000 " name="Reserve_Prea" type="id_Integer"/>
+        <mapperTableEntries expression="JDE.cnvInt(F41021.LIHCOM) /10000 " name="Reserve_Ferme" type="id_Integer"/>
+        <mapperTableEntries expression="(F4211.SDUORG / 10000) - (F4211.SDSOCN / 10000) " name="Reserve_ECom" type="id_Integer"/>
       </varTables>
       <outputTables name="Stock_Jde" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="F4101.IMLITM " name="IMLITM" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="StringHandling.TRIM(F4101.IMLITM) " name="IMLITM" nullable="true" type="id_String"/>
         <mapperTableEntries expression="F4101.IMDSC1 " name="IMDSC1" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="JDE.cnvInt(F41021.LIPQOH) /10000" name="Physique" nullable="true" type="id_Integer"/>
-        <mapperTableEntries expression="JDE.cnvInt(F41021.LIPCOM) /10000 " name="Reserve_1" nullable="true" type="id_Integer"/>
-        <mapperTableEntries expression="JDE.cnvInt(F41021.LIHCOM) /10000 " name="Reserve_2" nullable="true" type="id_Integer"/>
+        <mapperTableEntries expression="Var.Physique - Var.Reserve_Prea - Var.Reserve_Ferme + Var.Reserve_ECom " name="Stk_Ecom" nullable="true" type="id_Integer"/>
       </outputTables>
-      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="F41021" sizeState="INTERMEDIATE">
+      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="F41021" sizeState="INTERMEDIATE">
         <mapperTableEntries name="LIITM" type="id_Long"/>
         <mapperTableEntries name="LIMCU" type="id_String"/>
         <mapperTableEntries name="LILOCN" type="id_String"/>
@@ -587,7 +586,7 @@
         <mapperTableEntries name="LIWPDF" nullable="true" type="id_String"/>
         <mapperTableEntries name="LICFGSID" nullable="true" type="id_String"/>
       </inputTables>
-      <inputTables activateCondensedTool="true" innerJoin="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="F4101" sizeState="INTERMEDIATE">
+      <inputTables innerJoin="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="F4101" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="F41021.LIITM " name="IMITM" type="id_Long"/>
         <mapperTableEntries expression="" name="IMLITM" nullable="true" type="id_String"/>
         <mapperTableEntries name="IMAITM" nullable="true" type="id_String"/>
@@ -798,7 +797,7 @@
         <mapperTableEntries name="IMVCPFC" nullable="true" type="id_String"/>
         <mapperTableEntries name="IMPNYN" nullable="true" type="id_String"/>
       </inputTables>
-      <inputTables lookupMode="LOAD_ONCE" matchingMode="ALL_ROWS" name="F4211" sizeState="INTERMEDIATE">
+      <inputTables activateCondensedTool="true" innerJoin="true" lookupMode="LOAD_ONCE" matchingMode="ALL_MATCHES" name="F4211" sizeState="INTERMEDIATE">
         <mapperTableEntries name="SDKCOO" type="id_String"/>
         <mapperTableEntries name="SDDOCO" type="id_BigDecimal"/>
         <mapperTableEntries name="SDDCTO" type="id_String"/>
@@ -832,7 +831,7 @@
         <mapperTableEntries name="SDVR01" nullable="true" type="id_String"/>
         <mapperTableEntries name="SDVR02" nullable="true" type="id_String"/>
         <mapperTableEntries name="SDITM" nullable="true" type="id_BigDecimal"/>
-        <mapperTableEntries name="SDLITM" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="F4101.IMLITM " name="SDLITM" nullable="true" type="id_String"/>
         <mapperTableEntries name="SDAITM" nullable="true" type="id_String"/>
         <mapperTableEntries name="SDLOCN" nullable="true" type="id_String"/>
         <mapperTableEntries name="SDLOTN" nullable="true" type="id_String"/>
@@ -2162,7 +2161,6 @@
   </node>
   <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="288" posY="192">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBInput_3"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" show="false" value=""/>
     <elementParameter field="CLOSED_LIST" name="CONNECTION_TYPE" value="ORACLE_SERVICE_NAME"/>
@@ -3546,7 +3544,36 @@
       </column>
     </metadata>
   </node>
-  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="416" posY="288">
+  <node componentName="tAggregateRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="448" posY="288">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tAggregateRow_1"/>
+    <elementParameter field="TABLE" name="GROUPBYS">
+      <elementValue elementRef="OUTPUT_COLUMN" value="IMLITM"/>
+      <elementValue elementRef="INPUT_COLUMN" value="IMLITM"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="IMDSC1"/>
+      <elementValue elementRef="INPUT_COLUMN" value="IMDSC1"/>
+    </elementParameter>
+    <elementParameter field="TABLE" name="OPERATIONS">
+      <elementValue elementRef="OUTPUT_COLUMN" value="Stk_Ecom"/>
+      <elementValue elementRef="FUNCTION" value="sum"/>
+      <elementValue elementRef="INPUT_COLUMN" value="Stk_Ecom"/>
+      <elementValue elementRef="IGNORE_NULL" value="false"/>
+    </elementParameter>
+    <elementParameter field="TEXT" name="LIST_DELIMITER" value="&quot;,&quot;"/>
+    <elementParameter field="CHECK" name="USE_FINANCIAL_PRECISION" value="true"/>
+    <elementParameter field="CHECK" name="CHECK_TYPE_OVERFLOW" value="false"/>
+    <elementParameter field="CHECK" name="CHECK_ULP" value="false"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tAggregateRow_1">
+      <column comment="" key="false" length="25" name="IMLITM" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="30" name="IMDSC1" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="Stk_Ecom" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="640" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tLogRow_1"/>
     <elementParameter field="RADIO" name="BASIC_MODE" value="true"/>
     <elementParameter field="RADIO" name="TABLE_PRINT" value="false"/>
@@ -3564,11 +3591,7 @@
       <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="IMDSC1"/>
       <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="Physique"/>
-      <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="Reserve_1"/>
-      <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="Reserve_2"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Stk_Ecom"/>
       <elementValue elementRef="LENGTH" value="10"/>
     </elementParameter>
     <elementParameter field="CHECK" name="PRINT_CONTENT_WITH_LOG4J" value="true"/>
@@ -3581,9 +3604,7 @@
       <column comment="" key="false" length="30" name="IMDSC1" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="-1" name="Physique" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Reserve_1" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Reserve_2" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Stk_Ecom" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
   </node>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tDBConnection_1" offsetLabelX="0" offsetLabelY="0" source="tDBConnection_1" target="tDBInput_1">
@@ -3593,7 +3614,12 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F41021"/>
   </connection>
-  <connection connectorName="FLOW" label="Stock_Jde" lineStyle="0" metaname="Stock_Jde" offsetLabelX="0" offsetLabelY="0" source="tMap_1" target="tLogRow_1">
+  <connection connectorName="FLOW" label="Stock_Jde" lineStyle="0" metaname="Stock_Jde" offsetLabelX="0" offsetLabelY="0" source="tMap_1" target="tAggregateRow_1">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="Reserve_ECom"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Stock_Jde"/>
   </connection>
@@ -3603,8 +3629,11 @@
   </connection>
   <connection connectorName="FLOW" label="F4211" lineStyle="8" metaname="tDBInput_3" offsetLabelX="0" offsetLabelY="0" source="tDBInput_3" target="tMap_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F4211"/>
+  </connection>
+  <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tAggregateRow_1" offsetLabelX="0" offsetLabelY="0" source="tAggregateRow_1" target="tLogRow_1">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row1"/>
   </connection>
   <subjob>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBConnection_1"/>
@@ -3616,13 +3645,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_e1f54ebe-9f76-4c0d-bff9-929a7c010966"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>m7+O1YcvFJSxT7F6UFQvCJmKygz5EjSLnKpoioYALH4EKXR4POvVG2Jmd8s9/G5Gux0D2S2iz4IC
-HaB9OLQGFg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_afe6f997-693c-4a76-8af7-fc7e7594c743"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>PLb8lHU2C0Dg7/+/cJn/HVmWwzaXoMHPKY2L2+g6/if8BUSwXJ+poG7TwFTnFptVhLHDdglt3lPG
-1CABYxFeBA==</DigestValue></Reference></SignedInfo><SignatureValue>hRtVyGwwjciVseRGpqUiQ4v5wrPh7CVD5/RrfLvZz/m8mi9BngsemcDV7us8jDAkq1/SeJ9P+Nwf
-qURGFizfvlv8M6VC5MnBDD+jVyq4/nZl4qvwEaNjZDbuF4YqkyYqbAOsjH9DeK2G2MZ5WENlQJP0
-mUAfbnQFEtmunE3yuj9V7ksbGVI8jM4jTzrBuSBWokk5ha51mV3kjTtlvlKxGKsjzGvcZFkvrj1C
-GJgdJQZBOTWZjAF8QWc+CPod3sMhVsMvbcxZR8acDeOdsikkfbMpnZDKgPEfhMX2CdnCrv6+HtDp
-g+Wyy2QoZ/1cVjrBcaBMeniWU0HWyV6VQNL6mQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_e2a32cf2-5e74-460a-9df6-e8b6cd77855a"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>QeGluvF5TXSo73xo//GM2hsiBkXafCyinAIWLNxnkG1GLbGzCSKLa6ukWYIsy5ct3k/vNAJh2cw9
+kOuqtugHhA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_32f3ffb7-f318-4305-8a4d-54c5cd859eaf"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>XgXMPTW1A9Q7hupwZDEVmazijiQyEv09N/9bBnJPdtXtJFgeLi/ke4NMOVApoZ9ybZw5Axa2Qv+d
+2xNSuOR5IQ==</DigestValue></Reference></SignedInfo><SignatureValue>MPAzX+/bCcaZTLog5EwcDBS1f2rZP05SzBp7nUqjwlUg18bNxOiD7dPH+tJziHF0zawysE7n2MSu
+bbAhHiWbqV1Nmszmh7ZnolrpeYOdGyMXr4lYONsUxutuzM6z72+xDffDQnFlvTfcZfzD+DUedCsJ
+qiFiRzNhkdt/JX3cra6Lqgn5ElL8m7QPw38is9yXtrm5YfbRETCPFLUUGLwjsMXZOFccm+vC2zBw
+G4T7hqqjDkbOFKpJcgceh+4vWgx5kU0XipB4hZtQnagid/AH6ZSzaA6LASLZKv2Kz19TwzFu4VbM
+pUppbvgN1SR/ifdf+glpfz2vFQz3HL+0ZWvXCQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -3644,4 +3673,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_afe6f997-693c-4a76-8af7-fc7e7594c743" Target="#_e1f54ebe-9f76-4c0d-bff9-929a7c010966"><Timestamp>2021-04-05 13:07:41</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_32f3ffb7-f318-4305-8a4d-54c5cd859eaf" Target="#_e2a32cf2-5e74-460a-9df6-e8b6cd77855a"><Timestamp>2021-04-05 13:28:00</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
