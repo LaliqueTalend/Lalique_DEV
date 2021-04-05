@@ -509,10 +509,13 @@
     <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="true"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="Stock_Jde">
-      <column comment="" key="false" length="25" name="IMLITM" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+      <column comment="" key="false" length="25" name="Code_Article" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="30" name="IMDSC1" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+      <column comment="" key="false" length="30" name="Libelle_Article" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="3" name="Fam_Fin" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="-1" name="Stk_Ecom" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
@@ -526,8 +529,9 @@
         <mapperTableEntries expression="(JDE.cnvInt(F4211.SDUORG) / 10000) - (JDE.cnvInt(F4211.SDSOCN) / 10000) " name="Reserve_ECom" type="id_Integer"/>
       </varTables>
       <outputTables name="Stock_Jde" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="StringHandling.TRIM(F4101.IMLITM) " name="IMLITM" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="F4101.IMDSC1 " name="IMDSC1" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="StringHandling.TRIM(F4101.IMLITM) " name="Code_Article" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="F4101.IMDSC1 " name="Libelle_Article" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="F4101.IMSRP1 " name="Fam_Fin" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Var.Physique - Var.Reserve_Prea - Var.Reserve_Ferme + Var.Reserve_ECom " name="Stk_Ecom" nullable="true" type="id_Integer"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="F41021" sizeState="INTERMEDIATE">
@@ -586,7 +590,7 @@
         <mapperTableEntries name="LIWPDF" nullable="true" type="id_String"/>
         <mapperTableEntries name="LICFGSID" nullable="true" type="id_String"/>
       </inputTables>
-      <inputTables innerJoin="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="F4101" sizeState="INTERMEDIATE">
+      <inputTables innerJoin="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="F4101" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="F41021.LIITM " name="IMITM" type="id_Long"/>
         <mapperTableEntries expression="" name="IMLITM" nullable="true" type="id_String"/>
         <mapperTableEntries name="IMAITM" nullable="true" type="id_String"/>
@@ -3544,13 +3548,15 @@
       </column>
     </metadata>
   </node>
-  <node componentName="tAggregateRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="448" posY="288">
+  <node componentName="tAggregateRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="352" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tAggregateRow_1"/>
     <elementParameter field="TABLE" name="GROUPBYS">
-      <elementValue elementRef="OUTPUT_COLUMN" value="IMLITM"/>
-      <elementValue elementRef="INPUT_COLUMN" value="IMLITM"/>
-      <elementValue elementRef="OUTPUT_COLUMN" value="IMDSC1"/>
-      <elementValue elementRef="INPUT_COLUMN" value="IMDSC1"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="Code_Article"/>
+      <elementValue elementRef="INPUT_COLUMN" value="Code_Article"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="Libelle_Article"/>
+      <elementValue elementRef="INPUT_COLUMN" value="Libelle_Article"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="Fam_Fin"/>
+      <elementValue elementRef="INPUT_COLUMN" value="Fam_Fin"/>
     </elementParameter>
     <elementParameter field="TABLE" name="OPERATIONS">
       <elementValue elementRef="OUTPUT_COLUMN" value="Stk_Ecom"/>
@@ -3564,16 +3570,64 @@
     <elementParameter field="CHECK" name="CHECK_ULP" value="false"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tAggregateRow_1">
-      <column comment="" key="false" length="25" name="IMLITM" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+      <column comment="" key="false" length="25" name="Code_Article" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="30" name="IMDSC1" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+      <column comment="" key="false" length="30" name="Libelle_Article" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="3" name="Fam_Fin" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="-1" name="Stk_Ecom" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="640" posY="288">
+  <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="544" posY="288">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tMap_2"/>
+    <elementParameter field="EXTERNAL" name="MAP" value=""/>
+    <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
+    <elementParameter field="DIRECTORY" name="TEMPORARY_DATA_DIRECTORY" value=""/>
+    <elementParameter field="IMAGE" name="PREVIEW" value="_oZ1E0JYKEeunP_cfGkhN1g-tMap_2-PREVIEW.bmp"/>
+    <elementParameter field="CHECK" name="DIE_ON_ERROR" show="false" value="true"/>
+    <elementParameter field="CHECK" name="LKUP_PARALLELIZE" show="false" value="false"/>
+    <elementParameter field="TEXT" name="LEVENSHTEIN" show="false" value="0"/>
+    <elementParameter field="TEXT" name="JACCARD" show="false" value="0"/>
+    <elementParameter field="CHECK" name="ENABLE_AUTO_CONVERT_TYPE" show="false" value="false"/>
+    <elementParameter field="TEXT" name="ROWS_BUFFER_SIZE" value="2000000"/>
+    <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="true"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="Stk_ECom">
+      <column comment="" key="false" length="25" name="Code_Article" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="30" name="Libelle_Article" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="3" name="Fam_Fin" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="Stk_Ecom" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+    </metadata>
+    <nodeData xsi:type="TalendMapper:MapperData">
+      <uiProperties shellMaximized="true"/>
+      <varTables name="Var" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="new Float(row1.Stk_Ecom) &lt; new Float(0) ? new Float(0) : new Float(row1.Stk_Ecom * 0.8) " name="Stk_ECom" type="id_Float"/>
+      </varTables>
+      <outputTables name="Stk_ECom" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="row1.Code_Article" name="Code_Article" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="row1.Libelle_Article" name="Libelle_Article" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="row1.Fam_Fin" name="Fam_Fin" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="(int)Math.ceil(Var.Stk_ECom) " name="Stk_Ecom" nullable="true" type="id_Integer"/>
+      </outputTables>
+      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="row1" sizeState="INTERMEDIATE">
+        <mapperTableEntries name="Code_Article" nullable="true" type="id_String"/>
+        <mapperTableEntries name="Libelle_Article" nullable="true" type="id_String"/>
+        <mapperTableEntries name="Fam_Fin" nullable="true" type="id_String"/>
+        <mapperTableEntries name="Stk_Ecom" nullable="true" type="id_Integer"/>
+      </inputTables>
+    </nodeData>
+  </node>
+  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="736" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tLogRow_1"/>
     <elementParameter field="RADIO" name="BASIC_MODE" value="true"/>
     <elementParameter field="RADIO" name="TABLE_PRINT" value="false"/>
@@ -3587,9 +3641,11 @@
     <elementParameter field="CHECK" name="PRINT_COLNAMES" value="false"/>
     <elementParameter field="CHECK" name="USE_FIXED_LENGTH" value="false"/>
     <elementParameter field="TABLE" name="LENGTHS" show="false">
-      <elementValue elementRef="SCHEMA_COLUMN" value="IMLITM"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Code_Article"/>
       <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="IMDSC1"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Libelle_Article"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Fam_Fin"/>
       <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="Stk_Ecom"/>
       <elementValue elementRef="LENGTH" value="10"/>
@@ -3598,10 +3654,13 @@
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tLogRow_1">
-      <column comment="" key="false" length="25" name="IMLITM" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+      <column comment="" key="false" length="25" name="Code_Article" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="30" name="IMDSC1" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+      <column comment="" key="false" length="30" name="Libelle_Article" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="3" name="Fam_Fin" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="-1" name="Stk_Ecom" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
@@ -3619,6 +3678,12 @@
       <elementValue elementRef="TRACE_COLUMN" value="Reserve_ECom"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Fam_Fin"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Code_Article"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Stock_Jde"/>
@@ -3631,9 +3696,24 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F4211"/>
   </connection>
-  <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tAggregateRow_1" offsetLabelX="0" offsetLabelY="0" source="tAggregateRow_1" target="tLogRow_1">
+  <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tAggregateRow_1" offsetLabelX="0" offsetLabelY="0" source="tAggregateRow_1" target="tMap_2">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="Fam_Fin"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Code_Article"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Libelle_Article"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row1"/>
+  </connection>
+  <connection connectorName="FLOW" label="Stk_ECom" lineStyle="0" metaname="Stk_ECom" offsetLabelX="0" offsetLabelY="0" source="tMap_2" target="tLogRow_1">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Stk_ECom"/>
   </connection>
   <subjob>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBConnection_1"/>
@@ -3645,13 +3725,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_48d8a22b-62a3-4ce0-b55a-0d706923994d"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>dF6ptvldchYuM1qlKWvt6QG1IMKJug/UtZW6IAymdpzaGpI7o61JsdZ0caIAqoegIpeLiDyPSRdO
-imzZMCgBBg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_0aebc2d5-f7ca-40e7-8002-8dd79112c286"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>s6OxfDCg/jjYnQ0wyFq30s40mxjFApQgorxQEdTtrTeyBCQ7/zMdjeeDtQxOiWY1W8aNIHeWMzfz
-PzasIQpVDQ==</DigestValue></Reference></SignedInfo><SignatureValue>o2lNN6he7d2u+tlPhhf0GxIk57beLeWwPPKcHYeDe+OHc9wAviwjczcQqEPZw4q597mMLMqYrbA3
-vWTIBuIeNzVsZ9nC6lzyyamQRyTskqCyv1nH13H12oj3wWOnuEcPcx0wiMo1c9M0k5mYyHk7tEIP
-ZZkiwAbHvLNpPWBwcvXm3dr7xRTukZG5bvQQpi9gqOqvYf27HVlu4YLUv0wOyxFe6QOiyWqLYyWB
-17qKC7lZBVV3vc4nWnbqVQawKGAdgqUewkgj0mDql32RJkCa1po2UVvja/RQIxoDUw/GDv+p5QSC
-1YzFh9FLsy80xX7uUPL5LQFhYFhwod5V+sFHfw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_4f589edc-ae1e-4373-aaa7-4dec77747ae0"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>K4BHoF5OJKcD7eIm39/7bu5jfhPDUXii3Jwc1Q6UPyOaW6qS4CVY3R1iAGo6EpD99rVDwJNuxpsT
+OD/aXAKcRQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_d5dd5e73-3e0e-4df9-b0ba-c78de53aebd8"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>N155dAqsGNb/AcIWCqiBM8UXU68I4VbQ+KInEfWGGE8DaaV5Eb9JMyvzjknQDLIf4ZzUV5bYyaIO
+ghVKmjHR1w==</DigestValue></Reference></SignedInfo><SignatureValue>DEe9moycDFzifMlCynUixPWkzP6+8rJ9X3DRLG12ZfaovS5w2JKJhZsbSG8EUAs7v7CN8aI/adPa
+TVVj5lfvz9iAVCH8Og7o9mW6yRvjUORR3C6a0mgpbMqgaSedukB9suGaRNXqoD/uzCC86zDk/Blw
+65kCR1ZhqBjGULJcR6/JWW7yFMLg01U7SEvYZjWF2RJOsadyOo3hGneODj1l+im1n0vcFGmipc41
+gZL/HJmrCd7dWhcHC0GU+7fT0cva/gXgjL72CMim5V4tj09tXghYjPquEJnhTR+OkRGsxewTi/n4
+mDZ2kEUFuKA2nPIJArCUoCWLvJP7eD4BvzPHgQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -3673,4 +3753,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_0aebc2d5-f7ca-40e7-8002-8dd79112c286" Target="#_48d8a22b-62a3-4ce0-b55a-0d706923994d"><Timestamp>2021-04-05 13:44:39</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_d5dd5e73-3e0e-4df9-b0ba-c78de53aebd8" Target="#_4f589edc-ae1e-4373-aaa7-4dec77747ae0"><Timestamp>2021-04-05 14:26:46</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
