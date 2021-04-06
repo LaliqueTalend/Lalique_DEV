@@ -1,12 +1,16 @@
 package routines;
 public class StringToBLOB {
-	public static byte[] DecodeToBytes(String str)
-    {
-        boolean even = str[0] == '0';
-        byte[] bytes = new byte[(str.Length - 1) * sizeof(char) + (even ? 0 : -1)];
-        char[] chars = str.ToCharArray();
-        System.Buffer.BlockCopy(chars, 2, bytes, 0, bytes.Length);
-
-        return bytes;
-    }
+	public static byte[] ByteArrayFromFile(String filepath) {
+		try{ 
+		java.io.File file=new java.io.File(filepath);
+		java.io.FileInputStream fis = new java.io.FileInputStream(file);
+		int fileLength = (int) file.length();
+		byte[] incoming_file_data = new byte[fileLength]; // allocate byte array of right size
+		fis.read(incoming_file_data, 0, fileLength ); // read into byte array
+		fis.close();
+		return incoming_file_data;
+		}catch(Exception err){
+		err.printStackTrace();return null;
+		}
+		}
 }
