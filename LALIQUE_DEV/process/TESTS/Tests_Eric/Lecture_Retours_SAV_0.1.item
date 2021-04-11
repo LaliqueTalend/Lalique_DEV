@@ -131,6 +131,7 @@
     <routinesParameter id="_GNwcUD05Eeqa0usbncVxcA" name="TalendDate"/>
     <routinesParameter id="_GObKsD05Eeqa0usbncVxcA" name="TalendStringUtil"/>
     <routinesParameter id="_GOGakD05Eeqa0usbncVxcA" name="TalendString"/>
+    <routinesParameter id="_7z6N8NBSEeizQI71bn4YfA" name="JDE"/>
   </parameters>
   <node componentName="tOracleConnection" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="32" posY="32">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBConnection_1"/>
@@ -373,6 +374,8 @@
       <column comment="" defaultValue="" key="false" length="-1" name="QTE" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="MONTANT" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="STATUS" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="DRDL01" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="DRDL02" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
     </metadata>
     <metadata connector="FLOW" name="Retours_encours"/>
     <metadata connector="FLOW" name="Retours_traite"/>
@@ -386,7 +389,7 @@
         <mapperTableEntries expression="BR.NUMBR " name="NUMBR" nullable="true" type="id_String"/>
         <mapperTableEntries expression="BR.CODCLI" name="LIBCLIEGX" nullable="true" type="id_String"/>
         <mapperTableEntries expression="LIV.SIGADR + LIV.TYPADR1 +  StringHandling.RIGHT(&quot;00&quot;+LIV.NUMADR1,3) " name="TIERSEGX" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="CLI.Tiers_Jde " name="TIERSJDE" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="String.valueOf(CLI.Tiers_Jde) " name="TIERSJDE" nullable="true" type="id_String"/>
         <mapperTableEntries expression="BR.REAFFECT  " name="REAFFECT" nullable="true" type="id_String"/>
         <mapperTableEntries expression="BR.SIGDEP " name="SIGDEP" nullable="true" type="id_String"/>
         <mapperTableEntries expression="BR.RECEPBR " name="RECEPBR" nullable="true" type="id_String"/>
@@ -400,6 +403,8 @@
         <mapperTableEntries expression="BR.QTE " name="QTE" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="BR.MONTANT " name="MONTANT" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="BR.STATUS " name="STATUS" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="ADV.DRDL01 " name="DRDL01" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="ADV.DRDL02 " name="DRDL02" nullable="true" type="id_String"/>
       </outputTables>
       <outputTables activateExpressionFilter="true" expressionFilter=" &quot;D&quot;.equals(BR.TYPBR)" name="Retours_encours" sizeState="INTERMEDIATE"/>
       <outputTables activateExpressionFilter="true" expressionFilter=" &quot;E&quot;.equals(BR.TYPBR)" name="Retours_traite" sizeState="INTERMEDIATE"/>
@@ -626,17 +631,18 @@
         <mapperTableEntries name="Tiers_Reprise_Carnet" nullable="true" type="id_String"/>
         <mapperTableEntries name="Tiers_Jde" nullable="true" type="id_Integer"/>
       </inputTables>
-      <inputTables lookupMode="LOAD_ONCE" matchingMode="ALL_ROWS" name="CLIJDE" sizeState="INTERMEDIATE">
-        <mapperTableEntries name="ALKY" nullable="true" type="id_String"/>
+      <inputTables activateCondensedTool="true" lookupMode="CACHE_OR_RELOAD" matchingMode="UNIQUE_MATCH" name="CLIJDE" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="" name="ALKY" nullable="true" type="id_String"/>
         <mapperTableEntries name="ALPH" nullable="true" type="id_String"/>
-        <mapperTableEntries name="AN8" nullable="true" type="id_String"/>
-        <mapperTableEntries name="AC08" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="String.valueOf(CLI.Tiers_Jde)" name="AN8" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="" name="AC08" nullable="true" type="id_String"/>
         <mapperTableEntries name="AC09" nullable="true" type="id_String"/>
         <mapperTableEntries name="AC10" nullable="true" type="id_String"/>
+        <globalMapKeysValues expression="String.valueOf(CLI.Tiers_jde)" name="&quot;CLIJDE&quot;"/>
       </inputTables>
-      <inputTables lookupMode="LOAD_ONCE" matchingMode="ALL_ROWS" name="ADV" sizeState="INTERMEDIATE">
-        <mapperTableEntries name="DRKY" nullable="true" type="id_String"/>
-        <mapperTableEntries name="DRDL01" nullable="true" type="id_String"/>
+      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="ADV" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="CLIJDE.AC10" name="DRKY" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="" name="DRDL01" nullable="true" type="id_String"/>
         <mapperTableEntries name="DRDL02" nullable="true" type="id_String"/>
       </inputTables>
     </nodeData>
@@ -1747,6 +1753,10 @@
       <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="STATUS"/>
       <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="DRDL01"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="DRDL02"/>
+      <elementValue elementRef="LENGTH" value="10"/>
     </elementParameter>
     <elementParameter field="CHECK" name="PRINT_CONTENT_WITH_LOG4J" value="true"/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
@@ -1772,6 +1782,8 @@
       <column comment="" defaultValue="" key="false" length="-1" name="QTE" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="MONTANT" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="STATUS" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="DRDL01" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="DRDL02" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tFileInputExcel" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="384" posY="32">
@@ -1966,6 +1978,12 @@
       <elementValue elementRef="TRACE_COLUMN" value="LIBCLIEGX"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="DRDL02"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="DRDL01"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Retours_creer"/>
@@ -2000,13 +2018,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_37b9f376-691d-4c9c-ab35-f3e218aee387"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>yMZjMoHn3wm5btyBgy0+TACjzuyYu3L4Ryqumni83Hnw/eV6gFRob8Xdiy7ZqNhUmcPc6HJscl0u
-YudgBYXNyQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_99a3e7b8-2b00-45c8-b2eb-54b5722d5f21"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>ImZTVHhoH6Fxjm4ccQwStZGEKSxB8JWucp+LMNd1M5wK9HJz0GFBcjXrvuJJChpgAvioZ8slWBjA
-O3s5Hz0M9Q==</DigestValue></Reference></SignedInfo><SignatureValue>Jhzbo+nPtGT91DY9oLdpaTEj+VBX+nwrO267hj9cp57qq1s2YZ7SGhKpSxLRAyuLIzVRsiNetghG
-jlOjEwPS0FUrcGAsBqs54m7YsPVoZpu4qDTNJciRyb8LJVnuzRdYhpCUEFOCMU+nfD8okb/3tFUp
-icsAOMhwP+ZbLIV+JnXx0B4b7cUjjH0031Wj+O6AsX9PK5nMpy4UmXI+Q2wNuaPsoeDGFFEKKBQS
-OcaSEf5gUJMQsQXgzM0QZKNIkD2Jv5lBJ4aqXXsp0Sh4rWO4tSQwpOEbIRvsQxQGG7ca3LC1WKOc
-CEbiZxcDTF1G/rfqS6UyhihOpSoS+1mBXyDq2g==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_576c0fbb-2b66-44b4-8a7f-dba6230165f0"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>3Be4wnrfiOVU1g0e6Bxt0py+6r7f7dUz72fkIkNmtuFQFbcwsLx46c+iaOzKWEcL+FVjnQef2pYO
++J9HkJCugA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_4b03139b-7c58-4562-9e18-80d6e8070c6c"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>0pgzJ5zcMUIaWqkfhZDOGhmfxtiBnJKykej9d1W1omjPJQniFRnxPlNX+hjH6eXXICg/HsxUGqPe
+DqORxFwvtA==</DigestValue></Reference></SignedInfo><SignatureValue>Hfl+VRadGfNsK5bK+DYwIIpfaJotEflXuN5j+Qduga5YIO+1z9HEGQJn/ebRayEqu7APMj20336c
+GVDOKhvpdO8Vx8nvB75hzHOnx6Zhuh1707QpC61INTKJyg2FHjWAsFfWl7BMJDPw3vY0aaxXnnjV
+VZaFKnDDLlobH2NLlfYkOb+TuBh45KZq7zTiOC9iYewQZ8WvKAg6TxRkaeHkDZZevHJqmGiSZ2TB
+cL+Ze1HQ9ctMDrVElZ3j4uYcKU6In+z3hoT2+QiRhPZwVC+2+Es+YrAYBNJGJvh9oBLq2HDMu+xJ
+KBX88z4F1AuBwccZhNq3zqYVwgE4rVOPQrTxQg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -2028,4 +2046,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_99a3e7b8-2b00-45c8-b2eb-54b5722d5f21" Target="#_37b9f376-691d-4c9c-ab35-f3e218aee387"><Timestamp>2021-04-11 15:43:16</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_4b03139b-7c58-4562-9e18-80d6e8070c6c" Target="#_576c0fbb-2b66-44b4-8a7f-dba6230165f0"><Timestamp>2021-04-11 15:47:47</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
