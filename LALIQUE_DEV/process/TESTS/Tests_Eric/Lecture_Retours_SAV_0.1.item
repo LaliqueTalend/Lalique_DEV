@@ -469,10 +469,24 @@
     </metadata>
     <metadata connector="FLOW" name="Retours_encours"/>
     <metadata connector="FLOW" name="Retours_traite"/>
+    <metadata connector="FLOW" name="Rejets">
+      <column comment="" key="false" length="-1" name="TYPBR" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="CODETA" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="DATBR" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="NUMBR" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="CODCLI" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="12" name="SIGTIE" nullable="true" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="NUMADR" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="CLIEGX" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
-      <outputTables activateExpressionFilter="true" expressionFilter="&quot;C&quot;.equals(BR.TYPBR)" name="Retours_creer" sizeState="INTERMEDIATE">
+      <outputTables activateExpressionFilter="true" expressionFilter="&quot;C&quot;.equals(BR.TYPBR)" minimized="true" name="Retours_creer" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="BR.TYPBR " name="TYPBR" nullable="true" type="id_String"/>
         <mapperTableEntries expression="BR.CODETA " name="CODETA" nullable="true" type="id_String"/>
         <mapperTableEntries expression="BR.DATBR " name="DATBR" nullable="true" type="id_String"/>
@@ -498,7 +512,17 @@
       </outputTables>
       <outputTables activateExpressionFilter="true" expressionFilter=" &quot;D&quot;.equals(BR.TYPBR)" name="Retours_encours" sizeState="INTERMEDIATE"/>
       <outputTables activateExpressionFilter="true" expressionFilter=" &quot;E&quot;.equals(BR.TYPBR)" name="Retours_traite" sizeState="INTERMEDIATE"/>
-      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="BR" sizeState="INTERMEDIATE">
+      <outputTables activateCondensedTool="true" name="Rejets" rejectInnerJoin="true" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="BR.TYPBR " name="TYPBR" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="BR.CODETA " name="CODETA" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="BR.DATBR " name="DATBR" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="BR.NUMBR " name="NUMBR" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="BR.CODCLI " name="CODCLI" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="EVE.SIGTIE " name="SIGTIE" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="EVE.NUMADR " name="NUMADR" nullable="true" type="id_Integer"/>
+        <mapperTableEntries expression="LIV.SIGADR + LIV.TYPADR1 +  StringHandling.RIGHT(&quot;00&quot;+LIV.NUMADR1,3) " name="CLIEGX" nullable="true" type="id_String"/>
+      </outputTables>
+      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="BR" sizeState="INTERMEDIATE">
         <mapperTableEntries name="TYPBR" nullable="true" type="id_String"/>
         <mapperTableEntries name="CODETA" nullable="true" type="id_String"/>
         <mapperTableEntries name="DATBR" nullable="true" type="id_String"/>
@@ -518,7 +542,7 @@
         <mapperTableEntries name="MONTANT" nullable="true" type="id_Float"/>
         <mapperTableEntries name="STATUS" nullable="true" type="id_String"/>
       </inputTables>
-      <inputTables columnNameFilter="" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="EVE" sizeState="INTERMEDIATE">
+      <inputTables columnNameFilter="" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="EVE" sizeState="INTERMEDIATE">
         <mapperTableEntries name="ACHVTE" type="id_String"/>
         <mapperTableEntries name="TYPEVE" type="id_String"/>
         <mapperTableEntries expression="Integer.valueOf(BR.NUMBR) " name="NUMEVE" type="id_Integer"/>
@@ -1789,7 +1813,7 @@
       <additionalProperties key="Comment" value=""/>
     </metadata>
   </node>
-  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="576" posY="192">
+  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="704" posY="160">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tLogRow_1"/>
     <elementParameter field="RADIO" name="BASIC_MODE" value="false"/>
     <elementParameter field="RADIO" name="TABLE_PRINT" value="true"/>
@@ -2132,11 +2156,60 @@
     <elementParameter field="TEXT" name="LABEL" value="JDE_DTA"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
   </node>
+  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="704" posY="224">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tLogRow_2"/>
+    <elementParameter field="RADIO" name="BASIC_MODE" value="false"/>
+    <elementParameter field="RADIO" name="TABLE_PRINT" value="true"/>
+    <elementParameter field="RADIO" name="VERTICAL" value="false"/>
+    <elementParameter field="RADIO" name="PRINT_UNIQUE" show="false" value="true"/>
+    <elementParameter field="RADIO" name="PRINT_LABEL" show="false" value="false"/>
+    <elementParameter field="RADIO" name="PRINT_UNIQUE_LABEL" show="false" value="false"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" show="false" value="&quot;|&quot;"/>
+    <elementParameter field="CHECK" name="PRINT_HEADER" show="false" value="false"/>
+    <elementParameter field="CHECK" name="PRINT_UNIQUE_NAME" show="false" value="false"/>
+    <elementParameter field="CHECK" name="PRINT_COLNAMES" show="false" value="false"/>
+    <elementParameter field="CHECK" name="USE_FIXED_LENGTH" show="false" value="false"/>
+    <elementParameter field="TABLE" name="LENGTHS" show="false">
+      <elementValue elementRef="SCHEMA_COLUMN" value="TYPBR"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="CODETA"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="DATBR"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="NUMBR"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="CODCLI"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="SIGTIE"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="NUMADR"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="CLIEGX"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="PRINT_CONTENT_WITH_LOG4J" value="true"/>
+    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tLogRow_2">
+      <column comment="" key="false" length="-1" name="TYPBR" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="CODETA" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="DATBR" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="NUMBR" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="CODCLI" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="12" name="SIGTIE" nullable="true" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="NUMADR" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="CLIEGX" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
   <connection connectorName="FLOW" label="BR" lineStyle="0" metaname="tFileInputExcel_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputExcel_1" target="tMap_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="BR"/>
   </connection>
-  <connection connectorName="FLOW" label="Retours_creer" lineStyle="0" metaname="Retours_creer" offsetLabelX="0" offsetLabelY="0" source="tMap_1" target="tLogRow_1">
+  <connection connectorName="FLOW" label="Retours_creer" lineStyle="0" metaname="Retours_creer" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_1" target="tLogRow_1">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="TIERSEGX"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
@@ -2153,6 +2226,10 @@
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Retours_creer"/>
+  </connection>
+  <connection connectorName="FLOW" label="Rejets" lineStyle="0" metaname="Rejets" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_1" target="tLogRow_2">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Rejets"/>
   </connection>
   <connection connectorName="FLOW" label="EVE" lineStyle="8" metaname="tDBInput_1" offsetLabelX="0" offsetLabelY="0" source="tDBInput_1" target="tMap_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
@@ -2185,13 +2262,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_7802ccf1-7012-4b1f-b23c-5f51e91e8361"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>R7T4k2JsKW9s687u1W6ZHGupv+7O9jJHkFp/d0yY0WMY3hkpqHjnLZQfRQBue4APsB9vPZuCOc99
-dqLHtyf5qA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_b3ce4db4-6a1e-430c-bb51-605efc3b31f4"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>oUy1YmmNonlZwvXEjt5FpooC8H5Yo8HnRuAPc48CcdJBIbqEux4YoN5sPnRFVIxq744xMD78KitK
-mpt4jP9sYw==</DigestValue></Reference></SignedInfo><SignatureValue>QYiwXraIiJhlhjFjz43Y7Ki3XqjguMixwhAxTr0K6DUncg5lY7zJS9WhLrkVD3SOdorjSQuT8Uuc
-1etSNe8/GpBsNabI/hFmC6d5osl903Pkc1xrn4M1gylCSb9nMksVhjnEPVRC1d9vQHHctTU+WaQF
-jlRjY2o3KN20QGchRbPbrg3cMdVMorZhyBWbaUXclx7I6Rk1WWeTzL8DWQonZClGalL860LZBtUv
-711b69nICYB353yitYfLqRZBK7Vs2tTovEloR4CuVFa6QZYAcQ0U80bJ+F/lpXPmVRngWLGNsjDw
-5A2M/mBUrkwgpiQyUYrgUUY5kFdq0yWMdYxfWA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_6dcb9859-bcda-4c30-b689-b86d9015feb6"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>71/kNIvr5W2Jou9cCzhjCdk3xvhfuSEJxuNihHEnH7QS9M86VjbkbdgJe0yFytx9MzvxeEXiF/oq
+bQRZLIZwvw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_a149a9c8-3a5d-47ad-91ea-4e64f747a640"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>pJ4jYRZCQi5No994TZVTv0pkNVJ4NF1wbajsxQffvJsPnXJZ8Fe4qGJYQc1rlp3i86WSOWfWfu3D
+tD94VY6WVQ==</DigestValue></Reference></SignedInfo><SignatureValue>fVpzjuu0AO4N+X+XSrH26D4JR+GFfU8efqFnZ6KxGX7rB30Rh7jnk+lGCQYG4wEXdbdIDQ7dlMVj
+UKK4re0uLBMATwUy1wWXieb+o2XlT4yfk8AFS3rxCdhXbpZaNG3xC0Zq+Pd8EdX8UCkHk+rpd02F
+it0JHXY8ABFYMT41KkPcn6Rn5sO6JVrRXI9ntzt91ZeAiTBc2abdHMp6eiJAkIvgDUUiV6FkTl7G
+lmZ8vHZ/kj3sa2vlTsivyezis7ykzz632gOfD0GErhOM0aCwoUKekyMPrPXdbmvPQQ9aKKqsnTKi
+PmMrAlc2bJAMKmrGEaFfmwMsB7bSZvnmKBzxug==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -2213,4 +2290,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_b3ce4db4-6a1e-430c-bb51-605efc3b31f4" Target="#_7802ccf1-7012-4b1f-b23c-5f51e91e8361"><Timestamp>2021-04-11 15:59:58</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_a149a9c8-3a5d-47ad-91ea-4e64f747a640" Target="#_6dcb9859-bcda-4c30-b689-b86d9015feb6"><Timestamp>2021-04-11 16:06:42</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
