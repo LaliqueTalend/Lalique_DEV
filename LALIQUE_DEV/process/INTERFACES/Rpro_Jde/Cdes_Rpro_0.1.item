@@ -15,12 +15,12 @@
     <contextParameter comment="" name="JDE_PY_CRPDTA_Server" prompt="JDE_PY_CRPDTA_Server?" promptNeeded="false" repositoryContextId="_6bMRIM0pEei0gMO4ZNgp9g" type="id_String" value="10.160.103.161"/>
     <contextParameter comment="" name="JDE_PY_CRPDTA_ServiceName" prompt="JDE_PY_CRPDTA_ServiceName?" promptNeeded="false" repositoryContextId="_6bMRIM0pEei0gMO4ZNgp9g" type="id_String" value="JDE92PD"/>
     <contextParameter comment="" name="Cc_Mail" prompt="Cc_Mail?" promptNeeded="false" repositoryContextId="_FNtBAPGTEeilx9dQx2QrzQ" type="id_String" value="&quot;classuspigat@lalique.fr&quot;"/>
-    <contextParameter comment="" name="Chemin_WorkFiles" prompt="Chemin_WorkFiles?" promptNeeded="false" repositoryContextId="_FNtBAPGTEeilx9dQx2QrzQ" type="id_String" value="E:/Interfaces/Workspace/WorkFiles/"/>
+    <contextParameter comment="" name="Chemin_WorkFiles" prompt="Chemin_WorkFiles?" promptNeeded="false" repositoryContextId="_FNtBAPGTEeilx9dQx2QrzQ" type="id_String" value="//lal-rpro-trait/E/Interfaces/Workspace/WorkFiles/"/>
     <contextParameter comment="" name="Dest_Mail" prompt="Dest_Mail?" promptNeeded="false" repositoryContextId="_FNtBAPGTEeilx9dQx2QrzQ" type="id_String" value="&quot;cguerin@lalique.fr&quot;"/>
     <contextParameter comment="" name="Exp_Mail" prompt="Exp_Mail?" promptNeeded="false" repositoryContextId="_FNtBAPGTEeilx9dQx2QrzQ" type="id_String" value="&quot;classuspigat@lalique.fr&quot;"/>
     <contextParameter comment="" name="Param_Cdes_Rpro_DecimalSeparator" prompt="Param_Cdes_Rpro_DecimalSeparator?" promptNeeded="false" repositoryContextId="_FNtBAPGTEeilx9dQx2QrzQ" type="id_String" value="'.'"/>
     <contextParameter comment="" name="Param_Cdes_Rpro_Encoding" prompt="Param_Cdes_Rpro_Encoding?" promptNeeded="false" repositoryContextId="_FNtBAPGTEeilx9dQx2QrzQ" type="id_String" value="UTF-8"/>
-    <contextParameter comment="" name="Param_Cdes_Rpro_File" prompt="Param_Cdes_Rpro_File?" promptNeeded="false" repositoryContextId="_FNtBAPGTEeilx9dQx2QrzQ" type="id_File" value="E:/Interfaces/Workspace/InputFiles/Param/Param_Cdes_Rpro.xlsx"/>
+    <contextParameter comment="" name="Param_Cdes_Rpro_File" prompt="Param_Cdes_Rpro_File?" promptNeeded="false" repositoryContextId="_FNtBAPGTEeilx9dQx2QrzQ" type="id_File" value="//lal-rpro-trait/E/Interfaces/Workspace/InputFiles/Param/Param_Cdes_Rpro.xlsx"/>
     <contextParameter comment="" name="Param_Cdes_Rpro_FirstColumn" prompt="Param_Cdes_Rpro_FirstColumn?" promptNeeded="false" repositoryContextId="_FNtBAPGTEeilx9dQx2QrzQ" type="id_Integer" value="1"/>
     <contextParameter comment="" name="Param_Cdes_Rpro_Header" prompt="Param_Cdes_Rpro_Header?" promptNeeded="false" repositoryContextId="_FNtBAPGTEeilx9dQx2QrzQ" type="id_Integer" value="1"/>
     <contextParameter comment="" name="Param_Cdes_Rpro_LastColumn" prompt="Param_Cdes_Rpro_LastColumn?" promptNeeded="false" repositoryContextId="_FNtBAPGTEeilx9dQx2QrzQ" type="id_Integer" value=""/>
@@ -477,7 +477,7 @@
         <mapperTableEntries expression="(Var.Transaction_Jde == 3 ||Var.Transaction_Jde == 4 ||Var.Transaction_Jde == 5 ||Var.Transaction_Jde == 6) ? StringHandling.UPCASE(V_So.ADDRESS2) : &quot;&quot; " name="ADDRESS2" nullable="true" type="id_String"/>
         <mapperTableEntries expression="(Var.Transaction_Jde == 3 ||Var.Transaction_Jde == 4 ||Var.Transaction_Jde == 5 ||Var.Transaction_Jde == 6) ? StringHandling.UPCASE(V_So.ZIP) : &quot;&quot; " name="ZIP" nullable="true" type="id_String"/>
         <mapperTableEntries expression="(Var.Transaction_Jde == 3 ||Var.Transaction_Jde == 4 ||Var.Transaction_Jde == 5 ||Var.Transaction_Jde == 6) ? StringHandling.UPCASE(V_So.ADDRESS3) : &quot;&quot; " name="ADDRESS3" nullable="true" type="id_String"/>
-        <mapperTableEntries expression=" V_So.COUNTRY " name="COUNTRY" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot;FXX&quot; .equals(V_So.COUNTRY) ? &quot;FRA&quot; : V_So.COUNTRY " name="COUNTRY" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Int_Po_Top.SBS_NO.toString() + Lalique.PadInt0(Int_Po_Top.STORE_NO,3) " name="Lien_Edi" nullable="true" type="id_String"/>
         <mapperTableEntries expression="V_Po_Qty.ALU " name="Code_Article" nullable="true" type="id_String"/>
         <mapperTableEntries expression="(int) (Math.round(V_Po_Qty.ORD_QTY * 100) / 100) " name="Qte_Cde" nullable="true" type="id_Integer"/>
@@ -522,7 +522,7 @@
         <mapperTableEntries expression="" name="SO_SID" nullable="true" type="id_Long"/>
         <mapperTableEntries name="APPROV_STATUS" nullable="true" type="id_Integer"/>
       </inputTables>
-      <inputTables activateCondensedTool="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="V_So" sizeState="INTERMEDIATE">
+      <inputTables activateCondensedTool="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="V_So" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Po.SO_SID " name="SO_SID" operator="=" type="id_Long"/>
         <mapperTableEntries name="STORE_NO" nullable="true" type="id_Integer"/>
         <mapperTableEntries name="STATION" nullable="true" type="id_String"/>
@@ -954,6 +954,77 @@
       <additionalProperties key="Comment" value=""/>
     </metadata>
   </node>
+  <node componentName="tAggregateRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="480" posY="448">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tAggregateRow_4"/>
+    <elementParameter field="TABLE" name="GROUPBYS">
+      <elementValue elementRef="OUTPUT_COLUMN" value="SBS_NO"/>
+      <elementValue elementRef="INPUT_COLUMN" value="SBS_NO"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="STORE_NO"/>
+      <elementValue elementRef="INPUT_COLUMN" value="STORE_NO"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="CREATED_DATE"/>
+      <elementValue elementRef="INPUT_COLUMN" value="CREATED_DATE"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="PO_SID"/>
+      <elementValue elementRef="INPUT_COLUMN" value="PO_SID"/>
+    </elementParameter>
+    <elementParameter field="TABLE" name="OPERATIONS"/>
+    <elementParameter field="TEXT" name="LIST_DELIMITER" value="&quot;,&quot;"/>
+    <elementParameter field="CHECK" name="USE_FINANCIAL_PRECISION" value="true"/>
+    <elementParameter field="CHECK" name="CHECK_TYPE_OVERFLOW" value="false"/>
+    <elementParameter field="CHECK" name="CHECK_ULP" value="false"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tAggregateRow_4">
+      <column comment="" key="false" length="5" name="SBS_NO" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="5" name="STORE_NO" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="19" name="CREATED_DATE" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="19" name="PO_SID" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tFileOutputExcel" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="576" posY="448">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileOutputExcel_1"/>
+    <elementParameter field="CHECK" name="VERSION_2007" value="false"/>
+    <elementParameter field="CHECK" name="USESTREAM" value="false"/>
+    <elementParameter field="TEXT" name="STREAMNAME" show="false" value="outputStream"/>
+    <elementParameter field="FILE" name="FILENAME" value="context.Chemin_WorkFiles+&quot;Po_Impr_Jde.xls&quot;"/>
+    <elementParameter field="TEXT" name="SHEETNAME" value="&quot;Sheet1&quot;"/>
+    <elementParameter field="CHECK" name="INCLUDEHEADER" value="true"/>
+    <elementParameter field="CHECK" name="APPEND_FILE" value="false"/>
+    <elementParameter field="CHECK" name="APPEND_SHEET" show="false" value="false"/>
+    <elementParameter field="CHECK" name="FIRST_CELL_Y_ABSOLUTE" value="false"/>
+    <elementParameter field="TEXT" name="FIRST_CELL_X" show="false" value="0"/>
+    <elementParameter field="TEXT" name="FIRST_CELL_Y" show="false" value="0"/>
+    <elementParameter field="CHECK" name="KEEP_CELL_FORMATING" show="false" value="false"/>
+    <elementParameter field="CLOSED_LIST" name="FONT" value=""/>
+    <elementParameter field="CHECK" name="IS_ALL_AUTO_SZIE" value="false"/>
+    <elementParameter field="TABLE" name="AUTO_SZIE_SETTING">
+      <elementValue elementRef="SCHEMA_COLUMN" value="SBS_NO"/>
+      <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="STORE_NO"/>
+      <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="CREATED_DATE"/>
+      <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="PO_SID"/>
+      <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="CREATE" value="true"/>
+    <elementParameter field="CHECK" name="FLUSHONROW" show="false" value="false"/>
+    <elementParameter field="TEXT" name="FLUSHONROW_NUM" show="false" value="100"/>
+    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
+    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" show="false" value="&quot;,&quot;"/>
+    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" show="false" value="&quot;.&quot;"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="false"/>
+    <elementParameter field="CHECK" name="RECALCULATE_FORMULA" show="false" value="true"/>
+    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
+    <elementParameter field="TEXT" name="LABEL" value="row5.xls"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tFileOutputExcel_1">
+      <column comment="" key="false" length="5" name="SBS_NO" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="5" name="STORE_NO" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="19" name="CREATED_DATE" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="19" name="PO_SID" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
   <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="576" posY="320">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileOutputDelimited_1"/>
     <elementParameter field="CHECK" name="USESTREAM" value="false"/>
@@ -1095,77 +1166,6 @@
     <metadata connector="FLOW" label="metadata" name="tFileOutputDelimited_2">
       <column comment="" key="false" length="20" name="PO_NO" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Sequence" nullable="true" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-    </metadata>
-  </node>
-  <node componentName="tAggregateRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="480" posY="448">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tAggregateRow_4"/>
-    <elementParameter field="TABLE" name="GROUPBYS">
-      <elementValue elementRef="OUTPUT_COLUMN" value="SBS_NO"/>
-      <elementValue elementRef="INPUT_COLUMN" value="SBS_NO"/>
-      <elementValue elementRef="OUTPUT_COLUMN" value="STORE_NO"/>
-      <elementValue elementRef="INPUT_COLUMN" value="STORE_NO"/>
-      <elementValue elementRef="OUTPUT_COLUMN" value="CREATED_DATE"/>
-      <elementValue elementRef="INPUT_COLUMN" value="CREATED_DATE"/>
-      <elementValue elementRef="OUTPUT_COLUMN" value="PO_SID"/>
-      <elementValue elementRef="INPUT_COLUMN" value="PO_SID"/>
-    </elementParameter>
-    <elementParameter field="TABLE" name="OPERATIONS"/>
-    <elementParameter field="TEXT" name="LIST_DELIMITER" value="&quot;,&quot;"/>
-    <elementParameter field="CHECK" name="USE_FINANCIAL_PRECISION" value="true"/>
-    <elementParameter field="CHECK" name="CHECK_TYPE_OVERFLOW" value="false"/>
-    <elementParameter field="CHECK" name="CHECK_ULP" value="false"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tAggregateRow_4">
-      <column comment="" key="false" length="5" name="SBS_NO" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="5" name="STORE_NO" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="19" name="CREATED_DATE" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="19" name="PO_SID" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_String" usefulColumn="true"/>
-    </metadata>
-  </node>
-  <node componentName="tFileOutputExcel" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="576" posY="448">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileOutputExcel_1"/>
-    <elementParameter field="CHECK" name="VERSION_2007" value="false"/>
-    <elementParameter field="CHECK" name="USESTREAM" value="false"/>
-    <elementParameter field="TEXT" name="STREAMNAME" show="false" value="outputStream"/>
-    <elementParameter field="FILE" name="FILENAME" value="context.Chemin_WorkFiles+&quot;Po_Impr_Jde.xls&quot;"/>
-    <elementParameter field="TEXT" name="SHEETNAME" value="&quot;Sheet1&quot;"/>
-    <elementParameter field="CHECK" name="INCLUDEHEADER" value="true"/>
-    <elementParameter field="CHECK" name="APPEND_FILE" value="false"/>
-    <elementParameter field="CHECK" name="APPEND_SHEET" show="false" value="false"/>
-    <elementParameter field="CHECK" name="FIRST_CELL_Y_ABSOLUTE" value="false"/>
-    <elementParameter field="TEXT" name="FIRST_CELL_X" show="false" value="0"/>
-    <elementParameter field="TEXT" name="FIRST_CELL_Y" show="false" value="0"/>
-    <elementParameter field="CHECK" name="KEEP_CELL_FORMATING" show="false" value="false"/>
-    <elementParameter field="CLOSED_LIST" name="FONT" value=""/>
-    <elementParameter field="CHECK" name="IS_ALL_AUTO_SZIE" value="false"/>
-    <elementParameter field="TABLE" name="AUTO_SZIE_SETTING">
-      <elementValue elementRef="SCHEMA_COLUMN" value="SBS_NO"/>
-      <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="STORE_NO"/>
-      <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="CREATED_DATE"/>
-      <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="PO_SID"/>
-      <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
-    </elementParameter>
-    <elementParameter field="CHECK" name="CREATE" value="true"/>
-    <elementParameter field="CHECK" name="FLUSHONROW" show="false" value="false"/>
-    <elementParameter field="TEXT" name="FLUSHONROW_NUM" show="false" value="100"/>
-    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
-    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" show="false" value="&quot;,&quot;"/>
-    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" show="false" value="&quot;.&quot;"/>
-    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
-    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
-    <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="false"/>
-    <elementParameter field="CHECK" name="RECALCULATE_FORMULA" show="false" value="true"/>
-    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
-    <elementParameter field="TEXT" name="LABEL" value="row5.xls"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tFileOutputExcel_1">
-      <column comment="" key="false" length="5" name="SBS_NO" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="5" name="STORE_NO" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="19" name="CREATED_DATE" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="19" name="PO_SID" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tAggregateRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="480" posY="512">
@@ -1316,6 +1316,7 @@
   </node>
   <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="32" posY="864">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileInputDelimited_2"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" show="false" value="REPOSITORY"/>
     <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" show="false" value="_0-secCiKEemDfdCM3WLa1w - metadata"/>
     <elementParameter field="LABEL" name="FILENAMETEXT" value="&quot;When the input source is a stream or a zip file,footer and random shouldn't be bigger than 0.&quot;"/>
@@ -1440,6 +1441,7 @@
   </node>
   <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="224" posY="864">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tMap_3"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
     <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
     <elementParameter field="DIRECTORY" name="TEMPORARY_DATA_DIRECTORY" value=""/>
@@ -1499,7 +1501,7 @@
         <mapperTableEntries expression="Po_Rp.Date_Liv " name="Date_Liv" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="Po_Rp.Transaction_Jde " name="Transaction_Jde" nullable="true" type="id_Integer"/>
       </outputTables>
-      <outputTables activateExpressionFilter="true" expressionFilter="3 == Po_Rp.Transaction_Jde || 4 == Po_Rp.Transaction_Jde || 5 == Po_Rp.Transaction_Jde" name="Po_Adresse_Livraison" sizeState="INTERMEDIATE">
+      <outputTables activateExpressionFilter="true" expressionFilter="3 == Po_Rp.Transaction_Jde || 4 == Po_Rp.Transaction_Jde || 5 == Po_Rp.Transaction_Jde || 6 == Po_Rp.Transaction_Jde" name="Po_Adresse_Livraison" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Po_Seq.Sequence " name="Sequence" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="Po_Lien_I.AXAN8 " name="AXAN8" type="id_Integer"/>
         <mapperTableEntries expression="Po_Rp.PO_NO " name="PO_NO" nullable="true" type="id_String"/>
@@ -1507,9 +1509,9 @@
         <mapperTableEntries expression="Po_Rp.CUSTOMER " name="CUSTOMER" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Po_Rp.ADDRESS1 " name="ADDRESS1" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Po_Rp.ADDRESS2 " name="ADDRESS2" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="Po_Rp.ZIP " name="ZIP" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Relational.ISNULL(Po_Rp.ZIP) ? &quot;1&quot; : Po_Rp.ZIP " name="ZIP" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Po_Rp.ADDRESS3 " name="ADDRESS3" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="StringHandling.FTRIM(F0005.DRKY) " name="COUNTRY" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Relational.ISNULL(F0005.DRKY) ? &quot;&quot; : StringHandling.FTRIM(F0005.DRKY) " name="COUNTRY" nullable="true" type="id_String"/>
       </outputTables>
       <outputTables name="Po_Lignes" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Po_Seq.Sequence " name="Sequence" nullable="true" type="id_Integer"/>
@@ -1546,14 +1548,14 @@
       </inputTables>
       <inputTables activateCondensedTool="true" innerJoin="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Po_Lien_I" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Po_Rp.Lien_Edi " name="AXEXRA" nullable="true" type="id_String"/>
-        <mapperTableEntries name="AXAN8" type="id_Integer"/>
+        <mapperTableEntries expression="" name="AXAN8" type="id_Integer"/>
       </inputTables>
       <inputTables activateCondensedTool="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="F0005" sizeState="INTERMEDIATE">
         <mapperTableEntries name="DRSY" type="id_String"/>
         <mapperTableEntries name="DRRT" type="id_String"/>
         <mapperTableEntries name="DRKY" type="id_String"/>
         <mapperTableEntries expression="" name="DRDL01" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="Po_Rp.COUNTRY " name="DRDL02" nullable="true" operator="=" type="id_String"/>
+        <mapperTableEntries expression="StringHandling.TRIM(Po_Rp.COUNTRY) + &quot;                           &quot; " name="DRDL02" nullable="true" operator="=" type="id_String"/>
         <mapperTableEntries name="DRSPHD" nullable="true" type="id_String"/>
         <mapperTableEntries name="DRUDCO" nullable="true" type="id_String"/>
         <mapperTableEntries name="DRHRDC" nullable="true" type="id_String"/>
@@ -1567,6 +1569,7 @@
   </node>
   <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="768">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileInputDelimited_3"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" show="false" value="REPOSITORY"/>
     <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" show="false" value="_QF9-oEWTEemkW6sAba8tKw - metadata"/>
     <elementParameter field="LABEL" name="FILENAMETEXT" value="&quot;When the input source is a stream or a zip file,footer and random shouldn't be bigger than 0.&quot;"/>
@@ -1625,6 +1628,7 @@
   </node>
   <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="320" posY="768">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tOracleInput_6"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="REPOSITORY"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" show="false" value="_SUgsIM0pEei0gMO4ZNgp9g"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
@@ -1738,6 +1742,7 @@
   </node>
   <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="320" posY="960">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tLogRow_1"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="RADIO" name="BASIC_MODE" value="true"/>
     <elementParameter field="RADIO" name="TABLE_PRINT" value="false"/>
     <elementParameter field="RADIO" name="VERTICAL" value="false"/>
@@ -1763,8 +1768,293 @@
       <column comment="" key="false" length="-1" name="Lien_Edi" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
+  <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="224" posY="768">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileInputDelimited_1"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
+    <elementParameter field="LABEL" name="FILENAMETEXT" value="&quot;When the input source is a stream or a zip file,footer and random shouldn't be bigger than 0.&quot;"/>
+    <elementParameter field="FILE" name="FILENAME" value="context.Chemin_WorkFiles+&quot;Po_Lien.csv&quot;"/>
+    <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
+    <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
+    <elementParameter field="OPENED_LIST" name="CSVROWSEPARATOR" show="false" value="&quot;\n&quot;"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;"/>
+    <elementParameter field="TEXT" name="ESCAPE_CHAR" show="false" value="&quot;&quot;&quot;"/>
+    <elementParameter field="TEXT" name="TEXT_ENCLOSURE" show="false" value="&quot;&quot;&quot;"/>
+    <elementParameter field="TEXT" name="HEADER" value="1"/>
+    <elementParameter field="TEXT" name="FOOTER" value="0"/>
+    <elementParameter field="TEXT" name="LIMIT" value=""/>
+    <elementParameter field="CHECK" name="REMOVE_EMPTY_ROW" value="true"/>
+    <elementParameter field="CHECK" name="UNCOMPRESS" value="false"/>
+    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false"/>
+    <elementParameter field="DIRECTORY" name="TEMP_DIR" show="false" value="&quot;C:/Talend-Studio-20190620_1446-V7.2.1/workspace&quot;"/>
+    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
+    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" show="false" value="&quot;,&quot;"/>
+    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" show="false" value="&quot;.&quot;"/>
+    <elementParameter field="CHECK" name="RANDOM" value="false"/>
+    <elementParameter field="TEXT" name="NB_RANDOM" show="false" value="10"/>
+    <elementParameter field="CHECK" name="TRIMALL" value="false"/>
+    <elementParameter field="TABLE" name="TRIMSELECT">
+      <elementValue elementRef="SCHEMA_COLUMN" value="AXEXRA"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="AXAN8"/>
+      <elementValue elementRef="TRIM" value="false"/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="CHECK_FIELDS_NUM" value="false"/>
+    <elementParameter field="CHECK" name="CHECK_DATE" value="false"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;UTF-8&quot;"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="UTF-8"/>
+    <elementParameter field="CHECK" name="SPLITRECORD" value="false"/>
+    <elementParameter field="CHECK" name="ENABLE_DECODE" value="false"/>
+    <elementParameter field="TABLE" name="DECODE_COLS" show="false">
+      <elementValue elementRef="SCHEMA_COLUMN" value="AXEXRA"/>
+      <elementValue elementRef="DECODE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="AXAN8"/>
+      <elementValue elementRef="DECODE" value="false"/>
+    </elementParameter>
+    <elementParameter field="TEXT" name="DESTINATION" show="false" value=""/>
+    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
+    <elementParameter field="TEXT" name="LABEL" value="Po_Lien"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tFileInputDelimited_1">
+      <column comment="" key="false" length="30" name="AXEXRA" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="-1" name="AXAN8" nullable="false" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+    </metadata>
+    <metadata connector="REJECT" name="REJECT">
+      <column comment="" key="false" length="30" name="AXEXRA" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="-1" name="AXAN8" nullable="false" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tAggregateRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="576" posY="864">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tAggregateRow_2"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
+    <elementParameter field="TABLE" name="GROUPBYS">
+      <elementValue elementRef="OUTPUT_COLUMN" value="Sequence"/>
+      <elementValue elementRef="INPUT_COLUMN" value="Sequence"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="AXAN8"/>
+      <elementValue elementRef="INPUT_COLUMN" value="AXAN8"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="PO_NO"/>
+      <elementValue elementRef="INPUT_COLUMN" value="PO_NO"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="Transaction_Jde"/>
+      <elementValue elementRef="INPUT_COLUMN" value="Transaction_Jde"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="CUSTOMER"/>
+      <elementValue elementRef="INPUT_COLUMN" value="CUSTOMER"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="ADDRESS1"/>
+      <elementValue elementRef="INPUT_COLUMN" value="ADDRESS1"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="ADDRESS2"/>
+      <elementValue elementRef="INPUT_COLUMN" value="ADDRESS2"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="ZIP"/>
+      <elementValue elementRef="INPUT_COLUMN" value="ZIP"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="ADDRESS3"/>
+      <elementValue elementRef="INPUT_COLUMN" value="ADDRESS3"/>
+      <elementValue elementRef="OUTPUT_COLUMN" value="COUNTRY"/>
+      <elementValue elementRef="INPUT_COLUMN" value="COUNTRY"/>
+    </elementParameter>
+    <elementParameter field="TABLE" name="OPERATIONS"/>
+    <elementParameter field="TEXT" name="LIST_DELIMITER" value="&quot;,&quot;"/>
+    <elementParameter field="CHECK" name="USE_FINANCIAL_PRECISION" value="true"/>
+    <elementParameter field="CHECK" name="CHECK_TYPE_OVERFLOW" value="false"/>
+    <elementParameter field="CHECK" name="CHECK_ULP" value="false"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tAggregateRow_2">
+      <column comment="" key="false" length="-1" name="Sequence" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="true" length="-1" name="AXAN8" nullable="false" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="20" name="PO_NO" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Transaction_Jde" nullable="true" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="CUSTOMER" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="40" name="ADDRESS1" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="40" name="ADDRESS2" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="10" name="ZIP" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="40" name="ADDRESS3" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="0" name="COUNTRY" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
+    </metadata>
+  </node>
+  <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="736" posY="864">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tMap_6"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
+    <elementParameter field="EXTERNAL" name="MAP" value=""/>
+    <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
+    <elementParameter field="DIRECTORY" name="TEMPORARY_DATA_DIRECTORY" value=""/>
+    <elementParameter field="IMAGE" name="PREVIEW" value="_zL0G8HDlEeWWVqAiGNmTsA-tMap_6-PREVIEW.bmp"/>
+    <elementParameter field="CHECK" name="DIE_ON_ERROR" show="false" value="true"/>
+    <elementParameter field="CHECK" name="LKUP_PARALLELIZE" show="false" value="false"/>
+    <elementParameter field="TEXT" name="LEVENSHTEIN" show="false" value="0"/>
+    <elementParameter field="TEXT" name="JACCARD" show="false" value="0"/>
+    <elementParameter field="CHECK" name="ENABLE_AUTO_CONVERT_TYPE" show="false" value="false"/>
+    <elementParameter field="TEXT" name="ROWS_BUFFER_SIZE" value="2000000"/>
+    <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="false"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" label="F4706" name="F4706">
+      <column comment="" key="false" length="1" name="ZAEDTY" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="ZAEDSQ" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="5" name="ZAEKCO" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="-1" name="ZAEDOC" nullable="false" pattern="" precision="-1" sourceType="NUMBER" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="2" name="ZAEDCT" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="-1" name="ZAEDLN" nullable="false" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="1" name="ZAEDSP" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="15" name="ZAEDBT" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="10" name="ZAFILE" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="ZADOCO" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="2" name="ZADCTO" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="5" name="ZAKCOO" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="1" name="ZAANTY" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="ZAAN8" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="40" name="ZAMLNM" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="40" name="ZAADD1" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="40" name="ZAADD2" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="40" name="ZAADD3" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="40" name="ZAADD4" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="12" name="ZAADDZ" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="25" name="ZACTY1" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="25" name="ZACOUN" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="3" name="ZAADDS" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="4" name="ZACRTE" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="2" name="ZABKML" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="3" name="ZACTR" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="10" name="ZATORG" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="10" name="ZAUSER" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="10" name="ZAPID" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="10" name="ZAJOBN" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="ZAUPMJ" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="ZATDAY" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="ZALNID" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="ZAGAN8" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <additionalProperties key="Comment" value=""/>
+    </metadata>
+    <nodeData xsi:type="TalendMapper:MapperData">
+      <uiProperties/>
+      <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
+      <outputTables activateExpressionFilter="true" expressionFilter="3 == row2.Transaction_Jde || 4 == row2.Transaction_Jde || 5 == row2.Transaction_Jde  || 6 == row2.Transaction_Jde" name="F4706" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="&quot; &quot;" name="ZAEDTY" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="(float)0" name="ZAEDSQ" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="&quot;00010&quot;" name="ZAEKCO" type="id_String"/>
+        <mapperTableEntries expression="row2.Sequence.toString() " name="ZAEDOC" type="id_String"/>
+        <mapperTableEntries expression="&quot; &quot;" name="ZAEDCT" type="id_String"/>
+        <mapperTableEntries expression="(float)0 " name="ZAEDLN" type="id_Float"/>
+        <mapperTableEntries expression="&quot; &quot;" name="ZAEDSP" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot; &quot;" name="ZAEDBT" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot;F47011&quot;" name="ZAFILE" type="id_String"/>
+        <mapperTableEntries expression="(float)0 " name="ZADOCO" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="&quot; &quot;" name="ZADCTO" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot; &quot;" name="ZAKCOO" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot;2&quot;" name="ZAANTY" type="id_String"/>
+        <mapperTableEntries expression="(float)0 " name="ZAAN8" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="StringHandling.LEFT(StringHandling.BTRIM(row2.CUSTOMER),40) " name="ZAMLNM" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="StringHandling.LEFT(StringHandling.BTRIM(row2.ADDRESS1),40) " name="ZAADD1" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="StringHandling.LEFT(StringHandling.BTRIM(row2.ADDRESS2),40) " name="ZAADD2" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot; &quot;" name="ZAADD3" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot; &quot;" name="ZAADD4" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="StringHandling.LEFT(StringHandling.BTRIM(row2.ZIP),12) " name="ZAADDZ" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="StringHandling.LEFT(StringHandling.BTRIM(row2.ADDRESS3),25) " name="ZACTY1" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot; &quot;" name="ZACOUN" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot; &quot;" name="ZAADDS" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot; &quot;" name="ZACRTE" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot; &quot;" name="ZABKML" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="row2.COUNTRY " name="ZACTR" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot;INTERFACE&quot;" name="ZATORG" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot;INTERFACE&quot;" name="ZAUSER" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot;EP47010&quot;" name="ZAPID" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot; &quot;" name="ZAJOBN" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="JDE.convertToJulian(TalendDate.getDate(&quot;DDMMCCYY&quot;) ) " name="ZAUPMJ" nullable="true" type="id_Integer"/>
+        <mapperTableEntries expression="Integer.parseInt(TalendDate.getDate(&quot;hhmmss&quot;)) " name="ZATDAY" nullable="true" type="id_Integer"/>
+        <mapperTableEntries expression="(float)0 " name="ZALNID" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="(float)0 " name="ZAGAN8" nullable="true" type="id_Float"/>
+      </outputTables>
+      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="row2" sizeState="INTERMEDIATE">
+        <mapperTableEntries name="Sequence" nullable="true" type="id_Integer"/>
+        <mapperTableEntries name="AXAN8" type="id_Integer"/>
+        <mapperTableEntries name="PO_NO" nullable="true" type="id_String"/>
+        <mapperTableEntries name="Transaction_Jde" nullable="true" type="id_Integer"/>
+        <mapperTableEntries name="CUSTOMER" nullable="true" type="id_String"/>
+        <mapperTableEntries name="ADDRESS1" nullable="true" type="id_String"/>
+        <mapperTableEntries name="ADDRESS2" nullable="true" type="id_String"/>
+        <mapperTableEntries name="ZIP" nullable="true" type="id_String"/>
+        <mapperTableEntries name="ADDRESS3" nullable="true" type="id_String"/>
+        <mapperTableEntries name="COUNTRY" nullable="true" type="id_String"/>
+      </inputTables>
+    </nodeData>
+  </node>
   <node componentName="tAggregateRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="576" posY="768">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tAggregateRow_1"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="TABLE" name="GROUPBYS">
       <elementValue elementRef="OUTPUT_COLUMN" value="Sequence"/>
       <elementValue elementRef="INPUT_COLUMN" value="Sequence"/>
@@ -1794,6 +2084,7 @@
   </node>
   <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="736" posY="768">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tMap_5"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
     <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
     <elementParameter field="DIRECTORY" name="TEMPORARY_DATA_DIRECTORY" value=""/>
@@ -2667,289 +2958,9 @@
       </inputTables>
     </nodeData>
   </node>
-  <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="224" posY="768">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileInputDelimited_1"/>
-    <elementParameter field="LABEL" name="FILENAMETEXT" value="&quot;When the input source is a stream or a zip file,footer and random shouldn't be bigger than 0.&quot;"/>
-    <elementParameter field="FILE" name="FILENAME" value="context.Chemin_WorkFiles+&quot;Po_Lien.csv&quot;"/>
-    <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
-    <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
-    <elementParameter field="OPENED_LIST" name="CSVROWSEPARATOR" show="false" value="&quot;\n&quot;"/>
-    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;"/>
-    <elementParameter field="TEXT" name="ESCAPE_CHAR" show="false" value="&quot;&quot;&quot;"/>
-    <elementParameter field="TEXT" name="TEXT_ENCLOSURE" show="false" value="&quot;&quot;&quot;"/>
-    <elementParameter field="TEXT" name="HEADER" value="1"/>
-    <elementParameter field="TEXT" name="FOOTER" value="0"/>
-    <elementParameter field="TEXT" name="LIMIT" value=""/>
-    <elementParameter field="CHECK" name="REMOVE_EMPTY_ROW" value="true"/>
-    <elementParameter field="CHECK" name="UNCOMPRESS" value="false"/>
-    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false"/>
-    <elementParameter field="DIRECTORY" name="TEMP_DIR" show="false" value="&quot;C:/Talend-Studio-20190620_1446-V7.2.1/workspace&quot;"/>
-    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
-    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" show="false" value="&quot;,&quot;"/>
-    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" show="false" value="&quot;.&quot;"/>
-    <elementParameter field="CHECK" name="RANDOM" value="false"/>
-    <elementParameter field="TEXT" name="NB_RANDOM" show="false" value="10"/>
-    <elementParameter field="CHECK" name="TRIMALL" value="false"/>
-    <elementParameter field="TABLE" name="TRIMSELECT">
-      <elementValue elementRef="SCHEMA_COLUMN" value="AXEXRA"/>
-      <elementValue elementRef="TRIM" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="AXAN8"/>
-      <elementValue elementRef="TRIM" value="false"/>
-    </elementParameter>
-    <elementParameter field="CHECK" name="CHECK_FIELDS_NUM" value="false"/>
-    <elementParameter field="CHECK" name="CHECK_DATE" value="false"/>
-    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;UTF-8&quot;"/>
-    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="UTF-8"/>
-    <elementParameter field="CHECK" name="SPLITRECORD" value="false"/>
-    <elementParameter field="CHECK" name="ENABLE_DECODE" value="false"/>
-    <elementParameter field="TABLE" name="DECODE_COLS" show="false">
-      <elementValue elementRef="SCHEMA_COLUMN" value="AXEXRA"/>
-      <elementValue elementRef="DECODE" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="AXAN8"/>
-      <elementValue elementRef="DECODE" value="false"/>
-    </elementParameter>
-    <elementParameter field="TEXT" name="DESTINATION" show="false" value=""/>
-    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
-    <elementParameter field="TEXT" name="LABEL" value="Po_Lien"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tFileInputDelimited_1">
-      <column comment="" key="false" length="30" name="AXEXRA" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="true" length="-1" name="AXAN8" nullable="false" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-    </metadata>
-    <metadata connector="REJECT" name="REJECT">
-      <column comment="" key="false" length="30" name="AXEXRA" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="true" length="-1" name="AXAN8" nullable="false" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
-    </metadata>
-  </node>
-  <node componentName="tAggregateRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="576" posY="864">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tAggregateRow_2"/>
-    <elementParameter field="TABLE" name="GROUPBYS">
-      <elementValue elementRef="OUTPUT_COLUMN" value="Sequence"/>
-      <elementValue elementRef="INPUT_COLUMN" value="Sequence"/>
-      <elementValue elementRef="OUTPUT_COLUMN" value="AXAN8"/>
-      <elementValue elementRef="INPUT_COLUMN" value="AXAN8"/>
-      <elementValue elementRef="OUTPUT_COLUMN" value="PO_NO"/>
-      <elementValue elementRef="INPUT_COLUMN" value="PO_NO"/>
-      <elementValue elementRef="OUTPUT_COLUMN" value="Transaction_Jde"/>
-      <elementValue elementRef="INPUT_COLUMN" value="Transaction_Jde"/>
-      <elementValue elementRef="OUTPUT_COLUMN" value="CUSTOMER"/>
-      <elementValue elementRef="INPUT_COLUMN" value="CUSTOMER"/>
-      <elementValue elementRef="OUTPUT_COLUMN" value="ADDRESS1"/>
-      <elementValue elementRef="INPUT_COLUMN" value="ADDRESS1"/>
-      <elementValue elementRef="OUTPUT_COLUMN" value="ADDRESS2"/>
-      <elementValue elementRef="INPUT_COLUMN" value="ADDRESS2"/>
-      <elementValue elementRef="OUTPUT_COLUMN" value="ZIP"/>
-      <elementValue elementRef="INPUT_COLUMN" value="ZIP"/>
-      <elementValue elementRef="OUTPUT_COLUMN" value="ADDRESS3"/>
-      <elementValue elementRef="INPUT_COLUMN" value="ADDRESS3"/>
-      <elementValue elementRef="OUTPUT_COLUMN" value="COUNTRY"/>
-      <elementValue elementRef="INPUT_COLUMN" value="COUNTRY"/>
-    </elementParameter>
-    <elementParameter field="TABLE" name="OPERATIONS"/>
-    <elementParameter field="TEXT" name="LIST_DELIMITER" value="&quot;,&quot;"/>
-    <elementParameter field="CHECK" name="USE_FINANCIAL_PRECISION" value="true"/>
-    <elementParameter field="CHECK" name="CHECK_TYPE_OVERFLOW" value="false"/>
-    <elementParameter field="CHECK" name="CHECK_ULP" value="false"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tAggregateRow_2">
-      <column comment="" key="false" length="-1" name="Sequence" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="true" length="-1" name="AXAN8" nullable="false" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="20" name="PO_NO" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Transaction_Jde" nullable="true" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="CUSTOMER" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="40" name="ADDRESS1" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="40" name="ADDRESS2" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="10" name="ZIP" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="40" name="ADDRESS3" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="0" name="COUNTRY" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
-    </metadata>
-  </node>
-  <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="736" posY="864">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tMap_6"/>
-    <elementParameter field="EXTERNAL" name="MAP" value=""/>
-    <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
-    <elementParameter field="DIRECTORY" name="TEMPORARY_DATA_DIRECTORY" value=""/>
-    <elementParameter field="IMAGE" name="PREVIEW" value="_zL0G8HDlEeWWVqAiGNmTsA-tMap_6-PREVIEW.bmp"/>
-    <elementParameter field="CHECK" name="DIE_ON_ERROR" show="false" value="true"/>
-    <elementParameter field="CHECK" name="LKUP_PARALLELIZE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="LEVENSHTEIN" show="false" value="0"/>
-    <elementParameter field="TEXT" name="JACCARD" show="false" value="0"/>
-    <elementParameter field="CHECK" name="ENABLE_AUTO_CONVERT_TYPE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="ROWS_BUFFER_SIZE" value="2000000"/>
-    <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="false"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" label="F4706" name="F4706">
-      <column comment="" key="false" length="1" name="ZAEDTY" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="-1" name="ZAEDSQ" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="true" length="5" name="ZAEKCO" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="true" length="-1" name="ZAEDOC" nullable="false" pattern="" precision="-1" sourceType="NUMBER" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="true" length="2" name="ZAEDCT" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="true" length="-1" name="ZAEDLN" nullable="false" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="1" name="ZAEDSP" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="15" name="ZAEDBT" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="true" length="10" name="ZAFILE" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="-1" name="ZADOCO" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="2" name="ZADCTO" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="5" name="ZAKCOO" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="true" length="1" name="ZAANTY" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="-1" name="ZAAN8" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="40" name="ZAMLNM" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="40" name="ZAADD1" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="40" name="ZAADD2" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="40" name="ZAADD3" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="40" name="ZAADD4" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="12" name="ZAADDZ" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="25" name="ZACTY1" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="25" name="ZACOUN" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="3" name="ZAADDS" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="4" name="ZACRTE" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="2" name="ZABKML" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="3" name="ZACTR" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="10" name="ZATORG" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="10" name="ZAUSER" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="10" name="ZAPID" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="10" name="ZAJOBN" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="-1" name="ZAUPMJ" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="-1" name="ZATDAY" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="-1" name="ZALNID" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="-1" name="ZAGAN8" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <additionalProperties key="Comment" value=""/>
-    </metadata>
-    <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
-      <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
-      <outputTables activateExpressionFilter="true" expressionFilter="3 == row2.Transaction_Jde || 4 == row2.Transaction_Jde || 5 == row2.Transaction_Jde" name="F4706" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="&quot; &quot;" name="ZAEDTY" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="(float)0" name="ZAEDSQ" nullable="true" type="id_Float"/>
-        <mapperTableEntries expression="&quot;00010&quot;" name="ZAEKCO" type="id_String"/>
-        <mapperTableEntries expression="row2.Sequence.toString() " name="ZAEDOC" type="id_String"/>
-        <mapperTableEntries expression="&quot; &quot;" name="ZAEDCT" type="id_String"/>
-        <mapperTableEntries expression="(float)0 " name="ZAEDLN" type="id_Float"/>
-        <mapperTableEntries expression="&quot; &quot;" name="ZAEDSP" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="&quot; &quot;" name="ZAEDBT" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="&quot;F47011&quot;" name="ZAFILE" type="id_String"/>
-        <mapperTableEntries expression="(float)0 " name="ZADOCO" nullable="true" type="id_Float"/>
-        <mapperTableEntries expression="&quot; &quot;" name="ZADCTO" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="&quot; &quot;" name="ZAKCOO" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="&quot;2&quot;" name="ZAANTY" type="id_String"/>
-        <mapperTableEntries expression="(float)0 " name="ZAAN8" nullable="true" type="id_Float"/>
-        <mapperTableEntries expression="StringHandling.LEFT(StringHandling.BTRIM(row2.CUSTOMER),40) " name="ZAMLNM" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="StringHandling.LEFT(StringHandling.BTRIM(row2.ADDRESS1),40) " name="ZAADD1" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="StringHandling.LEFT(StringHandling.BTRIM(row2.ADDRESS2),40) " name="ZAADD2" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="&quot; &quot;" name="ZAADD3" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="&quot; &quot;" name="ZAADD4" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="StringHandling.LEFT(StringHandling.BTRIM(row2.ZIP),12) " name="ZAADDZ" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="StringHandling.LEFT(StringHandling.BTRIM(row2.ADDRESS3),25) " name="ZACTY1" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="&quot; &quot;" name="ZACOUN" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="&quot; &quot;" name="ZAADDS" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="&quot; &quot;" name="ZACRTE" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="&quot; &quot;" name="ZABKML" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="row2.COUNTRY " name="ZACTR" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="&quot;INTERFACE&quot;" name="ZATORG" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="&quot;INTERFACE&quot;" name="ZAUSER" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="&quot;EP47010&quot;" name="ZAPID" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="&quot; &quot;" name="ZAJOBN" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="JDE.convertToJulian(TalendDate.getDate(&quot;DDMMCCYY&quot;) ) " name="ZAUPMJ" nullable="true" type="id_Integer"/>
-        <mapperTableEntries expression="Integer.parseInt(TalendDate.getDate(&quot;hhmmss&quot;)) " name="ZATDAY" nullable="true" type="id_Integer"/>
-        <mapperTableEntries expression="(float)0 " name="ZALNID" nullable="true" type="id_Float"/>
-        <mapperTableEntries expression="(float)0 " name="ZAGAN8" nullable="true" type="id_Float"/>
-      </outputTables>
-      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="row2" sizeState="INTERMEDIATE">
-        <mapperTableEntries name="Sequence" nullable="true" type="id_Integer"/>
-        <mapperTableEntries name="AXAN8" type="id_Integer"/>
-        <mapperTableEntries name="PO_NO" nullable="true" type="id_String"/>
-        <mapperTableEntries name="Transaction_Jde" nullable="true" type="id_Integer"/>
-        <mapperTableEntries name="CUSTOMER" nullable="true" type="id_String"/>
-        <mapperTableEntries name="ADDRESS1" nullable="true" type="id_String"/>
-        <mapperTableEntries name="ADDRESS2" nullable="true" type="id_String"/>
-        <mapperTableEntries name="ZIP" nullable="true" type="id_String"/>
-        <mapperTableEntries name="ADDRESS3" nullable="true" type="id_String"/>
-        <mapperTableEntries name="COUNTRY" nullable="true" type="id_String"/>
-      </inputTables>
-    </nodeData>
-  </node>
   <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="736" posY="960">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tMap_7"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
     <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
     <elementParameter field="DIRECTORY" name="TEMPORARY_DATA_DIRECTORY" value=""/>
@@ -4052,6 +4063,7 @@
   </node>
   <node componentName="tOracleOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="896" posY="768">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tOracleOutput_4"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" show="false" value="tOracleConnection_3"/>
     <elementParameter field="CLOSED_LIST" name="CONNECTION_TYPE" value="ORACLE_SERVICE_NAME"/>
@@ -6428,439 +6440,9 @@
       <additionalProperties key="Comment" value=""/>
     </metadata>
   </node>
-  <node componentName="tOracleOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="896" posY="864">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tOracleOutput_5"/>
-    <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
-    <elementParameter field="COMPONENT_LIST" name="CONNECTION" show="false" value="tOracleConnection_3"/>
-    <elementParameter field="CLOSED_LIST" name="CONNECTION_TYPE" value="ORACLE_SERVICE_NAME"/>
-    <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="ORACLE_12"/>
-    <elementParameter field="TEXT" name="RAC_URL" show="false" value="context.JDE_PY_CRPDTA_Server"/>
-    <elementParameter field="TEXT" name="HOST" value="context.JDE_PY_CRPDTA_Server"/>
-    <elementParameter field="TEXT" name="PORT" value="context.JDE_PY_CRPDTA_Port"/>
-    <elementParameter field="TEXT" name="TYPE" show="false" value="ORACLE_SERVICE_NAME"/>
-    <elementParameter field="TEXT" name="DBNAME" value="context.JDE_PY_CRPDTA_ServiceName"/>
-    <elementParameter field="TEXT" name="LOCAL_SERVICE_NAME" show="false" value="context.JDE_PY_CRPDTA_ServiceName"/>
-    <elementParameter field="TEXT" name="TABLESCHEMA" value="context.JDE_PY_CRPDTA_Schema"/>
-    <elementParameter field="TEXT" name="USER" value="context.JDE_PY_CRPDTA_Login"/>
-    <elementParameter field="PASSWORD" name="PASS" value="8pW6Nmy2kud3FKpXBoTLjuX624zslu6V6OZb3jnKlDQ="/>
-    <elementParameter field="DBTABLE" name="TABLE" value="&quot;F4706&quot;"/>
-    <elementParameter field="CLOSED_LIST" name="TABLE_ACTION" value="NONE"/>
-    <elementParameter field="LABEL" name="NOTE" show="false" value="Warning : this component configuration will automatically generate a commit before data insert/update/delete"/>
-    <elementParameter field="CLOSED_LIST" name="DATA_ACTION" value="INSERT"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA_FLOW:SCHEMA_TYPE" show="false" value="REPOSITORY"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA_FLOW:REPOSITORY_SCHEMA_TYPE" show="false" value="_YQjCMM0oEei0gMO4ZNgp9g - F4706"/>
-    <elementParameter field="LABEL" name="NOTE" value="This option only applies when deploying and running in the Talend Runtime"/>
-    <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" value="false"/>
-    <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
-    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false"/>
-    <elementParameter field="MAPPING_TYPE" name="MAPPING" show="false" value="oracle_id"/>
-    <elementParameter field="TEXT" name="JDBC_URL" show="false" value="&quot;jdbc:oracle:oci:/@talend&quot;"/>
-    <elementParameter field="TEXT" name="PROPERTIES" value="context.JDE_PY_CRPDTA_AdditionalParams"/>
-    <elementParameter field="LABEL" name="NOTE" value="*Note: Example for Additional JDBC Parameters: &quot;parameterName1=value1&amp;&amp;parameterName2=value2&quot;"/>
-    <elementParameter field="ENCODING_TYPE" name="ENCODING" show="false" value="&quot;ISO-8859-15&quot;"/>
-    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
-    <elementParameter field="TEXT" name="COMMIT_EVERY" value="10000"/>
-    <elementParameter field="TABLE" name="ADD_COLS"/>
-    <elementParameter field="CHECK" name="USE_FIELD_OPTIONS" value="false"/>
-    <elementParameter field="TABLE" name="FIELD_OPTIONS" show="false">
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZAEDTY"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZAEDSQ"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZAEKCO"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZAEDOC"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZAEDCT"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZAEDLN"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZAEDSP"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZAEDBT"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZAFILE"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZADOCO"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZADCTO"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZAKCOO"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZAANTY"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZAAN8"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZAMLNM"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZAADD1"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZAADD2"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZAADD3"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZAADD4"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZAADDZ"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZACTY1"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZACOUN"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZAADDS"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZACRTE"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZABKML"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZACTR"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZATORG"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZAUSER"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZAPID"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZAJOBN"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZAUPMJ"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZATDAY"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZALNID"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="ZAGAN8"/>
-      <elementValue elementRef="UPDATE_KEY" value="false"/>
-      <elementValue elementRef="DELETE_KEY" value="false"/>
-      <elementValue elementRef="UPDATABLE" value="true"/>
-      <elementValue elementRef="INSERTABLE" value="true"/>
-    </elementParameter>
-    <elementParameter field="CHECK" name="USE_HINT_OPTIONS" value="false"/>
-    <elementParameter field="TABLE" name="HINT_OPTIONS" show="false"/>
-    <elementParameter field="CHECK" name="CONVERT_COLUMN_TABLE_TO_UPPERCASE" value="false"/>
-    <elementParameter field="CHECK" name="ENABLE_DEBUG_MODE" value="false"/>
-    <elementParameter field="CHECK" name="USE_BATCH_SIZE" value="true"/>
-    <elementParameter field="CHECK" name="USE_BATCH_AND_USE_CONN" show="false" value="false"/>
-    <elementParameter field="TEXT" name="BATCH_SIZE" value="10000"/>
-    <elementParameter field="CHECK" name="SUPPORT_NULL_WHERE" value="false"/>
-    <elementParameter field="CHECK" name="USE_TIMESTAMP_FOR_DATE_TYPE" value="true"/>
-    <elementParameter field="CHECK" name="TRIM_CHAR" value="true"/>
-    <elementParameter field="TEXT" name="LABEL" value="F4706"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" label="F4706" name="tOracleOutput_5">
-      <column comment="" key="false" length="1" name="ZAEDTY" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="-1" name="ZAEDSQ" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="true" length="5" name="ZAEKCO" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="true" length="-1" name="ZAEDOC" nullable="false" pattern="" precision="-1" sourceType="NUMBER" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="true" length="2" name="ZAEDCT" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="true" length="-1" name="ZAEDLN" nullable="false" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="1" name="ZAEDSP" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="15" name="ZAEDBT" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="true" length="10" name="ZAFILE" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="-1" name="ZADOCO" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="2" name="ZADCTO" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="5" name="ZAKCOO" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="true" length="1" name="ZAANTY" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="-1" name="ZAAN8" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="40" name="ZAMLNM" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="40" name="ZAADD1" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="40" name="ZAADD2" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="40" name="ZAADD3" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="40" name="ZAADD4" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="12" name="ZAADDZ" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="25" name="ZACTY1" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="25" name="ZACOUN" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="3" name="ZAADDS" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="4" name="ZACRTE" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="2" name="ZABKML" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="3" name="ZACTR" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="10" name="ZATORG" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="10" name="ZAUSER" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="10" name="ZAPID" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="10" name="ZAJOBN" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="-1" name="ZAUPMJ" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="-1" name="ZATDAY" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="-1" name="ZALNID" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="-1" name="ZAGAN8" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <additionalProperties key="Comment" value=""/>
-    </metadata>
-    <metadata connector="REJECT" label="F4706" name="REJECT">
-      <column comment="" key="false" length="1" name="ZAEDTY" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="-1" name="ZAEDSQ" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="true" length="5" name="ZAEKCO" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="true" length="-1" name="ZAEDOC" nullable="false" pattern="" precision="-1" sourceType="NUMBER" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="true" length="2" name="ZAEDCT" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="true" length="-1" name="ZAEDLN" nullable="false" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="1" name="ZAEDSP" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="15" name="ZAEDBT" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="true" length="10" name="ZAFILE" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="-1" name="ZADOCO" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="2" name="ZADCTO" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="5" name="ZAKCOO" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="true" length="1" name="ZAANTY" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="-1" name="ZAAN8" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="40" name="ZAMLNM" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="40" name="ZAADD1" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="40" name="ZAADD2" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="40" name="ZAADD3" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="40" name="ZAADD4" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="12" name="ZAADDZ" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="25" name="ZACTY1" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="25" name="ZACOUN" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="3" name="ZAADDS" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="4" name="ZACRTE" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="2" name="ZABKML" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="3" name="ZACTR" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="10" name="ZATORG" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="10" name="ZAUSER" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="10" name="ZAPID" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="10" name="ZAJOBN" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="-1" name="ZAUPMJ" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="-1" name="ZATDAY" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="-1" name="ZALNID" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="-1" name="ZAGAN8" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" originalLength="-1" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" originalLength="-1" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
-      <additionalProperties key="Comment" value=""/>
-    </metadata>
-  </node>
   <node componentName="tOracleOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="896" posY="960">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tOracleOutput_6"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" show="false" value="tOracleConnection_3"/>
     <elementParameter field="CLOSED_LIST" name="CONNECTION_TYPE" value="ORACLE_SERVICE_NAME"/>
@@ -9853,6 +9435,438 @@
       <additionalProperties key="Comment" value=""/>
     </metadata>
   </node>
+  <node componentName="tOracleOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="896" posY="864">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tOracleOutput_5"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
+    <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
+    <elementParameter field="COMPONENT_LIST" name="CONNECTION" show="false" value="tOracleConnection_3"/>
+    <elementParameter field="CLOSED_LIST" name="CONNECTION_TYPE" value="ORACLE_SERVICE_NAME"/>
+    <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="ORACLE_12"/>
+    <elementParameter field="TEXT" name="RAC_URL" show="false" value="context.JDE_PY_CRPDTA_Server"/>
+    <elementParameter field="TEXT" name="HOST" value="context.JDE_PY_CRPDTA_Server"/>
+    <elementParameter field="TEXT" name="PORT" value="context.JDE_PY_CRPDTA_Port"/>
+    <elementParameter field="TEXT" name="TYPE" show="false" value="ORACLE_SERVICE_NAME"/>
+    <elementParameter field="TEXT" name="DBNAME" value="context.JDE_PY_CRPDTA_ServiceName"/>
+    <elementParameter field="TEXT" name="LOCAL_SERVICE_NAME" show="false" value="context.JDE_PY_CRPDTA_ServiceName"/>
+    <elementParameter field="TEXT" name="TABLESCHEMA" value="context.JDE_PY_CRPDTA_Schema"/>
+    <elementParameter field="TEXT" name="USER" value="context.JDE_PY_CRPDTA_Login"/>
+    <elementParameter field="PASSWORD" name="PASS" value="8pW6Nmy2kud3FKpXBoTLjuX624zslu6V6OZb3jnKlDQ="/>
+    <elementParameter field="DBTABLE" name="TABLE" value="&quot;F4706&quot;"/>
+    <elementParameter field="CLOSED_LIST" name="TABLE_ACTION" value="NONE"/>
+    <elementParameter field="LABEL" name="NOTE" show="false" value="Warning : this component configuration will automatically generate a commit before data insert/update/delete"/>
+    <elementParameter field="CLOSED_LIST" name="DATA_ACTION" value="INSERT"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA_FLOW:SCHEMA_TYPE" show="false" value="REPOSITORY"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA_FLOW:REPOSITORY_SCHEMA_TYPE" show="false" value="_YQjCMM0oEei0gMO4ZNgp9g - F4706"/>
+    <elementParameter field="LABEL" name="NOTE" value="This option only applies when deploying and running in the Talend Runtime"/>
+    <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" value="false"/>
+    <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
+    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false"/>
+    <elementParameter field="MAPPING_TYPE" name="MAPPING" show="false" value="oracle_id"/>
+    <elementParameter field="TEXT" name="JDBC_URL" show="false" value="&quot;jdbc:oracle:oci:/@talend&quot;"/>
+    <elementParameter field="TEXT" name="PROPERTIES" value="context.JDE_PY_CRPDTA_AdditionalParams"/>
+    <elementParameter field="LABEL" name="NOTE" value="*Note: Example for Additional JDBC Parameters: &quot;parameterName1=value1&amp;&amp;parameterName2=value2&quot;"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" show="false" value="&quot;ISO-8859-15&quot;"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter field="TEXT" name="COMMIT_EVERY" value="10000"/>
+    <elementParameter field="TABLE" name="ADD_COLS"/>
+    <elementParameter field="CHECK" name="USE_FIELD_OPTIONS" value="false"/>
+    <elementParameter field="TABLE" name="FIELD_OPTIONS" show="false">
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZAEDTY"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZAEDSQ"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZAEKCO"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZAEDOC"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZAEDCT"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZAEDLN"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZAEDSP"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZAEDBT"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZAFILE"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZADOCO"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZADCTO"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZAKCOO"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZAANTY"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZAAN8"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZAMLNM"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZAADD1"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZAADD2"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZAADD3"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZAADD4"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZAADDZ"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZACTY1"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZACOUN"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZAADDS"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZACRTE"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZABKML"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZACTR"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZATORG"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZAUSER"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZAPID"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZAJOBN"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZAUPMJ"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZATDAY"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZALNID"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ZAGAN8"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="USE_HINT_OPTIONS" value="false"/>
+    <elementParameter field="TABLE" name="HINT_OPTIONS" show="false"/>
+    <elementParameter field="CHECK" name="CONVERT_COLUMN_TABLE_TO_UPPERCASE" value="false"/>
+    <elementParameter field="CHECK" name="ENABLE_DEBUG_MODE" value="false"/>
+    <elementParameter field="CHECK" name="USE_BATCH_SIZE" value="true"/>
+    <elementParameter field="CHECK" name="USE_BATCH_AND_USE_CONN" show="false" value="false"/>
+    <elementParameter field="TEXT" name="BATCH_SIZE" value="10000"/>
+    <elementParameter field="CHECK" name="SUPPORT_NULL_WHERE" value="false"/>
+    <elementParameter field="CHECK" name="USE_TIMESTAMP_FOR_DATE_TYPE" value="true"/>
+    <elementParameter field="CHECK" name="TRIM_CHAR" value="true"/>
+    <elementParameter field="TEXT" name="LABEL" value="F4706"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" label="F4706" name="tOracleOutput_5">
+      <column comment="" key="false" length="1" name="ZAEDTY" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="ZAEDSQ" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="5" name="ZAEKCO" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="-1" name="ZAEDOC" nullable="false" pattern="" precision="-1" sourceType="NUMBER" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="2" name="ZAEDCT" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="-1" name="ZAEDLN" nullable="false" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="1" name="ZAEDSP" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="15" name="ZAEDBT" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="10" name="ZAFILE" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="ZADOCO" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="2" name="ZADCTO" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="5" name="ZAKCOO" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="1" name="ZAANTY" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="ZAAN8" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="40" name="ZAMLNM" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="40" name="ZAADD1" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="40" name="ZAADD2" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="40" name="ZAADD3" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="40" name="ZAADD4" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="12" name="ZAADDZ" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="25" name="ZACTY1" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="25" name="ZACOUN" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="3" name="ZAADDS" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="4" name="ZACRTE" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="2" name="ZABKML" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="3" name="ZACTR" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="10" name="ZATORG" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="10" name="ZAUSER" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="10" name="ZAPID" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="10" name="ZAJOBN" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="ZAUPMJ" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="ZATDAY" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="ZALNID" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="ZAGAN8" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <additionalProperties key="Comment" value=""/>
+    </metadata>
+    <metadata connector="REJECT" label="F4706" name="REJECT">
+      <column comment="" key="false" length="1" name="ZAEDTY" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="ZAEDSQ" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="5" name="ZAEKCO" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="-1" name="ZAEDOC" nullable="false" pattern="" precision="-1" sourceType="NUMBER" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="2" name="ZAEDCT" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="-1" name="ZAEDLN" nullable="false" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="1" name="ZAEDSP" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="15" name="ZAEDBT" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="10" name="ZAFILE" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="ZADOCO" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="2" name="ZADCTO" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="5" name="ZAKCOO" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="1" name="ZAANTY" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="ZAAN8" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="40" name="ZAMLNM" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="40" name="ZAADD1" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="40" name="ZAADD2" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="40" name="ZAADD3" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="40" name="ZAADD4" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="12" name="ZAADDZ" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="25" name="ZACTY1" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="25" name="ZACOUN" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="3" name="ZAADDS" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="4" name="ZACRTE" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="2" name="ZABKML" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="3" name="ZACTR" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="10" name="ZATORG" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="10" name="ZAUSER" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="10" name="ZAPID" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="10" name="ZAJOBN" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="ZAUPMJ" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="ZATDAY" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="ZALNID" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="ZAGAN8" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" originalLength="-1" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" originalLength="-1" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <additionalProperties key="Comment" value=""/>
+    </metadata>
+  </node>
   <node componentName="tOracleConnection" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="512" posY="32">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tOracleConnection_4"/>
     <elementParameter field="CLOSED_LIST" name="CONNECTION_TYPE" value="ORACLE_SERVICE_NAME"/>
@@ -9892,6 +9906,7 @@
   </node>
   <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="32" posY="640">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBInput_1"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" show="false" value=""/>
     <elementParameter field="CLOSED_LIST" name="CONNECTION_TYPE" value="ORACLE_SERVICE_NAME"/>
@@ -9913,7 +9928,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#10;  PRODDTA.F4780.AXANS8, &#10;  PRODDTA.F4780.AXXRTS, &#10;  PRODDTA.F4780.AXAN8, &#10;  PRODDTA.F4780.AXEXDJ, &#10;  PRODDTA.F4780.AXEFTJ, &#10;  PRODDTA.F4780.AXEXRA, &#10;  PRODDTA.F4780.AXALPH, &#10;  PRODDTA.F4780.AXDC, &#10;  PRODDTA.F4780.AXAX01, &#10;  PRODDTA.F4780.AXAX02, &#10;  PRODDTA.F4780.AXAX03, &#10;  PRODDTA.F4780.AXAX04, &#10;  PRODDTA.F4780.AXAX05, &#10;  PRODDTA.F4780.AXURCD, &#10;  PRODDTA.F4780.AXURDT, &#10;  PRODDTA.F4780.AXURAT, &#10;  PRODDTA.F4780.AXURAB, &#10;  PRODDTA.F4780.AXURRF, &#10;  PRODDTA.F4780.AXUSER, &#10;  PRODDTA.F4780.AXPID, &#10;  PRODDTA.F4780.AXJOBN, &#10;  PRODDTA.F4780.AXUPMJ, &#10;  PRODDTA.F4780.AXTDAY&#10;FROM PRODDTA.F4780\&quot;&#13;&#10;WHERE PRODDTA.F4780.AXXRTS='RP'&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#10;  PRODDTA.F4780.AXANS8, &#10;  PRODDTA.F4780.AXXRTS, &#10;  PRODDTA.F4780.AXAN8, &#10;  PRODDTA.F4780.AXEXDJ, &#10;  PRODDTA.F4780.AXEFTJ, &#10;  PRODDTA.F4780.AXEXRA, &#10;  PRODDTA.F4780.AXALPH, &#10;  PRODDTA.F4780.AXDC, &#10;  PRODDTA.F4780.AXAX01, &#10;  PRODDTA.F4780.AXAX02, &#10;  PRODDTA.F4780.AXAX03, &#10;  PRODDTA.F4780.AXAX04, &#10;  PRODDTA.F4780.AXAX05, &#10;  PRODDTA.F4780.AXURCD, &#10;  PRODDTA.F4780.AXURDT, &#10;  PRODDTA.F4780.AXURAT, &#10;  PRODDTA.F4780.AXURAB, &#10;  PRODDTA.F4780.AXURRF, &#10;  PRODDTA.F4780.AXUSER, &#10;  PRODDTA.F4780.AXPID, &#10;  PRODDTA.F4780.AXJOBN, &#10;  PRODDTA.F4780.AXUPMJ, &#10;  PRODDTA.F4780.AXTDAY&#10;FROM PRODDTA.F4780&#13;&#10;WHERE PRODDTA.F4780.AXXRTS='RP'&quot;"/>
     <elementParameter field="LABEL" name="NOTE" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -10053,6 +10068,7 @@
   </node>
   <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="224" posY="640">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tMap_2"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
     <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
     <elementParameter field="DIRECTORY" name="TEMPORARY_DATA_DIRECTORY" value=""/>
@@ -10109,6 +10125,7 @@
   </node>
   <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="416" posY="640">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileOutputDelimited_3"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="CHECK" name="USESTREAM" value="false"/>
     <elementParameter field="TEXT" name="STREAMNAME" show="false" value="outputStream"/>
     <elementParameter field="FILE" name="FILENAME" value="context.Chemin_WorkFiles+&quot;Po_Lien.csv&quot;"/>
@@ -10145,44 +10162,6 @@
       <column comment="" key="true" length="-1" name="AXAN8" nullable="false" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-    </metadata>
-  </node>
-  <node componentName="tSendMail" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="800" posY="448">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSendMail_1"/>
-    <elementParameter field="TEXT" name="TO" value="context.Dest_Mail"/>
-    <elementParameter field="TEXT" name="FROM" value="context.Exp_Mail"/>
-    <elementParameter field="CHECK" name="NEED_PERSONAL_NAME" value="false"/>
-    <elementParameter field="TEXT" name="PERSONAL_NAME" show="false" value="&quot;sender&quot;"/>
-    <elementParameter field="TEXT" name="CC" value="context.Cc_Mail"/>
-    <elementParameter field="TEXT" name="BCC" value=""/>
-    <elementParameter field="TEXT" name="SUBJECT" value="&quot;Liste des PO Jde - &quot;+TalendDate.getDate(&quot;DD-MM-CCYY hh:mm:ss&quot;)"/>
-    <elementParameter field="MEMO_MESSAGE" name="MESSAGE" value="&quot;Cordialement.&quot;"/>
-    <elementParameter field="CHECK" name="CHECK_ATTACHMENT" value="true"/>
-    <elementParameter field="TABLE" name="ATTACHMENTS">
-      <elementValue elementRef="FILE" value="context.Chemin_WorkFiles+&quot;Po_Impr_Jde.xls&quot;"/>
-      <elementValue elementRef="CONTENT_TRANSFER_ENCODING" value="DEFAULT"/>
-    </elementParameter>
-    <elementParameter field="TABLE" name="HEADERS"/>
-    <elementParameter field="TEXT" name="SMTP_HOST" value="&quot;smtp.lalique.lan&quot;"/>
-    <elementParameter field="TEXT" name="SMTP_PORT" value="25"/>
-    <elementParameter field="CHECK" name="SSL" value="false"/>
-    <elementParameter field="CHECK" name="STARTTLS" value="false"/>
-    <elementParameter field="CLOSED_LIST" name="IMPORTANCE" value="Normal"/>
-    <elementParameter field="CHECK" name="NEED_AUTH" value="false"/>
-    <elementParameter field="TEXT" name="AUTH_USERNAME" show="false" value="&quot;username&quot;"/>
-    <elementParameter field="PASSWORD" name="AUTH_PASSWORD" show="false" value="PoLvNyVG2XWndNDdLn696A=="/>
-    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true"/>
-    <elementParameter field="CLOSED_LIST" name="TEXT_SUBTYPE" value="plain"/>
-    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
-    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
-    <elementParameter field="CHECK" name="SET_LOCALHOST" value="false"/>
-    <elementParameter field="TEXT" name="LOCALHOST" show="false" value="&quot;localhost&quot;"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tSendMail_1">
-      <column comment="" key="false" length="-1" name="vendor_code" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="sbs_no" nullable="true" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="store_no" nullable="true" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="po_no" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tSendMail" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="800" posY="512">
@@ -10449,6 +10428,7 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Int_Po_Top"/>
   </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tOracleInput_1" offsetLabelX="0" offsetLabelY="0" source="tOracleInput_1" target="tDBInput_1">
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk4"/>
   </connection>
   <connection connectorName="FLOW" label="Po_Rpro" lineStyle="0" metaname="Po_Rpro" offsetLabelX="5" offsetLabelY="1" outputId="1" source="tMap_1" target="tFileOutputDelimited_1">
@@ -10580,6 +10560,10 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="V_Po_Qty"/>
   </connection>
+  <connection connectorName="FLOW" label="row5" lineStyle="0" metaname="tAggregateRow_4" offsetLabelX="0" offsetLabelY="0" source="tAggregateRow_4" target="tFileOutputExcel_1">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row5"/>
+  </connection>
   <connection connectorName="FLOW" label="row3" lineStyle="0" metaname="tAggregateRow_3" offsetLabelX="0" offsetLabelY="0" source="tAggregateRow_3" target="tMap_4">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row3"/>
@@ -10587,14 +10571,6 @@
   <connection connectorName="FLOW" label="Po_Sequence" lineStyle="0" metaname="Po_Sequence" offsetLabelX="0" offsetLabelY="0" source="tMap_4" target="tFileOutputDelimited_2">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Po_Sequence"/>
-  </connection>
-  <connection connectorName="FLOW" label="row5" lineStyle="0" metaname="tAggregateRow_4" offsetLabelX="0" offsetLabelY="0" source="tAggregateRow_4" target="tFileOutputExcel_1">
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row5"/>
-  </connection>
-  <connection connectorName="RUN_IF" label="If" lineStyle="6" metaname="tFileOutputExcel_1" offsetLabelX="0" offsetLabelY="0" source="tFileOutputExcel_1" target="tSendMail_1">
-    <elementParameter field="MEMO_JAVA" name="CONDITION" value="((Integer)globalMap.get(&quot;tFileOutputExcel_1_NB_LINE&quot;))&gt;0&#10;&#10;"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="If1"/>
   </connection>
   <connection connectorName="FLOW" label="row6" lineStyle="0" metaname="tAggregateRow_5" offsetLabelX="0" offsetLabelY="0" source="tAggregateRow_5" target="tSortRow_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
@@ -10630,6 +10606,7 @@
   </connection>
   <connection connectorName="FLOW" label="Po_Rp" lineStyle="0" metaname="tFileInputDelimited_2" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_2" target="tMap_3">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Po_Rp"/>
   </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputDelimited_2" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_2" target="tDBInput_2">
@@ -10646,6 +10623,7 @@
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Po_EnTete"/>
   </connection>
   <connection connectorName="FLOW" label="Po_Adresse_Livraison" lineStyle="0" metaname="Po_Adresse_Livraison" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_3" target="tAggregateRow_2">
@@ -10667,6 +10645,7 @@
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Po_Adresse_Livraison"/>
   </connection>
   <connection connectorName="FLOW" label="Po_Lignes" lineStyle="0" metaname="Po_Lignes" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tMap_3" target="tMap_7">
@@ -10685,6 +10664,7 @@
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Po_Lignes"/>
   </connection>
   <connection connectorName="FLOW" label="Rejets" lineStyle="0" metaname="Rejets" offsetLabelX="0" offsetLabelY="0" outputId="4" source="tMap_3" target="tLogRow_1">
@@ -10694,15 +10674,33 @@
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Rejets"/>
   </connection>
   <connection connectorName="FLOW" label="Po_Seq" lineStyle="8" metaname="tFileInputDelimited_3" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_3" target="tMap_3">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Po_Seq"/>
   </connection>
   <connection connectorName="FLOW" label="F0005" lineStyle="8" metaname="tOracleInput_6" offsetLabelX="0" offsetLabelY="0" source="tOracleInput_6" target="tMap_3">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F0005"/>
+  </connection>
+  <connection connectorName="FLOW" label="Po_Lien_I" lineStyle="8" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tMap_3">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Po_Lien_I"/>
+  </connection>
+  <connection connectorName="FLOW" label="row2" lineStyle="0" metaname="tAggregateRow_2" offsetLabelX="0" offsetLabelY="0" source="tAggregateRow_2" target="tMap_6">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row2"/>
+  </connection>
+  <connection connectorName="FLOW" label="F4706" lineStyle="0" metaname="F4706" offsetLabelX="0" offsetLabelY="0" source="tMap_6" target="tOracleOutput_5">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F4706"/>
   </connection>
   <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tAggregateRow_1" offsetLabelX="0" offsetLabelY="0" source="tAggregateRow_1" target="tMap_5">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
@@ -10711,26 +10709,17 @@
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row1"/>
   </connection>
   <connection connectorName="FLOW" label="F47011" lineStyle="0" metaname="F47011" offsetLabelX="0" offsetLabelY="0" source="tMap_5" target="tOracleOutput_4">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F47011"/>
-  </connection>
-  <connection connectorName="FLOW" label="Po_Lien_I" lineStyle="8" metaname="tFileInputDelimited_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_1" target="tMap_3">
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Po_Lien_I"/>
-  </connection>
-  <connection connectorName="FLOW" label="row2" lineStyle="0" metaname="tAggregateRow_2" offsetLabelX="0" offsetLabelY="0" source="tAggregateRow_2" target="tMap_6">
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row2"/>
-  </connection>
-  <connection connectorName="FLOW" label="F4706" lineStyle="0" metaname="F4706" offsetLabelX="0" offsetLabelY="0" source="tMap_6" target="tOracleOutput_5">
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F4706"/>
   </connection>
   <connection connectorName="FLOW" label="F47012" lineStyle="0" metaname="F47012" offsetLabelX="0" offsetLabelY="0" source="tMap_7" target="tOracleOutput_6">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F47012"/>
   </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tOracleConnection_4" offsetLabelX="-3" offsetLabelY="2" source="tOracleConnection_4" target="tSetGlobalVar_1">
@@ -10738,13 +10727,16 @@
   </connection>
   <connection connectorName="FLOW" label="row4" lineStyle="0" metaname="tDBInput_1" offsetLabelX="0" offsetLabelY="0" source="tDBInput_1" target="tMap_2">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row4"/>
   </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tDBInput_1" offsetLabelX="0" offsetLabelY="0" source="tDBInput_1" target="tFileInputDelimited_2">
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk10"/>
   </connection>
   <connection connectorName="FLOW" label="Po_Lien" lineStyle="0" metaname="Po_Lien" offsetLabelX="0" offsetLabelY="0" source="tMap_2" target="tFileOutputDelimited_3">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Po_Lien"/>
   </connection>
   <connection connectorName="FLOW" label="row18" lineStyle="0" metaname="tDBInput_2" offsetLabelX="0" offsetLabelY="0" source="tDBInput_2" target="tMap_8">
@@ -10846,11 +10838,6 @@
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
   <subjob>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSendMail_1"/>
-    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
-    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
-  </subjob>
-  <subjob>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSendMail_2"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
@@ -10862,13 +10849,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="160;190;240"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_afb26b77-a23e-4406-b9df-064bb596a5db"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>8RONqlsJ8uz1hFeMTV2rYj0bJHbnSK3zoGC08yXMtVn3S+d3arJSWV4+9UuelL63PNv2scaG7Hp/
-Ct92G1/Dcg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_1684a5f7-81da-49ea-8f45-dce0938b89bd"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>YJWkoETyh+0RM+XRwR9OYiOK8BM6jsFjpG9ezapfdjNVT4Yv/AIzNmEgkVo86RxTInsknxGIvFWE
-6ee+IXxFGw==</DigestValue></Reference></SignedInfo><SignatureValue>FmsTTsTKS58K9rCNhvho44XyU+vRnE3Dbls5kVaAqLGRy4QNtelLew7g/MXA8DlZVeya90/rXoE+
-IY9TjJc8SW83pauyfJyCmftfl+6rBMkc9+5hNPQEHPYEZqMDF489HxeaR+uUTERJ8ur/HtxCoot0
-F35Mq5Tj3XmZADdTMad0RKV4QK5rig7xfOQWWfua9l6yfahL22zHzXcVTCBGk5duciKq5Qs9mAQt
-HdFIppeJehnFDFPADVA1Y3tEDHDNPRyWcldCk+v1IsUhiSk15d8NnjG81Zv+rTphtc+jop5nm5q1
-gKrI/Kg+2nwN2O7TXlKOO17HXDPhI12qQXyTZg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_e94cfedd-7934-4862-a4cc-751f74ac1a8e"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>X1+AixNWhA+uY43IWwzAIN7kUxwhOHfaXZw5db0zebCc78pIWvSiMdbvwWFumkx+6PMxtKz+qClW
+izDGDvoFAA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_04df7ec4-0b54-4fe5-9f40-b62086ab66af"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>5VUFux4aC9legc5TrSzFyO0F+6rGrPzkmY7wcGo9A6Pw4TT+30aLi9w6Ne/c0krEAVuxPy68AMn8
+IoQ7bbJ5UQ==</DigestValue></Reference></SignedInfo><SignatureValue>L+xyVmdaHJDNPNyGdvp7z0DluJZcCgH+TU1aJcsn2lmseRUPk08PAdOHEsi65O7Ti5cf47psIJ2G
+jWGvouwyjapLln4xRLbGhC9Mpamfgpw0nPBcic0VOymrG2pFPftt9+Qi4iOqgbSXPG48CA+Wec+3
+G7N/8QPnbtQB3juRSwON9sPY3qinA1196ctyc0u1vM4FDfznM+AxhMVffukxv+RcnE37zIVsBjFO
+jWUrnbKecfec7NHxVFgLxV1brh6oX8GM3vksajKlfTI6aE6Fyd9LuO0MBNGALFpIM5YitD8Jul0P
+P7hBI+1pXL4zekS2JSMiL0IX6eRGvZOLy/nwQQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -10890,4 +10877,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_1684a5f7-81da-49ea-8f45-dce0938b89bd" Target="#_afb26b77-a23e-4406-b9df-064bb596a5db"><Timestamp>2021-03-31 16:46:39</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_04df7ec4-0b54-4fe5-9f40-b62086ab66af" Target="#_e94cfedd-7934-4862-a4cc-751f74ac1a8e"><Timestamp>2021-04-17 08:00:44</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
