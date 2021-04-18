@@ -427,7 +427,8 @@
       <column comment="" key="true" length="25" name="CLE_ENT" nullable="false" pattern="" precision="0" sourceType="NUMBER" type="id_Long" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="20" name="PO_NO" nullable="true" originalLength="20" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true">
+      <column comment="" key="false" length="-1" name="PO_NO" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="20" name="PO_NO_Lien" nullable="true" originalLength="20" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="5" name="FROM_SO" nullable="true" originalLength="5" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
@@ -454,7 +455,8 @@
         <mapperTableEntries expression="Int_Po_In.CREATED_DATE" name="CREATED_DATE" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Int_Po_In.PO_SID" name="PO_SID" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Int_Po_In.CLE_ENT" name="CLE_ENT" type="id_Long"/>
-        <mapperTableEntries expression="Var.Po_No + StringHandling.SPACE(25-StringHandling.LEN(Var.Po_No)) " name="PO_NO" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Int_Po_In.PO_NO " name="PO_NO" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Var.Po_No + StringHandling.SPACE(25-StringHandling.LEN(Var.Po_No)) " name="PO_NO_Lien" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Int_Po_In.FROM_SO" name="FROM_SO" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="Int_Po_In.SO_SID" name="SO_SID" nullable="true" type="id_Long"/>
         <mapperTableEntries expression="Int_Po_In.PO_TOP" name="PO_TOP" nullable="true" type="id_Integer"/>
@@ -563,6 +565,7 @@
         <mapperTableEntries name="PO_SID" nullable="true" type="id_String"/>
         <mapperTableEntries name="CLE_ENT" type="id_Long"/>
         <mapperTableEntries name="PO_NO" nullable="true" type="id_String"/>
+        <mapperTableEntries name="PO_NO_Lien" nullable="true" type="id_String"/>
         <mapperTableEntries name="FROM_SO" nullable="true" type="id_Integer"/>
         <mapperTableEntries name="SO_SID" nullable="true" type="id_Long"/>
         <mapperTableEntries name="PO_TOP" nullable="true" type="id_Integer"/>
@@ -5274,6 +5277,11 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Int_Po_In"/>
   </connection>
   <connection connectorName="FLOW" label="Int_Po_Out" lineStyle="0" metaname="Int_Po_Out" offsetLabelX="0" offsetLabelY="0" source="tMap_2" target="tMap_1">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="PO_NO_Lien"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Int_Po_Out"/>
   </connection>
@@ -5330,13 +5338,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_ff876642-37b6-4074-ad04-c66aa433833f"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>j+eSPLVo5ZpQX52b1AAZ5RYBBiK5LK7NzcfCMxy4bpgt98sMt50Ev8V8ybS8SZc742momA73Jb+8
-VNlXsGf2EA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_a4bb1daf-9feb-45ad-b4dd-2b193d75d139"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>L8Jj/dgDFJZot1z2qQWRKrm5IAKqyFeXV7kZoMpNQYjU3YAZgQ0ETevDMy8Mtuf2H8o+/KO96BrH
-YsQNCU99ew==</DigestValue></Reference></SignedInfo><SignatureValue>EQ9nTuT+6tDpx18ABFm8SWp9mho/mYw8T0+ccyD34vpPcKOwMK7rQaQsTT8C/+DwnrLwy439SuOg
-ITJrgKuUdBoSqEh44Jr8d1maXgUwX5sYmuy0Md+MVTQ0xqD5PMxjjd0Vljiiwcg8sz3DQpvcYrSK
-434LX3xIqlJrtjWySLlJ7sWvK48uLV7hCiKop/Dx7AOMSQXCSv1wdRD2gWgkWbN0inrzuLib3mB5
-JFy+iy5n6denyI+4qv3E6BzPbd6A33FCLzkPpXFad7yXVyRgOfMuubrGpdx+Xo5V8e+eI3QD3+mu
-I5Go1leEgM7blLqtI6vhSbzd6zsOtWmC4SS0GQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_4d8cadb4-9c3a-499c-9ec2-fe547979e74c"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>gSoOYti4ipakJ4wkWH/GRyyxh2rtVJdvP3x07YvYfqEMpuP0+Vm3xM4Uyf0ZlyoAQX6uHbul+wsC
+nq2ohpolnw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_eb3147d2-a90c-449f-8c39-a5f94d33d69e"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>gIwx8JsfoH7+Rduv14GP9QVttkJrU9vCAFPN8OYiMl1xWrs8SMn1zhA5R3SMkziAAq0DlW6Lhq9g
+he2QsTKcAQ==</DigestValue></Reference></SignedInfo><SignatureValue>lCYS/T8oLX4s0Q9kTi/K0/0C+qETv6h9LPV2sxz676A7MXn103TjlQralKM+nqQHGtJOSHbiCSog
+9lb8SENSA6Inwp/eaj/gZwg1MMk2gDSkdV2uEqfDcKw8gmf8rbQqHDkoVkcyPt8QKIM0iU2LAO6m
+UepuHEJoUIE+ZKTGvXtBSk4GFgHYU+iLyAMQ2LmvHv9DwOtsnhlM5z7wsYdy87BEEHjm03SxonuG
+afBu2kZnUf0TwMwq20gKWg9eOhVuwVL11QvnTOaEG7ZqVdV/wPLrk4BMFFUAub8w4NfB7UiLpggE
+qlW+6XZ8M5R9dOnwaYeE5Saje4QXx2UWJwUcUA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -5358,4 +5366,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_a4bb1daf-9feb-45ad-b4dd-2b193d75d139" Target="#_ff876642-37b6-4074-ad04-c66aa433833f"><Timestamp>2021-04-18 10:02:53</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_eb3147d2-a90c-449f-8c39-a5f94d33d69e" Target="#_4d8cadb4-9c3a-499c-9ec2-fe547979e74c"><Timestamp>2021-04-18 10:05:27</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
