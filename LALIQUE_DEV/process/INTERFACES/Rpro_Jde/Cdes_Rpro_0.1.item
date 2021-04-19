@@ -445,12 +445,6 @@
       </column>
       <column comment="" key="false" length="-1" name="Sequence" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
-    <metadata connector="FLOW" name="Po_Impr">
-      <column comment="" key="false" length="5" name="SBS_NO" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="5" name="STORE_NO" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="19" name="CREATED_DATE" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="19" name="PO_SID" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_String" usefulColumn="true"/>
-    </metadata>
     <metadata connector="FLOW" name="Po_Liste">
       <column comment="" key="false" length="-1" name="Fourn" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Filiale" nullable="true" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
@@ -458,7 +452,7 @@
       <column comment="" key="false" length="-1" name="No_Po" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="(&quot;4&quot; .equals (Param_Cdes_Rpro.Tr_LB_Jde) || &quot;6&quot; .equals (Param_Cdes_Rpro.Tr_LB_Jde)) ? Param_Cdes_Rpro.Tr_LB_Jde :&#13;&#10;V_So.COMMENTS != null &amp;&amp; V_So.COMMENTS .equals(&quot;EXPEDITION WINGEN&quot;) ? Param_Cdes_Rpro.Tr_LC_Jde : Param_Cdes_Rpro.Tr_LB_Jde " name="Transaction_Jde" type="id_Integer"/>
         <mapperTableEntries expression="Relational.ISNULL(V_So.TITLE) ? &quot;&quot; : V_So.TITLE " name="TITRE" type="id_String"/>
@@ -486,12 +480,6 @@
       <outputTables activateExpressionFilter="true" expressionFilter="(Po.VEND_CODE .equals (&quot;GLQ&quot;)) || &#13;&#10;((Po.VEND_CODE .equals (&quot;GLP&quot;) || Po.VEND_CODE .equals (&quot;AFR&quot;)) &amp;&amp; &#13;&#10;((Po.SBS_NO == 1 &amp;&amp; Po.SHIPTO_STORE_NO == 24) ||  (Po.SBS_NO == 2 &amp;&amp; Po.SHIPTO_STORE_NO == 6) ||&#13;&#10;(Po.SBS_NO == 3 &amp;&amp; Po.SHIPTO_STORE_NO == 5) ||&#13;&#10;(Po.SBS_NO == 16 &amp;&amp; Po.SHIPTO_STORE_NO == 2)))" name="Sequence" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="(4 == Var.Transaction_Jde || 6 == Var.Transaction_Jde) ? StringHandling.LEFT(Po.PO_NO,14) : Po.PO_NO " name="PO_NO" nullable="true" type="id_String"/>
         <mapperTableEntries expression="" name="Sequence" nullable="true" type="id_Integer"/>
-      </outputTables>
-      <outputTables name="Po_Impr" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="Int_Po_Top.SBS_NO " name="SBS_NO" nullable="true" type="id_Integer"/>
-        <mapperTableEntries expression="Int_Po_Top.STORE_NO " name="STORE_NO" nullable="true" type="id_Integer"/>
-        <mapperTableEntries expression="Int_Po_Top.CREATED_DATE " name="CREATED_DATE" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="Int_Po_Top.PO_SID " name="PO_SID" nullable="true" type="id_String"/>
       </outputTables>
       <outputTables name="Po_Liste" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Po.VEND_CODE " name="Fourn" nullable="true" type="id_String"/>
@@ -954,78 +942,7 @@
       <additionalProperties key="Comment" value=""/>
     </metadata>
   </node>
-  <node componentName="tAggregateRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="480" posY="448">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tAggregateRow_4"/>
-    <elementParameter field="TABLE" name="GROUPBYS">
-      <elementValue elementRef="OUTPUT_COLUMN" value="SBS_NO"/>
-      <elementValue elementRef="INPUT_COLUMN" value="SBS_NO"/>
-      <elementValue elementRef="OUTPUT_COLUMN" value="STORE_NO"/>
-      <elementValue elementRef="INPUT_COLUMN" value="STORE_NO"/>
-      <elementValue elementRef="OUTPUT_COLUMN" value="CREATED_DATE"/>
-      <elementValue elementRef="INPUT_COLUMN" value="CREATED_DATE"/>
-      <elementValue elementRef="OUTPUT_COLUMN" value="PO_SID"/>
-      <elementValue elementRef="INPUT_COLUMN" value="PO_SID"/>
-    </elementParameter>
-    <elementParameter field="TABLE" name="OPERATIONS"/>
-    <elementParameter field="TEXT" name="LIST_DELIMITER" value="&quot;,&quot;"/>
-    <elementParameter field="CHECK" name="USE_FINANCIAL_PRECISION" value="true"/>
-    <elementParameter field="CHECK" name="CHECK_TYPE_OVERFLOW" value="false"/>
-    <elementParameter field="CHECK" name="CHECK_ULP" value="false"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tAggregateRow_4">
-      <column comment="" key="false" length="5" name="SBS_NO" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="5" name="STORE_NO" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="19" name="CREATED_DATE" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="19" name="PO_SID" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_String" usefulColumn="true"/>
-    </metadata>
-  </node>
-  <node componentName="tFileOutputExcel" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="576" posY="448">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileOutputExcel_1"/>
-    <elementParameter field="CHECK" name="VERSION_2007" value="false"/>
-    <elementParameter field="CHECK" name="USESTREAM" value="false"/>
-    <elementParameter field="TEXT" name="STREAMNAME" show="false" value="outputStream"/>
-    <elementParameter field="FILE" name="FILENAME" value="context.Chemin_WorkFiles+&quot;Po_Impr_Jde.xls&quot;"/>
-    <elementParameter field="TEXT" name="SHEETNAME" value="&quot;Sheet1&quot;"/>
-    <elementParameter field="CHECK" name="INCLUDEHEADER" value="true"/>
-    <elementParameter field="CHECK" name="APPEND_FILE" value="false"/>
-    <elementParameter field="CHECK" name="APPEND_SHEET" show="false" value="false"/>
-    <elementParameter field="CHECK" name="FIRST_CELL_Y_ABSOLUTE" value="false"/>
-    <elementParameter field="TEXT" name="FIRST_CELL_X" show="false" value="0"/>
-    <elementParameter field="TEXT" name="FIRST_CELL_Y" show="false" value="0"/>
-    <elementParameter field="CHECK" name="KEEP_CELL_FORMATING" show="false" value="false"/>
-    <elementParameter field="CLOSED_LIST" name="FONT" value=""/>
-    <elementParameter field="CHECK" name="IS_ALL_AUTO_SZIE" value="false"/>
-    <elementParameter field="TABLE" name="AUTO_SZIE_SETTING">
-      <elementValue elementRef="SCHEMA_COLUMN" value="SBS_NO"/>
-      <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="STORE_NO"/>
-      <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="CREATED_DATE"/>
-      <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="PO_SID"/>
-      <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
-    </elementParameter>
-    <elementParameter field="CHECK" name="CREATE" value="true"/>
-    <elementParameter field="CHECK" name="FLUSHONROW" show="false" value="false"/>
-    <elementParameter field="TEXT" name="FLUSHONROW_NUM" show="false" value="100"/>
-    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
-    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" show="false" value="&quot;,&quot;"/>
-    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" show="false" value="&quot;.&quot;"/>
-    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
-    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
-    <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="false"/>
-    <elementParameter field="CHECK" name="RECALCULATE_FORMULA" show="false" value="true"/>
-    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
-    <elementParameter field="TEXT" name="LABEL" value="row5.xls"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tFileOutputExcel_1">
-      <column comment="" key="false" length="5" name="SBS_NO" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="5" name="STORE_NO" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
-      <column comment="" key="false" length="19" name="CREATED_DATE" nullable="true" pattern="" precision="0" sourceType="NVARCHAR2" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="19" name="PO_SID" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_String" usefulColumn="true"/>
-    </metadata>
-  </node>
-  <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="576" posY="320">
+  <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="576" posY="352">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileOutputDelimited_1"/>
     <elementParameter field="CHECK" name="USESTREAM" value="false"/>
     <elementParameter field="TEXT" name="STREAMNAME" show="false" value="outputStream"/>
@@ -1074,7 +991,7 @@
       <column comment="" key="false" length="-1" name="UniteMesure" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tAggregateRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="480" posY="384">
+  <node componentName="tAggregateRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="480" posY="416">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tAggregateRow_3"/>
     <elementParameter field="TABLE" name="GROUPBYS">
       <elementValue elementRef="OUTPUT_COLUMN" value="PO_NO"/>
@@ -1095,7 +1012,7 @@
       <column comment="" key="false" length="-1" name="Sequence" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="576" posY="384">
+  <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="576" posY="416">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tMap_4"/>
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
     <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
@@ -1130,7 +1047,7 @@
       </inputTables>
     </nodeData>
   </node>
-  <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="672" posY="384">
+  <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="672" posY="416">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileOutputDelimited_2"/>
     <elementParameter field="CHECK" name="USESTREAM" value="false"/>
     <elementParameter field="TEXT" name="STREAMNAME" show="false" value="outputStream"/>
@@ -10269,7 +10186,7 @@
       <column comment="" key="false" length="-1" name="DATE_INT" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties shellMaximized="true"/>
+      <uiProperties/>
       <varTables name="Var" sizeState="INTERMEDIATE"/>
       <outputTables name="Int_Po_Top_Maj" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="row18.SBS_NO " name="SBS_NO" nullable="true" type="id_Integer"/>
@@ -10419,7 +10336,7 @@
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tOracleInput_1" offsetLabelX="0" offsetLabelY="0" source="tOracleInput_1" target="tDBInput_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk4"/>
   </connection>
-  <connection connectorName="FLOW" label="Po_Rpro" lineStyle="0" metaname="Po_Rpro" offsetLabelX="5" offsetLabelY="1" outputId="1" source="tMap_1" target="tFileOutputDelimited_1">
+  <connection connectorName="FLOW" label="Po_Rpro" lineStyle="0" metaname="Po_Rpro" offsetLabelX="1" offsetLabelY="-26" outputId="1" source="tMap_1" target="tFileOutputDelimited_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Po_Rpro"/>
   </connection>
@@ -10427,11 +10344,7 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Sequence"/>
   </connection>
-  <connection connectorName="FLOW" label="Po_Impr" lineStyle="0" metaname="Po_Impr" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tMap_1" target="tAggregateRow_4">
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Po_Impr"/>
-  </connection>
-  <connection connectorName="FLOW" label="Po_Liste" lineStyle="0" metaname="Po_Liste" offsetLabelX="0" offsetLabelY="0" outputId="4" source="tMap_1" target="tAggregateRow_5">
+  <connection connectorName="FLOW" label="Po_Liste" lineStyle="0" metaname="Po_Liste" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tMap_1" target="tAggregateRow_5">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Po_Liste"/>
   </connection>
@@ -10548,10 +10461,6 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="V_Po_Qty"/>
   </connection>
-  <connection connectorName="FLOW" label="row5" lineStyle="0" metaname="tAggregateRow_4" offsetLabelX="0" offsetLabelY="0" source="tAggregateRow_4" target="tFileOutputExcel_1">
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row5"/>
-  </connection>
   <connection connectorName="FLOW" label="row3" lineStyle="0" metaname="tAggregateRow_3" offsetLabelX="0" offsetLabelY="0" source="tAggregateRow_3" target="tMap_4">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row3"/>
@@ -10599,24 +10508,9 @@
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputDelimited_2" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_2" target="tDBInput_2">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk11"/>
   </connection>
-  <connection connectorName="FLOW" label="Rejets" lineStyle="0" metaname="Rejets" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_3" target="tLogRow_1">
+  <connection connectorName="FLOW" label="Po_EnTete" lineStyle="0" metaname="Po_EnTete" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_3" target="tAggregateRow_1">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
-      <elementValue elementRef="TRACE_COLUMN" value="AXEXRA"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-    </elementParameter>
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Rejets"/>
-  </connection>
-  <connection connectorName="FLOW" label="Po_Lignes" lineStyle="0" metaname="Po_Lignes" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_3" target="tMap_7">
-    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
-      <elementValue elementRef="TRACE_COLUMN" value="Transaction_Jde"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
       <elementValue elementRef="TRACE_COLUMN" value="Sequence"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="UniteMesure"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
       <elementValue elementRef="TRACE_COLUMN" value="Date_Liv"/>
@@ -10624,9 +10518,9 @@
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Po_Lignes"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Po_EnTete"/>
   </connection>
-  <connection connectorName="FLOW" label="Po_Adresse_Livraison" lineStyle="0" metaname="Po_Adresse_Livraison" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tMap_3" target="tAggregateRow_2">
+  <connection connectorName="FLOW" label="Po_Adresse_Livraison" lineStyle="0" metaname="Po_Adresse_Livraison" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_3" target="tAggregateRow_2">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="Lien_Edi"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
@@ -10647,9 +10541,15 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Po_Adresse_Livraison"/>
   </connection>
-  <connection connectorName="FLOW" label="Po_EnTete" lineStyle="0" metaname="Po_EnTete" offsetLabelX="0" offsetLabelY="0" outputId="4" source="tMap_3" target="tAggregateRow_1">
+  <connection connectorName="FLOW" label="Po_Lignes" lineStyle="0" metaname="Po_Lignes" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tMap_3" target="tMap_7">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="Transaction_Jde"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
       <elementValue elementRef="TRACE_COLUMN" value="Sequence"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="UniteMesure"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
       <elementValue elementRef="TRACE_COLUMN" value="Date_Liv"/>
@@ -10657,7 +10557,16 @@
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Po_EnTete"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Po_Lignes"/>
+  </connection>
+  <connection connectorName="FLOW" label="Rejets" lineStyle="0" metaname="Rejets" offsetLabelX="0" offsetLabelY="0" outputId="4" source="tMap_3" target="tLogRow_1">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="AXEXRA"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Rejets"/>
   </connection>
   <connection connectorName="FLOW" label="Po_Seq" lineStyle="8" metaname="tFileInputDelimited_3" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_3" target="tMap_3">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
@@ -10821,13 +10730,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="160;190;240"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="220;220;250"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_74fde16e-f12e-4784-9b0b-29a5fd49df02"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>IsZ7pv0aPyQt+yE6YBxlSkNiJcvx1bsz72yYvbynN3Me8+MEMUME72tefYqyeSceXnyIJ5H5tp8S
-8xWURqkxLg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_28ad3ae1-0d83-4a99-9c75-04e32fc1e4a4"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>uuZM+0dTkuocRNWrVPulLme4zJL0AcjFJJnn9HaUaCY/wna6Rg8niA+c2eK7yO2kg3FASykhdYkG
-/twFRlqWXg==</DigestValue></Reference></SignedInfo><SignatureValue>H/CU/TY4uCghdBVHXmqnNOw+E0hOZ129MSCYHU5nK850zaAgIoYSizpMgFkxLz9SryAQ9xTAm3e2
-dnVeIV+EThwcKRX3ELEUAEepIL9+ieSzI+5zdPWTxM0jsO4XeDU3u3UZf+NoIvShPmxHNL0QhRc0
-6405cz2YUc+gGwxlApAYXGejy4DYTxuQIL+ALRmAz/uf5f5U6jgYqGpyxMZvl6z/uQqe0IAy5qUL
-ulMsfbtXc0v2DMiTsxsml/zvwt8eDlhg4djVCXKbuJuhuTmdaLAmcn2AHwZN8vrEn+W9HOyJZxlZ
-+OupigVj1v5trc+7AzmfN3WilMiLNoVFMlASPA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_9967cd5d-af6e-405a-8804-988f46032825"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Y4rBn4s/Le0qy2OuT93g/mol2RTwfM9l1epw3lQfdYQdNWcs9ELzYKU0guVUnuR3UYvFq1QTpHO9
+OI2yaVLlmw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_46ec66a4-dd69-4292-a0d1-62b56bdb7265"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>mxzYvmKzwBtS2ZZQW903HHF7xzQovNAhR79S7IIyOgnRj9bCLUM7uG6Ya4S6mKFCU/kx1F+yD5vH
+iuq4L/+xIw==</DigestValue></Reference></SignedInfo><SignatureValue>Sn8HZ0U2Np+rkE8S8JikGAGWit0cmyouv//kNZR0AJsiBH2DayO0jM5izeXOLd3uvMcdt4H075QT
+96ewE2wTuKZRydmZ340B/jZTIVh4hTcqOB+noEiOsPVHUgFMGQyoPM1JNhwOTb79/EezauVCrsO8
+0ZsKxTsqHICmdw/29DzE7rRJEItIsJiAjL/6yP6C8B0jDtlRP/+S58dFLQAekmy25LoPa4lLgYGP
+2Zq1UxiYCkuyWNaQuum2YpoAwAAK6Y8nU/uFXAA3fNsLUKrCFAxYsGcsIr01R25rJ8PtoqszhS1P
+v/1zSmJBaB3R3Q86UEZJngdp34xDhxqz2CWMag==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -10849,4 +10758,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_28ad3ae1-0d83-4a99-9c75-04e32fc1e4a4" Target="#_74fde16e-f12e-4784-9b0b-29a5fd49df02"><Timestamp>2021-04-18 08:58:38</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_46ec66a4-dd69-4292-a0d1-62b56bdb7265" Target="#_9967cd5d-af6e-405a-8804-988f46032825"><Timestamp>2021-04-19 08:24:33</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
