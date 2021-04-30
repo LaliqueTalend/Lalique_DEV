@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><talendfile:ProcessType xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmlns:TalendMapper="http://www.talend.org/mapper" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" defaultContext="Test" jobType="Standard" xmi:version="2.0">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><talendfile:ProcessType xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmlns:TalendMapper="http://www.talend.org/mapper" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" defaultContext="Prod" jobType="Standard" xmi:version="2.0">
   <context confirmationNeeded="false" name="Prod">
     <contextParameter comment="" name="EGX_AdditionalParams" prompt="EGX_AdditionalParams?" promptNeeded="false" repositoryContextId="_mVqRAAtlEeW0saFt_gCqpQ" type="id_String" value=""/>
     <contextParameter comment="" name="EGX_Login" prompt="EGX_Login?" promptNeeded="false" repositoryContextId="_mVqRAAtlEeW0saFt_gCqpQ" type="id_String" value="SOC1"/>
@@ -1834,7 +1834,7 @@
       <additionalProperties key="Comment" value=""/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties shellMaximized="true"/>
+      <uiProperties/>
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="EnTete_Cde_.Transaction == 101 || EnTete_Cde_.Transaction == 131 ? 10 :&#13;&#10;EnTete_Cde_.Transaction == 111 || EnTete_Cde_.Transaction == 132 ? 11 :&#13;&#10;EnTete_Cde_.Transaction == 121 || EnTete_Cde_.Transaction == 133 ? 12 : EnTete_Cde_.Transaction " name="Transaction" type="id_Integer"/>
         <mapperTableEntries expression="JDE.convertToJulian(StringHandling.RIGHT(EnTete_Cde_.Date_Liv,2) + StringHandling.LEFT(StringHandling.RIGHT(EnTete_Cde_.Date_Liv,4),2) + StringHandling.LEFT(EnTete_Cde_.Date_Liv,4))  " name="RSDJ" type="id_Integer"/>
@@ -6062,12 +6062,12 @@
       <column comment="" key="false" length="-1" name="Num_Lot" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties shellMaximized="true"/>
+      <uiProperties/>
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="&quot;STD&quot;.equals(Lignes.Art_MTO) &amp;&amp; Lignes.Transaction &gt; 100 " name="Personnalisation" type="id_Boolean"/>
         <mapperTableEntries expression="Lignes.Transaction == 101  ? 10 :&#13;&#10;Lignes.Transaction == 111  ? 11 :&#13;&#10;Lignes.Transaction == 121  ? 12 : Lignes.Transaction " name="Transaction" type="id_Integer"/>
       </varTables>
-      <outputTables activateColumnNameFilter="true" columnNameFilter="LNT" name="F47012" sizeState="INTERMEDIATE">
+      <outputTables activateColumnNameFilter="true" columnNameFilter="" name="F47012" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="&quot; &quot;" name="SZEDTY" nullable="true" type="id_String"/>
         <mapperTableEntries expression="(float)0" name="SZEDSQ" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="&quot;00010&quot;" name="SZEKCO" type="id_String"/>
@@ -6125,7 +6125,7 @@
         <mapperTableEntries expression=" &quot; &quot;" name="SZFRGD" nullable="true" type="id_String"/>
         <mapperTableEntries expression=" &quot; &quot;" name="SZTHGD" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Lignes.Tx_Rem * (float)1000 " name="SZFRMP" nullable="true" type="id_Float"/>
-        <mapperTableEntries expression="(float)0" name="SZTHRP" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="Lignes.Tx_Rem &gt; 0 ? (float)2000 : (float)0" name="SZTHRP" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="(float)0" name="SZEXDP" nullable="true" type="id_Float"/>
         <mapperTableEntries expression=" &quot; &quot;" name="SZDSC1" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;&quot; .equals(StringHandling.CHANGE(Lignes.Num_Lot,&quot; &quot;,&quot;&quot;)) ? &quot;&quot; : &quot;SER:&quot; + StringHandling.CHANGE(Lignes.Num_Lot,&quot; &quot;,&quot;&quot;) " name="SZDSC2" nullable="true" type="id_String"/>
@@ -10441,6 +10441,7 @@
   </node>
   <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="1312">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileInputDelimited_9"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="LABEL" name="FILENAMETEXT" value="&quot;When the input source is a stream or a zip file,footer and random shouldn't be bigger than 0.&quot;"/>
     <elementParameter field="FILE" name="FILENAME" value="&quot;C:/Interfaces/Workspace/Reprises/Cdes/Adresses_Cdes.csv&quot;"/>
     <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
@@ -10577,6 +10578,7 @@
   </node>
   <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="288" posY="1312">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tMap_13"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
     <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
     <elementParameter field="DIRECTORY" name="TEMPORARY_DATA_DIRECTORY" value=""/>
@@ -10695,7 +10697,7 @@
       <additionalProperties key="Comment" value=""/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties shellMaximized="true"/>
+      <uiProperties/>
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
       <outputTables activateColumnNameFilter="true" columnNameFilter="" name="F4706" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="&quot; &quot;" name="ZAEDTY" nullable="true" type="id_String"/>
@@ -10749,6 +10751,7 @@
   </node>
   <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="448" posY="1312">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileOutputDelimited_7"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="CHECK" name="USESTREAM" value="false"/>
     <elementParameter field="TEXT" name="STREAMNAME" show="false" value="outputStream"/>
     <elementParameter field="FILE" name="FILENAME" value="&quot;C:/Interfaces/Workspace/Reprises/Cdes/F4706.csv&quot;"/>
@@ -10886,6 +10889,7 @@
   </node>
   <node componentName="tOracleOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="608" posY="1312">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tOracleOutput_3"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="true"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="tOracleConnection_3"/>
     <elementParameter field="CLOSED_LIST" name="CONNECTION_TYPE" show="false" value="ORACLE_SERVICE_NAME"/>
@@ -11848,7 +11852,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#10;  SOC1.EVE.ACHVTE, &#10;  SOC1.EVE.TYPEVE, &#10;  SOC1.EVE.NUMEVE, &#10;  SOC1.EVE.SIGTIE, &#10;  SOC1.EVE.TYPTIE, &#10;  SOC1.EVE.NUMVER, &#10;  SOC1.EVE.DATEVE, &#10;  SOC1.EVE.DATVAL, &#10;  SOC1.EVE.DATCRE, &#10;  SOC1.EVE.DATLIV, &#10;  SOC1.EVE.TYPEVO, &#10;  SOC1.EVE.NUMEVO, &#10;  SOC1.EVE.NBRFAC, &#10;  SOC1.EVE.TYPFAC, &#10;  SOC1.EVE.CODURG, &#10;  SOC1.EVE.CODETA, &#10;  SOC1.EVE.CODCTG, &#10;  SOC1.EVE.REFEXT, &#10;  SOC1.EVE.NUMCNT, &#10;  SOC1.EVE.CODDEV, &#10;  SOC1.EVE.PARDEV, &#10;  SOC1.EVE.NUMADR, &#10;  SOC1.EVE.MODLIV, &#10;  SOC1.EVE.SIGTRA, &#10;  SOC1.EVE.MODTRA, &#10;  SOC1.EVE.NBRREL, &#10;  SOC1.EVE.NUMREL, &#10;  SOC1.EVE.DATACO, &#10;  SOC1.EVE.MONACO, &#10;  SOC1.EVE.TAUESC, &#10;  SOC1.EVE.DATCLI, &#10;  SOC1.EVE.CODBLO, &#10;  SOC1.EVE.DATBLO, &#10;  SOC1.EVE.EXICVC, &#10;  SOC1.EVE.EXICVM, &#10;  SOC1.EVE.EXITXT, &#10;  SOC1.EVE.CUMHT, &#10;  SOC1.EVE.CUMTTC, &#10;  SOC1.EVE.SIGREP, &#10;  SOC1.EVE.CODANA, &#10;  SOC1.EVE.MODRGL, &#10;  SOC1.EVE.DELRGL, &#10;  SOC1.EVE.CODDPT, &#10;  SOC1.EVE.CODQUA, &#10;  SOC1.EVE.TOTCOL, &#10;  SOC1.EVE.SIGDEP, &#10;  SOC1.EVE.DATMOD, &#10;  SOC1.EVE.UTIMOD, &#10;  SOC1.EVE.POSFIS, &#10;  SOC1.EVE.TOTHT, &#10;  SOC1.EVE.CODTVA, &#10;  SOC1.EVE.CUMPR, &#10;  SOC1.EVE.LIBCOM, &#10;  SOC1.EVE.TAUREM, &#10;  SOC1.EVE.MONREM, &#10;  SOC1.EVE.CODANA1, &#10;  SOC1.EVE.CODANA2, &#10;  SOC1.EVE.TAUCOM, &#10;  SOC1.EVE.TYPREM, &#10;  SOC1.EVE.ACHVTO, &#10;  SOC1.EVE.PERFAC, &#10;  SOC1.EVE.CAMION, &#10;  SOC1.EVE.INDAPR, &#10;  SOC1.EVE.TOTTTC, &#10;  SOC1.EVE.DATEDI, &#10;  SOC1.EVE.INDEDI, &#10;  SOC1.EVE.INDSOL, &#10;  SOC1.EVE.ACHVTS, &#10;  SOC1.EVE.TYPEVS, &#10;  SOC1.EVE.NUMEVS, &#10;  SOC1.EVE.PEREVE, &#10;  SOC1.EVE.PERLIV, &#10;  SOC1.EVE.INDEPU, &#10;  SOC1.EVE.CODBAR, &#10;  SOC1.EVE.DATEXP, &#10;  SOC1.EVE.PERVAL, &#10;  SOC1.EVE.PEREXP, &#10;  SOC1.EVE.ANNEVE, &#10;  SOC1.EVE.ANNLIV, &#10;  SOC1.EVE.ANNVAL, &#10;  SOC1.EVE.ANNEXP, &#10;  SOC1.EVE.ACHBCH, &#10;  SOC1.EVE.TYPBCH, &#10;  SOC1.EVE.NUMBCH, &#10;  SOC1.EVE.INDINT, &#10;  SOC1.EVE.DELLIV, &#10;  SOC1.EVE.DELENG, &#10;  SOC1.EVE.SIGMAG, &#10;  SOC1.EVE.DATRGL, &#10;  SOC1.EVE.CODTRN, &#10;  SOC1.EVE.CODPOS, &#10;  SOC1.EVE.MONREMFAC, &#10;  SOC1.EVE.TAUREM2, &#10;  SOC1.EVE.TAUREM3, &#10;  SOC1.EVE.DATENG, &#10;  SOC1.EVE.SIGACT, &#10;  SOC1.EVE.GELEVE, &#10;  SOC1.EVE.POSHIE, &#10;  SOC1.EVE.EDITRT, &#10;  SOC1.EVE.SIGVAL, &#10;  SOC1.EVE.ORDEVS, &#10;  SOC1.EVE.BATIMENT, &#10;  SOC1.EVE.TYPLIV, &#10;  SOC1.EVE.SIGLIV, &#10;  SOC1.EVE.NUMATT, &#10;  SOC1.EVE.CODSOC, &#10;  SOC1.EVE.MODLOC, &#10;  SOC1.EVE.FACREL, &#10;  SOC1.EVE.CODASS, &#10;  SOC1.EVE.EDICTS, &#10;  SOC1.EVE.RELICA, &#10;  SOC1.EVE.ETBCOD, &#10;  SOC1.EVE.ETSSTATUT, &#10;  SOC1.EVE.ACHVTT, &#10;  SOC1.EVE.CODSIT1, &#10;  SOC1.EVE.NUMVOY, &#10;  SOC1.EVE.NUMFIL, &#10;  SOC1.EVE.TAUAGIO, &#10;  SOC1.EVE.MONESC, &#10;  SOC1.EVE.MONAGIO, &#10;  SOC1.EVE.TAUESCD, &#10;  SOC1.EVE.NCOTAT, &#10;  SOC1.EVE.TAUCA, &#10;  SOC1.EVE.P_RIBCOD, &#10;  SOC1.EVE.P_ECRNUM, &#10;  SOC1.EVE.CODEOP, &#10;  SOC1.EVE.NUMADR_I, &#10;  SOC1.EVE.ACHVTEISE, &#10;  SOC1.EVE.TYPISE, &#10;  SOC1.EVE.NUMISE, &#10;  SOC1.EVE.SIGTRS, &#10;  SOC1.EVE.NUMLCR, &#10;  SOC1.EVE.BATVOL, &#10;  SOC1.EVE.CMPNIE, &#10;  SOC1.EVE.NLTA, &#10;  SOC1.EVE.DATDEP, &#10;  SOC1.EVE.DATARR, &#10;  SOC1.EVE.HEUARR, &#10;  SOC1.EVE.HEUDEP, &#10;  SOC1.EVE.GUIDRGL, &#10;  SOC1.EVE.ACHVTE_CAT, &#10;  SOC1.EVE.CODCAT, &#10;  SOC1.EVE.HEUEXP1, &#10;  SOC1.EVE.HEUEXP2, &#10;  SOC1.EVE.HEUEVE, &#10;  SOC1.EVE.HEUVALI, &#10;  SOC1.EVE.HEULIV1, &#10;  SOC1.EVE.HEULIV2, &#10;  SOC1.EVE.TYPGEL, &#10;  SOC1.EVE.NUMGEL, &#10;  SOC1.EVE.CODRGM, &#10;  SOC1.EVE.CODVHC, &#10;  SOC1.EVE.CHRONO, &#10;  SOC1.EVE.NUMCTC, &#10;  SOC1.EVE.TYPCPR, &#10;  SOC1.EVE.CODCB, &#10;  SOC1.EVE.STATUT6, &#10;  SOC1.EVE.MODAPPRO, &#10;  SOC1.EVE.SIGLIE_EMB, &#10;  SOC1.EVE.SIGLIE_DEB, &#10;  SOC1.EVE.CODPAY_DEP, &#10;  SOC1.EVE.CODPAY_EMB, &#10;  SOC1.EVE.CODPAY_DEB, &#10;  SOC1.EVE.CODJAL, &#10;  SOC1.EVE.INDFAC, &#10;  SOC1.EVE.ACHVTA, &#10;  SOC1.EVE.TYPEVA, &#10;  SOC1.EVE.NUMEVA, &#10;  SOC1.EVE.CODSOC_O, &#10;  SOC1.EVE.CODSOC_S, &#10;  SOC1.EVE.CODFIL, &#10;  SOC1.EVE.CODMGF, &#10;  SOC1.EVE.CODFLUX, &#10;  SOC1.EVE.MINCDE, &#10;  SOC1.EVE.MINFRA, &#10;  SOC1.EVE.INDGESFIL, &#10;  SOC1.EVE.CODSOC_CNT, &#10;  SOC1.EVE.CODSOC_ACH, &#10;  SOC1.EVE.MODTTC, &#10;  SOC1.EVE.DATCONFLIM, &#10;  SOC1.EVE.STATUT_EVE&#10;FROM SOC1.EVE&#13;&#10;WHERE SOC1.EVE.CODSOC=11&#13;&#10;AND SOC1.EVE.ACHVTE = 'V'&#13;&#10;AND SOC1.EVE.TYPEVE='CDV'&#13;&#10;AND SOC1.EVE.CODCTG IN ('SD','SF','RP','EC','CB','CS','CO')&#13;&#10;AND SOC1.EVE.SIGDEP in ('COM','DECO')&#13;&#10;AND SOC1.EVE.CODETA='V'&#13;&#10;AND SOC1.EVE.DATCRE &gt;= 20190701&#13;&#10;/*AND  SOC1.EVE.NUMEVE=419539*/   &quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#10;  SOC1.EVE.ACHVTE, &#10;  SOC1.EVE.TYPEVE, &#10;  SOC1.EVE.NUMEVE, &#10;  SOC1.EVE.SIGTIE, &#10;  SOC1.EVE.TYPTIE, &#10;  SOC1.EVE.NUMVER, &#10;  SOC1.EVE.DATEVE, &#10;  SOC1.EVE.DATVAL, &#10;  SOC1.EVE.DATCRE, &#10;  SOC1.EVE.DATLIV, &#10;  SOC1.EVE.TYPEVO, &#10;  SOC1.EVE.NUMEVO, &#10;  SOC1.EVE.NBRFAC, &#10;  SOC1.EVE.TYPFAC, &#10;  SOC1.EVE.CODURG, &#10;  SOC1.EVE.CODETA, &#10;  SOC1.EVE.CODCTG, &#10;  SOC1.EVE.REFEXT, &#10;  SOC1.EVE.NUMCNT, &#10;  SOC1.EVE.CODDEV, &#10;  SOC1.EVE.PARDEV, &#10;  SOC1.EVE.NUMADR, &#10;  SOC1.EVE.MODLIV, &#10;  SOC1.EVE.SIGTRA, &#10;  SOC1.EVE.MODTRA, &#10;  SOC1.EVE.NBRREL, &#10;  SOC1.EVE.NUMREL, &#10;  SOC1.EVE.DATACO, &#10;  SOC1.EVE.MONACO, &#10;  SOC1.EVE.TAUESC, &#10;  SOC1.EVE.DATCLI, &#10;  SOC1.EVE.CODBLO, &#10;  SOC1.EVE.DATBLO, &#10;  SOC1.EVE.EXICVC, &#10;  SOC1.EVE.EXICVM, &#10;  SOC1.EVE.EXITXT, &#10;  SOC1.EVE.CUMHT, &#10;  SOC1.EVE.CUMTTC, &#10;  SOC1.EVE.SIGREP, &#10;  SOC1.EVE.CODANA, &#10;  SOC1.EVE.MODRGL, &#10;  SOC1.EVE.DELRGL, &#10;  SOC1.EVE.CODDPT, &#10;  SOC1.EVE.CODQUA, &#10;  SOC1.EVE.TOTCOL, &#10;  SOC1.EVE.SIGDEP, &#10;  SOC1.EVE.DATMOD, &#10;  SOC1.EVE.UTIMOD, &#10;  SOC1.EVE.POSFIS, &#10;  SOC1.EVE.TOTHT, &#10;  SOC1.EVE.CODTVA, &#10;  SOC1.EVE.CUMPR, &#10;  SOC1.EVE.LIBCOM, &#10;  SOC1.EVE.TAUREM, &#10;  SOC1.EVE.MONREM, &#10;  SOC1.EVE.CODANA1, &#10;  SOC1.EVE.CODANA2, &#10;  SOC1.EVE.TAUCOM, &#10;  SOC1.EVE.TYPREM, &#10;  SOC1.EVE.ACHVTO, &#10;  SOC1.EVE.PERFAC, &#10;  SOC1.EVE.CAMION, &#10;  SOC1.EVE.INDAPR, &#10;  SOC1.EVE.TOTTTC, &#10;  SOC1.EVE.DATEDI, &#10;  SOC1.EVE.INDEDI, &#10;  SOC1.EVE.INDSOL, &#10;  SOC1.EVE.ACHVTS, &#10;  SOC1.EVE.TYPEVS, &#10;  SOC1.EVE.NUMEVS, &#10;  SOC1.EVE.PEREVE, &#10;  SOC1.EVE.PERLIV, &#10;  SOC1.EVE.INDEPU, &#10;  SOC1.EVE.CODBAR, &#10;  SOC1.EVE.DATEXP, &#10;  SOC1.EVE.PERVAL, &#10;  SOC1.EVE.PEREXP, &#10;  SOC1.EVE.ANNEVE, &#10;  SOC1.EVE.ANNLIV, &#10;  SOC1.EVE.ANNVAL, &#10;  SOC1.EVE.ANNEXP, &#10;  SOC1.EVE.ACHBCH, &#10;  SOC1.EVE.TYPBCH, &#10;  SOC1.EVE.NUMBCH, &#10;  SOC1.EVE.INDINT, &#10;  SOC1.EVE.DELLIV, &#10;  SOC1.EVE.DELENG, &#10;  SOC1.EVE.SIGMAG, &#10;  SOC1.EVE.DATRGL, &#10;  SOC1.EVE.CODTRN, &#10;  SOC1.EVE.CODPOS, &#10;  SOC1.EVE.MONREMFAC, &#10;  SOC1.EVE.TAUREM2, &#10;  SOC1.EVE.TAUREM3, &#10;  SOC1.EVE.DATENG, &#10;  SOC1.EVE.SIGACT, &#10;  SOC1.EVE.GELEVE, &#10;  SOC1.EVE.POSHIE, &#10;  SOC1.EVE.EDITRT, &#10;  SOC1.EVE.SIGVAL, &#10;  SOC1.EVE.ORDEVS, &#10;  SOC1.EVE.BATIMENT, &#10;  SOC1.EVE.TYPLIV, &#10;  SOC1.EVE.SIGLIV, &#10;  SOC1.EVE.NUMATT, &#10;  SOC1.EVE.CODSOC, &#10;  SOC1.EVE.MODLOC, &#10;  SOC1.EVE.FACREL, &#10;  SOC1.EVE.CODASS, &#10;  SOC1.EVE.EDICTS, &#10;  SOC1.EVE.RELICA, &#10;  SOC1.EVE.ETBCOD, &#10;  SOC1.EVE.ETSSTATUT, &#10;  SOC1.EVE.ACHVTT, &#10;  SOC1.EVE.CODSIT1, &#10;  SOC1.EVE.NUMVOY, &#10;  SOC1.EVE.NUMFIL, &#10;  SOC1.EVE.TAUAGIO, &#10;  SOC1.EVE.MONESC, &#10;  SOC1.EVE.MONAGIO, &#10;  SOC1.EVE.TAUESCD, &#10;  SOC1.EVE.NCOTAT, &#10;  SOC1.EVE.TAUCA, &#10;  SOC1.EVE.P_RIBCOD, &#10;  SOC1.EVE.P_ECRNUM, &#10;  SOC1.EVE.CODEOP, &#10;  SOC1.EVE.NUMADR_I, &#10;  SOC1.EVE.ACHVTEISE, &#10;  SOC1.EVE.TYPISE, &#10;  SOC1.EVE.NUMISE, &#10;  SOC1.EVE.SIGTRS, &#10;  SOC1.EVE.NUMLCR, &#10;  SOC1.EVE.BATVOL, &#10;  SOC1.EVE.CMPNIE, &#10;  SOC1.EVE.NLTA, &#10;  SOC1.EVE.DATDEP, &#10;  SOC1.EVE.DATARR, &#10;  SOC1.EVE.HEUARR, &#10;  SOC1.EVE.HEUDEP, &#10;  SOC1.EVE.GUIDRGL, &#10;  SOC1.EVE.ACHVTE_CAT, &#10;  SOC1.EVE.CODCAT, &#10;  SOC1.EVE.HEUEXP1, &#10;  SOC1.EVE.HEUEXP2, &#10;  SOC1.EVE.HEUEVE, &#10;  SOC1.EVE.HEUVALI, &#10;  SOC1.EVE.HEULIV1, &#10;  SOC1.EVE.HEULIV2, &#10;  SOC1.EVE.TYPGEL, &#10;  SOC1.EVE.NUMGEL, &#10;  SOC1.EVE.CODRGM, &#10;  SOC1.EVE.CODVHC, &#10;  SOC1.EVE.CHRONO, &#10;  SOC1.EVE.NUMCTC, &#10;  SOC1.EVE.TYPCPR, &#10;  SOC1.EVE.CODCB, &#10;  SOC1.EVE.STATUT6, &#10;  SOC1.EVE.MODAPPRO, &#10;  SOC1.EVE.SIGLIE_EMB, &#10;  SOC1.EVE.SIGLIE_DEB, &#10;  SOC1.EVE.CODPAY_DEP, &#10;  SOC1.EVE.CODPAY_EMB, &#10;  SOC1.EVE.CODPAY_DEB, &#10;  SOC1.EVE.CODJAL, &#10;  SOC1.EVE.INDFAC, &#10;  SOC1.EVE.ACHVTA, &#10;  SOC1.EVE.TYPEVA, &#10;  SOC1.EVE.NUMEVA, &#10;  SOC1.EVE.CODSOC_O, &#10;  SOC1.EVE.CODSOC_S, &#10;  SOC1.EVE.CODFIL, &#10;  SOC1.EVE.CODMGF, &#10;  SOC1.EVE.CODFLUX, &#10;  SOC1.EVE.MINCDE, &#10;  SOC1.EVE.MINFRA, &#10;  SOC1.EVE.INDGESFIL, &#10;  SOC1.EVE.CODSOC_CNT, &#10;  SOC1.EVE.CODSOC_ACH, &#10;  SOC1.EVE.MODTTC, &#10;  SOC1.EVE.DATCONFLIM, &#10;  SOC1.EVE.STATUT_EVE&#10;FROM SOC1.EVE&#13;&#10;WHERE SOC1.EVE.CODSOC=11&#13;&#10;AND SOC1.EVE.ACHVTE = 'V'&#13;&#10;AND SOC1.EVE.TYPEVE='CDV'&#13;&#10;AND SOC1.EVE.CODCTG IN ('SD','SF','RP','EC','CB','CS')&#13;&#10;AND SOC1.EVE.SIGDEP in ('COM')&#13;&#10;AND SOC1.EVE.CODETA='V'&#13;&#10;AND SOC1.EVE.DATCRE &lt; 20190701&#13;&#10;/*AND  SOC1.EVE.NUMEVE=419539*/   &quot;"/>
     <elementParameter field="LABEL" name="NOTE" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -14028,7 +14032,7 @@
       <column comment="" key="false" length="-1" name="Client_Pay" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties shellMaximized="true"/>
+      <uiProperties/>
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="&quot;COM&quot; .equals(EnTete_Cde_1.Depot) ? &#13;&#10;&#9;( Relational.NOT(&quot;M&quot; .equals(EnTete_Cde_1.Type_Client) || &quot;F&quot; .equals(EnTete_Cde_1.Type_Client)) ?&#13;&#10;&#9;&#9;(&quot;SD&quot; .equals(EnTete_Cde_1.Cat_Cde) ? 10 :&#13;&#10;&#9;&#9;&quot;CS&quot; .equals(EnTete_Cde_1.Cat_Cde) ? 101 :&#13;&#10;&#9;&#9;&quot;SF&quot; .equals(EnTete_Cde_1.Cat_Cde) ? 10 : &#13;&#10;&#9;&#9;&quot;CB&quot; .equals(EnTete_Cde_1.Cat_Cde) ? 13 : &#13;&#10;&#9;&#9;&quot;CO&quot; .equals(EnTete_Cde_1.Cat_Cde) ? 16 : -1 ) :&#13;&#10;&#9;  &quot;M&quot; .equals(EnTete_Cde_1.Type_Client) ?&#13;&#10;&#9;&#9;(&quot;SD&quot; .equals(EnTete_Cde_1.Cat_Cde) ? 11 :&#13;&#10;&#9;&#9;&quot;CS&quot; .equals(EnTete_Cde_1.Cat_Cde) ? 111 :&#13;&#10;&#9;&#9;&quot;SF&quot; .equals(EnTete_Cde_1.Cat_Cde) ? 11 : &#13;&#10;&#9;&#9;&quot;RP&quot; .equals(EnTete_Cde_1.Cat_Cde) ? 11 : &#13;&#10;&#9;&#9;&quot;EC&quot; .equals(EnTete_Cde_1.Cat_Cde) ? 14 : &#13;&#10;&#9;&#9;&quot;CB&quot; .equals(EnTete_Cde_1.Cat_Cde) ? 13 : &#13;&#10;&#9;&#9;&quot;CO&quot; .equals(EnTete_Cde_1.Cat_Cde) ? 16 : -2 ) :&#13;&#10;&#9;  &quot;F&quot; .equals(EnTete_Cde_1.Type_Client) ?&#13;&#10;&#9;&#9;(&quot;SD&quot; .equals(EnTete_Cde_1.Cat_Cde) ? 12 :&#13;&#10;&#9;&#9;&quot;CS&quot; .equals(EnTete_Cde_1.Cat_Cde) ? 121 :&#13;&#10;&#9;&#9;&quot;SF&quot; .equals(EnTete_Cde_1.Cat_Cde) ? 12 : &#13;&#10;&#9;&#9;&quot;RP&quot; .equals(EnTete_Cde_1.Cat_Cde) ? 12 : &#13;&#10;&#9;&#9;&quot;EC&quot; .equals(EnTete_Cde_1.Cat_Cde) ? 15 : &#13;&#10;&#9;&#9;&quot;CB&quot; .equals(EnTete_Cde_1.Cat_Cde) ? 13 : &#13;&#10;&#9;&#9;&quot;CO&quot; .equals(EnTete_Cde_1.Cat_Cde) ? 16 : -3 ) : -4 ) :&#13;&#10;&quot;DECO&quot; .equals(EnTete_Cde_1.Depot) &amp;&amp; &quot;CO&quot; .equals(EnTete_Cde_1.Cat_Cde) ? 17 : -5 " name="Transaction" type="id_Integer"/>
       </varTables>
@@ -16108,6 +16112,7 @@
   </node>
   <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="192" posY="992">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileInputDelimited_6"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="LABEL" name="FILENAMETEXT" value="&quot;When the input source is a stream or a zip file,footer and random shouldn't be bigger than 0.&quot;"/>
     <elementParameter field="FILE" name="FILENAME" value="&quot;C:/Interfaces/Workspace/Reprises/Cdes/EnTete_Cdes.csv&quot;"/>
     <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
@@ -16204,6 +16209,7 @@
   </node>
   <node componentName="tUnite" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="416" posY="1056">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tUnite_2"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tUnite_2">
       <column comment="" defaultValue="" key="false" length="-1" name="Num_Cde" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
@@ -16212,6 +16218,7 @@
   </node>
   <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="288" posY="992">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tMap_4"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
     <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
     <elementParameter field="DIRECTORY" name="TEMPORARY_DATA_DIRECTORY" value=""/>
@@ -16251,6 +16258,7 @@
   </node>
   <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="544" posY="1056">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tMap_3"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
     <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
     <elementParameter field="DIRECTORY" name="TEMPORARY_DATA_DIRECTORY" value=""/>
@@ -16300,6 +16308,7 @@
   </node>
   <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="544" posY="960">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBInput_4"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="REPOSITORY"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" show="false" value="_TDzwoArHEeWx1dV_9Bg5iA"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
@@ -16385,6 +16394,7 @@
   </node>
   <node componentName="tSortRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="704" posY="1056">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSortRow_2"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="TABLE" name="CRITERIA">
       <elementValue elementRef="COLNAME" value="Num_Cde"/>
       <elementValue elementRef="SORT" value="num"/>
@@ -16407,6 +16417,7 @@
   </node>
   <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="832" posY="1056">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileOutputDelimited_9"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="CHECK" name="USESTREAM" value="false"/>
     <elementParameter field="TEXT" name="STREAMNAME" show="false" value="outputStream"/>
     <elementParameter field="FILE" name="FILENAME" value="&quot;C:/Interfaces/Workspace/Reprises/Cdes/Commentaires_orig.csv&quot;"/>
@@ -16442,8 +16453,52 @@
       <column comment="" key="false" length="-1" name="Comment" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
+  <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="64" posY="64">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileOutputDelimited_11"/>
+    <elementParameter field="CHECK" name="USESTREAM" value="false"/>
+    <elementParameter field="TEXT" name="STREAMNAME" show="false" value="outputStream"/>
+    <elementParameter field="FILE" name="FILENAME" value="&quot;C:/Interfaces/Workspace/Reprises/Cdes/Liste_Serielimitée.csv&quot;"/>
+    <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
+    <elementParameter field="CHECK" name="OS_LINE_SEPARATOR_AS_ROW_SEPARATOR" show="false" value="true"/>
+    <elementParameter field="OPENED_LIST" name="CSVROWSEPARATOR" show="false" value="&quot;\n&quot;"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;"/>
+    <elementParameter field="CHECK" name="APPEND" value="false"/>
+    <elementParameter field="CHECK" name="INCLUDEHEADER" value="true"/>
+    <elementParameter field="CHECK" name="COMPRESS" value="false"/>
+    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
+    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" show="false" value="&quot;,&quot;"/>
+    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" show="false" value="&quot;.&quot;"/>
+    <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
+    <elementParameter field="TEXT" name="ESCAPE_CHAR" show="false" value="&quot;&quot;&quot;"/>
+    <elementParameter field="TEXT" name="TEXT_ENCLOSURE" show="false" value="&quot;&quot;&quot;"/>
+    <elementParameter field="CHECK" name="CREATE" value="true"/>
+    <elementParameter field="CHECK" name="SPLIT" value="false"/>
+    <elementParameter field="TEXT" name="SPLIT_EVERY" show="false" value="1000"/>
+    <elementParameter field="CHECK" name="FLUSHONROW" value="false"/>
+    <elementParameter field="TEXT" name="FLUSHONROW_NUM" show="false" value="1"/>
+    <elementParameter field="CHECK" name="ROW_MODE" value="false"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="false"/>
+    <elementParameter field="CHECK" name="FILE_EXIST_EXCEPTION" value="false"/>
+    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="90"/>
+    <elementParameter field="TEXT" name="LABEL" value="Liste_SerieLim"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tFileOutputDelimited_11">
+      <column comment="" key="false" length="-1" name="Num_Cde" nullable="false" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="16" name="CODPRO" nullable="true" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="7" name="NUMLOT" nullable="true" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+    </metadata>
+  </node>
   <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="192" posY="1088">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileInputDelimited_4"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="LABEL" name="FILENAMETEXT" value="&quot;When the input source is a stream or a zip file,footer and random shouldn't be bigger than 0.&quot;"/>
     <elementParameter field="FILE" name="FILENAME" value="&quot;C:/Interfaces/Workspace/Reprises/Cdes/Lignes_Cdes.csv&quot;"/>
     <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
@@ -16554,6 +16609,7 @@
   </node>
   <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="288" posY="1088">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tMap_5"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
     <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
     <elementParameter field="DIRECTORY" name="TEMPORARY_DATA_DIRECTORY" value=""/>
@@ -16592,49 +16648,6 @@
       </inputTables>
     </nodeData>
   </node>
-  <node componentName="tFileOutputDelimited" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="64" posY="64">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileOutputDelimited_11"/>
-    <elementParameter field="CHECK" name="USESTREAM" value="false"/>
-    <elementParameter field="TEXT" name="STREAMNAME" show="false" value="outputStream"/>
-    <elementParameter field="FILE" name="FILENAME" value="&quot;C:/Interfaces/Workspace/Reprises/Cdes/Liste_Serielimitée.csv&quot;"/>
-    <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;"/>
-    <elementParameter field="CHECK" name="OS_LINE_SEPARATOR_AS_ROW_SEPARATOR" show="false" value="true"/>
-    <elementParameter field="OPENED_LIST" name="CSVROWSEPARATOR" show="false" value="&quot;\n&quot;"/>
-    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;"/>
-    <elementParameter field="CHECK" name="APPEND" value="false"/>
-    <elementParameter field="CHECK" name="INCLUDEHEADER" value="true"/>
-    <elementParameter field="CHECK" name="COMPRESS" value="false"/>
-    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false"/>
-    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" show="false" value="&quot;,&quot;"/>
-    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" show="false" value="&quot;.&quot;"/>
-    <elementParameter field="CHECK" name="CSV_OPTION" value="false"/>
-    <elementParameter field="TEXT" name="ESCAPE_CHAR" show="false" value="&quot;&quot;&quot;"/>
-    <elementParameter field="TEXT" name="TEXT_ENCLOSURE" show="false" value="&quot;&quot;&quot;"/>
-    <elementParameter field="CHECK" name="CREATE" value="true"/>
-    <elementParameter field="CHECK" name="SPLIT" value="false"/>
-    <elementParameter field="TEXT" name="SPLIT_EVERY" show="false" value="1000"/>
-    <elementParameter field="CHECK" name="FLUSHONROW" value="false"/>
-    <elementParameter field="TEXT" name="FLUSHONROW_NUM" show="false" value="1"/>
-    <elementParameter field="CHECK" name="ROW_MODE" value="false"/>
-    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;"/>
-    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
-    <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="false"/>
-    <elementParameter field="CHECK" name="FILE_EXIST_EXCEPTION" value="false"/>
-    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="90"/>
-    <elementParameter field="TEXT" name="LABEL" value="Liste_SerieLim"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tFileOutputDelimited_11">
-      <column comment="" key="false" length="-1" name="Num_Cde" nullable="false" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="16" name="CODPRO" nullable="true" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-      <column comment="" key="false" length="7" name="NUMLOT" nullable="true" pattern="" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true">
-        <additionalField key="Comment" value=""/>
-      </column>
-    </metadata>
-  </node>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tOracleConnection_3" offsetLabelX="-3" offsetLabelY="2" source="tOracleConnection_3" target="tSetGlobalVar_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk5"/>
   </connection>
@@ -16644,19 +16657,20 @@
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tSetGlobalVar_1" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tSetGlobalVar_1" target="tFileInputDelimited_7">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk11"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tSetGlobalVar_1" offsetLabelX="0" offsetLabelY="0" outputId="4" source="tSetGlobalVar_1" target="tFileInputDelimited_1">
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tSetGlobalVar_1" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tSetGlobalVar_1" target="tFileInputDelimited_1">
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk7"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tSetGlobalVar_1" offsetLabelX="0" offsetLabelY="0" outputId="5" source="tSetGlobalVar_1" target="tDBInput_2">
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tSetGlobalVar_1" offsetLabelX="0" offsetLabelY="0" outputId="4" source="tSetGlobalVar_1" target="tDBInput_2">
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk2"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tSetGlobalVar_1" offsetLabelX="0" offsetLabelY="0" outputId="6" source="tSetGlobalVar_1" target="tFileInputDelimited_2">
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tSetGlobalVar_1" offsetLabelX="0" offsetLabelY="0" outputId="5" source="tSetGlobalVar_1" target="tFileInputDelimited_2">
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk8"/>
   </connection>
-  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tSetGlobalVar_1" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tSetGlobalVar_1" target="tFileInputDelimited_6">
+  <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tSetGlobalVar_1" offsetLabelX="0" offsetLabelY="0" outputId="6" source="tSetGlobalVar_1" target="tFileInputDelimited_6">
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk13"/>
   </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tOracleConnection_1" offsetLabelX="0" offsetLabelY="0" source="tOracleConnection_1" target="tOracleConnection_3">
@@ -16713,6 +16727,7 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="EnTete_Cde_"/>
   </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputDelimited_5" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_5" target="tFileInputDelimited_9">
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk10"/>
   </connection>
   <connection connectorName="FLOW" label="F47011" lineStyle="0" metaname="F47011" offsetLabelX="-7" offsetLabelY="-3" source="tMap_11" target="tFileOutputDelimited_2">
@@ -16763,14 +16778,17 @@
   </connection>
   <connection connectorName="FLOW" label="row4" lineStyle="0" metaname="tFileInputDelimited_9" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_9" target="tMap_13">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row4"/>
   </connection>
   <connection connectorName="FLOW" label="F4706" lineStyle="0" metaname="F4706" offsetLabelX="0" offsetLabelY="0" source="tMap_13" target="tFileOutputDelimited_7">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F4706"/>
   </connection>
   <connection connectorName="FLOW" label="row3" lineStyle="0" metaname="tFileOutputDelimited_7" offsetLabelX="0" offsetLabelY="0" source="tFileOutputDelimited_7" target="tOracleOutput_3">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row3"/>
   </connection>
   <connection connectorName="FLOW" label="EnTete_Cde_Frais" lineStyle="0" metaname="tFileInputDelimited_2" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_2" target="tMap_1">
@@ -16939,18 +16957,22 @@
   </connection>
   <connection connectorName="FLOW" label="row7" lineStyle="0" metaname="tFileInputDelimited_6" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_6" target="tMap_4">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row7"/>
   </connection>
   <connection connectorName="FLOW" label="lig" lineStyle="0" metaname="tUnite_2" offsetLabelX="0" offsetLabelY="0" source="tUnite_2" target="tMap_3">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="lig"/>
   </connection>
   <connection connectorName="FLOW" label="e_comm" lineStyle="10" mergeOrder="1" metaname="e_comm" offsetLabelX="49" offsetLabelY="-50" source="tMap_4" target="tUnite_2">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="e_comm"/>
   </connection>
   <connection connectorName="FLOW" label="com_orig" lineStyle="0" metaname="com_orig" offsetLabelX="0" offsetLabelY="0" source="tMap_3" target="tSortRow_2">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="com_orig"/>
   </connection>
   <connection connectorName="FLOW" label="comm" lineStyle="8" metaname="tDBInput_4" offsetLabelX="0" offsetLabelY="0" source="tDBInput_4" target="tMap_3">
@@ -16960,18 +16982,22 @@
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="comm"/>
   </connection>
   <connection connectorName="FLOW" label="com_sorted" lineStyle="0" metaname="tSortRow_2" offsetLabelX="0" offsetLabelY="0" source="tSortRow_2" target="tFileOutputDelimited_9">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="com_sorted"/>
   </connection>
   <connection connectorName="FLOW" label="row8" lineStyle="0" metaname="tFileInputDelimited_4" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_4" target="tMap_5">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row8"/>
   </connection>
   <connection connectorName="FLOW" label="l_comm" lineStyle="10" mergeOrder="2" metaname="l_comm" offsetLabelX="50" offsetLabelY="24" source="tMap_5" target="tUnite_2">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="l_comm"/>
   </connection>
   <subjob>
@@ -17043,13 +17069,18 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_4f22287c-ebad-454e-94b1-13422e96c927"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>P7byeG9plkZAsVFbz3jSxyurDYGlPoOky14uT7jdGLoDF/h+5S1XTa3l0G0tEj2/xfGNAx2wUjRk
-Sv+1jObq7Q==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_5c09352b-848a-41fb-b0ec-f14b6947ff79"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>2Xy7Pc7DHlWDDiYE+SZjL/nWPM7mxXtGS7VcLbaymU7pDENoBSCofJPisgkoo7CIu11AZaQDXeTl
-8rr1ngrsDA==</DigestValue></Reference></SignedInfo><SignatureValue>agaAWtGb1EqlE5F8+pAOqUE2+mRVfDf/OMzn90lqCwypAvnPRl2YuJ9TN71FfCCfHPndXwHGNyjD
-1vPuO7wZCRBvs3BW1Kzx9GGkTH12Oz+ZbF3G6Sq5fBuwMhyVyeH0vfo+qvDo6aClZS+Ic/cMoeP+
-zaxvIgXyUDQxKvSY3uCwefkKcPXgSO7lUZmtFEg/LKReSxHdqPGn7HVxmHa5npMWB9Lh9JBve1dg
-RoBqDw7kNnB3OKw1CtdFy7pKTrw69ukdmESXbK5Qzt+YXIOCZdb5Sghccd0NYixe0VFQGn3+X3L5
-U6EWUhLny1/rbnQ7/+2RlfyI+4IG7YbOTL6bKw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+  <subjob>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tFileInputDelimited_4"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+  </subjob>
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_176f6dd1-4610-41c6-bdd4-96cf2e6aae5c"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>MgeaSii+CEDuxG9lFDWvA5wnYRyVOWD1QeVYjL8SNZ0DKA7BgoRy+BfZ49e1iIasK42n9jKobrUe
+t2+y3TprIQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_a6ce57f6-6f4c-453c-a1d2-2da5593fab64"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Fne/CzR9qCnSWE5Nq2EQmouqXwuItgDLlhJb6HDjyE8jVc7qETYKO/P4vqCXKkkBbKxeLZiQ7CQw
+t2v6R4b4cA==</DigestValue></Reference></SignedInfo><SignatureValue>Ir1Xop+1q4wZwZ725Irdo0jUhKijLv5yskrEEfczRGAOJ9obYnlPer0J0QvwDcUs03FqnFgGWa0G
+xZD53rH+yiOydUoe5jvSculbj7QVeTFgpnMd83086sglJuXwNGlj69KdE0y515Sp8sFQVqvK66WS
+tkkwayfUZ5VtrpNW6hyqX30Ki/PjxNSNx+27D8P3/6EkF0AVU3V/Ni8Ga0o9iO8Lao23rYaHcgYN
+5sZMytKBfjXa0xQjCXC5CfdKaNX4KtGbVwJ+84Cj7x07f+27XX7NguxkmUkV/wlxbO0HEMqnYs8y
+nmq+sC2KBYZN1zJesr5CTWf3+0jgnOHaxX+2bQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -17071,4 +17102,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_5c09352b-848a-41fb-b0ec-f14b6947ff79" Target="#_4f22287c-ebad-454e-94b1-13422e96c927"><Timestamp>2021-04-04 15:36:41</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_a6ce57f6-6f4c-453c-a1d2-2da5593fab64" Target="#_176f6dd1-4610-41c6-bdd4-96cf2e6aae5c"><Timestamp>2021-04-08 09:06:58</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>

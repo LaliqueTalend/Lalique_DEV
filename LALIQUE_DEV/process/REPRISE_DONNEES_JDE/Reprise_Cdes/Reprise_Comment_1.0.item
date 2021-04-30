@@ -527,8 +527,9 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" label="Comment" name="Lig_comment">
       <column comment="" key="false" length="-1" name="GDOBNM" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="5" name="GDGUNAM" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="GDTXKY" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="GDMOSEQN" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="5" name="GDGTITNM" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="2" name="GDTXFT" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
@@ -536,8 +537,9 @@
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
       <outputTables name="Lig_comment" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="row3.LNID == 0 ? &quot;GT4201A&quot; : &quot;GT4211A&quot; " name="GDOBNM" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="row3.LNID == 0 ? &quot;Entete&quot; : &quot;Ligne&quot; +  String.valueOf(row3.LNID) " name="GDGUNAM" type="id_String"/>
         <mapperTableEntries expression="row3.DOCO+&quot;|&quot;+row3.DCTO+&quot;|&quot;+row3.KCOO + (row3.LNID == 0 ? &quot;&quot; : &quot;|&quot;+String.format(&quot;%.3f&quot;, (float)row3.LNID/1000.0).replace(&quot;,&quot;, &quot;.&quot;)) " name="GDTXKY" type="id_String"/>
+        <mapperTableEntries name="GDMOSEQN" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="row3.LNID == 0 ? &quot;Entete&quot; : &quot;Ligne&quot; +  String.valueOf(row3.LNID) " name="GDGTITNM" type="id_String"/>
         <mapperTableEntries expression="row4.Comment " name="GDTXFT" type="id_String"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="row3" sizeState="INTERMEDIATE">
@@ -589,8 +591,9 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" label="Comment" name="tFileOutputDelimited_1">
       <column comment="" key="false" length="-1" name="GDOBNM" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="5" name="GDGUNAM" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="GDTXKY" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="GDMOSEQN" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="5" name="GDGTITNM" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="2" name="GDTXFT" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
@@ -610,9 +613,11 @@
     <elementParameter field="TABLE" name="LENGTHS" show="false">
       <elementValue elementRef="SCHEMA_COLUMN" value="GDOBNM"/>
       <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="GDGUNAM"/>
-      <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="GDTXKY"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="GDMOSEQN"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="GDGTITNM"/>
       <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="GDTXFT"/>
       <elementValue elementRef="LENGTH" value="10"/>
@@ -622,8 +627,9 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" label="Comment" name="tLogRow_1">
       <column comment="" key="false" length="-1" name="GDOBNM" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" key="false" length="5" name="GDGUNAM" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="0" name="GDTXKY" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="GDMOSEQN" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="5" name="GDGTITNM" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="2" name="GDTXFT" nullable="false" originalLength="-1" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
@@ -712,6 +718,11 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row3"/>
   </connection>
   <connection connectorName="FLOW" label="Lig_comment" lineStyle="0" metaname="Lig_comment" offsetLabelX="0" offsetLabelY="0" source="tMap_2" target="tFileOutputDelimited_1">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="GDMOSEQN"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Lig_comment"/>
   </connection>
@@ -738,13 +749,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_f07b59ee-c94d-4ffd-ac5e-7d216212597a"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>YfCzAnf2JenUMOcWRGr7EZujCxxutE2V98vs8JArQ7YteiwrYHymU0DsVajXsjYsuIubuKiDxWdW
-SaoGG4pkAQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_fec33bab-e23c-47a4-bad8-4faf4b430f9e"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>n3wP6tZ7rzqhcWi7NPqo5o/7AmIYdPh2wq5BWNhSHx08uvgrMPnDxIounjHKyrzm9BT3HhRR7Ngs
-dTJDD/Hjqw==</DigestValue></Reference></SignedInfo><SignatureValue>XkoijCQAq+MQXmKz/UWmdyfp4QMhtMF55s1eQtxNUzCYai8d3j5OASCyNm+vaF32/h28LBpb5lBV
-NjVlJ4QMZcjcGR0EKhfZHKT9zCrxkm5ts1aIrFbwcv3zzddJhiBp9wtSXnP4F2SvSoh/0JAFqffn
-Lb2En9JiusyYQG4xxjbyXZD00yKZDr5r56dOcGmVpQudE2a0Y0M2vzzU6h7+V32c4Vp6gKXJ82SE
-ChdA5RiQYDYMWrp3sbPgDcdd5y8K4eg+NSJ62sIH1iBmbHkakCbOIrgr9u2Go0Y0fgA1B8iXGPmJ
-6DU8ZggJPsdsJYy+kwV2QJXcL3IRCK3pq6AXfw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_59d0bc98-a9e7-4e46-b7bb-468582dfb942"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>8QkiYm7Relike7K/woz9zIrj9bSv2yebtKj/5J5PQTmTradROkc5blFr2YkQni2JURF60jdafrM6
+4bt1znCpfQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_3960291d-6325-4968-b218-4333d386ce32"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>x4jQ26jG+zXWRRykHhpi8TbhYJ6UMyNF0fxlJvhwk79lLnSyBPTsJLRKFjJO3Y3yYwnd54G2raf8
+9r4PI8kYbw==</DigestValue></Reference></SignedInfo><SignatureValue>fOabg+zoY579fl234Y/L2nvw7jxkGp4NY9Sk0vzBc8Q+V4RqDtERXk1LVAqleQJa9EV1Xu8VKc5N
+fHdu8ru0gaAds11BTTw1dDPLkuhwavhluPmlcL1gdarDPDJRQOCYCGFD+NM0GzvSu9IXnFh1Yrdp
+bloOy3xTIeUY6eliLLKDULglQTYRhSMKCiyrCP4SgkhprWws/yI7W6ty4D4NWpSEnmLcCSZOgMfn
+NVQ3FN1pU83spv1rQZBRLFwWOQW8XUV5+YZqn9FZWSCyuzB5vZ19e6aSn/8kTapZgmYCT3ke5iJE
+V92AwSTuLWLVao5GnV752CTrim5QJMeebBDdiA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -766,4 +777,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_fec33bab-e23c-47a4-bad8-4faf4b430f9e" Target="#_f07b59ee-c94d-4ffd-ac5e-7d216212597a"><Timestamp>2021-04-05 16:52:34</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_3960291d-6325-4968-b218-4333d386ce32" Target="#_59d0bc98-a9e7-4e46-b7bb-468582dfb942"><Timestamp>2021-04-05 20:17:37</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
