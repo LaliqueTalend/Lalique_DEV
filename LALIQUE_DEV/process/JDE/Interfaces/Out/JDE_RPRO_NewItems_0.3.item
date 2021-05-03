@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><talendfile:ProcessType xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmlns:TalendMapper="http://www.talend.org/mapper" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" defaultContext="Test" jobType="Standard" xmi:version="2.0">
   <context confirmationNeeded="false" name="PROD">
-    <contextParameter comment="" name="Mail_To" prompt="Mail_To?" promptNeeded="false" type="id_String" value="pbongard@lalique.fr"/>
-    <contextParameter comment="" name="Mail_CC" prompt="Mail_CC?" promptNeeded="false" type="id_String" value=""/>
-    <contextParameter comment="" name="Mail_BCC" prompt="Mail_BCC?" promptNeeded="false" type="id_String" value=""/>
+    <contextParameter comment="" name="Mail_To" prompt="Mail_To?" promptNeeded="false" type="id_String" value="classuspigat@lalique.fr;vmerles@lalique.fr"/>
+    <contextParameter comment="" name="Mail_CC" prompt="Mail_CC?" promptNeeded="false" type="id_String" value="cguerin@lalique.fr"/>
+    <contextParameter comment="" name="Mail_BCC" prompt="Mail_BCC?" promptNeeded="false" type="id_String" value="pbongard@lalique.fr"/>
     <contextParameter comment="" name="Mail_From" prompt="Mail_From?" promptNeeded="false" type="id_String" value="noreply.interfaces@lalique.fr"/>
     <contextParameter comment="" name="Mail_SMTP" prompt="Mail_SMTP?" promptNeeded="false" type="id_String" value="smtp.lalique.lan"/>
     <contextParameter comment="" name="Mail_SMTP_Port" prompt="Mail_SMTP_Port?" promptNeeded="false" type="id_String" value="25"/>
@@ -2742,7 +2742,7 @@
       <column comment="" key="false" length="-1" name="TauxChange" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Double" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties shellMaximized="true"/>
+      <uiProperties/>
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="(Long)globalMap.get(&quot;grp_client&quot;)!=0 ? JDE.cnvDouble(vente.BPUPRC)/10000 : JDE.cnvDouble(vente_direct.BPUPRC)/10000 " name="prix_vente" nullable="true" type="id_Double"/>
         <mapperTableEntries expression="JDE.cnvDouble(cession.BPUPRC) / 10000 " name="prix_cession" nullable="true" type="id_Double"/>
@@ -3302,7 +3302,6 @@
   </node>
   <node componentName="tSendMail" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="-32" posY="640">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSendMail_1"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="true"/>
     <elementParameter field="TEXT" name="TO" value="context.Mail_To"/>
     <elementParameter field="TEXT" name="FROM" value="context.Mail_From"/>
@@ -3854,14 +3853,14 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="TarNew"/>
   </connection>
-  <connection connectorName="FLOW" label="Diffusion" lineStyle="0" metaname="Diffusion" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tMap_2" target="tFileOutputExcel_1">
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Diffusion"/>
-  </connection>
-  <connection connectorName="FLOW" label="F00092" lineStyle="0" metaname="F00092" offsetLabelX="0" offsetLabelY="0" outputId="4" source="tMap_2" target="tDBOutput_1">
+  <connection connectorName="FLOW" label="F00092" lineStyle="0" metaname="F00092" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tMap_2" target="tDBOutput_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F00092"/>
+  </connection>
+  <connection connectorName="FLOW" label="Diffusion" lineStyle="0" metaname="Diffusion" offsetLabelX="0" offsetLabelY="0" outputId="4" source="tMap_2" target="tFileOutputExcel_1">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Diffusion"/>
   </connection>
   <connection connectorName="FLOW" label="ArtNew2" lineStyle="0" metaname="tSplitRow_1" offsetLabelX="0" offsetLabelY="0" source="tSplitRow_1" target="tFileOutputDelimited_2">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
@@ -3941,7 +3940,6 @@
   </connection>
   <connection connectorName="RUN_IF" label="NB_LINE" lineStyle="6" metaname="tFileOutputExcel_1" offsetLabelX="0" offsetLabelY="0" source="tFileOutputExcel_1" target="tSendMail_1">
     <elementParameter field="MEMO_JAVA" name="CONDITION" value="(int)globalMap.get(&quot;tFileOutputExcel_1_NB_LINE&quot;) &gt; 0"/>
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="NB_LINE"/>
   </connection>
   <connection connectorName="FLOW" label="sbs2" lineStyle="0" metaname="tFileInputDelimited_3" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_3" target="tFlowToIterate_2">
@@ -4231,13 +4229,13 @@
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
     <elementParameter field="CHECK" name="SUBJOB_DISPLAYED" show="false" value="false"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_34a58548-afce-4344-bd30-dbce83711728"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>/KcwsjXt9vnJhTyXDrcI9lDa1SIf7rRmEKFABExhoQvm/BJX9vGaRWmCA7Ola7Z42iCAx0czcY4y&#13;
-YeSJqPji2g==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_94d5636d-a84f-4d8f-90b6-efdf67e5a8b5"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>xF7Ejz1SWQj6Zz4pJWUp7g4goz2F9InjdEg8ocYzEOy34Ee7OMfMgJYrCi+A+x5JdysfIO/dGj6g&#13;
-ebJr3V+ydg==</DigestValue></Reference></SignedInfo><SignatureValue>YAOJVlmcoP7h2PUbvbnCnzTIFPcxj81jmq4AWLc8/7K7cptWq3LEo6Y3h/1gl2OokEBDbcl/62BA&#13;
-+aPELedlgLVhaPjno9A0yhHwAPXAreCu94r4D0FrMfdLqqlwrPXD0JWCWOBBkcVTKf7KnEeO210m&#13;
-eG+yRDx8PwgX8RY8+zH0g1nnyLggb/YcWYp0OhG5Y8AF01X4w6slQDxGFr0NVNxJANfcDfPPD+KS&#13;
-2NOiqkpTF13wcniMSVP8+c41FTHWty9FLgaplHKB+GgCeaufGYaalQewOK8CZZ0WXjzSKSTM0dA4&#13;
-M9OwY3fek2keVsSosFkI10NkDsOBul4sw1Vf+A==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_c9ba444a-ccf3-4b09-893c-8b5daa8eb940"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>9sDpou9Hhc8+qzc/gk16N9FPqii7su63jxFTtehNx10ih7WfHNB5HVTMqCk2+XJHp32/KS1tWDk1&#13;
+Pg05//MTMw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_9d13a0d1-2dbd-4f19-842b-e27ef0e9c128"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>6eacqsfRyiO+CcdGRNXdu5+dgGloBywaMCzW4bbcFBeVN5LY0daXxj3dudtVIkffCQQShJacQpAv&#13;
+aiVB7tz/1w==</DigestValue></Reference></SignedInfo><SignatureValue>Tbi0hDyJmZPViweIPkvHFNvPDD8H8uBZ247ZeMxSYC++ad+BEPRXpzZZfPK0wCK6U00gWcEldkc3&#13;
+T3fauNRM/tAUW4yi5DSTDOYzasc7Mdv747EMEOUGsxZQJhJUNZiaAZ6s5R9G+aAbl0iOXSa6ZDAZ&#13;
+M4DIK1W6epZVrMbMmVIObo8UILKjThfm5g+vCWSD8SZh1h+sqpJoph4iuxoiqueP2lsIw0CYR19T&#13;
+z5t6h/GAtmxsdNF/33XPIsXIzBc7W2JtC9dWW+f3sfCDjwAyEumKgZ+DarQFK7q+147QXMvCWHqu&#13;
+f6r4NdQUxHV3pohV8T/CK6NKcYFi4UdSib1Ocg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD&#13;
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5&#13;
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U&#13;
@@ -4259,4 +4257,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/&#13
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW&#13;
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+&#13;
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg&#13;
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_94d5636d-a84f-4d8f-90b6-efdf67e5a8b5" Target="#_34a58548-afce-4344-bd30-dbce83711728"><Timestamp>2021-04-30 14:29:17</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_9d13a0d1-2dbd-4f19-842b-e27ef0e9c128" Target="#_c9ba444a-ccf3-4b09-893c-8b5daa8eb940"><Timestamp>2021-05-03 07:28:06</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
