@@ -220,6 +220,47 @@ public class JDE {
 	/**
      * Renvoie un nombre sous forme d'une chaîne de caractères formatée.
      * 
+     * @param value : <code>Float</code> - nombre à formater.
+     * @param pattern : <code>String</code> - format de nombre à appliquer (indiqué au format US ex : #,##0.00").
+     * @param USFormat : <code>Boolean</code> - appliquer le format US (décimale = point).
+     * 
+     * @return Une valeur de type <code>String</code> représentant le nombre formaté.
+     * </br><b>Exemple:</b>
+     * <em>Afficher le nombre 1234.567 au format "#,##0.00" en utilisant le format US</em></br>
+     * <code>  cnvString(1234.567, "#,##0.00", true) ==> 1,234.57</code>
+     * <hr>
+     * 
+     * {talendTypes} String
+     * 
+     * {Category} Lalique Defined
+     * 
+     * {param} Float value
+     * {param} String pattern
+     * {param} Boolean formatUS
+     * </br>
+     * created : 03/05/2021 - Philippe BONGARD</br>
+     * version : 1.0
+     */
+	public static String cnvString(float value, String pattern, boolean USFormat)
+	{
+//		NumberFormat nf = NumberFormat.getInstance(Locale inLocale);
+		DecimalFormat dfmt = new DecimalFormat(pattern);
+		if (USFormat) {
+//			nf = NumberFormat.getInstance(Locale.US);
+			DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+			dfs.setDecimalSeparator('.');
+			dfs.setGroupingSeparator(',');
+			dfmt.setDecimalFormatSymbols(dfs);
+		}
+			else {
+		}
+		return dfmt.format(value);
+//		return nf.format(value);
+	}
+
+	/**
+     * Renvoie un nombre sous forme d'une chaîne de caractères formatée.
+     * 
      * @param value : <code>Double</code> - nombre à formater.
      * @param pattern : <code>String</code> - format de nombre à appliquer (indiqué au format US ex : #,##0.00").
      * 
