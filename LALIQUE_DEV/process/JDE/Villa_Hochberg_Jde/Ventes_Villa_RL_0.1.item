@@ -70,7 +70,7 @@
   <parameters>
     <elementParameter field="TEXT" name="JOB_RUN_VM_ARGUMENTS" show="false" value="{&quot;JOB_RUN_VM_ARGUMENTS&quot;:[&quot;-Xms256M&quot;,&quot;-Xmx8192M&quot;]}"/>
     <elementParameter field="TEXT" name="SCREEN_OFFSET_X" show="false" value="0"/>
-    <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" show="false" value="122"/>
+    <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" show="false" value="96"/>
     <elementParameter field="TEXT" name="REPOSITORY_CONNECTION_ID" show="false" value=""/>
     <elementParameter field="TEXT" name="OOZIE_PROPERTY_TYPENAME" show="false" value=""/>
     <elementParameter field="TEXT" name="OOZIE_HADOOP_DISTRIBUTION" show="false" value=""/>
@@ -187,9 +187,9 @@
     <elementParameter field="TEXT" name="HOST" value="context.JDE_PY_CRPDTA_Server"/>
     <elementParameter field="TEXT" name="TYPE" show="false" value="ORACLE_SERVICE_NAME"/>
     <elementParameter field="TEXT" name="PORT" value="context.JDE_PY_CRPDTA_Port"/>
-    <elementParameter field="TEXT" name="DBNAME" value="&quot;JDE92NP&quot;"/>
+    <elementParameter field="TEXT" name="DBNAME" value="context.JDE_PY_CRPDTA_ServiceName"/>
     <elementParameter field="TEXT" name="LOCAL_SERVICE_NAME" show="false" value="&quot;&quot;"/>
-    <elementParameter field="TEXT" name="SCHEMA_DB" value="&quot;FORDTA&quot;"/>
+    <elementParameter field="TEXT" name="SCHEMA_DB" value="context.JDE_PY_CRPDTA_Schema"/>
     <elementParameter field="TEXT" name="USER" value="context.JDE_PY_CRPDTA_Login"/>
     <elementParameter field="PASSWORD" name="PASS" value="8pW6Nmy2kud3FKpXBoTLjuX624zslu6V6OZb3jnKlDQ="/>
     <elementParameter field="CHECK" name="USE_SSL" show="false" value="false"/>
@@ -1307,8 +1307,19 @@
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" originalLength="-1" precision="0" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
+  <node componentName="tSetGlobalVar" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="32" posY="96">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSetGlobalVar_1"/>
+    <elementParameter field="TABLE" name="VARIABLES">
+      <elementValue elementRef="KEY" value="&quot;VNEDBT&quot;"/>
+      <elementValue elementRef="VALUE" value="TalendDate.getDate(&quot;CCYYMMDDhhmm&quot;)"/>
+    </elementParameter>
+    <elementParameter field="TEXT" name="LABEL" value="VNEDBT"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tSetGlobalVar_1"/>
+  </node>
   <node componentName="tOracleOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="384" posY="320">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tOracleOutput_1"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" show="false" value="tOracleConnection_3"/>
     <elementParameter field="CLOSED_LIST" name="CONNECTION_TYPE" value="ORACLE_SERVICE_NAME"/>
@@ -1317,9 +1328,9 @@
     <elementParameter field="TEXT" name="HOST" value="context.JDE_PY_CRPDTA_Server"/>
     <elementParameter field="TEXT" name="PORT" value="context.JDE_PY_CRPDTA_Port"/>
     <elementParameter field="TEXT" name="TYPE" show="false" value="ORACLE_SERVICE_NAME"/>
-    <elementParameter field="TEXT" name="DBNAME" value="&quot;JDE92NP&quot;"/>
+    <elementParameter field="TEXT" name="DBNAME" value="context.JDE_PY_CRPDTA_ServiceName"/>
     <elementParameter field="TEXT" name="LOCAL_SERVICE_NAME" show="false" value="context.JDE_PY_CRPDTA_ServiceName"/>
-    <elementParameter field="TEXT" name="TABLESCHEMA" value="&quot;FORDTA&quot;"/>
+    <elementParameter field="TEXT" name="TABLESCHEMA" value="context.JDE_PY_CRPDTA_Schema"/>
     <elementParameter field="TEXT" name="USER" value="context.JDE_PY_CRPDTA_Login"/>
     <elementParameter field="PASSWORD" name="PASS" value="8pW6Nmy2kud3FKpXBoTLjuX624zslu6V6OZb3jnKlDQ="/>
     <elementParameter field="DBTABLE" name="TABLE" value="&quot;F0911Z1&quot;"/>
@@ -3489,16 +3500,6 @@
       <additionalProperties key="Comment" value=""/>
     </metadata>
   </node>
-  <node componentName="tSetGlobalVar" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="32" posY="96">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tSetGlobalVar_1"/>
-    <elementParameter field="TABLE" name="VARIABLES">
-      <elementValue elementRef="KEY" value="&quot;VNEDBT&quot;"/>
-      <elementValue elementRef="VALUE" value="TalendDate.getDate(&quot;CCYYMMDDhhmm&quot;)"/>
-    </elementParameter>
-    <elementParameter field="TEXT" name="LABEL" value="VNEDBT"/>
-    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" name="tSetGlobalVar_1"/>
-  </node>
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tOracleConnection_1" offsetLabelX="0" offsetLabelY="0" source="tOracleConnection_1" target="tSetGlobalVar_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk1"/>
   </connection>
@@ -3508,6 +3509,7 @@
   </connection>
   <connection connectorName="FLOW" label="F0911Z1" lineStyle="0" metaname="F0911Z1" offsetLabelX="0" offsetLabelY="0" source="tMap_2" target="tOracleOutput_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F0911Z1"/>
   </connection>
   <connection connectorName="FLOW" label="Param_Ventes" lineStyle="8" metaname="tFileInputExcel_2" offsetLabelX="0" offsetLabelY="0" source="tFileInputExcel_2" target="tMap_2">
@@ -3532,13 +3534,18 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_933dfa54-0a99-411f-8cc5-3f0d5aad5302"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>ylR9ebz1smTcWWcc0hqAcfIhpcHbTYLfmxs+pOeAPP1don7X20RwyApKMhPffCjNMEcliYcZEepL
-jhMrnVP92A==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_d4a00562-c4ee-442f-9257-13b1270315c0"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>N9aVpf/NzUNPC0l/G6DvnVIpUX6qHk9obAh9qhrVXSqA3bCJ7hAQRQrARF8HjhPtmZ+Ltrw0HxJI
-p5127jXWwA==</DigestValue></Reference></SignedInfo><SignatureValue>nPvsbUjxSFdwDxdp9Axx6vuNwHlu+uwWj0s7vpZOOjSiavAZE0bdwFszzi13fqUnAcsUMez+gANP
-3v42Z40khenpPR13EJs5C9oSNE+Q23oFiiQMDHl1CTkkjWl0yAOlgFNiFJwNvVMv1qAz7W/MR/dQ
-gcxEGwRF7yZIdkgGiOloRmXC7QHgKMra29nJrFGbUg4VglmML1AfrSYHnHQcSXj1qIFbFoJdkKyj
-M/PZRp1qdeLcLCc86e1C0y9hJGnX9qqktIX9l3NLtSTSfWaZ/SNwMB6GZYkzEAxw/bsYlF2Kn4eX
-7gojLDrm4SOvjC34qdyOuFmxn/F8QwF1ZVEF3g==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+  <subjob>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tOracleOutput_1"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+  </subjob>
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_b271c301-6072-469e-adff-2b6c746e4b90"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>cHMHs8UwcI+AcTwFm4989eCejWAN0ZsBOWsEM8Yg5Vdyfy+4iuvNOz5cnvwFkeDH146kpF1T2ipi
+o5nQIVXnZA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_82910b1d-6e8f-465c-95fd-1d53ac2125f4"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>9v1azxEu26j4qm9a/nFDF44jmL6ttxiYF89gBo4eUPj7+LpFpUq+UmxnjyczD/4OCi7ISf/dHanN
+zPdTOfJ+Og==</DigestValue></Reference></SignedInfo><SignatureValue>OkFj9MxhJ/8Ml5ACbOb/LD2MxJOsl8Fya/HLc6GpWiwkRkUEe9WODQH4aMJ3jc8SlSs8Gb3fFQDP
+g9StctleCbsYm+vy0BovWO6EcMZ277su2J2cC9newYCoVFJ2m+sDTHHy4CDx0tygh6qfayvlFPS+
+OhNup9IHIieImuBFfii2ruvlLAhv7GU6QFocNwmKfSMHKW/pDIyTS7PxYff9Os0Eya/6qKR4dis/
+Qh1HFItcZFNT8TYieUykDZMt1XVaIKxYChQORzTH8ZV+SdnzAeKgBTKDXAiHQkw3cCiyWogZelt3
+VWNd2qGoxMysxVsMHDwEkCuVBlVYpEcJ3bUAgg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -3560,4 +3567,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_d4a00562-c4ee-442f-9257-13b1270315c0" Target="#_933dfa54-0a99-411f-8cc5-3f0d5aad5302"><Timestamp>2021-05-04 14:48:03</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_82910b1d-6e8f-465c-95fd-1d53ac2125f4" Target="#_b271c301-6072-469e-adff-2b6c746e4b90"><Timestamp>2021-05-04 14:55:13</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
