@@ -966,21 +966,20 @@
     <metadata connector="FLOW" name="TarUpd">
       <column comment="" defaultValue="" key="false" length="-1" name="sbs_no" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="alu" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="-1" name="tar_detail" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="-1" name="tar_cession" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="-1" name="tar_detail" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Double" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="-1" name="tar_cession" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Double" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties shellMaximized="true"/>
+      <uiProperties/>
       <varTables name="Var" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="(int)globalMap.get(&quot;grp_client&quot;) != 0 ? JDE.cnvFloat(vente.BPUPRC)/10000 : JDE.cnvFloat(vente_direct.BPUPRC)/10000 " name="prix_vente" nullable="true" type="id_Float"/>
-        <mapperTableEntries expression="JDE.cnvFloat(cession.BPUPRC)/10000 " name="prix_cession" nullable="true" type="id_Float"/>
-        <mapperTableEntries expression="JDE.cnvFloat(rate.ADFVTR)/1000000" name="rate" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="(int)globalMap.get(&quot;grp_client&quot;) != 0 ? JDE.cnvDouble(vente.BPUPRC,4) : JDE.cnvDouble(vente_direct.BPUPRC,4) " name="prix_vente" nullable="true" type="id_Double"/>
+        <mapperTableEntries expression="JDE.roundDouble(JDE.cnvDouble(cession.BPUPRC,4) * (1 + JDE.cnvDouble(rate.ADFVTR,6))) " name="prix_cession" nullable="true" type="id_Double"/>
       </varTables>
       <outputTables activateExpressionFilter="true" expressionFilter="Var.prix_vente!=0 || Var.prix_cession!=0" name="TarUpd" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="(int)globalMap.get(&quot;sbs_no&quot;)" name="sbs_no" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="items.code_article " name="alu" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="JDE.round(Var.prix_vente)" name="tar_detail" nullable="true" type="id_Integer"/>
-        <mapperTableEntries expression="JDE.round(Var.prix_cession * (1 + Var.rate))" name="tar_cession" nullable="true" type="id_Integer"/>
+        <mapperTableEntries expression="Var.prix_vente" name="tar_detail" nullable="true" type="id_Double"/>
+        <mapperTableEntries expression="Var.prix_cession" name="tar_cession" nullable="true" type="id_Double"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="items" sizeState="INTERMEDIATE">
         <mapperTableEntries name="num_article" type="id_BigDecimal"/>
@@ -1044,8 +1043,8 @@
     <metadata connector="FLOW" name="tFileOutputDelimited_5">
       <column comment="" defaultValue="" key="false" length="-1" name="sbs_no" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="alu" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="-1" name="tar_detail" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="-1" name="tar_cession" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="-1" name="tar_detail" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Double" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="-1" name="tar_cession" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Double" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="-288" posY="832">
@@ -1520,8 +1519,8 @@
     <metadata connector="FLOW" name="tFileInputDelimited_4">
       <column comment="" defaultValue="" key="false" length="-1" name="sbs_no" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="alu" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="-1" name="tar_detail" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
-      <column comment="" defaultValue="" key="false" length="-1" name="tar_cession" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="-1" name="tar_detail" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Double" usefulColumn="true"/>
+      <column comment="" defaultValue="" key="false" length="-1" name="tar_cession" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Double" usefulColumn="true"/>
     </metadata>
     <metadata connector="REJECT" name="REJECT">
       <column comment="" defaultValue="" key="false" length="-1" name="sbs_no" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
@@ -1560,10 +1559,10 @@
       <column comment="" key="false" length="-1" name="price" nullable="true" originalLength="16" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties shellMaximized="true"/>
+      <uiProperties/>
       <varTables name="Var" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="row4.tar_detail != 0 ? Integer.toString(row4.tar_detail) : null " name="prix_vente" type="id_String"/>
-        <mapperTableEntries expression="row4.tar_cession != 0 ? JDE.cnvString(row4.tar_cession.doubleValue() * (Double)globalMap.get(&quot;taux_change&quot;), &quot;0.0000&quot;,true) : null " name="prix_cession" type="id_String"/>
+        <mapperTableEntries expression="row4.tar_detail != 0 ? Double.toString(row4.tar_detail) : null " name="prix_vente" type="id_String"/>
+        <mapperTableEntries expression="row4.tar_cession != 0 ? JDE.cnvString(row4.tar_cession * (Double)globalMap.get(&quot;taux_change&quot;), &quot;0.0000&quot;,true) : null " name="prix_cession" type="id_String"/>
       </varTables>
       <outputTables activateExpressionFilter="true" expressionFilter="!Relational.ISNULL(retail.DCS_CODE)" name="out1" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="retail.STYLE_SID" name="style_sid" nullable="true" type="id_Long"/>
@@ -1581,8 +1580,8 @@
       <inputTables activateExpressionFilter="true" expressionFilter="row4.sbs_no == (int)globalMap.get(&quot;sbs_no&quot;)" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="row4" sizeState="INTERMEDIATE">
         <mapperTableEntries name="sbs_no" nullable="true" type="id_Integer"/>
         <mapperTableEntries name="alu" nullable="true" type="id_String"/>
-        <mapperTableEntries name="tar_detail" nullable="true" type="id_Integer"/>
-        <mapperTableEntries name="tar_cession" nullable="true" type="id_Integer"/>
+        <mapperTableEntries name="tar_detail" nullable="true" type="id_Double"/>
+        <mapperTableEntries name="tar_cession" nullable="true" type="id_Double"/>
       </inputTables>
       <inputTables activateCondensedTool="true" lookupMode="RELOAD" matchingMode="ALL_ROWS" name="retail" sizeState="INTERMEDIATE">
         <mapperTableEntries name="ITEM_SID" type="id_Long"/>
@@ -1845,7 +1844,7 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="filiales"/>
   </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileInputExcel_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputExcel_1" target="tFileDelete_1">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk7"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk5"/>
   </connection>
   <connection connectorName="FLOW" label="param" lineStyle="0" metaname="param" offsetLabelX="0" offsetLabelY="0" source="tMap_4" target="tFileOutputDelimited_3">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
@@ -1989,7 +1988,7 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row5"/>
   </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tDBInput_9" offsetLabelX="0" offsetLabelY="0" source="tDBInput_9" target="tFileInputExcel_1">
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk5"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk7"/>
   </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFileDelete_1" offsetLabelX="0" offsetLabelY="0" source="tFileDelete_1" target="tFileInputDelimited_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk4"/>
@@ -2057,6 +2056,12 @@
   <note opaque="true" posX="96" posY="864" sizeHeight="64" sizeWidth="321" text="Faut-il vraiment remonter les prix détails ?&#13;&#10; à voir avec CLP">
     <elementParameter field="COLOR" name="NOTETXT_COLOR" value="255;0;0"/>
     <elementParameter field="CHECK" name="FONT_BOLD" value="true"/>
+  </note>
+  <note opaque="true" posX="96" posY="960" sizeHeight="97" sizeWidth="353" text="Après les tests, penser à mettre à jour la requête &#13;&#10;Articles GLQ : WHERE a1.IMLITM in ...&#13;&#10;Rétablir lien vers Création du fichier paramètres&#13;&#10;&#13;&#10;">
+    <elementParameter field="COLOR" name="NOTETXT_COLOR" value="128;128;128"/>
+    <elementParameter field="TEXT" name="FONT_SIZE" value="9"/>
+    <elementParameter field="CHECK" name="FONT_ITALIC" value="true"/>
+    <elementParameter field="COLOR" name="NOTE_LINECOLOR" value="152;168;191"/>
   </note>
   <subjob>
     <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" show="false" value="true"/>
@@ -2153,13 +2158,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_abc968b7-9ff7-4ca1-968f-d6f7530f390b"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>H2XuV9CqoEUYbF9jUIyzwpPITBGp5gN7LwGSxiAWBJEkpj8y/CektyfRaA/nCSPdrfXSDpQOYwX6&#13;
-9Ixh3Vbs2g==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_7856cffe-8f1b-4ed0-bf03-5c3534dd0a72"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>zZ1nZz27e9VVdqgPBi/3TfEyLtR1bruwGjcnTEWcmA54kSKruBpUFmsYXf5mjsW3YPl/IRndnfnS&#13;
-CCgsANM0Ow==</DigestValue></Reference></SignedInfo><SignatureValue>TKcWToN2gL/+UKjNJnOA4kM3OaymfWxnh6QrL8iWykPvCVftLYHEJJSgyG8SXIRM/79T7CYlhDYK&#13;
-TYoyf+y9o1lHhTwO83UQFYtj5rj48AnpXo+octc7ujrRgfOQcSjrbxeoALEoWQ+VmLwqgUuLspIc&#13;
-FKpYWW8XwT13o8IvN5BnMS6cQLwjF7CWvzk+ew/SYAOsKvzXer5BmI5qq4ArQ7OXAc5fRYRfHjTQ&#13;
-6SWeUai8OcIE3Vwran3tgrxSlSA4ksQyv8eBPqMwk3BMnzDx3do9FUEW9Ftq78R4z28xBuJYSxav&#13;
-YfODQjlWtzs4UsqlpSlYqd6aV/OT4oMAhXXlwA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_b12f4eee-2ddc-4cd7-9598-9ce459072806"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>RDsBVbCRh9XETrXfpowAmOYNfJ9KXxfvqB3QxjVak2UqOSvirV2Qr8k/78cfWesvAyxAxHfA0rRw&#13;
+M6yK/yW2pQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_9268e19e-9967-4882-a521-89df46dfa811"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>+Q7yIUCiJInm2vKGVR5Ilv0vkbEcvAUYskvBs2i3BPfexkSE6wlLKpPPQbE33oKcOV8bIaVI8FU0&#13;
+KIWbfKnQVA==</DigestValue></Reference></SignedInfo><SignatureValue>V9iF3AHHndq2V7MMT5GaoxBRz1g5AqmAQSYnBDrogrwh2os8kEKSAtcj+DQJbopXujh/0pkBsP6k&#13;
+hhDMxFx1mNXAO+MQ/9TBseWFnGsGAP2tb3RIIbcsSepOIwAwC9Fy7s7caxuR9Dbm3Jq8HQbGMuXn&#13;
+NsoYxEIBxG6t96xuW7huIwwMkxrfGjniSZ70rizZcjIcGQLfRpMI4lFBZtSE0YOQv7aSDZehVWex&#13;
+RL0yBXbNIzU8XZe2yAmmo/auhn6M8mPiG9iXp+pIzz/rsgZdnTQissvexjcknyg60cKuAM91V2IG&#13;
+y/mDKvTJp2ss0Hu4C/SqD2UQcaOa9F1qTfnv+A==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD&#13;
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5&#13;
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U&#13;
@@ -2181,4 +2186,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/&#13
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW&#13;
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+&#13;
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg&#13;
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_7856cffe-8f1b-4ed0-bf03-5c3534dd0a72" Target="#_abc968b7-9ff7-4ca1-968f-d6f7530f390b"><Timestamp>2021-05-03 14:53:51</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_9268e19e-9967-4882-a521-89df46dfa811" Target="#_b12f4eee-2ddc-4cd7-9598-9ce459072806"><Timestamp>2021-05-04 13:55:08</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
