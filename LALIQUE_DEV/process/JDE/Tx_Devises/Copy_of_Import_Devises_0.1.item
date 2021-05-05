@@ -585,8 +585,8 @@
       <additionalProperties key="Comment" value=""/>
     </metadata>
     <metadata connector="FLOW" name="Date">
-      <column comment="" key="false" length="-1" name="Date_A" nullable="true" originalLength="-1" pattern="&quot;dd-MM-yyyy&quot;" precision="-1" sourceType="" type="id_Date" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Date_M" nullable="true" originalLength="-1" pattern="&quot;dd-MM-yyyy&quot;" precision="-1" sourceType="" type="id_Date" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Date_A" nullable="true" originalLength="-1" pattern="&quot;dd-MM-yyyy&quot;" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Date_M" nullable="true" originalLength="-1" pattern="&quot;dd-MM-yyyy&quot;" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
@@ -648,8 +648,8 @@
         <mapperTableEntries expression="row5.pivot_value .equals(&quot;JPY&quot;) ? Float.valueOf(Tx_Change.Tx_Change) * 100 : Float.valueOf(Tx_Change.Tx_Change) " name="C1CRRD" nullable="true" type="id_Float"/>
       </outputTables>
       <outputTables name="Date" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="TalendDate.getFirstDayOfMonth(TalendDate.addDate(TalendDate.getCurrentDate(),0,&quot;MM&quot;)) " name="Date_A" nullable="true" type="id_Date"/>
-        <mapperTableEntries expression="JDE.convertToJulian(TalendDate.formatDate(&quot;ddMMyyyy&quot;,TalendDate.getFirstDayOfMonth(TalendDate.addDate(TalendDate.getCurrentDate(),-1,&quot;MM&quot;)))) " name="Date_M" nullable="true" type="id_Date"/>
+        <mapperTableEntries expression="TalendDate.getFirstDayOfMonth(TalendDate.addDate(TalendDate.getCurrentDate(),0,&quot;MM&quot;)) " name="Date_A" nullable="true" type="id_Integer"/>
+        <mapperTableEntries expression="JDE.convertToJulian(TalendDate.formatDate(&quot;ddMMyyyy&quot;,TalendDate.getFirstDayOfMonth(TalendDate.addDate(TalendDate.getCurrentDate(),-1,&quot;MM&quot;)))) " name="Date_M" nullable="true" type="id_Integer"/>
       </outputTables>
       <inputTables activateExpressionFilter="true" expressionFilter="(Tx_Change.Devise_Cible .equals (&quot;EUR&quot;) || Tx_Change.Devise_Cible .equals (&quot;GBP&quot;)) &amp;&amp; Relational.NOT(Relational.ISNULL(Tx_Change.Tx_Change))" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Tx_Change" sizeState="INTERMEDIATE">
         <mapperTableEntries name="Devise_Cible" nullable="true" type="id_String"/>
@@ -816,8 +816,8 @@
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tLogRow_2">
-      <column comment="" key="false" length="-1" name="Date_A" nullable="true" originalLength="-1" pattern="&quot;dd-MM-yyyy&quot;" precision="-1" sourceType="" type="id_Date" usefulColumn="true"/>
-      <column comment="" key="false" length="-1" name="Date_M" nullable="true" originalLength="-1" pattern="&quot;dd-MM-yyyy&quot;" precision="-1" sourceType="" type="id_Date" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Date_A" nullable="true" originalLength="-1" pattern="&quot;dd-MM-yyyy&quot;" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Date_M" nullable="true" originalLength="-1" pattern="&quot;dd-MM-yyyy&quot;" precision="-1" sourceType="" type="id_Integer" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tSetGlobalVar" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="0" posY="160">
@@ -1636,24 +1636,24 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Tx_Change"/>
   </connection>
-  <connection connectorName="FLOW" label="Date" lineStyle="0" metaname="Date" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_2" target="tLogRow_2">
+  <connection connectorName="FLOW" label="F0015Z1" lineStyle="0" metaname="F0015Z1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_2" target="tOracleOutput_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Date"/>
+    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F0015Z1"/>
   </connection>
   <connection connectorName="FLOW" label="F1113_A" lineStyle="0" metaname="F1113_A" offsetLabelX="12" offsetLabelY="2" outputId="2" source="tMap_2" target="tOracleOutput_2">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F1113_A"/>
   </connection>
-  <connection connectorName="FLOW" label="F0015Z1" lineStyle="0" metaname="F0015Z1" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tMap_2" target="tOracleOutput_1">
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F0015Z1"/>
-  </connection>
-  <connection connectorName="FLOW" label="F1113_M" lineStyle="0" metaname="F1113_M" offsetLabelX="0" offsetLabelY="0" outputId="4" source="tMap_2" target="tOracleOutput_3">
+  <connection connectorName="FLOW" label="F1113_M" lineStyle="0" metaname="F1113_M" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tMap_2" target="tOracleOutput_3">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F1113_M"/>
+  </connection>
+  <connection connectorName="FLOW" label="Date" lineStyle="0" metaname="Date" offsetLabelX="0" offsetLabelY="0" outputId="4" source="tMap_2" target="tLogRow_2">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Date"/>
   </connection>
   <connection connectorName="FLOW" label="row2" lineStyle="0" metaname="tFileInputExcel_2" offsetLabelX="0" offsetLabelY="0" source="tFileInputExcel_2" target="tUnpivotRow_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
@@ -1701,13 +1701,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_ea2f763e-e445-4e44-b256-caefda15791e"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>4PqN1SHPIHw3ZESlVmwf9pMzDFaAZlb7dP47geBdau8mDr5IngdXd4hAq7n93okm43odqz1MaLH6
-q8ntKpP5Nw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_ce1b8035-5a72-45c5-804a-912c0352859f"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>fJK0ZdiGdId+fIzt1Dp2o9U/LODtv2KelhmAYrwyfDVifgT2Q34OErKqmTywKtSzoJaPaW1WFGn8
-dPUMYoXE1w==</DigestValue></Reference></SignedInfo><SignatureValue>BvqW5sMXp/Dl9O2R74HL+1UrRlSwgp61bqHb6Rrnd6qGXX/Yp9s4bKVZ4L7P7K0S8NH7bGYxchzQ
-Wv0DK1VgRdqm87nEsSCnSBWrpZQUK1Rjdyrf++uud++wVj6/aXFyYsMuzQ2ltLSery0VktW/b8Vx
-DeSpG4I8CPo/k7Dzt5wVBJrm4LDewxdcOea1915J5Tg0/afjai3CYeUQMXTaZDYlE/PWXuwYmwmZ
-j03Bg0ahygDAMtSEWCLMn+0WjpIBfdq8a+ff6kDVRtdpTFFg3SPEMgC/8TxT8Zo3V0LtZ2r2qGMy
-ScKk63xU5Ukc+6naHZQ1Yz1UAKeQ3vvQd20nww==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_dfbb0ec1-3e7f-4c51-b662-7c3b36461283"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>4mTbl/nJ21NCdJmj0se6Q5Hhimhmt/i/8YiPUIr90qQb/cfEqkopNAhKgeDSjGErwp6RFXV5NRuR
+Pl6eNfBKeg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_cdcef9bd-11ca-4f06-b5fc-2906e2447466"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>1puwpqD5Cj9itcV3lva1q2VsVvJ5AN1t60MT2aRfHmGsEv7ERsXyuMBm/1UHZWSKKKVW6tHPg1j/
+QJoggiwVKQ==</DigestValue></Reference></SignedInfo><SignatureValue>l/qyUHKlnDDvGDa2Hk+0fQ/KcHUpmw3dNh793pOlLClSgv3R8YnC1UX42xomhZmnYzRZdRUz2lP1
+FkEE9wPBmx3hMtfVTMnmle4YYP/2KGNYxAVvV1y0huK8ArL3oM5zeYJ4aonOQzeOOtcaVedQEQVk
+KX3P3U+lqYR18loUoTNEty27azKB4vLQaP2dkRfvyBuU5wbT+4yop6BFWdpVgc2q/XbrLjH+0ajY
+FEA3dZpcZ5jnFKMTwSneLYSmj24UJZOu+qszDxEYWg1dwR9bdfhgsdZDD8J9KuHgq05ZjuyGIrAA
+SrVedziBVtKzKjYJhJbMwsPROqJlNHexn7t3bA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -1729,4 +1729,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_ce1b8035-5a72-45c5-804a-912c0352859f" Target="#_ea2f763e-e445-4e44-b256-caefda15791e"><Timestamp>2021-05-05 09:43:53</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_cdcef9bd-11ca-4f06-b5fc-2906e2447466" Target="#_dfbb0ec1-3e7f-4c51-b662-7c3b36461283"><Timestamp>2021-05-05 09:44:26</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
