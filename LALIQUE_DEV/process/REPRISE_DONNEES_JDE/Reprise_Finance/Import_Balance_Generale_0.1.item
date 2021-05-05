@@ -1559,7 +1559,7 @@
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="&quot;10&quot; .equals(BGenerale.Ste) &amp;&amp; &quot;EUR&quot; .equals(BGenerale.Code_Devise) ? &quot;D&quot; : &#13;&#10;&quot;20&quot; .equals(BGenerale.Ste) &amp;&amp; &quot;EUR&quot; .equals(BGenerale.Code_Devise) ? &quot;D&quot; : &#13;&#10;&quot;30&quot; .equals(BGenerale.Ste) &amp;&amp; &quot;EUR&quot; .equals(BGenerale.Code_Devise) ? &quot;D&quot; : &#13;&#10;&quot;40&quot; .equals(BGenerale.Ste) &amp;&amp; &quot;GBP&quot; .equals(BGenerale.Code_Devise) ? &quot;D&quot; : &#13;&#10;&quot;50&quot; .equals(BGenerale.Ste) &amp;&amp; &quot;EUR&quot; .equals(BGenerale.Code_Devise) ? &quot;D&quot; : &quot;F&quot; " name="D_F" type="id_String"/>
         <mapperTableEntries expression="(BGenerale.Debit .add (BGenerale.Credit)) .multiply(new BigDecimal(100)) " name="Montant" type="id_BigDecimal"/>
-        <mapperTableEntries expression="(BGenerale.Debit_Dev .add (BGenerale.Credit_Dev)) .multiply(new BigDecimal(100)) " name="Montant_Dev" type="id_BigDecimal"/>
+        <mapperTableEntries expression="&quot;JPY&quot; .equals (BGenerale.Code_Devise) ? (BGenerale.Debit_Dev .add (BGenerale.Credit_Dev)) : (BGenerale.Debit_Dev .add (BGenerale.Credit_Dev)) .multiply(new BigDecimal(100)) " name="Montant_Dev" type="id_BigDecimal"/>
         <mapperTableEntries expression="BGenerale.Ste + ((String)globalMap.get(&quot;VNEDBT&quot;)) " name="Edbt" type="id_String"/>
         <mapperTableEntries expression="&quot;0&quot; .equals(BGenerale.DatePiece) ? &quot;0&quot; : StringHandling.RIGHT(BGenerale.DatePiece,2) + StringHandling.LEFT(StringHandling.RIGHT(BGenerale.DatePiece,4),2) + StringHandling.LEFT(BGenerale.DatePiece,4) " name="DatePiece" type="id_String"/>
         <mapperTableEntries expression="&quot;31032021&quot;" name="Date_Reprise" type="id_String"/>
@@ -1570,7 +1570,7 @@
         <mapperTableEntries expression="Numeric.sequence(BGenerale.Ste,1,1) " name="Edtn" type="id_Integer"/>
       </varTables>
       <outputTables columnNameFilter="" name="F0911Z1_Rep" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="&quot;IMP_CLP&quot;" name="VNEDUS" type="id_String"/>
+        <mapperTableEntries expression="&quot;REPR._CLP&quot;" name="VNEDUS" type="id_String"/>
         <mapperTableEntries expression="&quot; &quot;" name="VNEDTY" nullable="true" type="id_String"/>
         <mapperTableEntries expression="0" name="VNEDSQ" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="Var.Edtn+&quot;&quot; " name="VNEDTN" type="id_String"/>
@@ -1614,7 +1614,7 @@
         <mapperTableEntries expression=" Var.Exercice " name="VNFY" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="&quot; &quot; " name="VNFQ" nullable="true" type="id_String"/>
         <mapperTableEntries expression="BGenerale.Code_Devise " name="VNCRCD" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="&quot;JPY&quot; .equals (BGenerale.Code_Devise) ? (BGenerale.Tx_Devise .multiply (new BigDecimal(100))) : BGenerale.Tx_Devise " name="VNCRR" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries expression="&quot;JPY&quot; .equals (BGenerale.Code_Devise) ? (BGenerale.Tx_Devise .multiply (new BigDecimal(10))) : BGenerale.Tx_Devise " name="VNCRR" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries expression="0" name="VNHCRR" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="0" name="VNHDGJ" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="0" name="VNAA" nullable="true" type="id_Integer"/>
@@ -1809,7 +1809,7 @@
         <mapperTableEntries expression="Var.Exercice " name="VNFY" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="&quot; &quot;" name="VNFQ" nullable="true" type="id_String"/>
         <mapperTableEntries expression="BGenerale.Code_Devise " name="VNCRCD" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="&quot;JPY&quot; .equals (BGenerale.Code_Devise) ? (BGenerale.Tx_Devise .multiply (new BigDecimal(100))) : BGenerale.Tx_Devise " name="VNCRR" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries expression="&quot;JPY&quot; .equals (BGenerale.Code_Devise) ? (BGenerale.Tx_Devise .multiply (new BigDecimal(10))) : BGenerale.Tx_Devise " name="VNCRR" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries expression="0" name="VNHCRR" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="0" name="VNHDGJ" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="Var.Montant  .setScale(0,BigDecimal.ROUND_HALF_UP) .multiply(new BigDecimal(-1))   " name="VNAA" nullable="true" type="id_BigDecimal"/>
@@ -8408,13 +8408,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_ef71486d-b848-4945-bdb2-ff2ab05e7e2e"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>gXheEE1VtU231fo8D2XnxYAjoa0gVcrpu1mKrT7Iss9bA4pIuqAJeFO6kRQ2cywUYc/Z1tUVFqMa
-lq54+h/+5g==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_22d33187-2c20-4307-98aa-d9f8d8b1c2b1"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Hrk3pMPciCd0RolJ8HQOLv5MCf+vtf6TkgvjqheGMczDl5aLIpz9cAu1rgiHbbZ93qdajzQQ7hE9
-SIOkJlq1/g==</DigestValue></Reference></SignedInfo><SignatureValue>d8SbbOdNsbUXvm5ql5Ch9RAtwvMu7nwoCNUl/0D5YtSkqCjFL6hQ/cBflO+yOAsWUAFj21A1pDAS
-DRJ/QvxD30dmKbTxXC/1XsAxclQCgLfdHtJPRx9ST6pLmbZsf192USi1qGTbmc3sGjEaY9Xo6bHg
-Kt3p2Ep4WLW5lUjFqzW4HOLKaL0Zt+z4sf5UvT5G1UuoCTSBJOfc/TEmwd1W57JD41ToVl1I69ID
-ye9ZKd1cTSpZUwYT6YGTl/hjQlw549KQaRuorTOalM5t+S48pVzteVwAf5Wwjwz/r5oWvUDw0WrV
-NmjSR9LWJ3PdHNjI3RAQJGJHvlPE5uN+KASWhw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_85ac689a-315b-4d8f-b581-b270f80661e5"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>8BTSNj6rVll3a5qDelVAZjQbzCXrusV6CcMSecdrUBmXYhn6wrTb6LXQjgKm6vhcZNrjXg+CMphj
+AUbOanWvhA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_a5a93279-9e6a-429a-a9e2-9723877b8bfd"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>HUm2OWTufdluEwy465X7dT+ab7BS+5+1m9gstq3jnjFEEIo6angh0ld1HWrHMd7YRZyViCc6Gz4O
+9+8qH0/Smg==</DigestValue></Reference></SignedInfo><SignatureValue>N7HV1ugmQj7YMQ8ESy6BAML4KJvP/5br3LpqnHNaD5/N1UAXuA3W2Sf9TYjTNc1dxjxWj8KAG8EZ
+JCtlq/tAxBwTdVZfsDzk8lwEP5Z34XC360Y8Lo899nArZeSDIQ+/ZeZzpbcF9HQruTDCCBMGSA10
+zuj7lUTuYpbkB259s7OWjroE1UJOzHudTDrynE/CA3EMXzycNjq319OZI3SSxbWLjw3woNiZoWd2
+74gefU882MQOFCBXQ0wGhWbzlfXWKgbOdrzQjVp4CU2VWm+vuvJ4aHXoTTPddzE8w+XkFETSBDMc
+bg4AsKZTJVpHDLJfHDaIIo4PrDh0CdvfZ8bccg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -8436,4 +8436,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_22d33187-2c20-4307-98aa-d9f8d8b1c2b1" Target="#_ef71486d-b848-4945-bdb2-ff2ab05e7e2e"><Timestamp>2021-05-05 12:27:57</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_a5a93279-9e6a-429a-a9e2-9723877b8bfd" Target="#_85ac689a-315b-4d8f-b581-b270f80661e5"><Timestamp>2021-05-05 12:38:15</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
