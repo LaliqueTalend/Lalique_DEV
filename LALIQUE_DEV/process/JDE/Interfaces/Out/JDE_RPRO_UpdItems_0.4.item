@@ -2749,11 +2749,10 @@
       <column comment="" key="false" length="-1" name="price" nullable="true" originalLength="16" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
-      <uiProperties/>
+      <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="(Long)globalMap.get(&quot;grp_client&quot;)!=0 ? JDE.cnvDouble(vente.BPUPRC)/10000 : JDE.cnvDouble(vente_direct.BPUPRC)/10000 " name="prix_vente" nullable="true" type="id_Double"/>
-        <mapperTableEntries expression="JDE.cnvDouble(cession.BPUPRC) / 10000 " name="prix_cession" nullable="true" type="id_Double"/>
-        <mapperTableEntries expression="JDE.cnvDouble(rate.ADFVTR) / 1000000" name="rate" nullable="true" type="id_Double"/>
+        <mapperTableEntries expression="(int)globalMap.get(&quot;grp_client&quot;)!=0 ? JDE.cnvDouble(vente.BPUPRC,4) : JDE.cnvDouble(vente_direct.BPUPRC,4) " name="prix_vente" nullable="true" type="id_Double"/>
+        <mapperTableEntries expression="JDE.roundDouble(JDE.cnvDouble(cession.BPUPRC,4) * (1 + JDE.cnvDouble(rate.ADFVTR,6)))" name="prix_cession" nullable="true" type="id_Double"/>
       </varTables>
       <outputTables name="Tar_Upd" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="upd2.style_sid " name="style_sid" nullable="true" type="id_String"/>
@@ -2764,7 +2763,7 @@
         <mapperTableEntries expression="upd2.dcs_code " name="dcs_code" nullable="true" type="id_String"/>
         <mapperTableEntries expression="TalendDate.formatDate(&quot;yyyy-MM-dd'T'HH:mm:ss&quot;,inv_sbs3.CREATED_DATE) " name="created_date" nullable="true" type="id_String"/>
         <mapperTableEntries expression="upd2.modified_date " name="modified_date" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="Var.prix_cession!=0 ? JDE.cnvString(Var.prix_cession * (1+Var.rate) * (Double)globalMap.get(&quot;taux_change&quot;),&quot;0.0000&quot;,true) : null " name="lst_rcvd_cost" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Var.prix_cession!=0 ? JDE.cnvString(Var.prix_cession * (Double)globalMap.get(&quot;taux_change&quot;),&quot;0.0000&quot;,true) : null " name="lst_rcvd_cost" nullable="true" type="id_String"/>
         <mapperTableEntries expression="&quot;1&quot;" name="price_lvl" nullable="true" type="id_String"/>
         <mapperTableEntries expression="JDE.cnvString(Var.prix_vente,&quot;0.0000&quot;,true) " name="price" nullable="true" type="id_String"/>
       </outputTables>
@@ -4011,13 +4010,13 @@
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
     <elementParameter field="CHECK" name="SUBJOB_DISPLAYED" show="false" value="false"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_9c5aeea6-73c6-4311-8794-bb139054be3e"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>OMM+PfkQ2HORqATClyiRt43UNN19IBm9I+YfvmrLKKr8X8kl/MroWkDVRRDBOrX+63uscO4RVTQV&#13;
-vs+kndx0wA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_c2d86e7d-df75-4cd9-952d-1d8f258586e1"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>xWqyRLKrAm5HZQ5i9QEcUgIiLBNdcF0vj20lqmxMizfcioR15dvOPSWzYsvcUCDnQAiWgVhFvoY4&#13;
-ctTjXqhV2g==</DigestValue></Reference></SignedInfo><SignatureValue>EYZtAmB8tEdYsh+k1buy1RlP8U7FGBtQlXwex9bY86BLYCabx6wW+qxxF77Docnd/Oq22Ac6GRNB&#13;
-Se6LAkGFdsPDmG1lfgecWdW37nUrDQgC9ws5D6olZbKrgK9wZkNwv1hKHHsLbodhkDE/S1V2/RpM&#13;
-f8AUYI1JEUG6jJhkmU8KT3Fbcitl2/SKwePsXULnigbuqZWQa+BFmKaKjfPDnqhsbNoITdW+w1nN&#13;
-g2gGSnbYIH7aDCzYnZOfkDHBlKtkakcjmKpmzDHQsFpLkt2791CixVcVfq54jLksJhkM2XV0GaaA&#13;
-68jOesfBrl7OwZyppGugsO5QunJGPxNn4xF4IQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_6c84e65a-d9a9-4af2-b0fc-7b88f63a06dc"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>/PDPii0Jgz/HTuzrKcDd+BS+JpN2kZUoaHNyepayp/2nTN2FLHJz6xKUWDFnY6OujnXGSjYO1BCO&#13;
+m87C3l0j1w==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_3147480f-7df6-4ae8-b6ca-804b3eb16281"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>NuwcJSZipy30gq/3yW5p/nuWc/9qLkJQjTGB5g9Fze4yvu0x3rR5iv1rJi+0M05zfMsw8yrp2Qc3&#13;
+FmCl33vo+A==</DigestValue></Reference></SignedInfo><SignatureValue>pn/lzCmdX4mkXGApPYnMIixHgwMbR7NBItJjLRDg7wZEHQ2QILFcuj+TQRLbcelckcEoOqRptgxR&#13;
+I00bkJsARIHYUqEjPuuciGly7OeXHLoyOI8/Pn8nQcoZKpYSRw3Tq0APo4GesRIvNwHcvE7r096m&#13;
+aT1PVOf+uUU+ON7ETfRumjHEHf9V6qQw/CsrfkBW+3OawvOtR9dJQ871j6Zjwrh0zVzjXlJ+sfft&#13;
+LoZq6tK48LAquCYZ07C45YhF6/XA+kTRKRsjWB/ZiOf4mxAIuKtvz7F+V3JaY27r+Ql8bZ1ET65Z&#13;
+z41P7UipqCFPCR+oneVqqBU+0UUUmHNSw8MSfw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD&#13;
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5&#13;
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U&#13;
@@ -4039,4 +4038,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/&#13
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW&#13;
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+&#13;
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg&#13;
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_c2d86e7d-df75-4cd9-952d-1d8f258586e1" Target="#_9c5aeea6-73c6-4311-8794-bb139054be3e"><Timestamp>2021-05-05 07:33:47</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_3147480f-7df6-4ae8-b6ca-804b3eb16281" Target="#_6c84e65a-d9a9-4af2-b0fc-7b88f63a06dc"><Timestamp>2021-05-05 07:48:51</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
