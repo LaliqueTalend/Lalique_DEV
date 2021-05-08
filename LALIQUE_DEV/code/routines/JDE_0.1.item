@@ -61,7 +61,8 @@ public class JDE {
      */
 
 	/**
-     * Convertit une valeur de type <code>BigDecimal</code> en valeur de type <code>Double</code> (renvoie 0 si la valeur est nulle)
+     * Convertit une valeur de type <code>BigDecimal</code> en valeur de type <code>Double</code> 
+     * (renvoie 0 si la valeur est nulle)
      * 
      * @param value : <code>BigDecimal</code> - valeur à convertir.
      * 
@@ -86,6 +87,43 @@ public class JDE {
 	    else
 	    {
 	    	return value.doubleValue();
+	    }
+    }
+    
+	/**
+     * Convertit une valeur de type <code>BigDecimal</code> en valeur de type <code>Double</code> avec le nombre de décimales indiqué
+     * (renvoie 0 si la valeur est nulle)
+     * 
+     * @param value : <code>BigDecimal</code> - valeur à convertir.
+     * @param decimals : <code>Integer</code> - nombre de décimales à appliquer.
+     * 
+     * @return valeur de type <code>Double</code>
+     * </br><b>Exemples:</b> 
+     * <em>Retourner la valeur du champ F4106.BPUPRC (prix unitaire tarif avec 4 décimales)</em>
+     * <code>  JDE.cnvDouble(BPUPRC,4) :</code>
+     * <code>    BPUPRC=38800000 ==> 3380.0000</code>
+     * <code>    BPUPRC=38805432 ==> 3380.5432</code>
+	 * <hr>
+	 *
+     * {talendTypes} Double
+     * 
+     * {Category} Lalique Defined
+     * 
+     * {param} BigDecimal value
+     * {param} int value
+     * </br>
+     * created : 04/05/2021 - Philippe Bongard</br>
+     * version : 1.0
+     */
+    public static Double cnvDouble(BigDecimal value, int decimals)
+    {
+	    if(value == null)
+	    {
+	    	return 0d;
+	    }
+	    else
+	    {
+	    	return value.doubleValue() / Math.pow(10d, Double.valueOf(decimals));
 	    }
     }
     
@@ -533,6 +571,63 @@ public class JDE {
       if (a != a)
            return 0;
         return (long) Math.round(Math.abs(a)) * (a < 0 ? -1 : 1 );
+    }
+
+	/**
+     * Renvoie la valeur arrondie à l'entier le plus proche
+     * 
+     * @param value : <code>Double</code> - valeur à arrondir.
+     * 
+     * @return valeur de type <code>Double</code>
+     * </br><b>Exemples:</b> 
+     * <code>  JDE.roundDouble(3380.5) ==> 3380</code>
+     * <code>  JDE.roundDouble(3380.75) ==> 3381</code>
+     * <code>  JDE.roundDouble(3380.45) ==> 3380</code>
+     * <hr>
+	 *
+     * {talendTypes} Double
+     * 
+     * {Category} Lalique Defined
+     * 
+     * {param} double value
+     * </br>
+     * created : 04/05/2021 - Philippe Bongard</br>
+     * version : 1.0
+     */
+    public static double roundDouble(double value) 
+    {
+        if (value != value)
+        	return 0d;
+          	return (double) Math.round(value);
+    }
+
+	/**
+     * Renvoie la valeur arrondie à l'entier le plus proche
+     * 
+     * @param value : <code>BigDecimal</code> - valeur à convertir.
+     * @param decimals : <code>Integer</code> - nombre de décimales à appliquer.
+     * 
+     * @return valeur de type <code>Double</code>
+     * </br><b>Exemples:</b> 
+     * <em>Arrondir la valeur du champ F4106.BPUPRC (prix unitaire tarif avec 4 décimales)</em>
+     * <code>  JDE.roundDouble(BPUPRC,4) :</code>
+     * <code>    BPUPRC=38804555 ==> 3380.0000</code>
+     * <code>    BPUPRC=38805000 ==> 3381.0000</code>
+     * <hr>
+	 *
+     * {talendTypes} Double
+     * 
+     * {Category} Lalique Defined
+     * 
+     * {param} BigDecimal value
+     * {param} int value
+     * </br>
+     * created : 04/05/2021 - Philippe Bongard</br>
+     * version : 1.0
+     */
+    public static double roundDouble(BigDecimal value,int decimals) 
+    {
+    	return (double) Math.round(cnvDouble(value,decimals));
     }
 
     /**
