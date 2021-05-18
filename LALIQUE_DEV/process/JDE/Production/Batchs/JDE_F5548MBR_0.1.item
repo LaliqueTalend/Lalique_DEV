@@ -228,7 +228,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT WTUKID,WTSOCN,WTUOM,WTRCD,WTUPMJ,WTTDAY&#13;&#10;FROM &quot;+context.JDE920_Schema_DTA+&quot;.F31122&#13;&#10;WHERE WTRCD&lt;&gt;'REG' AND WTTYR='5'&#13;&#10;&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT WTUKID,WTSOCN,WTUOM,WTRCD,WTUPMJ,WTTDAY&#13;&#10;FROM &quot;+context.JDE920_Schema_DTA+&quot;.F31122&#13;&#10;WHERE WTRCD&lt;&gt;'REG' AND WTTYR='5'&#13;&#10;AND MBUKID &lt; 19000&#13;&#10;&quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -282,10 +282,6 @@
     <elementParameter field="TEXT" name="ROWS_BUFFER_SIZE" value="2000000"/>
     <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="true"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata connector="FLOW" label="JDE_Update" name="F31122_Update">
-      <column comment="" key="true" length="15" name="WTUKID" nullable="false" originalLength="15" pattern="" precision="0" sourceType="NCHAR" type="id_BigDecimal" usefulColumn="true"/>
-      <column comment="" key="false" length="3" name="WTRCD" nullable="true" originalLength="2" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
-    </metadata>
     <metadata connector="FLOW" label="JDE_Update" name="F5548MBR">
       <column comment="" key="true" length="-1" name="MBUKID" nullable="true" originalLength="15" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="" key="true" length="15" name="MBINT01" nullable="true" originalLength="15" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true"/>
@@ -299,13 +295,14 @@
       <column comment="" key="false" length="6" name="MBUPMJ" nullable="true" originalLength="6" pattern="" precision="0" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="MBUPMT" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_BigDecimal" usefulColumn="true"/>
     </metadata>
+    <metadata connector="FLOW" label="JDE_Update" name="F31122_Update">
+      <column comment="" key="true" length="15" name="WTUKID" nullable="false" originalLength="15" pattern="" precision="0" sourceType="NCHAR" type="id_BigDecimal" usefulColumn="true"/>
+      <column comment="" key="false" length="3" name="WTRCD" nullable="true" originalLength="2" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="15" name="WTURRF" nullable="true" originalLength="15" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+    </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE"/>
-      <outputTables name="F31122_Update" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="Req02.WTUKID " name="WTUKID" type="id_BigDecimal"/>
-        <mapperTableEntries expression="&quot;REG&quot;" name="WTRCD" nullable="true" type="id_String"/>
-      </outputTables>
       <outputTables name="F5548MBR" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="Req02.WTUKID " name="MBUKID" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries expression="0" name="MBINT01" nullable="true" type="id_BigDecimal"/>
@@ -313,11 +310,16 @@
         <mapperTableEntries expression="Req02.WTUOM " name="MBUOM" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Req02.WTRCD " name="MBRCD" nullable="true" type="id_String"/>
         <mapperTableEntries name="MBD200" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="&quot;TALEND&quot;" name="MBUSER" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="" name="MBPID" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="&quot;ENTPROD&quot;" name="MBJOBN" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot;ADM_SVC&quot;" name="MBUSER" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot;P5548MRB&quot;" name="MBPID" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot;TALEND&quot;" name="MBJOBN" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Req02.WTUPMJ " name="MBUPMJ" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries expression="Req02.WTTDAY " name="MBUPMT" nullable="true" type="id_BigDecimal"/>
+      </outputTables>
+      <outputTables name="F31122_Update" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="Req02.WTUKID " name="WTUKID" type="id_BigDecimal"/>
+        <mapperTableEntries expression="&quot;REG&quot;" name="WTRCD" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="&quot;P5548MRB&quot;" name="WTURRF" nullable="true" type="id_String"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Req02" sizeState="INTERMEDIATE">
         <mapperTableEntries name="WTUKID" nullable="true" type="id_BigDecimal"/>
@@ -372,6 +374,11 @@
       <elementValue elementRef="DELETE_KEY" value="false"/>
       <elementValue elementRef="UPDATABLE" value="true"/>
       <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="WTURRF"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
     </elementParameter>
     <elementParameter field="CHECK" name="USE_HINT_OPTIONS" value="false"/>
     <elementParameter field="TABLE" name="HINT_OPTIONS" show="false"/>
@@ -388,10 +395,12 @@
     <metadata connector="FLOW" label="JDE_Update" name="tDBOutput_1">
       <column comment="" key="true" length="15" name="WTUKID" nullable="false" originalLength="15" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="" key="false" length="3" name="WTRCD" nullable="true" originalLength="2" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="15" name="WTURRF" nullable="true" originalLength="15" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
     </metadata>
     <metadata connector="REJECT" label="JDE_Update" name="REJECT">
       <column comment="" key="true" length="15" name="WTUKID" nullable="false" originalLength="15" pattern="" precision="0" sourceType="DEC" type="id_BigDecimal" usefulColumn="true"/>
       <column comment="" key="false" length="3" name="WTRCD" nullable="true" originalLength="2" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="15" name="WTURRF" nullable="true" originalLength="15" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" originalLength="-1" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" originalLength="-1" precision="0" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
     </metadata>
@@ -686,31 +695,7 @@
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tDBInput_1" offsetLabelX="0" offsetLabelY="0" source="tDBInput_1" target="tDBCommit_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk2"/>
   </connection>
-  <connection connectorName="FLOW" label="F31122_Update" lineStyle="0" metaname="F31122_Update" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_1" target="tDBOutput_1">
-    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
-      <elementValue elementRef="TRACE_COLUMN" value="WTUKID"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="WTRCD"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="WTURDT"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="WTURAT"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="WTURAB"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-      <elementValue elementRef="TRACE_COLUMN" value="WTURRF"/>
-      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
-      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
-    </elementParameter>
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F31122_Update"/>
-  </connection>
-  <connection connectorName="FLOW" label="F5548MBR" lineStyle="0" metaname="F5548MBR" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_1" target="tDBOutput_2">
+  <connection connectorName="FLOW" label="F5548MBR" lineStyle="0" metaname="F5548MBR" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tMap_1" target="tDBOutput_2">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="MBUPMJ"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
@@ -733,6 +718,30 @@
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F5548MBR"/>
+  </connection>
+  <connection connectorName="FLOW" label="F31122_Update" lineStyle="0" metaname="F31122_Update" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_1" target="tDBOutput_1">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="WTUKID"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="WTRCD"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="WTURDT"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="WTURAT"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="WTURAB"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="WTURRF"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F31122_Update"/>
   </connection>
   <connection connectorName="FLOW" label="row4" lineStyle="0" metaname="tLogCatcher_1" offsetLabelX="0" offsetLabelY="0" source="tLogCatcher_1" target="tMap_2">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
@@ -780,13 +789,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_e8769096-c968-48e5-b9e8-916c984f6a7c"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>AXluNFhw9zUQ44LjmuPt4Mc2VSmpqty4cMr/BnOOIQC2wrWtjFnxbt2kJfSz0l/oJSQL1YCBF8yE&#13;
-48C400ECsA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_623d5029-daed-4e61-a476-4c1cb4c4a72a"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Duec4Ca5i+QVYTohrhUSK9G7eOzbjTVUY/wvqPy00/YMGhYOGIJVeDvmqVeml2gPdFfzy03eKBPK&#13;
-ASgLfmY2BA==</DigestValue></Reference></SignedInfo><SignatureValue>Mw2JQtBPuc65DdKKYXVqeFgE068UqZEiNpQ5Oo/rmyjmMVHo1CtYbN31es0lzBn5Y2L++xFt88zz&#13;
-QuDSiRqqZACcQf1ip+lGbWsgpPEldaOIZCkFnZwAABqvjOsDgpkr7LVLdGJC04FWxa/4dPZOBMZn&#13;
-5sybXP4u7HUh3T+GNGwpJF7IPIKwXI4gLJ+iMqZBQBXhzzoeL6i+5rJUu7UUdTCEUeOScSV+ih5Z&#13;
-NG5CNH/XGoq94duRxVDtS8IxrHsB5LtZRKeGjfgEJregdt6eIeJdjVv09gIy152mr+PmnPVW8+lS&#13;
-mAR37SDAtlJvg89od4FLUdDvFA18Dppj/NXxzg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_d78ba17b-eb4f-402e-8cf6-b2c9b1ad5c0a"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>lIcCubZ68BiTOOixNdBwSdZbllwkwfochS5mO2NONHt4mtNYP493AFgpyP99SjXm6+rbRZqQqfE8&#13;
+vpIizdiDwg==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_8545bdec-a742-416b-8772-2ca0a6f33487"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>/X/MGPLRHIQFEU0ShvOUFFgR+qUdDSP14WfiL5D0/TIoReSoqrinmGdsKCuwSNvmEwqTl8e6u599&#13;
+Ot5ZJ6JWrA==</DigestValue></Reference></SignedInfo><SignatureValue>IRQM8Jrcf6JlbtSbxikjRCarn4VjPvz09fS4MDk6JLmQzzwk5OdiCfdT8JpYSiXXwvvPR6M6XgsD&#13;
+olj7mMUMMW6UKi3H+PzHpK8klt7EiwTTSv4ukSEIHy14gxezS1RBG9/eZMb1r8RDC1xBC7VntGTm&#13;
+gbPqI2x+0xfqbVjsu9/WRGPW1WMqJXeH15FAirPXhtWsixjaVzxtc9z1ZRITERI66wykksdAaW+o&#13;
+ImrSc8Yi0y336BsQtw1cENxWSO6O2kuuYwxasvIfJ8dkm5y8OyZRIx7te00hIAQcJib8GiUOC2ol&#13;
+Pf6BTtOlAfqFsJFik5YCD7PrCAtgjD5ysChLQw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD&#13;
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5&#13;
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U&#13;
@@ -808,4 +817,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/&#13
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW&#13;
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+&#13;
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg&#13;
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_623d5029-daed-4e61-a476-4c1cb4c4a72a" Target="#_e8769096-c968-48e5-b9e8-916c984f6a7c"><Timestamp>2021-05-18 08:18:37</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_8545bdec-a742-416b-8772-2ca0a6f33487" Target="#_d78ba17b-eb4f-402e-8cf6-b2c9b1ad5c0a"><Timestamp>2021-05-18 08:42:08</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
