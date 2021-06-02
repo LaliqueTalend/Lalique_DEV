@@ -3180,7 +3180,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="-480" posY="32">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tJava_1"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="Date today = new Date();&#10;long myTimeStamp = Long.parseLong(new SimpleDateFormat(&quot;yyMMddHHmmss&quot;).format(today));&#10;&#10;// nom du fichier logs&#10;globalMap.put(&quot;Log_File&quot;, jobName + &quot;_&quot; + myTimeStamp + &quot;.csv&quot;);&#10;//context.Log_File = jobName + &quot;_&quot; + myTimeStamp + &quot;.csv&quot;;&#10;&#10;globalMap.put(&quot;JobTimeStamp&quot;, myTimeStamp);&#10;globalMap.put(&quot;JobDate&quot;, Integer.parseInt(Integer.toString(today.getYear()) + new SimpleDateFormat(&quot;DDD&quot;).format(today)));&#10;globalMap.put(&quot;JobTime&quot;, Integer.parseInt(new SimpleDateFormat(&quot;HHmmss&quot;).format(today)));&#10;&#10;// date d'effet des tarifs : 1er jour du mois en cours&#10;globalMap.put(&quot;date_tarifs&quot;, JDE.convertToJulian(today));&#10;// date d'effet des taux de change : 1er jour du mois en cours&#10;globalMap.put(&quot;date_devise&quot;, JDE.convertToJulian(TalendDate.getFirstDayOfMonth(today)));&#10;&#10;System.out.println(&quot;Date tarifs = &quot; + (int)globalMap.get(&quot;date_tarifs&quot;));&#10;System.out.println(&quot;Date devise = &quot; + (int)globalMap.get(&quot;date_devise&quot;));&#10;&#10;&#10;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="Date today = new Date();&#10;long myTimeStamp = Long.parseLong(new SimpleDateFormat(&quot;yyMMddHHmmss&quot;).format(today));&#10;&#10;// nom du fichier logs&#10;globalMap.put(&quot;Log_File&quot;, jobName + &quot;_&quot; + myTimeStamp + &quot;.csv&quot;);&#10;//context.Log_File = jobName + &quot;_&quot; + myTimeStamp + &quot;.csv&quot;;&#10;&#10;//globalMap.put(&quot;JobTimeStamp&quot;, myTimeStamp);&#10;globalMap.put(&quot;JobTimeStamp&quot;, today);&#10;globalMap.put(&quot;JobDate&quot;, Integer.parseInt(Integer.toString(today.getYear()) + new SimpleDateFormat(&quot;DDD&quot;).format(today)));&#10;globalMap.put(&quot;JobTime&quot;, Integer.parseInt(new SimpleDateFormat(&quot;HHmmss&quot;).format(today)));&#10;&#10;// date d'effet des tarifs : 1er jour du mois en cours&#10;globalMap.put(&quot;date_tarifs&quot;, JDE.convertToJulian(today));&#10;// date d'effet des taux de change : 1er jour du mois en cours&#10;globalMap.put(&quot;date_devise&quot;, JDE.convertToJulian(TalendDate.getFirstDayOfMonth(today)));&#10;&#10;System.out.println(&quot;Date tarifs = &quot; + (int)globalMap.get(&quot;date_tarifs&quot;));&#10;System.out.println(&quot;Date devise = &quot; + (int)globalMap.get(&quot;date_devise&quot;));&#10;&#10;&#10;"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
     <elementParameter field="TEXT" name="LABEL" value="tJava_1"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
@@ -3809,7 +3809,11 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="ArtUpd"/>
   </connection>
-  <connection connectorName="FLOW" label="TarUpd" lineStyle="0" metaname="TarUpd" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_2" target="tFileOutputDelimited_5">
+  <connection connectorName="FLOW" label="F00092" lineStyle="0" metaname="F00092" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tMap_2" target="tDBOutput_1">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F00092"/>
+  </connection>
+  <connection connectorName="FLOW" label="TarUpd" lineStyle="0" metaname="TarUpd" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tMap_2" target="tFileOutputDelimited_5">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
       <elementValue elementRef="TRACE_COLUMN" value="grp_article"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
@@ -3818,10 +3822,6 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" show="false" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="TarUpd"/>
-  </connection>
-  <connection connectorName="FLOW" label="F00092" lineStyle="0" metaname="F00092" offsetLabelX="0" offsetLabelY="0" outputId="3" source="tMap_2" target="tDBOutput_1">
-    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
-    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F00092"/>
   </connection>
   <connection connectorName="FLOW" label="ArtUpd2" lineStyle="0" metaname="tSplitRow_1" offsetLabelX="0" offsetLabelY="0" source="tSplitRow_1" target="tFileOutputDelimited_2">
     <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
@@ -4135,13 +4135,13 @@
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
     <elementParameter field="CHECK" name="SUBJOB_DISPLAYED" show="false" value="false"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_06bc9162-a17d-462a-8a18-a8a3201b9268"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>6ubmfSWNU9528tsUISWIH01my5u7EtiIVfxUnzaLjUBh/h6z0tEjd9jVszKALKrkczml96v/7Ru5&#13;
-E2Hg54ED2A==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_dddc1807-e946-4da8-b290-4d36e2a26654"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>BqbnlQzBecJVDWSJBRG+ZuT7pPcjoLQqwmcxbdpU4SFklbvXXrtVZlbrclmsCuERUKq8Vf0Fgzvg&#13;
-7qiBOT2YVQ==</DigestValue></Reference></SignedInfo><SignatureValue>cp8ycYp4QedSBYxek5YwJNrEYpBtUE2eykVAW2KrbZlWLvr1t4t6uTq4FX/8hprpwWGT0mrMY+N9&#13;
-mYQtQBxYn7cUITZEajLvV+vySxtHaFrn96Qd96LVEHvYz/i/Hvrl+lrTvK7BNF9HoYPs0k37lZ8/&#13;
-ZMEc24rOqxcyHVu4dq2efZG8SzBc9G2QAeBUm4LlIHURTXo6pIbbOgMoQty75eNb789pEFw40Eta&#13;
-6PnlpcI7KjoZY+uC59iMrPBVtRzTW5ipAeTowoBwdM7cURNni2V6suXXLbBSWwZ4A8gfZ8rlmvIc&#13;
-T1pY5F/iKkid2MZZjhzvcKvxAR/58pyzXcj1dg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_052cf9e4-9207-4439-a7f4-ee6546563bd7"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>vfndCiMlJbF9XvqmbSTZsFVba9B6+fL3zLcfZoNsXwjGi5BjqR4++bap6WIw3mlu5WU4qvClhNRZ&#13;
+on20sp1LWQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_522bb625-e87e-414a-8bfd-2be79101b0d5"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>m2s2EfEcLQUeN8iYJy9wcvQfzV4UZLVX/zdCZnSrGbyuw7wRPCj/IyFoibnKmhHwxRUtzJ6P7ULz&#13;
+iTiQXjsJXw==</DigestValue></Reference></SignedInfo><SignatureValue>lrM3wlmk8UD9COnZkt8i0aYVXOd9/vjF0Btiyc9Lh2CjslmL/W5zeZRZ/WBVexxZcyAfp3sB2ZzC&#13;
+C4wSPaoAarKTvKUUAnBxj8Du3lOHZJZAeJCPg0LhUtqhbXLWK19WwKooaHsY4QOmL9UZP+kRnYf3&#13;
+hDe02Tk1NNDGV44kto7I33DX77L95AuGW26v5BAjVW033h5Ce2rsAZS60y4HRSOOUKYfovWGC0vM&#13;
+nDjd68ABc2IQZss+g3sJT+MzyhRPoF8yGZKihZiF/Sq5TnqgFI9hKsYNoBSmYJEvSW2MrQ91XRu8&#13;
+9rQYqPGeKloJAN1iSnrbN1AZJu9NorO8kSfQBw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD&#13;
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5&#13;
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U&#13;
@@ -4163,4 +4163,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/&#13
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW&#13;
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+&#13;
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg&#13;
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_dddc1807-e946-4da8-b290-4d36e2a26654" Target="#_06bc9162-a17d-462a-8a18-a8a3201b9268"><Timestamp>2021-05-06 08:35:00</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_522bb625-e87e-414a-8bfd-2be79101b0d5" Target="#_052cf9e4-9207-4439-a7f4-ee6546563bd7"><Timestamp>2021-06-02 08:32:50</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
