@@ -827,7 +827,7 @@
       <column comment="" key="false" length="6" name="SDADDJ" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="6" name="SDIVD" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true">
+      <column comment="" key="false" length="6" name="SDIVD" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="6" name="SDCNDJ" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true">
@@ -1043,7 +1043,7 @@
       <column comment="" key="false" length="5" name="SDKCO" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="0" name="SDDOC" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true">
+      <column comment="" key="false" length="0" name="SDDOC" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="2" name="SDDCT" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
@@ -1575,7 +1575,7 @@
     <elementParameter field="TEXT" name="ROWS_BUFFER_SIZE" value="2000000"/>
     <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="true"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
-    <metadata name="Ctrl_Ventes">
+    <metadata connector="FLOW" name="Ctrl_Ventes">
       <column comment="" key="true" length="5" name="Societe" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
@@ -1603,6 +1603,15 @@
       <column comment="" key="false" length="6" name="Date_Expedition" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
+      <column comment="" key="false" length="6" name="Date_Facture" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="2" name="Type_Fre" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="0" name="Num_Fre" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
@@ -1617,6 +1626,9 @@
         <mapperTableEntries expression="F4211.SDSHAN " name="Client_Livre" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="F0116.ALCTR " name="Pays_Livraison" nullable="true" type="id_String"/>
         <mapperTableEntries expression="F4211.SDADDJ " name="Date_Expedition" nullable="true" type="id_Integer"/>
+        <mapperTableEntries expression="F4211.SDIVD " name="Date_Facture" nullable="true" type="id_Integer"/>
+        <mapperTableEntries expression="F4211.SDDCT " name="Type_Fre" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="F4211.SDDOC " name="Num_Fre" nullable="true" type="id_Integer"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="F4211" sizeState="INTERMEDIATE">
         <mapperTableEntries name="SDKCOO" type="id_String"/>
@@ -1643,7 +1655,7 @@
         <mapperTableEntries name="SDTRDJ" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries name="SDPDDJ" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries name="SDADDJ" nullable="true" type="id_Integer"/>
-        <mapperTableEntries name="SDIVD" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries name="SDIVD" nullable="true" type="id_Integer"/>
         <mapperTableEntries name="SDCNDJ" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries name="SDDGL" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries name="SDRSDJ" nullable="true" type="id_BigDecimal"/>
@@ -1715,7 +1727,7 @@
         <mapperTableEntries name="SDCLVL" nullable="true" type="id_String"/>
         <mapperTableEntries name="SDCADC" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries name="SDKCO" nullable="true" type="id_String"/>
-        <mapperTableEntries name="SDDOC" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries name="SDDOC" nullable="true" type="id_Integer"/>
         <mapperTableEntries name="SDDCT" nullable="true" type="id_String"/>
         <mapperTableEntries name="SDODOC" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries name="SDODCT" nullable="true" type="id_String"/>
@@ -2063,12 +2075,97 @@
       </column>
     </metadata>
   </node>
+  <node componentName="tLogRow" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="352" posY="224">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tLogRow_1"/>
+    <elementParameter field="RADIO" name="BASIC_MODE" value="true"/>
+    <elementParameter field="RADIO" name="TABLE_PRINT" value="false"/>
+    <elementParameter field="RADIO" name="VERTICAL" value="false"/>
+    <elementParameter field="RADIO" name="PRINT_UNIQUE" show="false" value="true"/>
+    <elementParameter field="RADIO" name="PRINT_LABEL" show="false" value="false"/>
+    <elementParameter field="RADIO" name="PRINT_UNIQUE_LABEL" show="false" value="false"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;|&quot;"/>
+    <elementParameter field="CHECK" name="PRINT_HEADER" value="false"/>
+    <elementParameter field="CHECK" name="PRINT_UNIQUE_NAME" value="false"/>
+    <elementParameter field="CHECK" name="PRINT_COLNAMES" value="false"/>
+    <elementParameter field="CHECK" name="USE_FIXED_LENGTH" value="false"/>
+    <elementParameter field="TABLE" name="LENGTHS" show="false">
+      <elementValue elementRef="SCHEMA_COLUMN" value="Societe"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Type_Cde"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Num_Cde"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Dernier_Statut"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Statut_Suivant"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Client_Facture"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Client_Livre"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Pays_Livraison"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Date_Expedition"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Date_Facture"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Type_Fre"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Num_Fre"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="PRINT_CONTENT_WITH_LOG4J" value="true"/>
+    <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" name="tLogRow_1">
+      <column comment="" key="true" length="5" name="Societe" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="2" name="Type_Cde" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="0" name="Num_Cde" nullable="false" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="3" name="Dernier_Statut" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="3" name="Statut_Suivant" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="0" name="Client_Facture" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="0" name="Client_Livre" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="3" name="Pays_Livraison" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="6" name="Date_Expedition" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="6" name="Date_Facture" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="2" name="Type_Fre" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="0" name="Num_Fre" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+    </metadata>
+  </node>
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tDBConnection_1" offsetLabelX="0" offsetLabelY="0" source="tDBConnection_1" target="tDBInput_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk1"/>
   </connection>
   <connection connectorName="FLOW" label="F4211" lineStyle="0" metaname="tDBInput_1" offsetLabelX="0" offsetLabelY="0" source="tDBInput_1" target="tMap_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F4211"/>
+  </connection>
+  <connection connectorName="FLOW" label="Ctrl_Ventes" lineStyle="0" metaname="Ctrl_Ventes" offsetLabelX="0" offsetLabelY="0" source="tMap_1" target="tLogRow_1">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Ctrl_Ventes"/>
   </connection>
   <connection connectorName="FLOW" label="F0116" lineStyle="8" metaname="tDBInput_2" offsetLabelX="0" offsetLabelY="0" source="tDBInput_2" target="tMap_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
@@ -2084,13 +2181,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_49687348-2eed-4e08-b5a1-4549f015dd93"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>dlKxqs8gyh+qxJz5/s9hGnUH4h6andFgmZH83W/SGJtTHLzXnvRLS4THUPOpkVfnyTl5SNeBZwjq
-25rlvXQHLA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_14e05032-8d8b-4b09-9e8d-1e0f9c99206f"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>OYEkBpyF+8Ya81DOaBS7mNOjHBKuVhZqTSZep50Eq8rozluivO3EA+Vpw0yOePj8S1sEhpd5IeWL
-GiJdkPHo4w==</DigestValue></Reference></SignedInfo><SignatureValue>EI1s0yiueR3Pc1xT0ny3MCwlkHD+y1Ss1L29Z0RNGWiWTTMm1H6xZJdXLXUb1E06SGAUkL927Muo
-BvjAJUggmsMDloslq9NC1nkP0rNDOcIMb1ECHO3NpcjDdXIM0KoSFBQXVrOoP5kmxp7i7uSQUK0r
-CUHi335my1y8EA+ImYIRZrgYS7q4IyRc+J24ZAErpCZfTKs1db7CjgmHkMT22ZpL3a/Khi+25kVG
-i/PbhwVdhb6YuvNAYgpKrGc7sQEjzgSPbXYuuo9vyEU9gk5nxQUYgqY2MKwG0hosrp373Sap8utY
-K8eYpzxAy7m6fhmLh2yht9fhSVHhTH1kA9+blA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_72ad7fd9-8cf2-45fc-9420-93d6011c31da"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>ziuQrs4Ld4KsTY83xjemEBY4h9HErHihQ4mF8hbEqdQR6seExZ4I17ETUvsPt1y/b9ajIsaFKG+v
+e30Rvhg5nQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_be82eb07-0eae-4427-9767-ad937a13ab82"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>wcAyiU1NC7OecWHQof+k7D4lfFVTka647l+m6BeDpgUDcutl3FRzSpMnGZlG2GMjfr9xbqS/5p8q
+6Ok5uBGDpg==</DigestValue></Reference></SignedInfo><SignatureValue>j+uZoNubs1lB10VCIDEhavyjxWIoEgg+XdKgSkQHy9t4eCfTNx0tOIvwcX5vcS/YpULVt21FKvZb
+sORVlQeV9C5LCEt2I1jP2atyJVNgOHPY+Lprbfgs/AtAPHYA9zDaM/VENAZAiqbDXXWC6lbShXTV
+Ec9rp1vYbRLCIn1wTfFd5ezdnG1idcN5Sb5Qo3xw6ZsC2RiJumnO5bLKS40JOPCrAm5oXhlH6Kjk
+3D9OgDAdjnVDM3lg7RjcOmLDzIITqy/XCdeSSItZO9W0T6CV9LEZJLgAOw5+Ur8bhBf2b6QfC94P
+C0YdvLhtgoOoweWhPvGYSOBRCBmUcf2gpnIm+A==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -2112,4 +2209,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_14e05032-8d8b-4b09-9e8d-1e0f9c99206f" Target="#_49687348-2eed-4e08-b5a1-4549f015dd93"><Timestamp>2021-06-15 15:05:24</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_be82eb07-0eae-4427-9767-ad937a13ab82" Target="#_72ad7fd9-8cf2-45fc-9420-93d6011c31da"><Timestamp>2021-06-15 15:10:06</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
