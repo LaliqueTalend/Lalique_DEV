@@ -981,7 +981,7 @@
       <column comment="" key="false" length="0" name="SDUPRC" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="0" name="SDAEXP" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true">
+      <column comment="" key="false" length="0" name="SDAEXP" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="0" name="SDAOPN" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true">
@@ -1610,16 +1610,19 @@
       <column comment="" key="false" length="3" name="Pays_Livraison" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="6" name="Date_Expedition" nullable="true" pattern="&quot;dd/MM/yyyy&quot;" precision="0" sourceType="NUMBER" type="id_Date" usefulColumn="true">
+      <column comment="" key="false" length="6" name="Date_Expedition" nullable="true" pattern="&quot;dd/MM/yyyy&quot;" precision="0" sourceType="NUMBER" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="6" name="Date_Facture" nullable="true" pattern="&quot;dd/MM/yyyy&quot;" precision="0" sourceType="NUMBER" type="id_Date" usefulColumn="true">
+      <column comment="" key="false" length="6" name="Date_Facture" nullable="true" pattern="&quot;dd/MM/yyyy&quot;" precision="0" sourceType="NUMBER" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="2" name="Type_Fre" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="0" name="Num_Fre" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="0" name="Montant" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="-1" name="Mois_Fact" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
@@ -1629,8 +1632,10 @@
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="StringHandling.RIGHT(StringHandling.LEFT(TalendDate.formatDate(&quot;dd/MM/yyyy&quot;,JDE.convertFromJulian(F4211.SDADDJ)),5),2) " name="Mois_Fact" type="id_String"/>
+        <mapperTableEntries expression="Relational.ISNULL(F4211.SDADDJ) ? &quot;00/00/0000&quot; : TalendDate.formatDate(&quot;dd/MM/yyyy&quot;,JDE.convertFromJulian(F4211.SDIVD))JDE.convertFromJulian(F4211.SDADDJ) " name="Date_Exped" type="id_String"/>
+        <mapperTableEntries expression="Relational.ISNULL(F4211.SDADDJ) ? &quot;00/00/0000&quot; : TalendDate.formatDate(&quot;dd/MM/yyyy&quot;,JDE.convertFromJulian(F4211.SDIVD))JDE.convertFromJulian(F4211.SDIVD) " name="Date_Fact" type="id_String"/>
         <mapperTableEntries expression="StringHandling.RIGHT(StringHandling.LEFT(TalendDate.formatDate(&quot;dd/MM/yyyy&quot;,JDE.convertFromJulian(F4211.SDIVD)),5),2) " name="Mois_Exped" type="id_String"/>
+        <mapperTableEntries expression="StringHandling.RIGHT(StringHandling.LEFT(TalendDate.formatDate(&quot;dd/MM/yyyy&quot;,JDE.convertFromJulian(F4211.SDADDJ)),5),2) " name="Mois_Fact" type="id_String"/>
         <mapperTableEntries expression="TalendDate.formatDate(&quot;MM&quot;,TalendDate.addDate(TalendDate.getCurrentDate(),-1,&quot;MM&quot;)) " name="Mois_Trait" type="id_String"/>
       </varTables>
       <outputTables activateExpressionFilter="true" expressionFilter="Var.Mois_Fact .equals (Var.Mois_Trait) || Var.Mois_Exped .equals (Var.Mois_Trait)" name="Ctrl_Ventes" sizeState="INTERMEDIATE">
@@ -1645,10 +1650,11 @@
         <mapperTableEntries expression="F4211.SDSHAN " name="Client_Livre" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="F0101_Liv.ABALPH " name="Nom_Livre" nullable="true" type="id_String"/>
         <mapperTableEntries expression="F0116.ALCTR " name="Pays_Livraison" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="JDE.convertFromJulian(F4211.SDADDJ) " name="Date_Expedition" nullable="true" type="id_Date"/>
-        <mapperTableEntries expression="JDE.convertFromJulian(F4211.SDIVD) " name="Date_Facture" nullable="true" type="id_Date"/>
+        <mapperTableEntries expression="Var.Date_Exped " name="Date_Expedition" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Var.Date_Fact " name="Date_Facture" nullable="true" type="id_String"/>
         <mapperTableEntries expression="F4211.SDDCT " name="Type_Fre" nullable="true" type="id_String"/>
         <mapperTableEntries expression="F4211.SDDOC " name="Num_Fre" nullable="true" type="id_Integer"/>
+        <mapperTableEntries expression="F4211.SDAEXP / 100 " name="Montant" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="Var.Mois_Fact " name="Mois_Fact" type="id_String"/>
         <mapperTableEntries expression="Var.Mois_Exped " name="Mois_Exped" type="id_String"/>
         <mapperTableEntries expression="Var.Mois_Trait " name="Mois_Trait" type="id_String"/>
@@ -1729,7 +1735,7 @@
         <mapperTableEntries name="SDCOMM" nullable="true" type="id_String"/>
         <mapperTableEntries name="SDOTQY" nullable="true" type="id_String"/>
         <mapperTableEntries name="SDUPRC" nullable="true" type="id_BigDecimal"/>
-        <mapperTableEntries name="SDAEXP" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries name="SDAEXP" nullable="true" type="id_Float"/>
         <mapperTableEntries name="SDAOPN" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries name="SDPROV" nullable="true" type="id_String"/>
         <mapperTableEntries name="SDTPC" nullable="true" type="id_String"/>
@@ -3381,6 +3387,8 @@
       <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="Num_Fre"/>
       <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Montant"/>
+      <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="Mois_Fact"/>
       <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="Mois_Exped"/>
@@ -3435,16 +3443,19 @@
       <column comment="" key="false" length="3" name="Pays_Livraison" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="6" name="Date_Expedition" nullable="true" pattern="&quot;dd/MM/yyyy&quot;" precision="0" sourceType="NUMBER" type="id_Date" usefulColumn="true">
+      <column comment="" key="false" length="6" name="Date_Expedition" nullable="true" pattern="&quot;dd/MM/yyyy&quot;" precision="0" sourceType="NUMBER" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="6" name="Date_Facture" nullable="true" pattern="&quot;dd/MM/yyyy&quot;" precision="0" sourceType="NUMBER" type="id_Date" usefulColumn="true">
+      <column comment="" key="false" length="6" name="Date_Facture" nullable="true" pattern="&quot;dd/MM/yyyy&quot;" precision="0" sourceType="NUMBER" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="2" name="Type_Fre" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="0" name="Num_Fre" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="0" name="Montant" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
       <column comment="" key="false" length="-1" name="Mois_Fact" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
@@ -3479,6 +3490,9 @@
       <elementValue elementRef="TRACE_COLUMN" value="Mois_Trait"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Montant"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Ctrl_Ventes"/>
@@ -3505,13 +3519,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_281bcb07-30ca-4c3f-9f1f-583e5ab02ca2"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>kK8VRm4JzVkCwbsNhFT+Uzn/NXHIqeMYEchU766xb41yYsne628QjlTMNSJ453PeZyW4kkYEBPvl
-U9nsNO2DJA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_02bbd61f-9302-43a1-b0c9-1e12a6169b4a"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>BCOpqqKHSNgmQ3v+3N47KHiYlR0ABtbft9oL5L+C5FqCWBvFTWW13cVr5+BtQ6k8oxX+CENaBZ2D
-fEr2xBmC5Q==</DigestValue></Reference></SignedInfo><SignatureValue>OnVXRWUsqCVimq3NYVFco6IeONbR7nShHS86IVnSYKVG/MoN0edxo6lnkjHa8hErTWeG+cbdfEVP
-o/nMc2mahHWLLXhQjyydPRdLCdckDRsUcxgl3Zapn6n69iTaWL6yhgq79U//tCJKYFVt/cWcCo3M
-rhYhShBuHOWMpP3YvFxfv+EyUijKe0f7z/PpfoBrMd7+NsDBNrSI8Hu+00xcvD0SqH1Q4Wf5JlQm
-GSX/TSWHxW19c94vOqEEmmibUMXrnOGs4rCXXQsXNk9OgnOHvnMoBvcbyTMdyO3d3IrK396TGAWe
-u3XUcEJTEAXRFu1miIqiZXhd1BNym/E+S4clHg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_efaf9295-3b0e-4837-9d0c-b7dc54adc9b1"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>hfBpSVXSOdH30YtxEDoBZTTlV5Nkmyrq2jWCQdaxEPxJRJj/Z40c6MEdZCuqsEOckUjyRJGs35va
+p+n6laIAUA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_3636e6f8-1330-46fc-a71c-8ecb6211a11a"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>CcdpOAGFB3I320f0+aj4070AeOAPSHnZSBpbXsYsaK/lRTi6iaM55+rQIEBNJOYcQwwvLyWksRzi
+FmMAuw+9Xg==</DigestValue></Reference></SignedInfo><SignatureValue>HzJB9zNDADFZMWM2wfzNmjtr+z+smWbRlqlfPvmqQPfD+fuDtLTeNnWiLxEA1OB3WWsRuj6RigIK
+pWb6KkkM3CqeHSsTyc6XzurT4eMkfoeZgBENgFqabM7O+UkNHb8HCSrNGH1foZtmiSZaDHKf39zn
+ETYVNNNR7nwQHZAf0f3XWz5klbIU+YyUeelvATDr2oteVJBH8sKO1pVrQ0Av6UMyVLj/DzjUgIas
+jeTX/Zm+/eSiD1cgrntdoAzxa5fqazjSFct6RwO2jQZdyBo8fphKrzoIaMmcek6g8/xJ5Ko7Pifv
+OTCgp8PnRWhzX20d656lqQ3MTimwTqQw9m2aPQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -3533,4 +3547,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_02bbd61f-9302-43a1-b0c9-1e12a6169b4a" Target="#_281bcb07-30ca-4c3f-9f1f-583e5ab02ca2"><Timestamp>2021-06-15 15:55:50</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_3636e6f8-1330-46fc-a71c-8ecb6211a11a" Target="#_efaf9295-3b0e-4837-9d0c-b7dc54adc9b1"><Timestamp>2021-06-15 16:19:01</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
