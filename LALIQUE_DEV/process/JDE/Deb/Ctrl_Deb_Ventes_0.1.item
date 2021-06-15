@@ -1624,13 +1624,14 @@
       </column>
       <column comment="" key="false" length="-1" name="Mois_Fact" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Mois_Exped" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Mois_Trait" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
       <varTables name="Var" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="StringHandling.RIGHT(StringHandling.LEFT(TalendDate.formatDate(&quot;dd/MM/yyyy&quot;,JDE.convertFromJulian(F4211.SDADDJ)),5),2) " name="Mois_Fact" type="id_String"/>
         <mapperTableEntries expression="StringHandling.RIGHT(StringHandling.LEFT(TalendDate.formatDate(&quot;dd/MM/yyyy&quot;,JDE.convertFromJulian(F4211.SDIVD)),5),2) " name="Mois_Exped" type="id_String"/>
-        <mapperTableEntries name="Mois_Trait" type="id_String"/>
+        <mapperTableEntries expression="TalendDate.formatDate(&quot;MM&quot;,TalendDate.addDate(TalendDate.getCurrentDate(),-1,&quot;MM&quot;)) " name="Mois_Trait" type="id_String"/>
       </varTables>
       <outputTables name="Ctrl_Ventes" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="F4211.SDKCOO " name="Societe" type="id_String"/>
@@ -1650,6 +1651,7 @@
         <mapperTableEntries expression="F4211.SDDOC " name="Num_Fre" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="Var.Mois_Fact " name="Mois_Fact" type="id_String"/>
         <mapperTableEntries expression="Var.Mois_Exped " name="Mois_Exped" type="id_String"/>
+        <mapperTableEntries expression="Var.Mois_Trait " name="Mois_Trait" type="id_String"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="F4211" sizeState="INTERMEDIATE">
         <mapperTableEntries name="SDKCOO" type="id_String"/>
@@ -2338,6 +2340,8 @@
       <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="Mois_Exped"/>
       <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Mois_Trait"/>
+      <elementValue elementRef="LENGTH" value="10"/>
     </elementParameter>
     <elementParameter field="CHECK" name="PRINT_CONTENT_WITH_LOG4J" value="true"/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
@@ -2390,6 +2394,7 @@
       </column>
       <column comment="" key="false" length="-1" name="Mois_Fact" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Mois_Exped" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Mois_Trait" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
   <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="320" posY="128">
@@ -3458,6 +3463,9 @@
       <elementValue elementRef="TRACE_COLUMN" value="Mois_Exped"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Mois_Trait"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Ctrl_Ventes"/>
@@ -3484,13 +3492,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_0beb1e53-bd5a-4182-867d-8e41070c5ca7"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>An9EZmjNIyoD+jcE6N7oHYpskDB+MpFkVMl5587LG/+br0GA3k4fXjgokn5fWg5QfXGFjAcdUmZe
-UVLwg7tBAQ==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_04d5808a-69a0-4e95-bc7d-98d4379f0b22"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>VG1SH7UvlR3xHDG7YaxdXh4NCR2jxbksS/EqqX0td/e6zBiCz7Md47Yl4gphUqS7CpijRhDdiAf0
-uZxbbMc8jQ==</DigestValue></Reference></SignedInfo><SignatureValue>iQG71IWt5fyKO5Y4qQsUXyoejb0c26ybuTY3w7x69pI5IGDwabB4dGLRuJWjizCy0whS5jNFeGrc
-RHJNuScCRO9ylkHp0AldjCJY72jM5feh5sEfQBN4QclHdXNAx/PcPlpqZwx5EbW3XMjxrnQHYsWn
-BPYdiFrg3nYdiUfe+HakXN+/2wP3/t+/c1Os0zTszo7sK4HjYQkGxjmLdGVngP3lLCgYLFVSm+aa
-ZXlR0EUWVvaqBdkXpHl9R19Zu5g1LZlUJmg8TjZWTov8MDqDY3CG/BF7hTUn9oPxyBfcBNDOuXU4
-uw6EDbXFRvYvI6D791bMEGemG0ArKrqAZTdoKQ==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_f5fa430c-f26d-41c6-b0b8-83a814af2143"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>3oH40gah3sYCtR31W5WiKxelX8zOryHWl7g2vIB4wWFW5z4bE3/m/9WgI6ZsWicjalGZ3oWp8szu
+UPVMqrBObw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_7e92047d-99cb-439c-a29a-ec3c1eb664d5"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>/aR+krUbjnzZWDPmmBgYTmVxApGRVIOUatYn6Pd+c1zkZMJQoBD6lKKZ06OgCw5ThvEAm9EbDoDv
+O49qD777Gw==</DigestValue></Reference></SignedInfo><SignatureValue>g2/an6CwBuaun2ISS5mE4wn8rWYOsqa22GoDtOogflxKEUt3gn/6rocL+uJUOGn5YbWfMUYZ2ksC
+RlQthj4WKhxs+Z9P84lRsqgFwY7oK8+dsZ+TlGnZBUJZa8OobVdZf1PC2vFGqnONHMdFq5+yFs6Z
+nHJQYV3lrjuNjNwYCcwRGQ9EAakt5ElGxKB5Y56N69PLF/QaZ4pEPkkAIZAt5cZoVkm+WM+RpIos
+yqx83lq1Vtc+KkjgSUNNTlIiPOizk+gJMw2dkO7Hko/xas2s2RrEkld6rD/J1ELxxqKhLRYAq8NU
+iDv3IETm23TntPgC3IyQKUlqvYfMNITQ/0tm3g==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -3512,4 +3520,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_04d5808a-69a0-4e95-bc7d-98d4379f0b22" Target="#_0beb1e53-bd5a-4182-867d-8e41070c5ca7"><Timestamp>2021-06-15 15:39:29</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_7e92047d-99cb-439c-a29a-ec3c1eb664d5" Target="#_f5fa430c-f26d-41c6-b0b8-83a814af2143"><Timestamp>2021-06-15 15:48:02</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
