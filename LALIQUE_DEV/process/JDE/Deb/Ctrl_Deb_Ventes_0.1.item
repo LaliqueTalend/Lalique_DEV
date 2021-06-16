@@ -1562,7 +1562,7 @@
       </column>
     </metadata>
   </node>
-  <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="224" posY="224">
+  <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="256" posY="224">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tMap_1"/>
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
     <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
@@ -1648,8 +1648,9 @@
         <mapperTableEntries expression="StringHandling.RIGHT(StringHandling.LEFT(Var.Date_Exped,5),2) " name="Mois_Exped" type="id_String"/>
         <mapperTableEntries expression="StringHandling.RIGHT(StringHandling.LEFT(Var.Date_Fact,5),2) " name="Mois_Fact" type="id_String"/>
         <mapperTableEntries expression="TalendDate.formatDate(&quot;MM&quot;,TalendDate.addDate(TalendDate.getCurrentDate(),-1,&quot;MM&quot;)) " name="Mois_Trait" type="id_String"/>
+        <mapperTableEntries expression="Relational.ISNULL(F4006.OACTR) ? F0116.ALCTR : F4006.OACTR " name="Pays_Livraison" type="id_String"/>
       </varTables>
-      <outputTables activateExpressionFilter="true" expressionFilter="Var.Mois_Fact .equals (Var.Mois_Trait) || Var.Mois_Exped .equals (Var.Mois_Trait)" name="Ctrl_Ventes" sizeState="INTERMEDIATE">
+      <outputTables activateExpressionFilter="true" expressionFilter="(Var.Mois_Fact .equals (Var.Mois_Trait) || Var.Mois_Exped .equals (Var.Mois_Trait)) &amp;&amp; (Var.Pays_Livraison .equals (&quot;AT&quot;) || Var.Pays_Livraison .equals (&quot;BE&quot;) || Var.Pays_Livraison .equals (&quot;CY&quot;) || Var.Pays_Livraison .equals (&quot;CZ&quot;) || Var.Pays_Livraison .equals (&quot;DE&quot;) || Var.Pays_Livraison .equals (&quot;DK&quot;) || Var.Pays_Livraison .equals (&quot;EE&quot;) || Var.Pays_Livraison .equals (&quot;ES&quot;) || Var.Pays_Livraison .equals (&quot;FI&quot;) || Var.Pays_Livraison .equals (&quot;GB&quot;) || Var.Pays_Livraison .equals (&quot;GR&quot;) || Var.Pays_Livraison .equals (&quot;HU&quot;) || Var.Pays_Livraison .equals (&quot;IE&quot;) || Var.Pays_Livraison .equals (&quot;IT&quot;) || Var.Pays_Livraison .equals (&quot;LT&quot;) || Var.Pays_Livraison .equals (&quot;LU&quot;) || Var.Pays_Livraison .equals (&quot;LV&quot;) || Var.Pays_Livraison .equals (&quot;MT&quot;) || Var.Pays_Livraison .equals (&quot;NL&quot;) || Var.Pays_Livraison .equals (&quot;PL&quot;) || Var.Pays_Livraison .equals (&quot;PT&quot;) || Var.Pays_Livraison .equals (&quot;SE&quot;) || Var.Pays_Livraison .equals (&quot;SI&quot;) || Var.Pays_Livraison .equals (&quot;SK&quot;) || Var.Pays_Livraison .equals (&quot;BG&quot;) || Var.Pays_Livraison .equals (&quot;HR&quot;) || Var.Pays_Livraison .equals (&quot;RO&quot;))" name="Ctrl_Ventes" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="F4211.SDKCOO " name="Societe" type="id_String"/>
         <mapperTableEntries expression="F4211.SDMCU " name="Magasin" nullable="true" type="id_String"/>
         <mapperTableEntries expression="F4211.SDDCTO " name="Type_Cde" type="id_String"/>
@@ -1663,7 +1664,7 @@
         <mapperTableEntries expression="F4211.SDTXA1 " name="Zone_Taxe" nullable="true" type="id_String"/>
         <mapperTableEntries expression="F4211.SDSHAN " name="Client_Livre" nullable="true" type="id_Integer"/>
         <mapperTableEntries expression="F0101_Liv.ABALPH " name="Nom_Livre" nullable="true" type="id_String"/>
-        <mapperTableEntries expression="F0116.ALCTR " name="Pays_Livraison" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Var.Pays_Livraison " name="Pays_Livraison" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Var.Date_Exped " name="Date_Expedition" nullable="true" type="id_String"/>
         <mapperTableEntries expression="Var.Date_Fact " name="Date_Facture" nullable="true" type="id_String"/>
         <mapperTableEntries expression="F4211.SDDCT " name="Type_Fre" nullable="true" type="id_String"/>
@@ -1675,7 +1676,7 @@
         <mapperTableEntries expression="Var.Mois_Exped " name="Mois_Exped" type="id_String"/>
         <mapperTableEntries expression="Var.Mois_Trait " name="Mois_Trait" type="id_String"/>
       </outputTables>
-      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="F4211" sizeState="INTERMEDIATE">
+      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="F4211" sizeState="INTERMEDIATE">
         <mapperTableEntries name="SDKCOO" type="id_String"/>
         <mapperTableEntries name="SDDOCO" type="id_Integer"/>
         <mapperTableEntries name="SDDCTO" type="id_String"/>
@@ -2065,7 +2066,7 @@
         <mapperTableEntries name="ABPERRS" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries name="ABCAAD" nullable="true" type="id_BigDecimal"/>
       </inputTables>
-      <inputTables activateCondensedTool="true" innerJoin="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="F0101_Liv" sizeState="INTERMEDIATE">
+      <inputTables activateCondensedTool="true" innerJoin="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="F0101_Liv" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="F4211.SDSHAN " name="ABAN8" type="id_Integer"/>
         <mapperTableEntries name="ABALKY" nullable="true" type="id_String"/>
         <mapperTableEntries name="ABTAX" nullable="true" type="id_String"/>
@@ -2161,6 +2162,30 @@
         <mapperTableEntries name="ABSYNCS" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries name="ABPERRS" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries name="ABCAAD" nullable="true" type="id_BigDecimal"/>
+      </inputTables>
+      <inputTables activateCondensedTool="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="F4006" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="F4211.SDDOCO " name="OADOCO" type="id_BigDecimal"/>
+        <mapperTableEntries expression="F4211.SDDCTO " name="OADCTO" type="id_String"/>
+        <mapperTableEntries expression="F4211.SDKCOO " name="OAKCOO" type="id_String"/>
+        <mapperTableEntries name="OAANTY" type="id_String"/>
+        <mapperTableEntries name="OAMLNM" nullable="true" type="id_String"/>
+        <mapperTableEntries name="OAADD1" nullable="true" type="id_String"/>
+        <mapperTableEntries name="OAADD2" nullable="true" type="id_String"/>
+        <mapperTableEntries name="OAADD3" nullable="true" type="id_String"/>
+        <mapperTableEntries name="OAADD4" nullable="true" type="id_String"/>
+        <mapperTableEntries name="OAADDZ" nullable="true" type="id_String"/>
+        <mapperTableEntries name="OACTY1" nullable="true" type="id_String"/>
+        <mapperTableEntries name="OACOUN" nullable="true" type="id_String"/>
+        <mapperTableEntries name="OAADDS" nullable="true" type="id_String"/>
+        <mapperTableEntries name="OACRTE" nullable="true" type="id_String"/>
+        <mapperTableEntries name="OABKML" nullable="true" type="id_String"/>
+        <mapperTableEntries name="OACTR" nullable="true" type="id_String"/>
+        <mapperTableEntries name="OAUSER" nullable="true" type="id_String"/>
+        <mapperTableEntries name="OAPID" nullable="true" type="id_String"/>
+        <mapperTableEntries name="OAUPMJ" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries name="OAJOBN" nullable="true" type="id_String"/>
+        <mapperTableEntries name="OAUPMT" nullable="true" type="id_BigDecimal"/>
+        <mapperTableEntries name="OALNID" nullable="true" type="id_BigDecimal"/>
       </inputTables>
     </nodeData>
   </node>
@@ -3500,6 +3525,163 @@
       <column comment="" key="false" length="-1" name="Mois_Trait" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
     </metadata>
   </node>
+  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="416" posY="128">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBInput_5"/>
+    <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="REPOSITORY"/>
+    <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" show="false" value="_YQjCMM0oEei0gMO4ZNgp9g"/>
+    <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
+    <elementParameter field="COMPONENT_LIST" name="CONNECTION" show="false" value=""/>
+    <elementParameter field="CLOSED_LIST" name="CONNECTION_TYPE" value="ORACLE_SERVICE_NAME"/>
+    <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="ORACLE_12"/>
+    <elementParameter field="TEXT" name="RAC_URL" show="false" value="context.JDE_PY_CRPDTA_Server"/>
+    <elementParameter field="TEXT" name="HOST" value="context.JDE_PY_CRPDTA_Server"/>
+    <elementParameter field="TEXT" name="TYPE" show="false" value="ORACLE_SERVICE_NAME"/>
+    <elementParameter field="TEXT" name="PORT" value="context.JDE_PY_CRPDTA_Port"/>
+    <elementParameter field="TEXT" name="DBNAME" value="&quot;JDE92NP&quot;"/>
+    <elementParameter field="TEXT" name="LOCAL_SERVICE_NAME" show="false" value="&quot;JDE92NP&quot;"/>
+    <elementParameter field="TEXT" name="SCHEMA_DB" value="&quot;FORDTA&quot;"/>
+    <elementParameter field="TEXT" name="USER" value="context.JDE_PY_CRPDTA_Login"/>
+    <elementParameter field="PASSWORD" name="PASS" value="8pW6Nmy2kud3FKpXBoTLjuX624zslu6V6OZb3jnKlDQ="/>
+    <elementParameter field="TEXT" name="JDBC_URL" show="false" value="&quot;jdbc:oracle:oci:/@talend&quot;"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" show="false" value="REPOSITORY"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" show="false" value="_YQjCMM0oEei0gMO4ZNgp9g - F4006"/>
+    <elementParameter field="DBTABLE" name="TABLE" value="&quot;F4006&quot;"/>
+    <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="&quot;&quot;"/>
+    <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
+    <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
+    <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT &#10;  FORDTA.F4006.OADOCO, &#10;  FORDTA.F4006.OADCTO, &#10;  FORDTA.F4006.OAKCOO, &#10;  FORDTA.F4006.OAANTY, &#10;  FORDTA.F4006.OAMLNM, &#10;  FORDTA.F4006.OAADD1, &#10;  FORDTA.F4006.OAADD2, &#10;  FORDTA.F4006.OAADD3, &#10;  FORDTA.F4006.OAADD4, &#10;  FORDTA.F4006.OAADDZ, &#10;  FORDTA.F4006.OACTY1, &#10;  FORDTA.F4006.OACOUN, &#10;  FORDTA.F4006.OAADDS, &#10;  FORDTA.F4006.OACRTE, &#10;  FORDTA.F4006.OABKML, &#10;  FORDTA.F4006.OACTR, &#10;  FORDTA.F4006.OAUSER, &#10;  FORDTA.F4006.OAPID, &#10;  FORDTA.F4006.OAUPMJ, &#10;  FORDTA.F4006.OAJOBN, &#10;  FORDTA.F4006.OAUPMT, &#10;  FORDTA.F4006.OALNID&#10;FROM FORDTA.F4006&quot;"/>
+    <elementParameter field="LABEL" name="NOTE" value="This option only applies when deploying and running in the Talend Runtime"/>
+    <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" value="false"/>
+    <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
+    <elementParameter field="MAPPING_TYPE" name="MAPPING" show="false" value="oracle_id"/>
+    <elementParameter field="TEXT" name="PROPERTIES" value="context.JDE_PY_CRPDTA_AdditionalParams"/>
+    <elementParameter field="LABEL" name="NOTE" value="*Note: Example for Additional JDBC Parameters: &quot;parameterName1=value1&amp;&amp;parameterName2=value2&quot;"/>
+    <elementParameter field="CHECK" name="IS_CONVERT_XMLTYPE" value="false"/>
+    <elementParameter field="TABLE" name="CONVERT_XMLTYPE" show="false"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" show="false" value="&quot;ISO-8859-15&quot;"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15"/>
+    <elementParameter field="CHECK" name="USE_CURSOR" value="false"/>
+    <elementParameter field="TEXT" name="CURSOR_SIZE" show="false" value="1000"/>
+    <elementParameter field="CHECK" name="TRIM_ALL_COLUMN" value="false"/>
+    <elementParameter field="TABLE" name="TRIM_COLUMN">
+      <elementValue elementRef="SCHEMA_COLUMN" value="OADOCO"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="OADCTO"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="OAKCOO"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="OAANTY"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="OAMLNM"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="OAADD1"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="OAADD2"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="OAADD3"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="OAADD4"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="OAADDZ"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="OACTY1"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="OACOUN"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="OAADDS"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="OACRTE"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="OABKML"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="OACTR"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="OAUSER"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="OAPID"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="OAUPMJ"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="OAJOBN"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="OAUPMT"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="OALNID"/>
+      <elementValue elementRef="TRIM" value="false"/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="NO_NULL_VALUES" value="false"/>
+    <elementParameter field="TEXT" name="LABEL" value="__TABLE__"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+    <metadata connector="FLOW" label="F4006" name="tDBInput_5">
+      <column comment="" key="true" length="0" name="OADOCO" nullable="false" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="2" name="OADCTO" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="5" name="OAKCOO" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="true" length="1" name="OAANTY" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="40" name="OAMLNM" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="40" name="OAADD1" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="40" name="OAADD2" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="40" name="OAADD3" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="40" name="OAADD4" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="12" name="OAADDZ" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="25" name="OACTY1" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="25" name="OACOUN" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="3" name="OAADDS" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="4" name="OACRTE" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="2" name="OABKML" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="3" name="OACTR" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="10" name="OAUSER" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="10" name="OAPID" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="6" name="OAUPMJ" nullable="true" pattern="" precision="0" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="10" name="OAJOBN" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="0" name="OAUPMT" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="0" name="OALNID" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_BigDecimal" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+    </metadata>
+  </node>
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tDBConnection_1" offsetLabelX="0" offsetLabelY="0" source="tDBConnection_1" target="tDBInput_1">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnComponentOk1"/>
   </connection>
@@ -3564,6 +3746,10 @@
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F0101_Liv"/>
   </connection>
+  <connection connectorName="FLOW" label="F4006" lineStyle="8" metaname="tDBInput_5" offsetLabelX="0" offsetLabelY="0" source="tDBInput_5" target="tMap_1">
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F4006"/>
+  </connection>
   <subjob>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBConnection_1"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
@@ -3574,13 +3760,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_c7b5feb3-0c52-40f9-90b1-c01d00126e95"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>poJL7WvIYk+m1aep9+56UryVnXTJ6xTrkLtJrDVLaI18k8Q+pWbZf9Vv//+oDVp5UyJrdWSRNZHN
-5DJMrm7msw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_65e23221-f94c-42f6-9937-a8424f7625b3"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>zMAteFaJQx5m+vvgGcLZPq+erPTAyi5t/PaW5KVVgapE+SuMHkeEiishmbJQXN3MLv1IRXkuK/34
-gfx/dk7P+Q==</DigestValue></Reference></SignedInfo><SignatureValue>mdBwjVDyckbu2x8X6SU1l0f/LxOfADWFWWG+CNKWaX/0MHlZdhoLnqPWjUiVyuhVSgkmBCXkLZOa
-2keyhijeYzIc0LwKjBNODYKhWRBSFXkGm8Cjf68y2RFF2PgMXlnReauKFFQs0JmX98dWDt8RDLxW
-qUo1TomI5Sa2N4TbJr2YaSxagmOjZozOEE43RWAWRjM7Oktd7ckuhoohRj0d06m92J0SAv0JLp09
-2IrHJNZL3CaDBe61gehzVgRB74hgDLZspQUnz3glsSLLPH94WIXjfcKH5VihK43hHEyWdiuegBHG
-PZLJ3MnpNnIuTaTu1fXp5sd/KR/qoyrIk5iBSA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_082761ae-78d6-44d0-ae20-9d9a6c81a244"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>J+k6M28mguzh7g6fkzQqxxg0snx9Qj1illlMh66nywmr0BdL8HLn+Xx1a8/ffa/r9Cn6kHt8PvR8
+BPIjUqJGBA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_b8e21efc-246e-4883-a3a7-dd087a529992"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>7c46tJ1Gu6f1fG/Gyc79M5l+h03QaEPFEyMKqzFLmcn0fNvzyrk3X9pKFmxHKlpQhqdJwbUBqJnO
+K5sU3qSaQQ==</DigestValue></Reference></SignedInfo><SignatureValue>cRxMY8XUijiR7HNFXFx2ZiZvC93b9Fob7O7DrZ304c9bmysaDre5Z4B0Kh/ecyLHKEdAytrwjVMR
+mK6GgesnjGovQBvazVolYv3GqUEiG+f3vnWq2/US67nK2OiPTcwIYpecqjpygS4a6MDU78Ye59h6
+XKpSTh0eo9u/NoRAxqazXrHkMJaqoWa5rgpcM2mLrf3FPTLdj+Hdwf69kEC03RuQgFDUIuPXw3Ez
+XpqHP+hh7eLlEYHVYK6hLju/3jex3sxGyNkhD4VVC/28mJTQaCiEf+JnPR5hlsZ00bZL7/hoINkB
+8Xi7HPNtxkHaXUyzGeUJLKtULv4hEb0gPdYOPw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -3602,4 +3788,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_65e23221-f94c-42f6-9937-a8424f7625b3" Target="#_c7b5feb3-0c52-40f9-90b1-c01d00126e95"><Timestamp>2021-06-16 10:01:42</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_b8e21efc-246e-4883-a3a7-dd087a529992" Target="#_082761ae-78d6-44d0-ae20-9d9a6c81a244"><Timestamp>2021-06-16 11:51:23</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
