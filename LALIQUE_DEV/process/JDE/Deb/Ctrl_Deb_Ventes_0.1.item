@@ -1631,9 +1631,11 @@
       <column comment="" key="false" length="0" name="Num_Fre" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="0" name="Montant" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+      <column comment="" key="false" length="0" name="Mtt_Fre" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
+      <column comment="" key="false" length="-1" name="Mtt_Deb" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Mtt_Base_Frclivr" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Mois_Fact" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Mois_Exped" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Mois_Trait" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
@@ -1666,7 +1668,9 @@
         <mapperTableEntries expression="Var.Date_Fact " name="Date_Facture" nullable="true" type="id_String"/>
         <mapperTableEntries expression="F4211.SDDCT " name="Type_Fre" nullable="true" type="id_String"/>
         <mapperTableEntries expression="F4211.SDDOC " name="Num_Fre" nullable="true" type="id_Integer"/>
-        <mapperTableEntries expression="F4211.SDAEXP / 100 " name="Montant" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="F4211.SDAEXP / 100 " name="Mtt_Fre" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="Var.Mois_Exped .equals (Var.Mois_Trait) &amp;&amp; !(F4211.SDMCU .equals(&quot;        10CO&quot;)) &amp;&amp; F4211.SDAN8 != 1009431&#13;&#10;? F4211.SDAEXP / 100&#13;&#10;: 0 " name="Mtt_Deb" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="Var.Mois_Fact .equals (Var.Mois_Trait) &amp;&amp; !(F4211.SDDCTO .equals(&quot;SD&quot;))&#13;&#10;? F4211.SDAEXP / 100&#13;&#10;: 0 " name="Mtt_Base_Frclivr" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="Var.Mois_Fact " name="Mois_Fact" type="id_String"/>
         <mapperTableEntries expression="Var.Mois_Exped " name="Mois_Exped" type="id_String"/>
         <mapperTableEntries expression="Var.Mois_Trait " name="Mois_Trait" type="id_String"/>
@@ -3405,7 +3409,11 @@
       <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="Num_Fre"/>
       <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="Montant"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Mtt_Fre"/>
+      <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Mtt_Deb"/>
+      <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Mtt_Base_Frclivr"/>
       <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="Mois_Fact"/>
       <elementValue elementRef="IS_AUTO_SIZE" value="false"/>
@@ -3482,9 +3490,11 @@
       <column comment="" key="false" length="0" name="Num_Fre" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="false" length="0" name="Montant" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+      <column comment="" key="false" length="0" name="Mtt_Fre" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
+      <column comment="" key="false" length="-1" name="Mtt_Deb" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="Mtt_Base_Frclivr" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Mois_Fact" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Mois_Exped" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="Mois_Trait" nullable="false" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_String" usefulColumn="true"/>
@@ -3529,6 +3539,15 @@
       <elementValue elementRef="TRACE_COLUMN" value="Magasin"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Mtt_Fre"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Mtt_Base_Frclivr"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Mtt_Deb"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Ctrl_Ventes"/>
@@ -3555,13 +3574,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_fd0feb4a-18ff-4f12-8fa9-507539ddd368"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>zmhZjNsMe0r0Fj9WV0fykp3kr0Jok1q+Oe71Kn3bgLyA58Y9yBnGi3aDhW01XVWDo8bKZnI/7bz7
-zFxtLrfvzw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_af010eb7-4dba-4cb1-a239-6951322c4884"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>VPiV8n+PAukO1MWxsTFKcAOgcp35hXM4VAoc0WBukRvI0DU+vYut3KJikOKWVpw1qRF1tSUvz+Bp
-9TkMZkhDxw==</DigestValue></Reference></SignedInfo><SignatureValue>AI6bKy++NLM8RrIfzZ1Hifu2zlajl3BzS3NAaMf1ql2/qFnP91Gog4oSYN9JPYAojfV5IVAaDfJK
-qOPRmUskZtUra2pi20hxtr33VJ1glDt4PRzYfkzyRIP9sg8fbznChPaPmJnhsYPpUc4IUh4FWi4K
-UDNga9yu2NUJTyQhTO2QCs4YHpoVBk5JtG+1bUsFU/XBXfaJvlivnZddL1V5GR/siQXe5fUU3KFg
-XwlID3hrN+z+AGjwfUwd7orC2gSxmdOw1NsT1D1ART1lwdgIusANiSb7XYE/maV+X2HlUGQAP1uF
-4Wxi3LMsyq5YDmAGDlFCrsLe7xuUBNkwRmJdRA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_c7b5feb3-0c52-40f9-90b1-c01d00126e95"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>poJL7WvIYk+m1aep9+56UryVnXTJ6xTrkLtJrDVLaI18k8Q+pWbZf9Vv//+oDVp5UyJrdWSRNZHN
+5DJMrm7msw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_65e23221-f94c-42f6-9937-a8424f7625b3"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>zMAteFaJQx5m+vvgGcLZPq+erPTAyi5t/PaW5KVVgapE+SuMHkeEiishmbJQXN3MLv1IRXkuK/34
+gfx/dk7P+Q==</DigestValue></Reference></SignedInfo><SignatureValue>mdBwjVDyckbu2x8X6SU1l0f/LxOfADWFWWG+CNKWaX/0MHlZdhoLnqPWjUiVyuhVSgkmBCXkLZOa
+2keyhijeYzIc0LwKjBNODYKhWRBSFXkGm8Cjf68y2RFF2PgMXlnReauKFFQs0JmX98dWDt8RDLxW
+qUo1TomI5Sa2N4TbJr2YaSxagmOjZozOEE43RWAWRjM7Oktd7ckuhoohRj0d06m92J0SAv0JLp09
+2IrHJNZL3CaDBe61gehzVgRB74hgDLZspQUnz3glsSLLPH94WIXjfcKH5VihK43hHEyWdiuegBHG
+PZLJ3MnpNnIuTaTu1fXp5sd/KR/qoyrIk5iBSA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -3583,4 +3602,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_af010eb7-4dba-4cb1-a239-6951322c4884" Target="#_fd0feb4a-18ff-4f12-8fa9-507539ddd368"><Timestamp>2021-06-16 09:00:21</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_65e23221-f94c-42f6-9937-a8424f7625b3" Target="#_c7b5feb3-0c52-40f9-90b1-c01d00126e95"><Timestamp>2021-06-16 10:01:42</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
