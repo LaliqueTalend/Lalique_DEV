@@ -1562,7 +1562,7 @@
       </column>
     </metadata>
   </node>
-  <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="320" posY="416">
+  <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="192" posY="416">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tMap_1"/>
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
     <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
@@ -1603,6 +1603,10 @@
       <column comment="" key="false" length="6" name="Fam_Comm" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
+      <column comment="" key="false" length="0" name="Tx_Commiss" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="Mtt_Commiss" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
     </metadata>
     <nodeData xsi:type="TalendMapper:MapperData">
       <uiProperties shellMaximized="true"/>
@@ -1622,6 +1626,8 @@
         <mapperTableEntries expression="F4101.IMDSC1 " name="Libelle_Article" nullable="true" type="id_String"/>
         <mapperTableEntries expression="F4211.SDAEXP / 100 " name="Mtt_Fact" nullable="true" type="id_Float"/>
         <mapperTableEntries expression="F4101.IMPRP0 " name="Fam_Comm" nullable="true" type="id_String"/>
+        <mapperTableEntries expression="Tx_Commis.ADFVTR " name="Tx_Commiss" nullable="true" type="id_Float"/>
+        <mapperTableEntries expression="(F4211.SDAEXP / 100) * (Tx_Commis.ADFVTR  / 100)" name="Mtt_Commiss" nullable="true" type="id_Float"/>
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="F4211" sizeState="INTERMEDIATE">
         <mapperTableEntries name="SDKCOO" type="id_String"/>
@@ -1990,7 +1996,7 @@
         <mapperTableEntries name="ABPERRS" nullable="true" type="id_BigDecimal"/>
         <mapperTableEntries name="ABCAAD" nullable="true" type="id_BigDecimal"/>
       </inputTables>
-      <inputTables activateCondensedTool="true" innerJoin="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="F4101" sizeState="INTERMEDIATE">
+      <inputTables activateCondensedTool="true" innerJoin="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="F4101" sizeState="INTERMEDIATE">
         <mapperTableEntries name="IMITM" type="id_Long"/>
         <mapperTableEntries expression="F4211.SDLITM " name="IMLITM" nullable="true" type="id_String"/>
         <mapperTableEntries name="IMAITM" nullable="true" type="id_String"/>
@@ -2201,14 +2207,14 @@
         <mapperTableEntries name="IMVCPFC" nullable="true" type="id_String"/>
         <mapperTableEntries name="IMPNYN" nullable="true" type="id_String"/>
       </inputTables>
-      <inputTables lookupMode="LOAD_ONCE" matchingMode="ALL_ROWS" name="Tx_Commis" sizeState="INTERMEDIATE">
-        <mapperTableEntries name="Fam_Art" type="id_String"/>
-        <mapperTableEntries name="Fam_Cli" type="id_String"/>
+      <inputTables activateCondensedTool="true" lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="Tx_Commis" sizeState="INTERMEDIATE">
+        <mapperTableEntries expression="F4101.IMPRP0 " name="Fam_Art" type="id_String"/>
+        <mapperTableEntries expression="F0101.ABAC06 " name="Fam_Cli" type="id_String"/>
         <mapperTableEntries name="ADFVTR" nullable="true" type="id_Float"/>
       </inputTables>
     </nodeData>
   </node>
-  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="160" posY="320">
+  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="352">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBInput_2"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" show="false" value=""/>
@@ -2763,6 +2769,10 @@
       <elementValue elementRef="LENGTH" value="10"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="Fam_Comm"/>
       <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Tx_Commiss"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Mtt_Commiss"/>
+      <elementValue elementRef="LENGTH" value="10"/>
     </elementParameter>
     <elementParameter field="CHECK" name="PRINT_CONTENT_WITH_LOG4J" value="true"/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
@@ -2794,9 +2804,13 @@
       <column comment="" key="false" length="6" name="Fam_Comm" nullable="true" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
+      <column comment="" key="false" length="0" name="Tx_Commiss" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="-1" name="Mtt_Commiss" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="" type="id_Float" usefulColumn="true"/>
     </metadata>
   </node>
-  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="448" posY="320">
+  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="256" posY="352">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBInput_3"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" show="false" value=""/>
@@ -3886,7 +3900,7 @@
       </column>
     </metadata>
   </node>
-  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="160" posY="192">
+  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBInput_4"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" show="false" value=""/>
@@ -4116,7 +4130,7 @@
       </column>
     </metadata>
   </node>
-  <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="320" posY="256">
+  <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="192" posY="288">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tMap_2"/>
     <elementParameter field="EXTERNAL" name="MAP" value=""/>
     <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
@@ -4218,7 +4232,7 @@
       </inputTables>
     </nodeData>
   </node>
-  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="256" posY="96">
+  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="160" posY="224">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBInput_5"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" show="false" value=""/>
@@ -4323,7 +4337,7 @@
       </column>
     </metadata>
   </node>
-  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="352" posY="96">
+  <node componentName="tOracleInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="224" posY="224">
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="tDBInput_6"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" show="false" value=""/>
@@ -4458,6 +4472,12 @@
       <elementValue elementRef="TRACE_COLUMN" value="Fam_Comm"/>
       <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
       <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Tx_Commiss"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Mtt_Commiss"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
     </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Ctrl_Commiss"/>
@@ -4504,13 +4524,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_a1f81f9e-5f7b-4d0d-9c50-1e4f719b31dc"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>VH895U2v702q8fXuV+tDQcBY6ic3KS+QHpEMOSNc00uy32PPlV/d+eY2EYXE9gG7eRTfTQ5s0KD8
-hiaT5DHvVA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_baa8f27f-0586-4856-9095-7f5741e2d645"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>C2CUs0ocQeUlvPqUyDaaHE5XMCcWe47uFdt0dPWIT3Llg8rFknLqyKeh17/4b7/4hYVEXhCe2AVb
-xiPmpQUzfw==</DigestValue></Reference></SignedInfo><SignatureValue>dUtUz5uhXVGt/f/Gbs4Px0EmgADr/gknXjxJie0cGMywkzpeaJPenuc9UO83WkFYZiQqJCcl6uoV
-h8picvh+XepDDoZEeFT3YdZ1gNcsjnv7eS9De3aodDJaEfsPbmXyVk1NLcH04U9Y6FKgx62XjVYL
-uD39LgRIoD9WUMHY2c49yo+GT5VrabZonakeTasPmncIDJELi/VEim0PXqfDC3/lS0YYfCaJIIPu
-D7IH/MwDDssEamlpknkQ07hBAPFWzfsuzDUUUQWeM7sJlB7/wifBhsUVEHMvvzR5rgHcR5OH9NPb
-cNRoJ/n6zzwJl+ql8d7RKuIDOnqYZYnlt48IPw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_fd6511f9-efd7-4792-bbb2-bf64cd122ad7"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>LlzOGTVtIahFvuLjACnjpG1B8B71t603LQ942dVeXs2Y7pWc/YzKelMxkH8nyeiJe/SWitKPrK7F
+jG71lCgs3w==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_781ef06b-095c-4c12-ab78-f577435dd4a8"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>wMGa+nHh5P/oxMGNYPYIoceIlF/2RqGygNmVeGxzWB6aiYwW30DTx2IsR6wS79tg5j2daP5XGw9q
+o1liDagXAQ==</DigestValue></Reference></SignedInfo><SignatureValue>fqNvi+W4KK8HIx/7+Rw57LfEatvv2K79YlyN94tCXSz7YzHBUBaD/9WqIPvrG3ISj+Kv8spzAbmV
+MpT21t9p8CKJovkCiwgh2We45uXk9Ch7P0IMb+4sAOx+NF8XEDaOG5DzvJ9dx2naPB24Hb/r2gNM
+L24Q4j/gebDgXnayPlDlkvI4gi7AYM/5UqABEEkSI+VIMqPVpbv7lR4Ldof3IdiSJosWZEW3J1u4
+GDMi7aoA90vtcNfab6XrjM0+Q/N09VFquYGrgl05YPTLbJ/jJfOQaie9kOGxKboMnmlqNzjoF/Te
+W6qyiMXdYOCOWaPHG3Uiu7ojjwo5hbGCAqjlCA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -4532,4 +4552,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_baa8f27f-0586-4856-9095-7f5741e2d645" Target="#_a1f81f9e-5f7b-4d0d-9c50-1e4f719b31dc"><Timestamp>2021-06-17 12:17:04</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_781ef06b-095c-4c12-ab78-f577435dd4a8" Target="#_fd6511f9-efd7-4792-bbb2-bf64cd122ad7"><Timestamp>2021-06-17 12:21:19</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
