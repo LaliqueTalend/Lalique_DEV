@@ -4131,10 +4131,13 @@
     <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="true"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="Tx_Commis">
-      <column comment="" key="true" length="6" name="IKIGP2" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+      <column comment="" key="true" length="6" name="Fam_Art" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="true" length="3" name="CKCGP1" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+      <column comment="" key="true" length="3" name="Fam_Cli" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="0" name="ADFVTR" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
     </metadata>
@@ -4142,10 +4145,11 @@
       <uiProperties shellMaximized="true"/>
       <varTables minimized="true" name="Var" sizeState="INTERMEDIATE"/>
       <outputTables name="Tx_Commis" sizeState="INTERMEDIATE">
-        <mapperTableEntries expression="F40941.IKIGP1 " name="IKIGP2" type="id_String"/>
-        <mapperTableEntries expression="F40942.CKCGP1 " name="CKCGP1" type="id_String"/>
+        <mapperTableEntries expression="F40941.IKIGP1 " name="Fam_Art" type="id_String"/>
+        <mapperTableEntries expression="F40942.CKCGP1 " name="Fam_Cli" type="id_String"/>
+        <mapperTableEntries expression="JDE.cnvFloat(F4072.ADFVTR) / 1000 " name="ADFVTR" nullable="true" type="id_Float"/>
       </outputTables>
-      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" minimized="true" name="F4072" sizeState="INTERMEDIATE">
+      <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="F4072" sizeState="INTERMEDIATE">
         <mapperTableEntries name="ADAST" type="id_String"/>
         <mapperTableEntries name="ADITM" type="id_BigDecimal"/>
         <mapperTableEntries name="ADLITM" nullable="true" type="id_String"/>
@@ -4438,19 +4442,24 @@
     <elementParameter field="CHECK" name="PRINT_COLNAMES" value="false"/>
     <elementParameter field="CHECK" name="USE_FIXED_LENGTH" value="false"/>
     <elementParameter field="TABLE" name="LENGTHS" show="false">
-      <elementValue elementRef="SCHEMA_COLUMN" value="IKIGP2"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Fam_Art"/>
       <elementValue elementRef="LENGTH" value="10"/>
-      <elementValue elementRef="SCHEMA_COLUMN" value="CKCGP1"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Fam_Cli"/>
+      <elementValue elementRef="LENGTH" value="10"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="ADFVTR"/>
       <elementValue elementRef="LENGTH" value="10"/>
     </elementParameter>
     <elementParameter field="CHECK" name="PRINT_CONTENT_WITH_LOG4J" value="true"/>
     <elementParameter field="TEXT" name="SCHEMA_OPT_NUM" show="false" value="100"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tLogRow_2">
-      <column comment="" key="true" length="6" name="IKIGP2" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+      <column comment="" key="true" length="6" name="Fam_Art" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
-      <column comment="" key="true" length="3" name="CKCGP1" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+      <column comment="" key="true" length="3" name="Fam_Cli" nullable="false" pattern="" precision="0" sourceType="NCHAR" type="id_String" usefulColumn="true">
+        <additionalField key="Comment" value=""/>
+      </column>
+      <column comment="" key="false" length="0" name="ADFVTR" nullable="true" pattern="" precision="-1" sourceType="NUMBER" type="id_Float" usefulColumn="true">
         <additionalField key="Comment" value=""/>
       </column>
     </metadata>
@@ -4507,6 +4516,14 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="F4072"/>
   </connection>
   <connection connectorName="FLOW" label="Tx_Commis" lineStyle="0" metaname="Tx_Commis" offsetLabelX="0" offsetLabelY="0" source="tMap_2" target="tLogRow_2">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="Fam_Art"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="ADFVTR"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="Tx_Commis"/>
   </connection>
@@ -4533,13 +4550,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_078b1708-d87b-43d5-a027-c6830447c7dd"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>1DNcWA4lU6XhrzvgSMmNGKqCc7Y4IbBbHtG7jq0HGUqDce+at2MHZn14Nq85T8buD8Vn5SGOibRe
-nlivqsjfzA==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_07c0df44-ad57-4833-8f97-86b1d22ddaad"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>AfHsAQEpxSKNwx+lbemqGuhy/eH/oaFUQXoXxF9JPzeltuhnxDxYgP0mF/Io2pY6Pr4TZdypBTDq
-8Jq5ahV7dg==</DigestValue></Reference></SignedInfo><SignatureValue>LsUv5z+rvzhr24vkOaYoRGQMyR/Xd7ma6E1stXs38Z1QUopoqw+ZKT/pjKDqtjLWiOWeyK566MmW
-JER64RzPmP02MLivY9Es/BQLhThdh3VtWYZdWDAtNz90dJYP9o4B+8bhoCctyNf3buLejo+ZJil/
-BqZQM6++ceLkqcU3L5h6H86vSxsTLwszJN3lAnCFhCVOUvXsI9Z6hEvFwiEetFPoYagHtrS8x//7
-rCzB7+PevBlO/gyJriZeJqq1o/lnzf3qoUdd+V2Gd3LI4mI1xvmWoLheisYUc0oncKyYh9VyNI6J
-DzvuafaIoL+g8NTfWSUkaQdX7D4+fdTjFZs2FA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_5fee0e4d-7d24-4824-a966-e712c2153b2f"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Xsgr01vEDqwF1sRnu6qIDptBZscXoPrOtShhk2eUJ4RqGhZ1cNkiNK7ADXcJ0l4r76O59FORKstK
+40dYsilvvw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_cedcad9f-5f57-4f2a-9002-26badd729169"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>BosJo+aZyRSyfwB8CJEvmlSW7jUIiT76VxuAbOFbI+SDxxjyRW4fYHKG6cW1sfmMb6vZeEpAE18C
+BWcKZP2gFQ==</DigestValue></Reference></SignedInfo><SignatureValue>TAGBoaCoLM9S3KuHi7ZdlvJcFz++chA0lCx9yVFQtjA4684EyIj08k20Qm/m7+Lzoj3kTeDZLprJ
+tw+ieSunkKxlPn75/hxAPlXN/ukycUj57CiTD5s3fN2/I25pWSW3DMYwwuKnDoBCcijW+iF2wePG
+9DlodUSOPfANMfD1z3RR4/kNgiku+ohSHNczC3wqARJ8dJtpQN3ClQ7edLzlkIl+DO+lKg+Gmgir
+zj3lNiDeo3MIOV/0dFB9DknVOHiCu4S6BCLXplVMUlrk2xx0t3p3qk3UFCksM7jpNnJPwvQOWKLc
+0hnaJNPsx2FaAS7MnZppJ6Pqjwn+gBK5LbnisA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U
@@ -4561,4 +4578,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_07c0df44-ad57-4833-8f97-86b1d22ddaad" Target="#_078b1708-d87b-43d5-a027-c6830447c7dd"><Timestamp>2021-06-17 12:11:11</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_cedcad9f-5f57-4f2a-9002-26badd729169" Target="#_5fee0e4d-7d24-4824-a966-e712c2153b2f"><Timestamp>2021-06-17 12:14:11</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
