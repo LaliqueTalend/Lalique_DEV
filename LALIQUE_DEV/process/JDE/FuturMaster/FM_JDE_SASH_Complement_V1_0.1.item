@@ -404,7 +404,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT SDEUSE,&#13;&#10;                 DRDL01, &#13;&#10;                 SDLITM, &#13;&#10;                 TO_NUMBER(TO_CHAR(NEXT_DAY(TO_DATE(TO_CHAR(SDDRQJ+1900000-1),'YYYYDDD'),'FRIDAY'),'YYYYDDD'))-1900000,&#13;&#10;                 SUM(SDUORG)&#13;&#10;  FROM &quot;+context.JDE920_Schema_DTA+&quot;.F4211, &quot;+context.JDE920_Schema_DTA+&quot;.F4101, &quot;+context.JDE920_Schema_CTL+&quot;.F0005&#13;&#10; WHERE SDDCTO IN ('SA', 'SH') &#13;&#10;   AND SDLNTY = 'S'&#13;&#10;   AND SDNXTR &lt;= 560&#13;&#10;   AND IMSRP5 NOT IN ('N', 'S', 'H')&#13;&#10;   AND IMPRP4 != 'MON'&#13;&#10;   AND DRSY = '40'&#13;&#10;   AND DRRT = 'EU'&#13;&#10;   AND IMITM = SDITM&#13;&#10;   AND TRIM(DRKY) = TRIM(SDEUSE)&#13;&#10;GROUP BY SDEUSE, DRDL01, SDLITM, TO_NUMBER(TO_CHAR(NEXT_DAY(TO_DATE(TO_CHAR(SDDRQJ+1900000-1),'YYYYDDD'),'FRIDAY'),'YYYYDDD'))-1900000&quot;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT SDEUSE,&#13;&#10;                 SDMCU,&#13;&#10;                 DRDL01, &#13;&#10;                 SDLITM, &#13;&#10;                 TO_NUMBER(TO_CHAR(NEXT_DAY(TO_DATE(TO_CHAR(SDDRQJ+1900000-1),'YYYYDDD'),'FRIDAY'),'YYYYDDD'))-1900000,&#13;&#10;                 SUM(SDUORG)&#13;&#10;  FROM &quot;+context.JDE920_Schema_DTA+&quot;.F4211, &quot;+context.JDE920_Schema_DTA+&quot;.F4101, &quot;+context.JDE920_Schema_CTL+&quot;.F0005&#13;&#10; WHERE SDDCTO IN ('SA', 'SH') &#13;&#10;   AND SDLNTY = 'S'&#13;&#10;   AND SDNXTR &lt;= 560&#13;&#10;   AND IMSRP5 NOT IN ('N', 'S', 'H')&#13;&#10;   AND IMPRP4 != 'MON'&#13;&#10;   AND DRSY = '40'&#13;&#10;   AND DRRT = 'EU'&#13;&#10;   AND IMITM = SDITM&#13;&#10;   AND TRIM(DRKY) = TRIM(SDEUSE)&#13;&#10;GROUP BY SDEUSE, SDMCU, DRDL01, SDLITM, TO_NUMBER(TO_CHAR(NEXT_DAY(TO_DATE(TO_CHAR(SDDRQJ+1900000-1),'YYYYDDD'),'FRIDAY'),'YYYYDDD'))-1900000&quot;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -417,9 +417,11 @@
     <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" show="false" value="ISO-8859-15"/>
     <elementParameter field="CHECK" name="USE_CURSOR" value="false"/>
     <elementParameter field="TEXT" name="CURSOR_SIZE" show="false" value="1000"/>
-    <elementParameter field="CHECK" name="TRIM_ALL_COLUMN" value="false"/>
-    <elementParameter field="TABLE" name="TRIM_COLUMN">
+    <elementParameter field="CHECK" name="TRIM_ALL_COLUMN" value="true"/>
+    <elementParameter field="TABLE" name="TRIM_COLUMN" show="false">
       <elementValue elementRef="SCHEMA_COLUMN" value="SDEUSE"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="SDMCU"/>
       <elementValue elementRef="TRIM" value="false"/>
       <elementValue elementRef="SCHEMA_COLUMN" value="DRDL01"/>
       <elementValue elementRef="TRIM" value="false"/>
@@ -435,6 +437,7 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tDBInput_1">
       <column comment="" key="false" length="-1" name="SDEUSE" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
+      <column comment="" key="false" length="-1" name="SDMCU" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="VARCHAR2" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="DRDL01" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" key="false" length="-1" name="SDLITM" nullable="true" originalLength="-1" pattern="" precision="-1" sourceType="NCHAR" type="id_String" usefulColumn="true"/>
       <column comment="" defaultValue="" key="false" length="-1" name="VENDREDI" nullable="true" originalDbColumnName="TO_NUMBER(TO_CHAR(NEXT_DAY(TO_DATE(TO_CHAR(SDDRQJ+1900000-1),'YYYYDDD'),'FRIDAY'),'YYYYDDD'))-1900000" originalLength="-1" pattern="" precision="-1" sourceType="NUMBER" type="id_Integer" usefulColumn="true"/>
@@ -580,6 +583,7 @@
       </outputTables>
       <inputTables lookupMode="LOAD_ONCE" matchingMode="UNIQUE_MATCH" name="row1" sizeState="INTERMEDIATE">
         <mapperTableEntries name="SDEUSE" nullable="true" type="id_String"/>
+        <mapperTableEntries name="SDMCU" nullable="true" type="id_String"/>
         <mapperTableEntries name="DRDL01" nullable="true" type="id_String"/>
         <mapperTableEntries name="SDLITM" nullable="true" type="id_String"/>
         <mapperTableEntries name="VENDREDI" nullable="true" type="id_Integer"/>
@@ -589,8 +593,11 @@
         <mapperTableEntries expression="" name="FTMCU" nullable="true" type="id_String"/>
         <mapperTableEntries expression="row1.SDEUSE " name="Stock_Geo" nullable="true" operator="=" type="id_String"/>
       </inputTables>
-      <inputTables lookupMode="LOAD_ONCE" matchingMode="ALL_ROWS" name="row2" sizeState="INTERMEDIATE">
+      <inputTables activateCondensedTool="true" lookupMode="RELOAD" matchingMode="ALL_ROWS" name="row2" sizeState="INTERMEDIATE">
         <mapperTableEntries expression="" name="FTFQT" nullable="true" type="id_Integer"/>
+        <globalMapKeysValues expression="row1.VENDREDI " name="&quot;vendredi&quot;"/>
+        <globalMapKeysValues expression="row1.SDLITM " name="&quot;article&quot;"/>
+        <globalMapKeysValues expression="row1.SDMCU " name="&quot;magasin&quot;"/>
       </inputTables>
     </nodeData>
   </node>
@@ -1298,7 +1305,7 @@
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" show="false" value=""/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
     <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
-    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT fz.FTFQT&#13;&#10;  FROM &quot;+context.JDE920_Schema_DTA+&quot;.F3460Z1 fz&#13;&#10;WHERE fz.FTEDUS = 'PLE'&#13;&#10;AND fz.FTDRQJ = &quot; + globalMap.get(&quot;row1.VENDREDI&quot;) + &quot;&quot;&#13;&#10;"/>
+    <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT fz.FTFQT&#13;&#10;  FROM &quot;+context.JDE920_Schema_DTA+&quot;.F3460Z1 fz&#13;&#10;WHERE fz.FTEDUS = 'PLE'&#13;&#10;AND fz.FTDRQJ = &quot; + globalMap.get(&quot;vendredi&quot;) + &quot;&#13;&#10;AND fz.FTLITM= &quot;+globalMAP.get(&quot;article&quot;) +&quot;&#13;&#10;AND fz.FTMCU= &quot;+globalMAP.get(&quot;magasin&quot;) +&quot;&quot;&#13;&#10;&#13;&#10;"/>
     <elementParameter field="LABEL" name="NOTE" show="false" value="This option only applies when deploying and running in the Talend Runtime"/>
     <elementParameter field="CHECK" name="SPECIFY_DATASOURCE_ALIAS" show="false" value="false"/>
     <elementParameter field="TEXT" name="DATASOURCE_ALIAS" show="false" value="&quot;&quot;"/>
@@ -1311,8 +1318,8 @@
     <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" show="false" value="ISO-8859-15"/>
     <elementParameter field="CHECK" name="USE_CURSOR" value="false"/>
     <elementParameter field="TEXT" name="CURSOR_SIZE" show="false" value="1000"/>
-    <elementParameter field="CHECK" name="TRIM_ALL_COLUMN" value="false"/>
-    <elementParameter field="TABLE" name="TRIM_COLUMN">
+    <elementParameter field="CHECK" name="TRIM_ALL_COLUMN" value="true"/>
+    <elementParameter field="TABLE" name="TRIM_COLUMN" show="false">
       <elementValue elementRef="SCHEMA_COLUMN" value="FTFQT"/>
       <elementValue elementRef="TRIM" value="false"/>
     </elementParameter>
@@ -1337,6 +1344,11 @@
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="OnSubjobOk3"/>
   </connection>
   <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tDBInput_1" offsetLabelX="0" offsetLabelY="0" source="tDBInput_1" target="tMap_1">
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+      <elementValue elementRef="TRACE_COLUMN" value="SDMCU"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" show="false" value="row1"/>
   </connection>
@@ -1706,13 +1718,13 @@
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" show="false" value="92;131;150"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
   </subjob>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_a4810c3e-8b0f-42b8-9d18-10c853ab77b0"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>bJfto9K3ZiStXsC1jX3Jxy1v2kdsUhnAGnOazIRmcPxKrtiWjPY26R4VNwWdnL6qDcUnOBxgU0TL&#13;
-F6UqnbMq1Q==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_ca224042-b35f-4c67-9d2c-ea9f0bac72ca"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>c3igwGs2EeLr+9WWYWGOAEuLQPFyl+ulGDIgg41ihDTfVZ/zSjmCzXVJ4urVsIcCND2hFrCnlJoy&#13;
-J9O5qFChkQ==</DigestValue></Reference></SignedInfo><SignatureValue>Mrh5pG+++gWs/Zdm7CPJG3UP76N8LpvoQacQKapZ6Lx22dUrOFIKOVO+LdFYEYFDR88V6F/VKTLh&#13;
-7S9h5DxvCq+LVrXSNPwGeMxWjYvoZOJrMvR1KnTnXMxi5H2EAaQH+EcJrEJsYNgchEJ2sJSVvrxM&#13;
-Sh8P9eder/CDUG67k0tC+iJ7mRgRUeuQxTgwzyBcarJX8iT59+tKEYECURqDDkYikNL+6Sqtgjua&#13;
-0Ma9IpWTD4X3avWiYwSpCSH5t4NxoMtIzX8PS08DmKs4vHJnaA8pCM3Jc6jV5i+r/50DhQQrpNbS&#13;
-JYMXWvp4Pp4yj3JbjEXA3lQxfAQNGdO5N6q8+w==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="_6f467b1c-20e8-438e-8426-86e9137b30ec"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>sqBBGwDTt1Dggp0Zt8MgXVuJpGX/c2gibT+fevqOlhc+7Inhy1963ekmqRxQfyQiwNkoVpcdFU66&#13;
++z93uId3mw==</DigestValue></Reference><Reference Type="http://www.w3.org/2000/09/xmldsig#SignatureProperties" URI="#_2ac89fb1-3a24-4577-ad28-1c9d3ec2c5fd"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/><DigestValue>Y2M38mk78eeDMSZRFao2j/m7F5MR8SumyWZOmML390aGulAEJsMHozDVs10poUpYYnV6nigMQcja&#13;
+OvLvm7YUAA==</DigestValue></Reference></SignedInfo><SignatureValue>Pigj+9uoEz1WqFKDwUuSMomE+cCl80jQASYMhEQuWeTMxhhfJZT6UzmKDszBBASxdQbPxTZxXMK+&#13;
+rDyQ8CaYYjmV+YnI6QVI2DoXfJinJFtYFJuNfiNCp/LZZhpz33/P+uNTcJ/Te2XVU9SS42IJV1/E&#13;
+uNu7qxnMR7kD6w0cEp2vQgKGz+I8zboF9a+fbB3WdnCsDU6XHGCjgIGE3Q/g+NtHLfxhAHCPSB4a&#13;
+ugxy04MfXUEi2BS6CC27eRerlHbsqVLnQCJ2OW26bRHLeM3QZ0QUen/YumdHhXGuUp8u3l08hBB+&#13;
+BkzMruBOAKVwrNMO2O3SN3me+oXvwtCO/fBAxw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>C=FR,ST=Paris,L=Paris,O=Talend Inc.,OU=R&amp;D,CN=Talend Code Signing certificate</X509SubjectName><X509Certificate>MIIFADCCAuigAwIBAgIIA2OsD6bRyj0wDQYJKoZIhvcNAQELBQAwgY0xCzAJBgNVBAYTAkZSMQ4w&#13;
 DAYDVQQIEwVQYXJpczEOMAwGA1UEBxMFUGFyaXMxFDASBgNVBAoTC1RhbGVuZCBJbmMuMQwwCgYD&#13;
 VQQLDANSJkQxFjAUBgNVBAMMDVRhbGVuZCBSJkQgQ0ExIjAgBgkqhkiG9w0BCQEWE3NlY3VyaXR5&#13;
 QHRhbGVuZC5jb20wHhcNMTkwNjAzMDgxODIwWhcNMjkwNjAzMDAwMDAwWjB7MSgwJgYDVQQDEx9U&#13;
@@ -1734,4 +1746,4 @@ hakvpzhOyLo91h8YAQrEZJdNuKA8IYmBrFZQZDCz0uywKSyFfzPyJhvxylCLG/iDPPfE0VWcrMJ/&#13
 WQJly/2XPg/NBCTF3pSKS0kCiA7PeaI3cWkMYYA3PMwYDvzqs1opBRglG7ikj0bQxSm3lcjMuuvW&#13;
 gBRksFKjP3K/nztsjSoYITOM9jR29ReIL3v0E8RbAFwA2RGq6Dxd0ixfbucMesy5Gnr8tfYy6rW+&#13;
 qSQqd3ah4+PSzBNVwIB4ytpdrG3SlhCI2i2Th8ek8Sjsaquh9qPAerWNd2+84HWOOGj1Xe1qc6vg&#13;
-qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_ca224042-b35f-4c67-9d2c-ea9f0bac72ca" Target="#_a4810c3e-8b0f-42b8-9d18-10c853ab77b0"><Timestamp>2021-07-20 14:32:23</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
+qqu6JoK9EXKDiwBqDVkueIa+MhamE1VDnhn2pPui</X509Certificate></X509Data></KeyInfo><Object><SignatureProperties><SignatureProperty Id="_2ac89fb1-3a24-4577-ad28-1c9d3ec2c5fd" Target="#_6f467b1c-20e8-438e-8426-86e9137b30ec"><Timestamp>2021-07-20 14:45:03</Timestamp></SignatureProperty></SignatureProperties></Object></Signature></talendfile:ProcessType>
